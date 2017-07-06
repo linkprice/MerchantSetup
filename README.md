@@ -1,1 +1,4 @@
-#MERCHANT SETUP GUIDE
+# MERCHANT SETUP GUIDE
+
+> This is guide for merchant setup
+
