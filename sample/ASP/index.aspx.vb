@@ -7,7 +7,7 @@ Public Class WebForm1
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Dim lpenc As New lpEncrypt("C:\Users\LG\Documents\Visual Studio 2017\Projects\WebApplication2\WebApplication2\public.pem")
+        Dim lpenc As New lpEncrypt("./public.pem")
 
         Dim lpInfo = Request.Cookies("LPINFO").Value
 

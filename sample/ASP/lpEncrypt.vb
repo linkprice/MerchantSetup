@@ -2,7 +2,6 @@
 Imports System.Security.Cryptography
 Imports System.IO
 Imports System.Text
-Imports System.Security.Cryptography.X509Certificates
 Imports System.Net
 Imports Newtonsoft.Json
 
@@ -167,6 +166,7 @@ Public Class lpEncrypt
         Dim request As WebRequest = WebRequest.Create(url)
         Dim response As WebResponse = request.GetResponse()
         Dim resStream As Stream = response.GetResponseStream()
+        response.Close()
 
     End Sub
 End Class
