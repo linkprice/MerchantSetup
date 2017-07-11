@@ -28,7 +28,7 @@ Public Class WebForm1
             lpenc.setJson("c_cd", c_cd)								'카테고릐 코드(Category code)
             lpenc.setJson("p_nm", p_nm)								'상품이름	(Name of product)
             lpenc.setJson("user_agent", Request.ServerVariables("HTTP_USER_AGENT"))		'접속 디바이스 정보(Device infomation)
-            lpenc.setJson("user_agent", Request.ServerVariables("REMOTE_ADDR"))			'실적 발생 회원 IP(User IP)
+            lpenc.setJson("ip", Request.ServerVariables("REMOTE_ADDR"))			'실적 발생 회원 IP(User IP)
 
             lpenc.submit()
         End If
