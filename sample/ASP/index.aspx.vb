@@ -7,7 +7,7 @@ Public Class WebForm1
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Dim lpenc As New lpEncrypt("C:\Users\LG\Documents\Visual Studio 2017\Projects\WebApplication2\WebApplication2\public.pem")
+        Dim lpenc As New lpEncrypt("./public.pem")
 
         Dim lpInfo = Request.Cookies("LPINFO").Value
 
@@ -18,17 +18,17 @@ Public Class WebForm1
         Dim it_cnt = New JArray()
 
         If lpInfo <> "" Then
-            lpenc.setJson("a_id", lpInfo)								'LPINFO 쿠키정보 (Cookie named LPINFO)
+            lpenc.setJson("a_id", lpInfo)							'LPINFO 쿠키정보 (Cookie named LPINFO)
             lpenc.setJson("m_id", merchant_id)						'머천트 ID(Merchant ID in Linkprice system)
-            lpenc.setJson("mbr_id", user_id)							'실적 발생 회원 ID(User ID who make business recorde in merchant system )
+            lpenc.setJson("mbr_id", user_id)						'실적 발생 회원 ID(User ID who make business recorde in merchant system )
             lpenc.setJson("o_cd", order_code)						'주문코드(Order number)
             lpenc.setJson("p_cd", p_cd)								'상품코드(Product code)
             lpenc.setJson("it_cnt", it_cnt)							'상품개수(Number of product)
-            lpenc.setJson("sales", sales)								'판매액(Sales amount)
+            lpenc.setJson("sales", sales)							'판매액(Sales amount)
             lpenc.setJson("c_cd", c_cd)								'카테고릐 코드(Category code)
             lpenc.setJson("p_nm", p_nm)								'상품이름	(Name of product)
             lpenc.setJson("user_agent", Request.ServerVariables("HTTP_USER_AGENT"))		'접속 디바이스 정보(Device infomation)
-            lpenc.setJson("user_agent", Request.ServerVariables("REMOTE_ADDR"))				'실적 발생 회원 IP(User IP)
+            lpenc.setJson("user_agent", Request.ServerVariables("REMOTE_ADDR"))			'실적 발생 회원 IP(User IP)
 
             lpenc.submit()
         End If
