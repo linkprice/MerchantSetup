@@ -1,40 +1,62 @@
-<%@ page import="lpEncrypt.*" %>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="org.json.simple.*"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import=" java.net.HttpURLConnection"%>
+<%@page import=" java.net.*"%>
+<%@page import="java.io.*" %>
 
 <%
-	lpEncrypt lpenc = new lpEncrypt("./public.pem");			//public.pem 경로 확인
+String sql = new String();
+String search_order_code = "order code";
+String LPINFO = "lpinfo";
+String LP_URL = "https://service.linkprice.com/lppurchase_new.php";
 
-	Cookie[] cookies = request.getCookies();
-	Cookie cookie = null;
-	String lpInfo = null;
-	
-	for (int i = 0; i < cookies.length; i++) {
-		cookie = cookies[i];
-		if (cookie.getName().equals("LPINFO")) {
-			lpInfo = cookie.getValue();
-		}
+sql = "SELECT	network_value 		a_id,"
+	 		 +"'your merchant id' 	merchant_id,"
+	 		 +"user_id 				member_id,"
+	 		 +"order_code 			order_code,"
+			 +"product_code 		    product_code,"
+	 		 +"price 				    sales,"
+	 		 +"product_name			product_name,"
+	 		 +"count 				    item_count,"
+	 		 +"category 			    category_code,"
+	 		 +"remote_address 		remote_addr,"
+	 		 +"u_agent 				user_agent"
+	 		 +" FROM your_order_table"
+	 		 +" WHERE order_code = ?"
+	 		 +" AND	  network_value =?";
+
+Connection conn = null;
+PreparedStatement stmt = null;
+ResultSet result = null;
+
+stmt = conn.prepareStatement(sql);
+stmt.setString(1, LPINFO);
+stmt.setString(2, search_order_code);
+result = stmt.executeQuery();
+
+JSONArray send_data = new JSONArray();
+while(result.next()){
+	JSONObject json = new JSONObject();
+
+	int total_rows = result.getMetaData().getColumnCount();
+	for(int i = 0; i < total_rows; i++){
+		json.put(result.getMetaData().getColumnLabel(i + 1).toLowerCase(), result.getObject(i+1));
 	}
-	
-	ArrayList<String> p_nm_list = new ArrayList<String>();			//여럭 상품 구매시 arrayList를 통하여 한번에 넘겨줍니다.
-	ArrayList<String> c_cd_list = new ArrayList<String>();
-	ArrayList<String> p_cd_list = new ArrayList<String>();
-	ArrayList<Integer> it_cnt_list = new ArrayList<Integer>();
-	ArrayList<Integer> sales_list = new ArrayList<Integer>();
+	send_data.add(json);
+}
 
-	if (lpInfo != null) {
-		lpenc.set("a_id", lpInfo);						//LPINFO 쿠키정보 (Cookie named LPINFO)
-		lpenc.set("m_id", merchant_id);					//머천트 ID(Merchant ID in Linkprice system)
-		lpenc.set("mbr_id", user_id);					//실적 발생 회원 ID(User ID who make business recorde in merchant system )
-		lpenc.set("o_cd", order_code);					//주문코드(Order number)
-		lpenc.set("p_cd", p_cd_list);					//상품코드(Product code)
-		lpenc.set("it_cnt", it_cnt_list);				//상품개수(Number of product)
-		lpenc.set("sales", sales_list);					//판매액(Sales amount)
-		lpenc.set("c_cd", c_cd_list);					//카테고릐 코드(Category code)
-		lpenc.set("p_nm", p_nm_list);					//상품이름	(Name of product)
-		lpenc.set("user_agent", request.getHeader("User-Agent"));	//접속 디바이스 정보(Device infomation)
-		lpenc.set("ip", request.getRemoteAddr());					//실적 발생 회원 IP(User IP)
-	
-		lpenc.submit();
+HttpURLConnection con = (HttpURLConnection)new URL(LP_URL).openConnection();
+con.setRequestMethod("POST");
+con.setRequestProperty("Content-Type", "application/json");
+con.setDoOutput(true);
+OutputStream os = con.getOutputStream();
+os.write(send_data.toString().getBytes());
+os.flush();
+os.close();
 
-	}
 %>
