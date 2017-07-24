@@ -5,8 +5,8 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
-<%@page import=" java.net.HttpURLConnection"%>
-<%@page import=" java.net.*"%>
+<%@page import="java.net.HttpURLConnection"%>
+<%@page import="java.net.*"%>
 <%@page import="java.io.*" %>
 
 <%
