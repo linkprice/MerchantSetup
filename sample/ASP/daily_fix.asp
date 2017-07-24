@@ -1,32 +1,49 @@
+<!--#include virtual="jsonObject.asp"-->
+
 <%
-    ' DataBase 접속
+Response.LCID = 1043
 
-    ' LINKPRICE 를 통해서 구매된 주문내역 QUERY
-    ' 	QUERY 조건  : 구매일자=yyyymmdd and 제휴사=링크프라이스
-    ' 	SELECT 컬럼 : 구매시간, LPINFO 쿠키, 구매자ID, 구매자이름, 주문번호, 상품코드, 주문수량, 상품단가, 구매자IP
+Const NWNAME = "linkprice"           'network name value
+Dim yyyymmdd
 
-    ' QUERY 결과가 Rs 라는 변수에 저장되었다고 가정
+set yyyymmdd = request.QueryString("yyyymmdd")
 
-    Do until Rs.EOF
-        line = Rs("HHMISS") & chr(9)
-        line = line & Rs("LPINFO") & chr(9)
-        line = line & Rs("ID") & "(" & Rs("NAME") & ")" & chr(9)
-        line = line & Rs("ORDER_NO") & chr(9)
-        line = line & Rs("PRODUCT_CODE") & chr(9)
-        line = line & Rs("ITEM_COUNT") & chr(9)
-        line = line & Rs("PRICE") & chr(9)
-        line = line & Rs("CATEGORY_CODE") & chr(9) & chr(9)
-        line = line & Rs("PRODUCT_NAME") & chr(9)
-        line = line & Rs("REMOTE_ADDR")
+set dail_fix = New JSONarray
 
-        Rs.MoveNext
+Dim conn, result, sql, command
 
-        if Rs.EOF = false then
-            line = line & chr(13) & chr(10)
-        end if
+set conn = CreateObject("ADODB.Connection")
+conn.Open "your connection string"
 
-        Response.write line
-    Loop
+Set command = Server.CreateObject("ADODB.Command")
+Set command.ActiveConnection = conn
+command.CommandType = adCmdText
 
-    ' DataBase 접속 끊기
+command.CommandText = "SELECT	network_value 		a_id," + _
+	 		                "order_time 	        order_time,"+ _
+	 		                "user_id 				member_id,"+ _
+	 		                "order_code 			order_code,"+ _
+			                "product_code 		    product_code,"+ _
+	 		                "price 				    sales,"+ _
+	 		                "product_name			product_name,"+ _
+	 		                "count 				    item_count,"+ _
+	 		                "category 			    category_code,"+ _
+	 		                "remote_address 		remote_addr,"+ _
+	 		                "u_agent 				user_agent"+ _
+	 		                " FROM your_order_table"+ _
+	 		                " WHERE yyyymmdd = ?"+ _
+	 		                " AND	  network_name =?"
+
+command.Parameters.Append(command.CreateParameter("order_code", adchar, adParamInput, Len(yyyymmdd), yyyymmdd))
+command.Parameters.Append(command.CreateParameter("network_value", adchar, adParamInput, Len(NWNAME), NWNAME))
+
+set result = command.execute
+dail_fix.LoadRecordset result
+
+result.Close
+conn.Close
+
+response.ContentType = "application/json;charset=euc-kr"
+response.Write(dail_fix.Serialize())
+
 %>

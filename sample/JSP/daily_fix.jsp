@@ -1,67 +1,56 @@
+<%@ page language="java" contentType="application/json; charset=euc-kr" %>
+
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="org.json.simple.*"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.net.HttpURLConnection"%>
+<%@page import="java.net.*"%>
+<%@page import="java.io.*" %>
+
 <%
-    /*
-    # DataBase 접속
+String sql = new String();
+String yyyymmdd = "order code";
+String NWNAME = "lpinfo";
 
-    # LINKPRICE 를 통해서 구매된 주문내역 QUERY
-    # 	QUERY 조건  : 구매일자=yyyymmdd and 제휴사=링크프라이스
-    # 	SELECT 컬럼 : 구매시간, LPINFO 쿠키, 구매자ID, 구매자이름, 주문번호, 상품코드, 주문수량, 상품단가
-    #ex) query = "select * from 링크프라이스 실적테이블 where 날짜 = 'yyyymmdd' and 제휴사 = 'LINKPRICE'";
-    */
-    String connInfo = "jdbc:oracle:thin:@localhost:1521:orcl";
-    java.sql.Connection conn = null;
-    java.sql.Statement stmt = null;
-    java.sql.ResultSet rs = null;
+sql = "SELECT	network_value 		a_id,"
+	 		 +"order_time 			order_time,"
+	 		 +"user_id 				member_id,"
+	 		 +"order_code 			order_code,"
+			 +"product_code 		    product_code,"
+	 		 +"price 				    sales,"
+	 		 +"product_name			product_name,"
+	 		 +"count 				    item_count,"
+	 		 +"category 			    category_code,"
+	 		 +"remote_address 		remote_addr,"
+	 		 +"u_agent 				user_agent"
+	 		 +" FROM your_order_table"
+	 		 +" WHERE yyyymmdd = ?"
+	 		 +" AND	  network_name =?";
 
-    Class.forName("oracle.jdbc.driver.OracleDriver");
-    /*============================================*/
-    //Properties 설정
-    java.util.Properties props = new java.util.Properties();
-    props.put("user","user");
-    props.put("password","password");
-    props.put("CHARSET","eucksc");
+Connection conn = null;
+PreparedStatement stmt = null;
+ResultSet result = null;
 
-    conn = java.sql.DriverManager.getConnection(connInfo,props);
+stmt = conn.prepareStatement(sql);
+stmt.setString(1, yyyymmdd);
+stmt.setString(2, NWNAME);
+result = stmt.executeQuery();
 
-    // QUERY 결과가 $row 라는 변수에 저장되었다고 가정
+JSONArray daily_fix = new JSONArray();
+while(result.next()){
+	JSONObject json = new JSONObject();
 
-    StringBuffer sb = new StringBuffer();
-    int index = 0;
-    String sql = "select * from 링크프라이스 실적테이블 where 날짜 = 'yyyymmdd'";
-    try {
-        stmt = conn.createStatement();
-        stmt.executeQuery(sql);
-        rs = stmt.getResultSet();
+	int total_rows = result.getMetaData().getColumnCount();
+	for(int i = 0; i < total_rows; i++){
+		json.put(result.getMetaData().getColumnLabel(i + 1).toLowerCase(), result.getObject(i+1));
+	}
+	daily_fix.add(json);
+}
 
-        while (rs.next())
-        {
-            sb = new StringBuffer();
-            if (index > 0)	sb.append("\r\n");
-
-            sb.append(rs.getString("HHMISS") + "\t");
-            sb.append(rs.getString("LPINFO") + "\t");
-            sb.append(rs.getString("ID") + "(" + rs.getString("NAME") + ")" + "\t");
-            sb.append(rs.getString("ORDER_CODE") + "\t");
-            sb.append(rs.getString("PRODUCT_CODE") + "\t");
-            sb.append(rs.getString("ITEM_COUNT") + "\t");
-            sb.append(rs.getString("PRICE") + "\t");
-            sb.append(rs.getString("CATEGORY_CODE") + "\t\t");
-            sb.append(rs.getString("PRODUCT_NAME") + "\t");
-            sb.append(rs.getString("REMOTE_IP"));
-            out.print (sb.toString());
-            index++;
-        }
-    }
-    catch(Exception e)
-    {
-        out.println (e.getMessage());
-    }
-    finally
-    {
-        if (rs != null) try {rs.close();} catch (Exception e) {}
-        if (stmt != null) try {stmt.close();} catch (Exception e) {}
-        if (conn != null)
-        {
-            try	{conn.close();}	catch (Exception e)	{}
-        }
-    }
+	out.println(daily_fix.toString());
+	out.flush();
 %>

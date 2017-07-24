@@ -1,44 +1,34 @@
 <?php
-	// DataBase 접속
 
-	// LINKPRICE 를 통해서 신청된 접수내역 QUERY
-	// QUERY 조건  : 구매일자=yyyymmdd and 제휴사=링크프라이스
-	// SELECT 컬럼 : 구매시간, LPINFO, 구매자ID, 구매자이름, 주문번호, 상품코드, 주문수량, 결제금액
-	// ex) $sql = "select * from 링크프라이스_실적테이블 where 날짜 like '$yyyymmdd%' and LPINFO is not null";
+define(NWNAME, "linkprice"); // network name value
+$daily_fix = array();
 
-	$sql = "
-		select hhmiss, lpinfo, id, name, order_code, product_code, item_count, price, category_code, product_name, remote_addr
-		from tlinkprice
-		where yyyymmdd = '".$yyyymmdd."'
-	";
+//Do not change alias name
+$sql = "select	network_value 		a_id,
+                order_time          order_time,
+				user_id 			member_id,
+				order_code 			order_code,
+				product_code 		product_code,
+				price 				sales,
+				product_name		product_name,
+				product_count 		item_count,
+				category 			category_code,
+				remote_address 		remote_addr,
+				u_agent 			user_agent
+		from your_order_table
+		where yyyymmdd = ?
+		and	  network_name = ?";
 
-	$result = mysql_query($query, $connect);
-	$total = mysql_num_rows($result);
+$stmt = mysqli_stmt_init($conn);
+if(mysqli_stmt_prepare($stmt,$sql)){
+    mysqli_stmt_bind_param($stmt,"ss",$_REQUEST["yyyymmdd"],NWNAME);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $daily_fix = mysqli_fetch_assoc($result);
+    mysqli_stmt_close($stmt);
+}
 
-	while ($total > 0)
-	{
-		$row = mysql_fetch_array($result);
+echo json_encode($daily_fix);
 
-		$line  = $row["HHMISS"]."\t";
-		$line .= $row["LPINFO"]."\t";
-		$line .= $row["ID"]."(".$row["NAME"].")"."\t";
-		$line .= $row["ORDER_CODE"]."\t";
-		$line .= $row["PRODUCT_CODE"]."\t";
-		$line .= $row["ITEM_COUNT"]."\t";
-		$line .= $row["PRICE"]."\t";
-		$line .= $row["CATEGORY_CODE"]."\t\t";
-		$line .= $row["PRODUCT_NAME"]."\t";
-
-		// 만약 데이터의 마지막 값이 아니면 줄 바꿈(\n)을 한다.
-		if ($total != 1)
-			$line .= $row["REMOTE_ADDR"]."\n";
-		else
-			$line .= $row["REMOTE_ADDR"];
-
-		echo $line;
-
-		$total--;
-	}
-
-	// DataBase 접속 끊기
+// DataBase 접속 끊기
 ?>
