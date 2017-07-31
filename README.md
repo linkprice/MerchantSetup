@@ -83,11 +83,11 @@
 
 
 4. 샘플코드
-   * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/PHP/index.php)
+   * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/PHP/index.php)
 
-   * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/JSP/index.jsp)
+   * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/JSP/index.jsp)
 
-   * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/ASP/index.aspx.vb)
+   * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/ASP/index.asp)
 
      ​
 
@@ -119,9 +119,9 @@
 
 3. 샘플코드
 
-   * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/PHP/daily_fix.php)
-   * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/JSP/daily_fix.jsp)
-   * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/ASP/daily_fix.asp)
+   * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/PHP/daily_fix.php)
+   * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/JSP/daily_fix.jsp)
+   * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/ASP/daily_fix.asp)
 
    ​
 
@@ -154,9 +154,9 @@
 
 
 3. 샘플 코드(auto_cancel)
-   * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/PHP/auto_cancel.php)
-   * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/JSP/auto_cancel.jsp)
-   * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/ASP/auto_cancel.asp)
+   * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/PHP/auto_cancel.php)
+   * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/JSP/auto_cancel.jsp)
+   * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/ASP/auto_cancel.asp)
 
 
 
@@ -199,11 +199,11 @@
 
 1. 샘플코드
 
-   - [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/PHP/index.php)
+   - [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPA/PHP/index.php)
 
-   - [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/JSP/index.jsp)
+   - [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPA/JSP/index.jsp)
 
-   - [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/ASP/index.aspx.vb)
+   - [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPA/ASP/index.asp)
 
      ​
 
@@ -232,8 +232,8 @@
 
 3. 샘플코드
 
-   - [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/PHP/daily_fix.php)
-   - [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/JSP/daily_fix.jsp)
-   - [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/ASP/daily_fix.asp)
+   - [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPA/PHP/daily_fix.php)
+   - [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPA/JSP/daily_fix.jsp)
+   - [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPA/ASP/daily_fix.asp)
 
    ​
