@@ -35,9 +35,9 @@
 
 2. 샘플 코드
 
-   * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/PHP/lpfront.php)
-   * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/JSP/lpfront.jsp)
-   * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/ASP/lpfront.asp)
+   * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/PHP/lpfront.php)
+   * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/JSP/lpfront.jsp)
+   * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/ASP/lpfront.asp)
 
    ​
 
