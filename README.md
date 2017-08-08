@@ -1,12 +1,6 @@
-## 머천트 셋업작업 이란
-
-제휴마케팅에서 광고주가 돈을 지불하는 성과는 어필리에이트 사이트(또는 페이지) 방문자가 광고 배너 또는 링크를 클릭하여 머천트 사이트로 이동, 약속된 행위 (회원가입, 이벤트 참여, 상품구매등)을 하는 것입니다.성과를 정확히 측정하기 위해서는 어필리에이트 사이트 방문자의 이동경로와 머천트 사이트에서의 구매(가입)에 대해 추적이 가능해야 하며, 이를 위해 필요한 것이 셋업 작업입니다.
-
-
-
 ## 셋업 요약
 
-1. LPINFO 쿠키생성 - 랜딩페이지
+1. LPINFO 쿠키생성 - 랜딩 페이지
 
 
 2. 실적전송
@@ -27,9 +21,9 @@
 
 
 
-## 랜딩페이지(CPS, CPA 공용)
+## 랜딩 페이지(CPS, CPA 공용)
 
-1. lpfront
+1. 랜딩 페이지
 
    - 사용자가 Affiliate의 광고를 통하여 머천트 사이트에 방문시 Affiliate의 정보를 기억하기 위한 Cookie(**LPINFO**)를 생성합니다.
 
@@ -39,7 +33,7 @@
 
      ​
 
-2. lpfront 샘플
+2. 샘플 코드
 
    * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/PHP/lpfront.php)
    * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/JSP/lpfront.jsp)
@@ -82,7 +76,7 @@
 
 
 
-4. 샘플코드
+4. 샘플 코드
    * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/PHP/index.php)
 
    * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/JSP/index.jsp)
@@ -108,7 +102,7 @@
 
    |      KEY      |      VALUE      |     KEY     |      VALUE       |
    | :-----------: | :-------------: | :---------: | :--------------: |
-   |     a_id      | network_value 값 | order_time  | 주문시간(예 - hhmmss) |
+   |     a_id      | network_value 값 | order_time  | 주문시간(예 - 132543) |
    |   member_id   |   실적 발생 회원 ID   | order_code  |       주문번호       |
    | product_code  |   실적 발생 상품 코드   |    sales    | 실적 총 금액(가격 * 개수) |
    | product_name  |    실적 발생 상품명    | item_count  |        개수        |
@@ -117,7 +111,7 @@
 
    ​
 
-3. 샘플코드
+3. 샘플 코드
 
    * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/PHP/daily_fix.php)
    * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/JSP/daily_fix.jsp)
@@ -169,7 +163,7 @@
 
    - 회원가입 테이블에 network_name, network_value, remote_address 그리고 user_agent 필드를 추가합니다.
 
-   - **회원가입 완료시점**에  network_value에 LPINFO(cookie)값을, network_name에는"linkprice", remote_address 에는 실적 발생 사용자 IP 그리고 user_agent 에는 실적발생 사용자 HTTP_USER_AGENT  값을 저장하여 주십시요.
+   - **회원 데이터 저장시**  network_value에 LPINFO(cookie)값을, network_name에는"linkprice", remote_address 에는 실적 발생 사용자 IP 그리고 user_agent 에는 실적발생 사용자 HTTP_USER_AGENT  값을 저장하여 주십시요.
 
      |     FIELD      |                VALUE                |
      | :------------: | :---------------------------------: |
@@ -192,12 +186,12 @@
 | :----------: | :-------------: | :-----------: | :-----------------------------------: |
 |     a_id     | LPINFO cookie 값 |  merchant_id  | 링크프라이스 머천트 ID(링크프라이스에서 지정, 셋업시 전달 드림) |
 |  member_id   |   실적 발생 회원ID    |  order_code   |           회원번호(**Unique**값)           |
-| product_code |     member      | category_code |                 FREE                  |
+| product_code |    "member"     | category_code |                "FREE"                 |
 |  user_agent  | HTTP_USER_AGENT |  remote_addr  |              REMOTE_ADDR              |
 
 
 
-1. 샘플코드
+1. 샘플 코드
 
    - [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPA/PHP/index.php)
 
@@ -221,16 +215,16 @@
      - 예 - www.example.com/linkprice/daily_fix.php?yyyymmdd=20170701
    - 실적은 json 형식으로 출력하여 주십시요.
 
-   |      KEY      |      VALUE      |     KEY     |      VALUE      |
-   | :-----------: | :-------------: | :---------: | :-------------: |
-   |     a_id      | network_value 값 | order_time  |  가입시간(hhmmss)   |
-   |   member_id   |   실적 발생 회원 ID   | order_code  |      주문번호       |
-   | product_code  |     member      | user_agent  | HTTP_USER_AGENT |
-   | category_code |      FREE       | remote_addr |  실적 발생 사용자 IP   |
+   |      KEY      |      VALUE      |     KEY     |      VALUE       |
+   | :-----------: | :-------------: | :---------: | :--------------: |
+   |     a_id      | network_value 값 | order_time  | 가입시간(예 - 132543) |
+   |   member_id   |   실적 발생 회원 ID   | order_code  |       주문번호       |
+   | product_code  |    "member"     | user_agent  | HTTP_USER_AGENT  |
+   | category_code |     "FREE"      | remote_addr |   실적 발생 사용자 IP   |
 
    ​
 
-3. 샘플코드
+3. 샘플 코드
 
    - [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPA/PHP/daily_fix.php)
    - [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPA/JSP/daily_fix.jsp)
