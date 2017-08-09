@@ -25,7 +25,7 @@ sql = "SELECT	network_value 		a_id,"
 	 		 +"u_agent 				user_agent"
 	 		 +" FROM your_order_table"
 	 		 +" WHERE order_code = ?"
-	 		 +" AND	  network_value =?";
+	 		 +" AND	  network_name =?";
 
 Connection conn = null;
 PreparedStatement stmt = null;

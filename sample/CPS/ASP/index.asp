@@ -32,7 +32,7 @@ command.CommandText = "SELECT	network_value 		a_id," + _
 	 		                "u_agent 				user_agent"+ _
 	 		                " FROM your_order_table"+ _
 	 		                " WHERE order_code = ?"+ _
-	 		                " AND	  network_value =?"
+	 		                " AND	  network_name =?"
 
 command.Parameters.Append(command.CreateParameter("order_code", adchar, adParamInput, Len(search_order_code), search_order_code))
 command.Parameters.Append(command.CreateParameter("network_value", adchar, adParamInput, Len(LPINFO), LPINFO))

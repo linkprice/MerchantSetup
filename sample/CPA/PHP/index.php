@@ -1,7 +1,7 @@
 <?php
 $send_data = array();
 $search_order_code = "order code";	// order code from complete payment page
-const LPINFO = "linkprice";	        // network name value from complete payment page
+define(LPINFO,"linkprice");	        // network name value from complete payment page
 
 //sql to bring your order that will be sent to linkprice.
 //change filed name to your field name
@@ -15,7 +15,7 @@ $sql = "select	network_value 		a_id,
 				u_agent 			user_agent
 		from your_order_table
 		where order_code = ?
-		and	  network_value = ?";
+		and	  network_name = ?";
 
 $stmt = mysqli_stmt_init($conn);
 if(mysqli_stmt_prepare($stmt,$sql)){
