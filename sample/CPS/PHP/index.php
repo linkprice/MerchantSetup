@@ -1,46 +1,74 @@
 <?php
-$send_data = array();
-$search_order_code = "order code";	// order code from complete payment page
-define(LPINFO, "linkprice");	        // network name value from complete payment page
+$order_code = "order code"; // order code from complete payment page
 
-//sql to bring your order that will be sent to linkprice.
-//change filed name to your field name
-$sql = "select	network_value 		a_id,
-				'your merchant id' 	merchant_id,
-				user_id 			member_id,
-				order_code 			order_code,
-				product_code 		product_code,
-				price 				sales,
-				product_name		product_name,
-				count 				item_count,
-				category 			category_code,
-				remote_address 		remote_addr,
-				u_agent 			user_agent
-		from your_order_table
-		where order_code = ?
-		and	  network_name = ?";
+// 주문 정보 가져오기
+$lp_order_data = lpGetOrder($conn, $order_code);
 
-$stmt = mysqli_stmt_init($conn);
-if(mysqli_stmt_prepare($stmt,$sql)){
-    mysqli_stmt_bind_param($stmt,"ss",$search_order_code,LPINFO);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $send_data = mysqli_fetch_assoc($result);
-    mysqli_stmt_close($stmt);
+// 실적 전송
+if (!empty($lp_order_data)) {
+    $result = lpSend($lp_order_data);
 }
 
-//data send
-if (!empty($send_data)) {
-    define("LP_URL","https://service.linkprice.com/lppurchase_new.php");
+function lpGetOrder($conn, $order_code) {
+    $network_name = "linkprice";
+
+//        'lpinfo' => 'LPINFO 쿠키정보',
+//        'merchant_id' => '계약시 제공 받은 머천트 아이디',
+//        'order_code' => '주문 코드',
+//        'product_code' => '상품 코드',
+//        'product_name' => '상품명',
+//        'count' => '상품 개수',
+//        'sales' => '금액',
+//        'category' => '계약시 협의',       // 없으면 공백 처리
+//        'user_id' => 'user_id',            // 없으면 공백 처리
+//        'remote_address' => '사용자의 IP', // $_SERVER["REMOTE_ADDR"]
+//        'user_agent' => '유저 에이전트',   // $_SERVER["HTTP_USER_AGENT"]
+
+    $sql = "
+        select	network_value 	lpinfo,
+				'계약시 제공 받은 머천트 아이디' 	merchant_id,
+				order_code,
+				product_code,
+				product_name,
+				count,
+				sales,
+				category,
+				user_id,
+				remote_address,
+				user_agent
+		from your_order_table
+		where order_code = ?
+		and	  network_name = ?
+	";
+    $stmt = mysqli_stmt_init($conn);
+
+    if(!mysqli_stmt_prepare($stmt,$sql)) return false;
+    mysqli_stmt_bind_param($stmt,"ss", $order_code, $network_name);
+    mysqli_stmt_execute($stmt);
+    $stmt_result = mysqli_stmt_get_result($stmt);
+
+    $result = array();
+    while ($row = mysqli_fetch_assoc($stmt_result)) {
+        $result[] = $row;
+    }
+    mysqli_stmt_close($stmt);
+
+    return $result;
+}
+
+function lpSend($order_data) {
+    if (empty($order_data)) return false;
+
+    $lp_url = "https://service.linkprice.com/lppurchase_v3.php";
 
     $options = array(
         'http' => array(
             'method'  => 'POST',
-            'content' => json_encode($send_data),
+            'content' => json_encode($order_data),
             'header'=>  "Content-type: application/json\r\n"
         )
     );
-
     $context = stream_context_create($options);
-    $result = file_get_contents(LP_URL, false, $context);
+
+    return file_get_contents($lp_url, false, $context);
 }
