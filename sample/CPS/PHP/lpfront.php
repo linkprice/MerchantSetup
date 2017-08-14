@@ -1,25 +1,23 @@
 <?php
-define(RETURN_DAYS,7);			//���� ���� �Ⱓ(��Ű ��ȿ�Ⱓ)
+define("RETURN_DAYS", 7);       // 광고 인정 기간(쿠키 유효기간)
 
-$lpinfo = $_REQUEST["lpinfo"];	//Affiliate ����
-$url = $_REQUEST["url"];		//�̵��� ������
+$lpinfo = $_REQUEST["lpinfo"];  // Affiliate 정보
+$url = $_REQUEST["url"];        // 이동할 페이지
 
-if ($lpinfo == "" ||  $url == "")  {
-    // alert: LPMS: Parameter Error
+// 유효성 체크
+if ("" == $lpinfo ||  "" == $url)  {
     echo "<html><head><script type=\"text/javascript\">
-	    alert('LPMS: ������ �� �����ϴ�. ����Ʈ ����ڿ��� �����Ͻñ� �ٶ��ϴ�.');
+	    alert('LPMS: 연결할 수 없습니다. 사이트 담당자에게 문의하시기 바랍니다.');
 	    history.go(-1);
         </script></head></html>";
     exit;
 }
+// 쿠키 저장
+header("P3P:CP=\"NOI DEVa TAIa OUR BUS UNI\"");
 
-Header("P3P:CP=\"NOI DEVa TAIa OUR BUS UNI\"");
+if (RETURN_DAYS == 0) $lp_info_expire = 0;
+else $lp_info_expire = time() + (RETURN_DAYS * 24 * 60 * 60);
 
-if (RETURN_DAYS == 0) {
-    SetCookie("LPINFO", $lpinfo, 0, "/", ".example.com");
-} else {
-    SetCookie("LPINFO", $lpinfo, time() + (RETURN_DAYS * 24 * 60 * 60), "/", ".example.com");
-}
-
-Header("Location: ".$url);
-?>
+setcookie("LPINFO", $lpinfo, $lp_info_expire, "/", ".example.com");
+// 사이트 이동
+header("Location: ".$url);
