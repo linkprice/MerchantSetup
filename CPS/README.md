@@ -25,9 +25,9 @@
 
 2. 샘플 코드
 
-   - [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/PHP/lpfront.php)
-   - [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/JSP/lpfront.jsp)
-   - [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/ASP/lpfront.asp)
+   - [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/lpfront.php)
+   - [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/JSP/lpfront.jsp)
+   - [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/ASP/lpfront.asp)
 
    ​
 
@@ -111,16 +111,16 @@
    ```javascript
    {
        affiliate_id : network_value,			//LPINFO cookie 값
-	   order_time : "132543",				// 주문시간(hhmmss)
-	   member_id : "User ID of who phurchase products",	// 실적 발생 유저 ID
-	   order_code : "Order code of product",		// 주문번호(Unique 값)
-	   product_code : "Product code",			// 상품코드
-	   item_count : "Item count",				// 개수
-	   sales : "Total price",				// 실적 총금액(가격 * 개수)
-	   category_code : "Category code of product",		// 카테고리 코드
-	   product_name : "Product name",			// 상품명
-	   user_agent : HTTP_USER_AGENT,			// 유저 IP
-	   remote_addr  REMOTE_ADDR				// 유저 user_agent
+      order_time : "132543",				// 주문시간(hhmmss)
+      member_id : "User ID of who phurchase products",	// 실적 발생 유저 ID
+      order_code : "Order code of product",		// 주문번호(Unique 값)
+      product_code : "Product code",			// 상품코드
+      item_count : "Item count",				// 개수
+      sales : "Total price",				// 실적 총금액(가격 * 개수)
+      category_code : "Category code of product",		// 카테고리 코드
+      product_name : "Product name",			// 상품명
+      user_agent : HTTP_USER_AGENT,			// 유저 IP
+      remote_addr  REMOTE_ADDR				// 유저 user_agent
    }
    ```
 
@@ -128,9 +128,9 @@
 
 3. 샘플 코드
 
-   - [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/PHP/daily_fix.php)
-   - [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/JSP/daily_fix.jsp)
-   - [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/ASP/daily_fix.asp)
+   - [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/daily_fix.php)
+   - [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/JSP/daily_fix.jsp)
+   - [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/ASP/daily_fix.asp)
 
    ​
 
@@ -149,7 +149,7 @@
    ```javascript
    {
        order_status : "1",		//결과코드(결과 코드표 참조)
-	   reason : "주문 확정"		// 이유
+      reason : "주문 확정"		// 이유
    }
    ```
 
@@ -169,7 +169,8 @@
 
 3. 샘플 코드(auto_cancel)
 
-   * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/PHP/auto_cancel.php)
-   * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/JSP/auto_cancel.jsp)
-   * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/ASP/auto_cancel.asp)
+   * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/auto_cancel.php)
+   * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/JSP/auto_cancel.jsp)
+   * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/ASP/auto_cancel.asp)
+
 
