@@ -13,7 +13,7 @@
 String sql = new String();
 String search_order_code = "order code";
 String LPINFO = "lpinfo";
-String LP_URL = "https://service.linkprice.com/lppurchase_new.php";
+String LP_URL = "https://service.linkprice.com/lppurchase_cpa_v3.php";
 
 sql = "SELECT	network_value 		a_id,"
 	 		 +"'your merchant id' 	merchant_id,"

@@ -31,7 +31,7 @@ if(mysqli_stmt_prepare($stmt,$sql)){
 
 //data send
 if (!empty($send_data)) {
-    define("LP_URL","https://service.linkprice.com/lppurchase_new.php");
+    define("LP_URL","https://service.linkprice.com/lppurchase_cps_v3.php");
 
     $options = array(
         'http' => array(
