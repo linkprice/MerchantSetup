@@ -62,19 +62,19 @@
    - JSON 형식으로 링크프라이스에 실적 전송해주시면 됩니다.
    - KEY 이름은 **임의로 수정 불가 이며**VALUE 값은 아래와 같이 입력해주시면 됩니다.
 
-```json
+```javascript
 {
-    affiliate_id : network_value,			//LPINFO cookie 값
- 	merchant_id : "Your merchant ID",		//링크프라이스 머천트 ID(링크프라이스에서 지정, 셋업시 전달 드림)
+	affiliate_id : network_value,				//LPINFO cookie 값
+	merchant_id : "Your merchant ID",			//링크프라이스 머천트 ID(링크프라이스에서 지정, 셋업시 전달 드림)
   	member_id : "User ID of who phurchase products",	// 실적 발생 유저 ID
-  	order_code : "Order code of product",				// 주문번호(Unique 값)
-  	product_code : "Product code",						// 상품코드
-  	item_count : "Item count",							// 개수
-  	sales : "Total price",								// 실적 총금액(가격 * 개수)
-  	category_code : "Category code of product",			// 카테고리 코드
-  	product_name : "Product name",						// 상품명
-  	user_agent : HTTP_USER_AGENT,						// 사용자 IP
-  	remote_addr  REMOTE_ADDR							// 사용자 user_agent
+  	order_code : "Order code of product",			// 주문번호(Unique 값)
+  	product_code : "Product code",				// 상품코드
+  	item_count : "Item count",				// 개수
+  	sales : "Total price",					// 실적 총금액(가격 * 개수)
+  	category_code : "Category code of product",		// 카테고리 코드
+  	product_name : "Product name",				// 상품명
+  	user_agent : HTTP_USER_AGENT,				// 사용자 IP
+  	remote_addr  REMOTE_ADDR				// 사용자 user_agent
 }
 ```
 
@@ -108,19 +108,19 @@
 
    - 실적은 json 형식으로 출력하여 주십시요.
 
-   ```json
+   ```javascript
    {
-       affiliate_id : network_value,						//LPINFO cookie 값
-    	order_time : "132543",								// 주문시간(hhmmss)
-     	member_id : "User ID of who phurchase products",	// 실적 발생 유저 ID
-     	order_code : "Order code of product",				// 주문번호(Unique 값)
-     	product_code : "Product code",						// 상품코드
-     	item_count : "Item count",							// 개수
-     	sales : "Total price",								// 실적 총금액(가격 * 개수)
-     	category_code : "Category code of product",			// 카테고리 코드
-     	product_name : "Product name",						// 상품명
-     	user_agent : HTTP_USER_AGENT,						// 유저 IP
-     	remote_addr  REMOTE_ADDR							// 유저 user_agent
+       affiliate_id : network_value,			//LPINFO cookie 값
+	   order_time : "132543",				// 주문시간(hhmmss)
+	   member_id : "User ID of who phurchase products",	// 실적 발생 유저 ID
+	   order_code : "Order code of product",		// 주문번호(Unique 값)
+	   product_code : "Product code",			// 상품코드
+	   item_count : "Item count",				// 개수
+	   sales : "Total price",				// 실적 총금액(가격 * 개수)
+	   category_code : "Category code of product",		// 카테고리 코드
+	   product_name : "Product name",			// 상품명
+	   user_agent : HTTP_USER_AGENT,			// 유저 IP
+	   remote_addr  REMOTE_ADDR				// 유저 user_agent
    }
    ```
 
@@ -146,10 +146,10 @@
    - 링크프라이스는 일정 기간마다 귀사의 실적취소 URL을 호출하여 데이터를 가져와 자동 실적 취소를 실행합니다.
    - 자동취소 페이지 호출 시 json 형식으로 출력하여 줍니다.
 
-   ```json
+   ```javascript
    {
-       order_status : "1",			//결과코드(결과 코드표 참조)
-    	reason : "주문 확정"		// 이유
+       order_status : "1",		//결과코드(결과 코드표 참조)
+	   reason : "주문 확정"		// 이유
    }
    ```
 
