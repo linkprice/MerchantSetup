@@ -12,19 +12,17 @@
 
 1. 랜딩 페이지 작성
 
-   - 랜딩 페이지는 쿠키 생성 후 귀사의 웹사이트로 리다이렉트하는 역할을 합니다. (샘플코드 참조) 
+    * 랜딩 페이지는 쿠키 생성 후 귀사의 웹사이트로 리다이렉트하는 역할을 합니다. (샘플코드 참조) 
 
-   - RETURN_DAYS(광고 효과 인정 기간) 는 **계약서에 명시되어 있는 광고 효과 인정 기간**(일단위)으로 변경바랍니다.
-
+	* RETURN_DAYS(광고 효과 인정 기간) 는 **계약서에 명시되어 있는 광고 효과 인정 기간**(일단위)으로 변경바랍니다.
      광고 인정 기간을 계약서와 다르게 변경 시 계약위반으로 불이익을 받으실 수 있습니다.
-
      ​
 
 2. 샘플 코드
 
-   - [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/lpfront.php)
-   - [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/JSP/lpfront.jsp)
-   - [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/ASP/lpfront.asp)
+	* [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/lpfront.php)
+    * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/JSP/lpfront.jsp)
+    * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/ASP/lpfront.asp)
 
    ​
 
@@ -32,9 +30,8 @@
 
 1. 실시간 실적 정보 저장
 
-   - 실적이 발생 시 Cookie(**LPINFO**)가 존재하면 실적을 저장합니다.
-
-   - 귀사의 주문 테이블에 아래 필드를 추가합니다.
+ 	* 실적이 발생 시 Cookie(**LPINFO**)가 존재하면 실적을 저장합니다.
+	* 귀사의 주문 테이블에 아래 필드를 추가합니다.
 
      |     FIELD      |                VALUE                |
      | :------------: | :---------------------------------: |
@@ -43,21 +40,21 @@
      | remote_address |         사용자 IP(REMOTE_ADDR)         |
      |   user_agent   |   사용자 user_agent(HTTP_USER_AGENT)   |
 
-   - **결제완료 시점**에 network_value, network_name, remote_address, user_agent 값을 같이 저장하여 주십시요.
+    * **결제완료 시점**에 network_value, network_name, remote_address, user_agent 값을 같이 저장하여 주십시요.
 
 2. 실시간 실적 전송 시점
 
-   - **구매 완료** 시 실적을 전송하기 위해 실적전송 코드(샘플 참조)를 삽입해야 합니다.
+    * **구매 완료** 시 실적을 전송하기 위해 실적전송 코드(샘플 참조)를 삽입해야 합니다.
 
-   - 모든 실적은 Server to Server 방식으로 전송됩니다.
+    * 모든 실적은 Server to Server 방식으로 전송됩니다.
 
      (**스크립트(script) 및 이미지(image) 방식으로 전달 시 링크프라이스로 별도 문의 주셔야 합니다**)
 
 3. 실시간 실적 전송 셋업
 
-   - 샘플코드는 귀사의 개발 환경에 맞게 수정하시기 바랍니다.
-   - JSON 형식으로 전송해 주시기 바랍니다.
-   - KEY 이름은 **수정 할 수 없으며**, VALUE 값은 아래와 같이 입력해 주시기 바랍니다.
+     * 샘플코드는 귀사의 개발 환경에 맞게 수정하시기 바랍니다.
+     * JSON 형식으로 전송해 주시기 바랍니다.
+     * KEY 이름은 **수정 할 수 없으며**, VALUE 값은 아래와 같이 입력해 주시기 바랍니다.
 
 ```javascript
 [{
@@ -78,9 +75,9 @@
 
 
 4. 샘플 코드
-   * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/PHP/index.php)
-   * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/JSP/index.jsp)
-   * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/ASP/index.asp)
+    * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/PHP/index.php)
+    * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/JSP/index.jsp)
+    * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/ASP/index.asp)
 
 ​
 
