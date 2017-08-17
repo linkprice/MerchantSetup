@@ -1,20 +1,20 @@
 ## 셋업 요약
 
-### [1. 랜딩 페이지 작성 (LPINFO 쿠키생성)](https://github.com/linkprice/MerchantSetup/tree/master/CPS#1.-랜딩-페이지-작성)
+### [랜딩 페이지 작성 (LPINFO 쿠키생성)](https://github.com/linkprice/MerchantSetup/tree/master/CPS#랜딩-페이지-작성)
 
-### [2. 실적 전송](https://github.com/linkprice/MerchantSetup/tree/master/CPS#2.-실시간-실적-전송)
+### [실적 전송](https://github.com/linkprice/MerchantSetup/tree/master/CPS#실시간-실적-전송)
 	주문 완료시 링크프라이스로 Server to Server 방식으로 실적 전송
 
-### [3. 실적 정보 출력](https://github.com/linkprice/MerchantSetup/tree/master/CPS#3.-실적-정보-출력-(daily_fix))
+### [실적 정보 출력](https://github.com/linkprice/MerchantSetup/tree/master/CPS#실적-정보-출력-daily_fix)
 	실적을 서로 대조하여 누락된 실적을 복구하기 위한 작업
 
-### [4. 자동 실적 취소](https://github.com/linkprice/MerchantSetup/tree/master/CPS#4.-자동-실적-취소-(auto_cancel))
+### [자동 실적 취소](https://github.com/linkprice/MerchantSetup/tree/master/CPS#자동-실적-취소-auto_cancel)
 	머천트 주문 취소시 링크프라이스 주문 자동 취소
 <br />
 <br />
 <br />
 
-## 1. 랜딩 페이지 작성
+## 랜딩 페이지 작성
 
 1. 랜딩 페이지 작성
 
@@ -29,7 +29,7 @@
 	* [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/ASP/lpfront.asp)
 
 
-## 2. 실시간 실적 전송
+## 실시간 실적 전송
 
 1. 실시간 주문 정보 저장
 
@@ -82,7 +82,7 @@
 	* [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/ASP/index.asp)
 
 
-## 3. 실적 정보 출력 (daily_fix)
+## 실적 정보 출력 (daily_fix)
 
 1. 실적 정보 출력
 
@@ -126,7 +126,7 @@
 	* [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/ASP/daily_fix.asp)
 
 
-## 4. 자동 실적 취소 (auto_cancel)
+## 자동 실적 취소 (auto_cancel)
 
 1. 자동 실적 취소
 	* 귀사에서 주문 취소가 발생한 경우 (반품, 미입금, 취소 등) 링크프라이스는 해당 실적을 취소합니다.
