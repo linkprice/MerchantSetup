@@ -72,9 +72,9 @@
 
 4. 샘플 코드
 
-   - [PHP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/PHP/index.php)
-   - [JSP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/JSP/index.jsp)
-   - [ASP](https://github.com/linkprice/MerchantSetup/blob/master/sample/CPS/ASP/index.asp)
+   - [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/PHP/index.php)
+   - [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/JSP/index.jsp)
+   - [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/ASP/index.asp)
 
 ## 실적 정보 출력 (daily_fix)
 
