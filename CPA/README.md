@@ -5,7 +5,7 @@
 ### [2. 실적 전송](https://github.com/linkprice/MerchantSetup/tree/master/CPA#실시간-실적-전송)
 
 ```
-회원 가입 시 링크프라이스로 실적 전송 (**Server to Server 방식**)
+회원 가입 완료시 링크프라이스로 실적 전송 (**Server to Server 방식**)
 ```
 
 ### [3. 실적 정보 출력](https://github.com/linkprice/MerchantSetup/tree/master/CPA#실적-정보-출력-daily_fix)
