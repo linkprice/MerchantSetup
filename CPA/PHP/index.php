@@ -24,7 +24,7 @@ $sql = "select	network_value 		lpinfo,
 		order_code 		unique_id,
 		'Registration' 		action,
 		'FREE' 			category_code,
-		'무료 회원 가입'	   action_name,
+		'무료 회원 가입'	   	action_name,
 		remote_address 		remote_address,
 		u_agent 		user_agent
 	from your_member_table
