@@ -19,20 +19,20 @@ Set command = Server.CreateObject("ADODB.Command")
 Set command.ActiveConnection = conn
 command.CommandType = adCmdText
 
-command.CommandText = "SELECT	network_value 		a_id," + _
-	 		                "order_time 	        order_time,"+ _
-	 		                "user_id 				member_id,"+ _
-	 		                "order_code 			order_code,"+ _
-			                "product_code 		    product_code,"+ _
-	 		                "price 				    sales,"+ _
-	 		                "product_name			product_name,"+ _
-	 		                "count 				    item_count,"+ _
-	 		                "category 			    category_code,"+ _
-	 		                "remote_address 		remote_addr,"+ _
-	 		                "u_agent 				user_agent"+ _
-	 		                " FROM your_order_table"+ _
-	 		                " WHERE yyyymmdd = ?"+ _
-	 		                " AND	  network_name =?"
+command.CommandText = "SELECT	network_value 		lpinfo," + _
+	 		        "order_time 	        order_time,"+ _
+	 		        "user_id 		member_id,"+ _
+	 		        "order_code 		order_code,"+ _
+			        "product_code 		product_code,"+ _
+	 		        "price 			sales,"+ _
+	 		        "product_name		product_name,"+ _
+	 		        "count 			item_count,"+ _
+	 		        "category 		category_code,"+ _
+	 		        "remote_address 	remote_addr,"+ _
+	 		        "u_agent 		user_agent"+ _
+			" FROM your_order_table"+ _
+	 		" WHERE yyyymmdd = ?"+ _
+	 		" AND	  network_name =?"
 
 command.Parameters.Append(command.CreateParameter("order_code", adchar, adParamInput, Len(yyyymmdd), yyyymmdd))
 command.Parameters.Append(command.CreateParameter("network_value", adchar, adParamInput, Len(NWNAME), NWNAME))
