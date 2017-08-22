@@ -68,7 +68,7 @@
      	user_agent : HTTP_USER_AGENT,				// $_SERVER["HTTP_USER_AGENT"]
      	remote_addr  REMOTE_ADDR				// $_SERVER["REMOTE_ADDR"]
    }]
-   ```
+  
 
 4. 샘플 코드
 
