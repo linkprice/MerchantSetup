@@ -95,7 +95,7 @@
    ```javascript
    [{
       lpinfo : network_value,				//LPINFO cookie 값
-      order_time : "132543",				// 주문시간(hhmmss)
+      order_time : "132543",				// 가입시간(hhmmss)
       member_id : "User ID of who phurchase products",	// 회원가입 ID
       unique_id : "number of member",			// 회원번호(Unique 값)
       action : "Registration",				// 액션 종류(예 - "Registration", "Poll")
