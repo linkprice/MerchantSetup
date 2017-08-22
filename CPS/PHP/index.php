@@ -14,7 +14,7 @@ Change filed name to your field name
 'count' => '상품 개수(Quantity of product)',
 'sales' => '금액(Total price)',
 'category' => '계약시 협의(Category in Contract)',	// 없으면 공백 처리
-'user_id' => 'user_id',				// 없으면 공백 처리
+'user_id' => 'user_id',					// 없으면 공백 처리
 'remote_address' => '사용자의 IP(User IP)'		// $_SERVER["REMOTE_ADDR"]
 'user_agent' => '유저 에이전트(User agent)',	        // $_SERVER["HTTP_USER_AGENT"]
 
