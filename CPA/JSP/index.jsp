@@ -15,17 +15,32 @@ String search_order_code = "order code";
 String LPINFO = "lpinfo";
 String LP_URL = "https://service.linkprice.com/lppurchase_cpa_v3.php";
 
-sql = "SELECT	network_value 		a_id,"
-	 		 +"'your merchant id' 	merchant_id,"
-	 		 +"'member' 				member_id,"
-	 		 +"order_code 			order_code,"
-			 +"product_code 		    product_code,"
-	 		 +"'FREE' 			    category_code,"
-	 		 +"remote_address 		remote_addr,"
-	 		 +"u_agent 				user_agent"
-	 		 +" FROM your_order_table"
-	 		 +" WHERE order_code = ?"
-	 		 +" AND	  network_name =?";
+/**
+Change filed name to your field name
+
+'lpinfo' => 'LPINFO 쿠키정보(LPINFO cookie value)'
+'merchant_id' => '계약시 제공 받은 머천트 아이디(Merchant ID from Linkprice)'
+'member_id' => 'User id'
+'unique_id' => '회원번호(User number)'
+'action' => '종류(Action type - ex:"Registration", "Poll", "Participation")'
+'category_code' => '회원가입 종류(Type of registration - ex: "FREE", "Paid")'
+'action_name' => '회원가입 종류명(Name of registration)'
+'remote_address' => '사용자의 IP(User IP)'		// $_SERVER["REMOTE_ADDR"]
+'user_agent' => '유저 에이전트(User agent)',	        // $_SERVER["HTTP_USER_AGENT"]
+
+**/
+sql = "SELECT	network_value 		lpinfo,"
+	 	+"'your merchant id' 	merchant_id,"
+	 	+"'member' 		member_id,"
+	 	+"order_code 		unique_id,"
+		+"product_code 		action,"
+	 	+"'FREE' 		category_code,"
+		+"'무료 회원 가입' 	action_name,"
+	 	+"remote_address 	remote_addr,"
+	 	+"u_agent 		user_agent"
+	+" FROM your_order_table"
+	+" WHERE order_code = ?"
+	+" AND	  network_name =?";
 
 Connection conn = null;
 PreparedStatement stmt = null;
