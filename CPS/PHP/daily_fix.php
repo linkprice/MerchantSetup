@@ -20,7 +20,7 @@ Do not change alias name
 'user_agent' => '유저 에이전트(User agent)',	        // $_SERVER["HTTP_USER_AGENT"]
 
 */
-$sql = "select	network_value 		a_id,
+$sql = "select	network_value 		lpinfo,
                 order_time          	order_time,
 		user_id 		member_id,
 		order_code 		order_code,
