@@ -10,7 +10,7 @@ Change filed name to your field name
 'merchant_id' => '계약시 제공 받은 머천트 아이디(Merchant ID from Linkprice)'
 'member_id' => 'User id'
 'unique_id' => '회원번호(User number)'
-'action' => '종류(Action type - ex:"Registration", "Poll", "Participation"'
+'action' => '종류(Action type - ex:"Registration", "Poll", "Participation")'
 'category_code' => '회원가입 종류(Type of registration - ex: "FREE", "Paid")'
 'action_name' => '회원가입 종류명(Name of registration)'
 'remote_address' => '사용자의 IP(User IP)'		// $_SERVER["REMOTE_ADDR"]
