@@ -12,7 +12,7 @@ Do not change alias name
 'order_code' => '주문 코드(Order code)'
 'product_code' => '상품 코드(Product code)'
 'product_name' => '상품명(Product name)'
-'count' => '상품 개수(Quantity of product)'
+'item_count' => '상품 개수(Quantity of product)'
 'sales' => '금액(Total price)'
 'category' => '계약시 협의(Category in Contract)'	// 없으면 공백 처리
 'member_id' => 'user_id'				// 없으면 공백 처리
