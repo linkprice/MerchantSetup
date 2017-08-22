@@ -1,8 +1,8 @@
 <?php
-define(RETURN_DAYS,7);			//광고 인정 기간(쿠키 유효기간)
+define(RETURN_DAYS,7);			//광고 인정 기간(Cookie expire time)
 
-$lpinfo = $_REQUEST["lpinfo"];	//Affiliate 정보
-$url = $_REQUEST["url"];		//이동할 페이지
+$lpinfo = $_REQUEST["lpinfo"];		//어필리에이트 정보(Affiliate info)
+$url = $_REQUEST["url"];		//이동할 페이지(URL of redirection)
 
 if ($lpinfo == "" ||  $url == "")  {
     // alert: LPMS: Parameter Error
