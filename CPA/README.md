@@ -92,19 +92,19 @@
      - 예 - www.example.com/linkprice/daily_fix.php?yyyymmdd=20170701
    - 실적은 json 형식으로 출력하시기 바랍니다.
 
-   ```javascript
-   [{
-      lpinfo : network_value,				//LPINFO cookie 값
-      order_time : "132543",				// 가입시간(hhmmss)
-      member_id : "User ID of who phurchase products",	// 회원가입 ID
-      unique_id : "number of member",			// 회원번호(Unique 값)
-      action : "Registration",				// 액션 종류(예 - "Registration", "Poll")
-      category_code : "FREE",				// 회원가입 종류(예-"FREE","PAID")
-      action_name : "무료 회원 가입",			// 회원가입 종류명
-      user_agent : HTTP_USER_AGENT,			// $_SERVER["HTTP_USER_AGENT"]
-      remote_addr  REMOTE_ADDR				// $_SERVER["REMOTE_ADDR"]
-   }]
-   ```
+```javascript
+[{
+   lpinfo : network_value,				//LPINFO cookie 값
+   order_time : "132543",				// 가입시간(hhmmss)
+   member_id : "User ID of who phurchase products",	// 회원가입 ID
+   unique_id : "number of member",			// 회원번호(Unique 값)
+   action : "Registration",				// 액션 종류(예 - "Registration", "Poll")
+   category_code : "FREE",				// 회원가입 종류(예-"FREE","PAID")
+   action_name : "무료 회원 가입",			// 회원가입 종류명
+   user_agent : HTTP_USER_AGENT,			// $_SERVER["HTTP_USER_AGENT"]
+   remote_addr  REMOTE_ADDR				// $_SERVER["REMOTE_ADDR"]
+}]
+```
 
 3. 샘플 코드
 
