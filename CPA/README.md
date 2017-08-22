@@ -58,7 +58,7 @@
 
    ```javascript
    [{
-   	affiliate_id : network_value,				//LPINFO cookie 값
+   	lpinfo : network_value,				//LPINFO cookie 값
    	merchant_id : "Your merchant ID",			//계약시 제공 받은 머천트 아이디
      	member_id : "User ID of who phurchase products",	// 실적 발생 사용자 ID
      	unique_id : "number of member",			// 회원번호(Unique 값)
@@ -94,7 +94,7 @@
 
    ```javascript
    [{
-       affiliate_id : network_value,			//LPINFO cookie 값
+      lpinfo : network_value,			//LPINFO cookie 값
       order_time : "132543",				// 주문시간(hhmmss)
       member_id : "User ID of who phurchase products",	// 회원가입 ID
       unique_id : "number of member",		// 회원번호(Unique 값)
