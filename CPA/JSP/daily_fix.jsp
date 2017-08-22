@@ -16,17 +16,18 @@ String sql = new String();
 String yyyymmdd = request.getParameter("yyyymmdd");
 String NWNAME = "lpinfo";                   //network name for linkprice
 
-sql = "SELECT	network_value 		a_id,"
-	 		 +"order_time 			order_time,"
-	 		 +"user_id 				member_id,"
-	 		 +"order_code 			order_code,"
-			 +"'member' 		    product_code,"
-	 		 +"'FREE' 			    category_code,"
-	 		 +"remote_address 		remote_addr,"
-	 		 +"u_agent 				user_agent"
-	 		 +" FROM your_order_table"
-	 		 +" WHERE yyyymmdd = ?"
-	 		 +" AND	  network_name =?";
+sql = "SELECT	network_value 		lpinfo,"
+	 	+"order_time 		order_time,"
+	 	+"user_id 		member_id,"
+	 	+"order_code 		unique_id,"
+		+"'member' 		action,"
+	 	+"'FREE' 		category_code,"
+		+"'무료 회원 가입' 	action_name,"
+	 	+"remote_address 	remote_addr,"
+	 	+"u_agent 		user_agent"
+	+" FROM your_order_table"
+	+" WHERE yyyymmdd = ?"
+	+" AND network_name =?";
 
 Connection conn = null;
 PreparedStatement stmt = null;
