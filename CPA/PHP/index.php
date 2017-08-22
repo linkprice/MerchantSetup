@@ -1,21 +1,35 @@
 <?php
 $send_data = array();
-$search_order_code = "order code";	// order code from complete payment page
+$search_order_code = "User number";	// User number from complete registration page
 define(LPINFO,"linkprice");	        // network name value from complete payment page
 
-//sql to bring your order that will be sent to linkprice.
-//change filed name to your field name
-$sql = "select	network_value 		a_id,
-				'your merchant id' 	merchant_id,
-				user_id 			member_id,
-				order_code 			order_code,
-				'member' 		product_code,
-				'FREE' 			category_code,
-				remote_address 		remote_addr,
-				u_agent 			user_agent
-		from your_order_table
-		where order_code = ?
-		and	  network_name = ?";
+/*
+Change filed name to your field name
+
+'lpinfo' => 'LPINFO 쿠키정보(LPINFO cookie value)'
+'merchant_id' => '계약시 제공 받은 머천트 아이디(Merchant ID from Linkprice)'
+'member_id' => 'User id'
+'unique_id' => '회원번호(User number)'
+'action' => '종류(Action type - ex:"Registration", "Poll", "Participation"'
+'category_code' => '회원가입 종류(Type of registration - ex: "FREE", "Paid")'
+'action_name' => '회원가입 종류명(Name of registration)'
+'remote_address' => '사용자의 IP(User IP)'		// $_SERVER["REMOTE_ADDR"]
+'user_agent' => '유저 에이전트(User agent)',	        // $_SERVER["HTTP_USER_AGENT"]
+
+
+*/
+$sql = "select	network_value 		lpinfo,
+		'your merchant id' 	merchant_id,
+		user_id 		member_id,
+		order_code 		unique_id,
+		'Registration' 		action,
+		'FREE' 			category_code,
+		'무료 회원 가입'	   action_name,
+		remote_address 		remote_address,
+		u_agent 		user_agent
+	from your_member_table
+	where order_code = ?
+	and network_name = ?";
 
 $stmt = mysqli_stmt_init($conn);
 if(mysqli_stmt_prepare($stmt,$sql)){
