@@ -19,20 +19,36 @@ Set command = Server.CreateObject("ADODB.Command")
 Set command.ActiveConnection = conn
 command.CommandType = adCmdText
 
-command.CommandText = "SELECT	network_value 		a_id," + _
-	 		                "'your merchant id' 	merchant_id,"+ _
-	 		                "user_id 				member_id,"+ _
-	 		                "order_code 			order_code,"+ _
-			                "product_code 		    product_code,"+ _
-	 		                "price 				    sales,"+ _
-	 		                "product_name			product_name,"+ _
-	 		                "count 				    item_count,"+ _
-	 		                "category 			    category_code,"+ _
-	 		                "remote_address 		remote_addr,"+ _
-	 		                "u_agent 				user_agent"+ _
-	 		                " FROM your_order_table"+ _
-	 		                " WHERE order_code = ?"+ _
-	 		                " AND	  network_name =?"
+' Change filed name to your field name
+' 
+
+' 'lpinfo' => 'LPINFO 쿠키정보(LPINFO cookie value)',
+' 'merchant_id' => '계약시 제공 받은 머천트 아이디(Merchant ID from Linkprice)',
+' 'order_code' => '주문 코드(Order code)',
+' 'product_code' => '상품 코드(Product code)',
+' 'product_name' => '상품명(Product name)',
+' 'item_count' => '상품 개수(Quantity of product)',
+' 'sales' => '금액(Total price)',
+' 'category' => '계약시 협의(Category in Contract)',	 // 없으면 공백 처리
+' 'user_id' => 'user_id',				 // 없으면 공백 처리
+' 'remote_address' => '사용자의 IP(User IP)'		// $_SERVER["REMOTE_ADDR"]
+' 'user_agent' => '유저 에이전트(User agent)',	        // $_SERVER["HTTP_USER_AGENT"]
+
+
+command.CommandText = "SELECT	network_value 			lpinfo," + _
+				"'your merchant id' 		merchant_id,"+ _
+				"user_id 			member_id,"+ _
+				"order_code 			order_code,"+ _
+				"product_code 		    	product_code,"+ _
+				"price 				sales,"+ _
+				"product_name			product_name,"+ _
+				"count 				item_count,"+ _
+				"category 			category_code,"+ _
+				"remote_address 		remote_addr,"+ _
+				"u_agent 			user_agent"+ _
+			" FROM your_order_table"+ _
+			" WHERE order_code = ?"+ _
+			" AND	  network_name =?"
 
 command.Parameters.Append(command.CreateParameter("order_code", adchar, adParamInput, Len(search_order_code), search_order_code))
 command.Parameters.Append(command.CreateParameter("network_value", adchar, adParamInput, Len(LPINFO), LPINFO))
