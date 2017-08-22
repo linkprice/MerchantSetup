@@ -56,19 +56,19 @@
    - JSON 형식으로 전송해 주시기 바랍니다.
    - KEY 이름은 **수정 할 수 없으며**, VALUE 값은 아래와 같이 입력해 주시기 바랍니다.
 
-   ```javascript
+  ```javascript
    [{
-   	lpinfo : network_value,				//LPINFO cookie 값
-   	merchant_id : "Your merchant ID",			//계약시 제공 받은 머천트 아이디
-     	member_id : "User ID of who phurchase products",	// 실적 발생 사용자 ID
-     	unique_id : "number of member",			// 회원번호(Unique 값)
-     	action : "Registration",				// 액션 종류(예 - "Registration", "Poll")
-     	category_code : "FREE",		// 회원가입 종류
-     	action_name : "무료 회원 가입",				// 회원가입 종류명
-     	user_agent : HTTP_USER_AGENT,				// $_SERVER["HTTP_USER_AGENT"]
-     	remote_addr  REMOTE_ADDR				// $_SERVER["REMOTE_ADDR"]
+      lpinfo : network_value,			//LPINFO cookie 값
+      merchant_id : "Your merchant ID",			//계약시 제공 받은 머천트 아이디
+      member_id : "User ID of who phurchase products",	// 회원가입 ID
+      unique_id : "number of member",		// 회원번호(Unique 값)
+      action : "Registration",			// 액션 종류(예 - "Registration", "Poll")
+      category_code : "FREE",		// 회원가입 종류(예-"FREE","PAID")
+      action_name : "무료 회원 가입",			// 회원가입 종류명
+      user_agent : HTTP_USER_AGENT,			// $_SERVER["HTTP_USER_AGENT"]
+      remote_addr  REMOTE_ADDR				// $_SERVER["REMOTE_ADDR"]
    }]
-  
+   ```
 
 4. 샘플 코드
 
