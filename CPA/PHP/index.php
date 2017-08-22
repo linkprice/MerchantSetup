@@ -36,7 +36,11 @@ if(mysqli_stmt_prepare($stmt,$sql)){
     mysqli_stmt_bind_param($stmt,"ss",$search_order_code,LPINFO);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-    $send_data = mysqli_fetch_assoc($result);
+    
+    while ($row = mysqli_fetch_assoc($result)) {
+        $send_data[] = $row;
+    }
+	
     mysqli_stmt_close($stmt);
 }
 
