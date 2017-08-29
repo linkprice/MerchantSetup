@@ -66,13 +66,13 @@
 	[{
 		lpinfo : network_value,					// LPINFO cookie 값
 		merchant_id : "Your merchant ID",			// 계약시 제공 받은 머천트 아이디
-		member_id : "User ID of who phurchase products",	// 유저 ID (없으면 공백 처리)
+		member_id : "User ID of who phurchase products",	// 유저 ID
 		order_code : "Order code of product",			// 주문번호 (Unique 값)
 		product_code : "Product code",				// 상품코드
 		product_name : "Product name",				// 상품명
 		item_count : "Item count",				// 개수
 		sales : "Total price",					// 총금액 (가격 * 개수)
-		category_code : "Category code of product",		// 카테고리 코드 (없으면 공백 처리)
+		category_code : "Category code of product",		// 카테고리 코드
 		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
 		remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
 	}]
@@ -109,13 +109,13 @@
 	[{
 		lpinfo : network_value,					// LPINFO cookie 값
 		order_tiem : "order time",				// 주문시간
-		member_id : "User ID of who phurchase products",	// 유저 ID (없으면 공백 처리)
+		member_id : "User ID of who phurchase products",	// 유저 ID
 		order_code : "Order code of product",			// 주문번호 (Unique 값)
 		product_code : "Product code",				// 상품코드
 		product_name : "Product name",				// 상품명
 		item_count : "Item count",				// 개수
 		sales : "Total price",					// 총금액 (가격 * 개수)
-		category_code : "Category code of product",		// 카테고리 코드 (없으면 공백 처리)
+		category_code : "Category code of product",		// 카테고리 코드
 		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
 		remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
 	}]
