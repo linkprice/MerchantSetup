@@ -1,7 +1,7 @@
 <?php
 $send_data = array();
 $search_order_code = "User number";	// User number from complete registration page
-define(LPINFO,"linkprice");	        // network name value from complete payment page
+define(NWNAME,"linkprice");	        // network name value from complete payment page
 
 /*
 Change filed name to your field name
@@ -33,7 +33,7 @@ $sql = "select	network_value 		lpinfo,
 
 $stmt = mysqli_stmt_init($conn);
 if(mysqli_stmt_prepare($stmt,$sql)){
-    mysqli_stmt_bind_param($stmt,"ss",$search_order_code,LPINFO);
+    mysqli_stmt_bind_param($stmt,"ss",$search_order_code,NWNAME);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     
