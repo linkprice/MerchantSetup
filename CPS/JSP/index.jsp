@@ -12,7 +12,7 @@
 <%
 String sql = new String();
 String search_order_code = "order code";
-String LPINFO = "lpinfo";
+String NWNAME = "linkprice";
 String LP_URL = "https://service.linkprice.com/lppurchase_cps_v3.php";
 
 /**
@@ -50,8 +50,8 @@ PreparedStatement stmt = null;
 ResultSet result = null;
 
 stmt = conn.prepareStatement(sql);
-stmt.setString(1, LPINFO);
-stmt.setString(2, search_order_code);
+stmt.setString(1, search_order_code);
+stmt.setString(2, NWNAME);
 result = stmt.executeQuery();
 
 JSONArray send_data = new JSONArray();
