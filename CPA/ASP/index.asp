@@ -4,7 +4,7 @@
 Response.LCID = 1043
 
 Const LP_URL  = "https://service.linkprice.com/lppurchase_cpa_v3.php"
-Const LPINFO = "lpinfo value"           'network_value from complete payment page
+Const NWNAME = "linkprice"
 Dim search_order_code               	'order code from complete payment page
 search_order_code = "order_code"
 
@@ -46,7 +46,7 @@ command.CommandText = "SELECT	network_value 		lpinfo," + _
 	 		" AND network_name =?"
 
 command.Parameters.Append(command.CreateParameter("order_code", adchar, adParamInput, Len(search_order_code), search_order_code))
-command.Parameters.Append(command.CreateParameter("network_value", adchar, adParamInput, Len(LPINFO), LPINFO))
+command.Parameters.Append(command.CreateParameter("network_value", adchar, adParamInput, Len(NWNAME), NWNAME))
 
 set result = command.execute
 send_data.LoadRecordset result
