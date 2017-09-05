@@ -14,7 +14,7 @@
 <%
 String sql = new String();
 String yyyymmdd = request.getParameter("yyyymmdd");
-String NWNAME = "lpinfo";                   //network name for linkprice
+String NWNAME = "linkprice";                   //network name for linkprice
 
 sql = "SELECT	network_value 		a_id,"
 	 	+"order_time 		order_time,"
