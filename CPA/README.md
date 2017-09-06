@@ -65,10 +65,10 @@
       merchant_id : "Your merchant ID",			//계약시 제공 받은 머천트 아이디
       member_id : "User ID of who phurchase products",	// 회원가입 ID
       unique_id : "number of member",		        // 회원번호(Unique 값)
-      action : "member",			        // 액션 종류(예 - "Registration", "Poll")
+      action : "member",			                // 액션 종류(예 - "Registration", "Poll")
       action_name : "무료 회원 가입",                      // 회원가입 종류명
       category_code : "member",		                // 회원가입 종류(예-"member","PAID")
-      user_agent : "User Agent",			// $_SERVER["HTTP_USER_AGENT"]
+      user_agent : "User Agent",			        // $_SERVER["HTTP_USER_AGENT"]
       remote_addr :  "User IP"				// $_SERVER["REMOTE_ADDR"]
    }]
    ```
@@ -111,7 +111,7 @@
    action : "Registration",				// 액션 종류(예 - "Registration", "Poll")
    action_name : "무료 회원 가입",			// 회원가입 종류명
    category_code : "FREE",				// 회원가입 종류(예-"FREE","PAID")
-   user_agent : "User Agent",			// $_SERVER["HTTP_USER_AGENT"]
+   user_agent : "User Agent",			        // $_SERVER["HTTP_USER_AGENT"]
    remote_addr :  "User IP"				// $_SERVER["REMOTE_ADDR"]
 }]
 ```
