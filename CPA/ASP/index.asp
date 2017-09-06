@@ -25,9 +25,9 @@ command.CommandType = adCmdText
 ' 'merchant_id' => '계약시 제공 받은 머천트 아이디(Merchant ID from Linkprice)'
 ' 'member_id' => 'User id'
 ' 'unique_id' => '회원번호(User number)'
-' 'action' => '종류(Action type - ex:"Registration", "Poll", "Participation")'
-' 'category_code' => '회원가입 종류(Type of registration - ex: "FREE", "Paid")'
-' 'action_name' => '회원가입 종류명(Name of registration)'
+' 'action' => '액션 코드(Action type - ex:"member", "apply")'
+' 'category_code' => '회원가입 종류(Type of registration - ex: "member", "apply")'
+' 'action_name' => '액션 이름(Name of registration)'
 ' 'remote_address' => '사용자의 IP(User IP)'		// $_SERVER["REMOTE_ADDR"]
 ' 'user_agent' => '유저 에이전트(User agent)',	        // $_SERVER["HTTP_USER_AGENT"]
 
