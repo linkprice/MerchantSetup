@@ -3,13 +3,13 @@
 ### [1. 랜딩 페이지 작성 (LPINFO 쿠키생성)](https://github.com/linkprice/MerchantSetup/tree/master/CPS#랜딩-페이지-작성)
 
 ### [2. 실적 전송](https://github.com/linkprice/MerchantSetup/tree/master/CPS#실시간-실적-전송)
-	구매 완료시 링크프라이스로 실적 전송 (**Server to Server 방식**)
+* 구매 완료시 링크프라이스로 실적 전송 (**Server to Server 방식**)
 
 ### [3. 실적 정보 출력](https://github.com/linkprice/MerchantSetup/tree/master/CPS#실적-정보-출력-daily_fix)
-	머천트 주문 정보와 링크프라이스 실적을 대조하여 누락된 실적을 복구하기 위한 작업
+ * 머천트 주문 정보와 링크프라이스 실적을 대조하여 누락된 실적을 복구하기 위한 작업
 
 ### [4. 자동 실적 취소](https://github.com/linkprice/MerchantSetup/tree/master/CPS#자동-실적-취소-auto_cancel)
-	머천트 주문 취소시 링크프라이스 실적 자동 취소
+ * 머천트 주문 취소시 링크프라이스 실적 자동 취소
 <br />
 <br />
 <br />
