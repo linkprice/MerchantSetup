@@ -36,9 +36,9 @@ command.CommandText = "SELECT	network_value 		lpinfo," + _
 	 		        "'your merchant id' 	merchant_id,"+ _
 	 		        "user_id 		member_id,"+ _
 	 		        "order_code 		unique_id,"+ _
-			        "'registration' 	action,"+ _
-	 		        "'FREE' 		category_code,"+ _
-				"'무료 회원 가입' 	action_name,"+ _
+			        "'member' 		action,"+ _
+	 		        "'member' 		category_code,"+ _
+				"'회원 가입' 	 	action_name,"+ _
 	 		        "remote_address 	remote_addr,"+ _
 	 		        "u_agent 		user_agent"+ _
 			" FROM your_order_table"+ _
