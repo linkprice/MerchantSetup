@@ -20,9 +20,9 @@
 
 	* 랜딩 페이지는 쿠키 생성 후 머천트 웹사이트로 리다이렉트하는 역할을 합니다. (샘플코드 참조) 
 
-	* RETURN_DAYS(광고 효과 인정 기간) 는 **계약서에 명시되어 있는 광고 효과 인정 기간**(일단위)으로 변경바랍니다. 
+	* RETURN_DAYS(광고 효과 인정 기간) 는 **계약서에 명시되어 있는 광고 효과 인정 기간**(일단위)으로 변경하시기 바랍니다. 
 	
-	* 광고 인정 기간을 계약서와 다르게 변경 시 계약위반으로 불이익을 받으실 수 있습니다.
+	* 광고 인정 기간을 계약서와 다르게 변경 시 계약위반으로 불이익을 받을 수 있습니다.
 
 2. 샘플 코드
 
@@ -35,7 +35,7 @@
 
 1. 실시간 주문 정보 저장
 
- 	* 구매 완료시 Cookie(**LPINFO**)가 존재하면 구매 정보를 저장합니다.
+ 	* 구매 완료시 Cookie(**LPINFO**)가 존재하면 주문 정보를 저장합니다.
 	
 	* 머천트 주문 테이블에 아래 필드를 추가합니다.
 
@@ -46,7 +46,7 @@
 	| remote_address |         사용자 IP(REMOTE_ADDR)         |
 	| user_agent   |   사용자 user_agent(HTTP_USER_AGENT)   |
 
-	* **구매 완료 시점**에 network_value, network_name, remote_address, user_agent 값을 주문 테이블에 저장하여 주십시요.
+	* **구매 완료 시점**에 network_value, network_name, remote_address, user_agent 값을 주문 테이블에 저장하여 주십시오.
 
 2. 실시간 실적 전송 시점
 
@@ -66,8 +66,8 @@
 	[{
 		lpinfo : network_value,					// LPINFO cookie 값
 		merchant_id : "Your merchant ID",			// 계약시 제공 받은 머천트 아이디
-		member_id : "User ID of who phurchase products",	// 유저 ID
-		order_code : "Order code of product",			// 주문번호 (Unique 값)
+		member_id : "User ID of who phurchase products",	// 회원 ID
+		order_code : "Order code of product",			// 주문번호
 		product_code : "Product code",				// 상품코드
 		product_name : "Product name",				// 상품명
 		item_count : "Item count",				// 개수
@@ -91,7 +91,9 @@
 
 	* 머천트 주문 정보와 링크프라이스의 실적을 대조하여 누락된 실적을 복구하기 위한 작업입니다.
 
-	* 머천트의 실적 정보 출력 URL를 특정 시점마다 링크프라이스에서 호출하여 자동으로 복구합니다.
+	* 머천트의 실적 정보 출력 URL를 링크프라이스에서 일별 호출하여 자동으로 복구합니다.
+	
+	* 주문번호(order_code)와 상품코드(product_code)로 실적을 대조합니다.
 
 2. 실적 정보 출력 셋업
 
@@ -99,21 +101,19 @@
 	
 	* 샘플코드는 머천트 개발 환경에 맞게 수정하시기 바랍니다.
 	
-	* 링크프라이스에서는 머천트의 주문 정보를 일별 호출합니다. (yyyymmdd 파라미터로 호출)
-	
 	* 실적 전송된 데이터와 실적 정보 출력에서 확인되는 데이터 모두 동일해야 합니다.
 	
-	* 아래 예시와 같이 호출하면 해당 날짜의 실적이 출력될 수 있도록 합니다.
+	* 아래 예시와 같이 호출하면 해당 날짜의 실적 정보가 출력될 수 있도록 합니다. (yyyymmdd 파라미터로 호출)
 		* 예 - www.example.com/linkprice/daily_fix.php?yyyymmdd=20170701
 	
-	* 실적은 json 형식으로 출력하시기 바랍니다.
+	* 실적 정보는 json 형식으로 출력하시기 바랍니다.
 	
 	```javascript
 	[{
 		lpinfo : network_value,					// LPINFO cookie 값
 		order_tiem : "order time",				// 주문시간
-		member_id : "User ID of who phurchase products",	// 유저 ID
-		order_code : "Order code of product",			// 주문번호 (Unique 값)
+		member_id : "User ID of who phurchase products",	// 회원 ID
+		order_code : "Order code of product",			// 주문번호
 		product_code : "Product code",				// 상품코드
 		product_name : "Product name",				// 상품명
 		item_count : "Item count",				// 개수
@@ -134,16 +134,16 @@
 ## 자동 실적 취소 (auto_cancel)
 
 1. 자동 실적 취소
-	* 머천트에서 발생한 실적이 정상 실적 조건에 부합하지 않을 경우가 발생한 경우(반품, 미입금, 취소 등) 링크프라이스에서 해당 실적을 취소합니다.
+	* 머천트 실적이 취소(반품, 미입금 등)됐을 경우 링크프라이스에서 해당 실적을 취소합니다.
 	
-	* 링크프라이스 실적에서 주문번호(order_code)와 상품코드(product_code)를 머천트에 GET방식으로 전송합니다.
+	* 머천트 자동 실적 취소 URL을 호출하여 링크프라이스에 있는 실적 취소를 진행합니다. (매월 20일)
+	
+	* 주문번호(order_code)와 상품코드(product_code)로 실적을 대조합니다.
 
 2. 자동 실적 취소 셋업
 	* 샘플코드는 머천트 개발 환경에 맞게 수정하시기 바랍니다.
 	
-	* 머천트 자동 실적 취소 URL을 호출하여 링크프라이스에 있는 실적 취소를 진행합니다. (매월 20일)
-	
-	* 자동취소 페이지 호출 시 json 형식으로 출력하여 주시기 바랍니다.
+	* 자동 실적 취소 URL 호출 시 json 형식으로 출력하여 주시기 바랍니다.
 
 	```javascript
 	[{
