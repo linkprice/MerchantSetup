@@ -63,11 +63,11 @@
    [{
       lpinfo : network_value,				//LPINFO cookie 값
       merchant_id : "Your merchant ID",			//계약시 제공 받은 머천트 아이디
-      member_id : "User ID of who phurchase products",	// 회원가입 ID
+      member_id : "User ID of who register",	        // 회원가입 ID
       unique_id : "number of member",		        // 회원번호(Unique 값)
-      action : "member",			                // 액션 종류(예 - "Registration", "Poll")
-      action_name : "무료 회원 가입",                      // 회원가입 종류명
-      category_code : "member",		                // 회원가입 종류(예-"member","PAID")
+      action : "member",			                // 액션 코드(예 - "member", "apply")
+      action_name : "회원가입",                           // 액션 이름(예 - "회원가입", "신청서 작성")
+      category_code : "member",		                // 회원가입 종류(예-"member","apply")
       user_agent : "User Agent",			        // $_SERVER["HTTP_USER_AGENT"]
       remote_addr :  "User IP"				// $_SERVER["REMOTE_ADDR"]
    }]
@@ -106,11 +106,11 @@
 [{
    lpinfo : network_value,				//LPINFO cookie 값
    order_time : "132543",				// 가입시간(hhmmss)
-   member_id : "User ID of who phurchase products",	// 회원가입 ID
+   member_id : "User ID of who register",	        // 회원가입 ID
    unique_id : "number of member",			// 회원번호(Unique 값)
-   action : "Registration",				// 액션 종류(예 - "Registration", "Poll")
-   action_name : "무료 회원 가입",			// 회원가입 종류명
-   category_code : "FREE",				// 회원가입 종류(예-"FREE","PAID")
+   action : "member",			                // 액션 코드(예 - "member", "apply")
+   action_name : "회원가입",                             // 액션 이름(예 - "회원가입", "신청서 작성")
+   category_code : "member",		                // 회원가입 종류(예-"member","apply")
    user_agent : "User Agent",			        // $_SERVER["HTTP_USER_AGENT"]
    remote_addr :  "User IP"				// $_SERVER["REMOTE_ADDR"]
 }]
