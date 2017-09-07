@@ -77,7 +77,7 @@
 		remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
 	}]
 	```
-	* 실적 중 위의 값으로 실적 구분이 힘든 경우 링크프라이스로 연락 주십시요.
+	* 실적 중 위의 값으로 실적 구분이  경우 링크프라이스로 연락 주십시요.
 
 4. 샘플 코드
 	* [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.php)
