@@ -1,7 +1,7 @@
 <?php
 $send_data = array();
 $search_order_code = "User number";	// User number from complete registration page
-define(NWNAME,"linkprice");	        // network name value from complete payment page
+define(NWNAME,"linkprice");	        // network name value to recognize linkprice
 
 /*
 Change filed name to your field name
