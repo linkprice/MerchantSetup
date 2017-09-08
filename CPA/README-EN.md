@@ -93,7 +93,7 @@
 
 
 
-## <a name="daily_fix"></a>Display action data(daily_fix)
+## <a name="daily-fix"></a>Display action data(daily_fix)
 
 1.  Display action data
 
