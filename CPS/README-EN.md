@@ -41,7 +41,7 @@
 
     ​
 
-## CPS - Send sales data on real time
+## Send sales data on real time
 
 1.  Save sales data on real time
 
@@ -91,7 +91,7 @@
     *   [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.jsp)
     *   [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.asp)
 
-## CPS - Display sales data(daily_fix)
+## Display sales data(daily_fix)
 
 1.  Display sales data
 
@@ -136,7 +136,7 @@
 
     ​
 
-## CPS - Cancel sales data automatically
+## Cancel sales data automatically
 
 1.  Cancel sales data automatically
 
