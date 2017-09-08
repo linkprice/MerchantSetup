@@ -118,7 +118,7 @@
        member_id : "User ID of who register",	        
        unique_id : "number of member",		
        action : "member",			                // action code(max-length : 100)
-       action_name : "회원가입",                             // max-length : 300
+       action_name : "Registration",                             // max-length : 300
        category_code : "member",		                // type of action(ex – “member”, “apply”)
        user_agent : "User Agent",			        // $_SERVER["HTTP_USER_AGENT"]
        remote_addr :  "User IP"				// $_SERVER["REMOTE_ADDR"]
