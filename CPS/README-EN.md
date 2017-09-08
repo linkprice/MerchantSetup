@@ -11,7 +11,7 @@
 *   Compare to merchant sales data and Linkprice data that merchant send to recover
     lost data in transfer process.
 
-### [4. Cancel sales data automatically](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Cancel-sales-data-automatically)
+### [4. Cancel sales data automatically](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Cancel-sales-data-automatically-auto_cancel)
 
 *   Cancel Linkprice sales data automatically when your sales are canceled.
     <br />
