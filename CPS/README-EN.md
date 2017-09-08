@@ -1,8 +1,8 @@
 ## SUMMARY
 
-### [1. Landing Page(Create cookie called LPINFO)](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Landing-Page)
+### [1. Landing Page(Create cookie called LPINFO)](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Landing Page)
 
-### [2. Send sales data on real time](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Send-sales-data-on-real-time)
+### [2. Send sales data on real time](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Send sales data on real time)
 
 *   Send sales data when purchase is completed.(Server to Server)
 
