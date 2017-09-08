@@ -1,12 +1,12 @@
 ## SUMMARY
 
-### [1. Landing Page(Create cookie called LPINFO)](https://github.com/linkprice/MerchantSetup/tree/master/CPS#Landing-Page)
+### [1. Landing Page(Create cookie called LPINFO)](#landing-page)
 
-### [2. Send sales data on real time](https://github.com/linkprice/MerchantSetup/tree/master/CPS#Send-sales-data-on-real-time)
+### [2. Send sales data on real time](#send-data)
 
 *   Send action data when registration is completed (**Server to Server**)
 
-### [3. Display action data](https://github.com/linkprice/MerchantSetup/tree/master/CPS#실적-정보-출력-daily_fix)
+### [3. Display action data](#daily-fix)
 
 *   Compare to merchant action data and Linkprice data that merchant send to recover
     lost data in transfer process.
@@ -17,7 +17,7 @@
 
 
 
-## Landing Page
+## <a name="landing-page"></a>Landing Page
 
 1.  Landing page
 
@@ -38,7 +38,7 @@
 
 
 
-## CPA - Send action data on real time
+## <a name="send-data"></a>Send action data on real time
 
 1.  Save action data on real time
 
@@ -93,7 +93,7 @@
 
 
 
-## CPA - Display action data(daily_fix)
+## <a name="daily_fix"></a>Display action data(daily_fix)
 
 1.  Display action data
 
