@@ -2,11 +2,11 @@
 
 ### [1. Landing Page(Create cookie called LPINFO)](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Landing-Page)
 
-### [2. Send sales data on real time](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Send-sales-data-on-real-time)
+### [2. Send sales data](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Send-sales-data-on-real-time)
 
 *   Send sales data when purchase is completed.(Server to Server)
 
-### [3. Display sales data](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Dispaly-sales-data-daily_fix)
+### [3. Display sales data](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Display-sales-data-daily_fix)
 
 *   Compare to merchant sales data and Linkprice data that merchant send to recover
     lost data in transfer process.
@@ -136,7 +136,7 @@
 
     ​
 
-## Cancel sales data automatically
+## Cancel sales data automatically(auto_cancel)
 
 1.  Cancel sales data automatically
 
