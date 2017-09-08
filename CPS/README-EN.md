@@ -2,16 +2,16 @@
 
 ### [1. Landing Page(Create cookie called LPINFO)](#Landing-Page)
 
-### [2. Send sales data](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Send-sales-data-on-real-time)
+### [2. Send sales data](#send-data)
 
 *   Send sales data when purchase is completed.(Server to Server)
 
-### [3. Display sales data](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Display-sales-data-daily_fix)
+### [3. Display sales data](#daily-fix)
 
 *   Compare to merchant sales data and Linkprice data that merchant send to recover
     lost data in transfer process.
 
-### [4. Cancel sales data automatically](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Cancel-sales-data-automatically-auto_cancel)
+### [4. Cancel sales data automatically](#auto-cancel)
 
 *   Cancel Linkprice sales data automatically when your sales are canceled.
     <br />
@@ -41,7 +41,7 @@
 
     ​
 
-## Send sales data on real time
+## <a name="Send-data"></a>Send sales data on real time
 
 1.  Save sales data on real time
 
@@ -91,7 +91,7 @@
     *   [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.jsp)
     *   [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.asp)
 
-## Display sales data(daily_fix)
+## <a name="daily-fix"></a>Display sales data(daily_fix)
 
 1.  Display sales data
 
@@ -136,7 +136,7 @@
 
     ​
 
-## Cancel sales data automatically(auto_cancel)
+## <a name="auto-cancel"></a>Cancel sales data automatically(auto_cancel)
 
 1.  Cancel sales data automatically
 
