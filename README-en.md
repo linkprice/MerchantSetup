@@ -5,6 +5,6 @@ After a user clicks merchant’s banner or link at an affiliate(publisher) site 
 Setup process (or system) is to prepare this tracing system between merchant’s systemand LinkPrice system. It is a precondition for affiliate marketing. 
 
 
-## [CPS SETUP MANUAL](https://github.com/linkprice/MerchantSetup/tree/master/CPS)
+## [CPS SETUP MANUAL](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-en.md)
 
-## [CPA SETUP MANUAL](https://github.com/linkprice/MerchantSetup/tree/master/CPA)
+## [CPA SETUP MANUAL](https://github.com/linkprice/MerchantSetup/blob/master/CPA/README-en.md)
