@@ -1,17 +1,17 @@
 ## SUMMARY
 
-### [1. Landing Page(Create cookie called LPINFO)](https://github.com/linkprice/MerchantSetup/tree/master/CPS#Landing-Page)
+### [1. Landing Page(Create cookie called LPINFO)](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Landing-Page)
 
-### [2. Send sales data on real time](https://github.com/linkprice/MerchantSetup/tree/master/CPS#Send-sales-data-on-real-time)
+### [2. Send sales data on real time](### [2. Send sales data on real time](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Send-sales-data-on-real-time)
 
 *   Send sales data when purchase is completed.(Server to Server)
 
-### [3. Display sales data](https://github.com/linkprice/MerchantSetup/tree/master/CPS#실적-정보-출력-daily_fix)
+### [3. Display sales data](### [2. Send sales data on real time](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Dispaly-sales-data(daily_fix))
 
 *   Compare to merchant sales data and Linkprice data that merchant send to recover
     lost data in transfer process.
 
-### [4. Cancel sales data automatically](https://github.com/linkprice/MerchantSetup/tree/master/CPS#자동-실적-취소-auto_cancel)
+### [4. Cancel sales data automatically](### [2. Send sales data on real time](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-EN.md#Cancel-sales-data-automatically)
 
 *   Cancel Linkprice sales data automatically when your sales are canceled.
     <br />
