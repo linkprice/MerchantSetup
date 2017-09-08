@@ -41,7 +41,7 @@
 
     ​
 
-## <a name="Send-data"></a>Send sales data on real time
+## <a name="send-data"></a>Send sales data on real time
 
 1.  Save sales data on real time
 
