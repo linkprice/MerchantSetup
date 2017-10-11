@@ -3,7 +3,7 @@
 <%
 Response.LCID = 1043
 
-Const LP_URL  = "https://service.linkprice.com/lppurchase_cps_v3.php"
+Const LP_URL  = "http://tservice.linkprice.com/lppurchase_discount.php"
 Const NWNAME = "linkprice"
 Dim search_order_code               	'order code from complete payment page
 search_order_code = "order_code"
