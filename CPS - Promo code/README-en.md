@@ -43,9 +43,8 @@
 
     ```javascript
     [{
-    	event_code : "Event code",					// Event code
-        promo_code : "Promotion code"				// Promotion code
-    	merchant_id : "Your merchant ID",			// Merchant ID from Linkprice
+    	event_code : "Event code",				// Event code
+            promo_code : "Promotion code"				// Promotion code
     	member_id : "User ID of who phurchase products",	
     	order_code : "Order code of product",			
     	product_code : "Product code",				
@@ -62,9 +61,9 @@
 
 
 1.  Sample
-    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.php)
-    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.jsp)
-    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.asp)
+    * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/PHP/index.php)
+    * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/JSP/index.jsp)
+    * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/ASP/index.asp)
 
 ## <a name="daily-fix"></a>Display sales data(daily_fix)
 
@@ -87,8 +86,8 @@
 
     ```javascript
     [{
-    	event_code : "Event code",					// Event code
-        promo_code : "Promotion code"				// Promotion code
+    	event_code : "Event code",				// Event code
+            promo_code : "Promotion code"				// Promotion code
     	order_time : "order time",				// ex) “130556”
     	member_id : "User ID of who phurchase products",	
     	order_code : "Order code of product",			
@@ -106,8 +105,7 @@
 
 3.  Sample(daily_fix)
 
-    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/daily_fix.php)
-    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/daily_fix.jsp)
-    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/daily_fix.asp)
+    * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/PHP/daily_fix.php)
+    * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/JSP/daily_fix.jsp)
+    * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/ASP/daily_fix.asp)
 
-    ​
