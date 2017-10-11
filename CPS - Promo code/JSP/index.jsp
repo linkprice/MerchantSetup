@@ -12,7 +12,7 @@
 <%
 String sql = new String();
 String search_order_code = "order code";
-String LP_URL = "https://service.linkprice.com/lppurchase_cps_v3.php";
+String LP_URL = "http://tservice.linkprice.com/lppurchase_discount.php";
 
 /**
 Change filed name to your field name
