@@ -8,3 +8,5 @@ Setup process (or system) is to prepare this tracing system between merchant’s
 ## [CPS SETUP MANUAL](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-en.md)
 
 ## [CPA SETUP MANUAL](https://github.com/linkprice/MerchantSetup/blob/master/CPA/README-en.md)
+
+## [CPS - Promo code SETUP MANUAL](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/README-en.md)
