@@ -3,6 +3,7 @@ define(RETURN_DAYS,7);			//광고 인정 기간(Cookie expire time)
 
 $lpinfo = $_REQUEST["lpinfo"];		//어필리에이트 정보(Affiliate info)
 $url = $_REQUEST["url"];		//이동할 페이지(URL of redirection)
+$domain = ".example.com";		//서비스 중인 사이트 (Site in service)
 
 if ($lpinfo == "" ||  $url == "")  {
     // alert: LPMS: Parameter Error
@@ -16,9 +17,9 @@ if ($lpinfo == "" ||  $url == "")  {
 Header("P3P:CP=\"NOI DEVa TAIa OUR BUS UNI\"");
 
 if (RETURN_DAYS == 0) {
-    SetCookie("LPINFO", $lpinfo, 0, "/", ".example.com");
+    SetCookie("LPINFO", $lpinfo, 0, "/", $domain);
 } else {
-    SetCookie("LPINFO", $lpinfo, time() + (RETURN_DAYS * 24 * 60 * 60), "/", ".example.com");
+    SetCookie("LPINFO", $lpinfo, time() + (RETURN_DAYS * 24 * 60 * 60), "/", $domain);
 }
 
 Header("Location: ".$url);
