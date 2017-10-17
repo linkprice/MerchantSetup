@@ -7,7 +7,7 @@ $url = $_REQUEST["url"];		//이동할 페이지(URL of redirection)
 if ($lpinfo == "" ||  $url == "")  {
     // alert: LPMS: Parameter Error
     echo "<html><head><script type=\"text/javascript\">
-	    alert('LPMS: 연결할 수 없습니다. 사이트 담당자에게 문의하시기 바랍니다.');
+	    alert('LPMS: LPMS: Unable to connect. Contact your linkprice site representative.');
 	    history.go(-1);
         </script></head></html>";
     exit;
