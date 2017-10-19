@@ -154,10 +154,10 @@
         displayed in json type.
 
     ```javascript
-    [{
+    {
     	order_status : "1",		// result code(See result code chart)
     	reason : "order confirmed"		// reason
-    }]
+    }
     ```
 
     ​
