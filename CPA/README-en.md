@@ -72,7 +72,7 @@
 
 ```javascript
    [{
-      lpinfo : network_value,				// LPINFO cookie value
+      lpinfo : "network_value",				// LPINFO cookie value
       merchant_id : "Your merchant ID",			// Merchant ID from Linkprice
       member_id : "User ID of who register",	        
       unique_id : "number of member",		        
@@ -113,7 +113,7 @@
 
     ```javascript
     [{
-       lpinfo : network_value,                              // LPINFO cookie value
+       lpinfo : "network_value",                              // LPINFO cookie value
        order_time : "132543",                               // ex) “130556”
        member_id : "User ID of who register",	        
        unique_id : "number of member",		
