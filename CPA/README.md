@@ -61,7 +61,7 @@
 
   ```javascript
    [{
-      lpinfo : network_value,				// LPINFO cookie 값
+      lpinfo : "network_value",				// LPINFO cookie 값
       merchant_id : "Your merchant ID",			// 계약시 제공 받은 머천트 아이디
       member_id : "User ID of who register",	        // 회원가입 ID
       unique_id : "number of member",		        // 회원번호(Unique 값)
@@ -104,7 +104,7 @@
 
 ```javascript
 [{
-   lpinfo : network_value,                              // LPINFO cookie 값
+   lpinfo : "network_value",                              // LPINFO cookie 값
    order_time : "132543",                               // 가입시간(hhmmss)
    member_id : "User ID of who register",	        // 회원가입 ID
    unique_id : "number of member",			// 회원번호(Unique 값)
