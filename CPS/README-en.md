@@ -112,7 +112,7 @@
 
     ```javascript
     [{
-    	lpinfo : network_value,					// LPINFO cookie value
+    	lpinfo : "network_value",					// LPINFO cookie value
     	order_time : "order time",				// ex) “130556”
     	member_id : "User ID of who phurchase products",	
     	order_code : "Order code of product",			
