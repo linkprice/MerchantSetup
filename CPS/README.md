@@ -64,7 +64,7 @@
 	
 	```javascript
 	[{
-		lpinfo : network_value,					// LPINFO cookie 값
+		lpinfo : "network_value",				// LPINFO cookie 값
 		merchant_id : "Your merchant ID",			// 계약시 제공 받은 머천트 아이디
 		member_id : "User ID of who phurchase products",	// 회원 ID
 		order_code : "Order code of product",			// 주문번호
@@ -110,7 +110,7 @@
 	
 	```javascript
 	[{
-		lpinfo : network_value,					// LPINFO cookie 값
+		lpinfo : "network_value",				// LPINFO cookie 값
 		order_time : "order time",				// 주문시간
 		member_id : "User ID of who phurchase products",	// 회원 ID
 		order_code : "Order code of product",			// 주문번호
