@@ -69,7 +69,7 @@
 
     ```javascript
     [{
-    	lpinfo : network_value,					// LPINFO cookie value
+    	lpinfo : "network_value",					// LPINFO cookie value
     	merchant_id : "Your merchant ID",			// Merchant ID from Linkprice
     	member_id : "User ID of who phurchase products",	
     	order_code : "Order code of product",			
