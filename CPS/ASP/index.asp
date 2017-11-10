@@ -62,6 +62,6 @@ conn.Close
 set con = Server.CreateObject("Msxml2.ServerXMLHTTP")
 con.open "POST", LP_URL, false
 con.setRequestHeader "Content-Type", "application/json"
-con.send Server.UrlEncode(send_data.Serialize())
+con.send send_data.Serialize()
 
 %>
