@@ -68,9 +68,10 @@ HttpURLConnection con = (HttpURLConnection)new URL(LP_URL).openConnection();
 con.setRequestMethod("POST");
 con.setRequestProperty("Content-Type", "application/json");
 con.setDoOutput(true);
+con.setDoInput(true);
+con.setUseCaches(false);
+con.setDefaultUseCaches(false);
 OutputStream os = con.getOutputStream();
-os.write(send_data.toString().getBytes());
-os.flush();
-os.close();
+os.write(send_data.toString().getBytes("UTF-8"));
 
 %>
