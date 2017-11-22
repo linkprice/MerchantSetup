@@ -1,6 +1,6 @@
 ## 셋업 요약
 
-### [1. 랜딩 페이지 작성 (LPINFO 쿠키생성)](https://github.com/linkprice/MerchantSetup/tree/master/CPS#랜딩-페이지-작성)
+### [1. Gateway 페이지 작성 (LPINFO 쿠키생성)](https://github.com/linkprice/MerchantSetup/tree/master/CPS#랜딩-페이지-작성)
 
 ### [2. 실적 전송](https://github.com/linkprice/MerchantSetup/tree/master/CPS#실시간-실적-전송)
 * 구매 완료시 링크프라이스로 실적 전송 (**Server to Server 방식**)
@@ -14,9 +14,9 @@
 <br />
 <br />
 
-## 랜딩 페이지 작성
+## Gateway 페이지 작성
 
-1. 랜딩 페이지 작성
+1. Gateway 페이지 작성
 
 	* 랜딩 페이지는 쿠키 생성 후 머천트 웹사이트로 리다이렉트하는 역할을 합니다. (샘플코드 참조) 
 
