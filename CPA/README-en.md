@@ -1,6 +1,6 @@
 ## SUMMARY
 
-### [1. Landing Page(Create cookie called LPINFO)](#landing-page)
+### [1. Gateway Page(Create cookie called LPINFO)](#landing-page)
 
 ### [2. Send sales data on real time](#send-data)
 
@@ -17,11 +17,11 @@
 
 
 
-## <a name="landing-page"></a>Landing Page
+## <a name="landing-page"></a>Gateway Page
 
-1.  Landing page
+1.  Gateway page
 
-    *   Landing page creates cookie that include affiliate information then redirect to your
+    *   Gateway page creates cookie that include affiliate information then redirect to your
         web site.(See sample)
 
     *   Change REUTRN_DAYS(Cookie duration) value to cookie duration on contract. If it is
