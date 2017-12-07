@@ -19,11 +19,6 @@
 
         response.addCookie(lpinfo);
     }
+    
+     response.sendRedirect(url);
 %>
-<html>
-<head>
-<script type="text/javascript">
-document.location.replace("<%=url%>");
-</script>
-</head>
-</html>
