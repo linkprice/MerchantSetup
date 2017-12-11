@@ -69,7 +69,24 @@ con.setDoOutput(true);
 con.setDoInput(true);
 con.setUseCaches(false);
 con.setDefaultUseCaches(false);
+
 OutputStream os = con.getOutputStream();
 os.write(send_data.toString().getBytes("UTF-8"));
+os.flush();
+os.close();
+
+BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+String line;
+StringBuffer response_data = new StringBuffer();
+while ((line = in.readLine()) != null) {
+	response_data.append(line);
+}
+
+//json request
+out.println(send_data.toString());
+
+//json response
+out.println(response_data.toString());
 
 %>
