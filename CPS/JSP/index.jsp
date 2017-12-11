@@ -72,9 +72,12 @@ con.setDoOutput(true);
 con.setDoInput(true);
 con.setUseCaches(false);
 con.setDefaultUseCaches(false);
+
 OutputStream os = con.getOutputStream();
 os.write(send_data.toString().getBytes("UTF-8"));
 os.flush();
 os.close();
+
+BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
 %>
