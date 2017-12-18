@@ -1,7 +1,7 @@
 <!--#include virtual="jsonObject.asp"-->
 
 <%
-Response.LCID = 1043
+Response.LCID = 1042
 
 Dim order_code, product_code
 
@@ -21,19 +21,19 @@ command.CommandType = adCmdText
 
 command.CommandText = "SELECT	'order_status' = " + _
 	 		                "CASE "+ _
-	 		                "when order_status = '¹ÌÀÔ±Þ' then 0 "+ _
-	 		                "when order_status = 'È®Á¤' then 1 "+ _
-			                "when order_status = 'ÁÖ¹®Ãë¼Ò' then 2 "+ _
-	 		                "when order_status = 'ÁÖ¹®¾øÀ½' then 3 "+ _
+	 		                "when order_status = 'ë¯¸ìž…ê¸‰' then 0 "+ _
+	 		                "when order_status = 'í™•ì •' then 1 "+ _
+			                "when order_status = 'ì£¼ë¬¸ì·¨ì†Œ' then 2 "+ _
+	 		                "when order_status = 'ì£¼ë¬¸ì—†ìŒ' then 3 "+ _
 	 		                "else 9 "+ _
 	 		                "END "+ _
 	 		                "'reason' = " +_
 	 		                "CASE "+ _
-                            "when order_status = '¹ÌÀÔ±Þ' then '¹ÌÀÔ±Ý' "+ _
-                            "when order_status = 'È®Á¤' then 'ÁÖ¹® ÃÖÁ¾ È®Á¤' "+ _
-                            "when order_status = 'ÁÖ¹®Ãë¼Ò' then 'ÁÖ¹® Ãë¼Ò' "+ _
-                            "when order_status = 'ÁÖ¹®¾øÀ½' then 'ÁÖ¹® ¾øÀ½' "+ _
-                            "else 'È®ÀÎ¿ä¸Á(¿¹¿Ü»óÈ²)' "+ _
+                            "when order_status = 'ë¯¸ìž…ê¸‰' then 'ë¯¸ìž…ê¸ˆ' "+ _
+                            "when order_status = 'í™•ì •' then 'ì£¼ë¬¸ ìµœì¢… í™•ì •' "+ _
+                            "when order_status = 'ì£¼ë¬¸ì·¨ì†Œ' then 'ì£¼ë¬¸ ì·¨ì†Œ' "+ _
+                            "when order_status = 'ì£¼ë¬¸ì—†ìŒ' then 'ì£¼ë¬¸ ì—†ìŒ' "+ _
+                            "else 'í™•ì¸ìš”ë§(ì˜ˆì™¸ìƒí™©)' "+ _
                             "END "+ _
                             "from your_order_table "+_
                             "where order_code = ? "+_
