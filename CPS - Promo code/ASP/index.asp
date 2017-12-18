@@ -1,6 +1,7 @@
 <!--#include virtual="jsonObject.asp"-->
 
 <%
+Response.LCID = 1042
 
 Const LP_URL  = "http://tservice.linkprice.com/lppurchase_discount.php"
 Const NWNAME = "linkprice"
