@@ -1,7 +1,7 @@
 <!--#include virtual="jsonObject.asp"-->
 
 <%
-Response.LCID = 1043
+Response.LCID = 1042
 
 Const NWNAME = "linkprice"           'network name value
 Dim yyyymmdd
