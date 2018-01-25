@@ -71,17 +71,19 @@
     *   **Do not change name of KEY** and insert value of your sales data.
 
 ```javascript
-   [{
-      lpinfo : "network_value",				// LPINFO cookie value
-      merchant_id : "Your merchant ID",			// Merchant ID from Linkprice
-      member_id : "User ID of who register",	        
-      unique_id : "number of member",		        
-      action : "member",                                  // action code(max-length : 100)
-      action_name : "회원가입",                            // max-length : 300
-      category_code : "member",		                // type of action(ex - “member”, “apply”)
-      user_agent : "User Agent",			        // $_SERVER["HTTP_USER_AGENT"]
-      remote_addr :  "User IP"				// $_SERVER["REMOTE_ADDR"]
-   }]
+   [
+     {
+        lpinfo : "network_value",           // LPINFO cookie value
+        merchant_id : "Your merchant ID",   // Merchant ID from Linkprice
+        member_id : "User ID of who register",	        
+        unique_id : "number of member",		        
+        action : "member",                  // action code(max-length : 100)
+        action_name : "회원가입",             // max-length : 300
+        category_code : "member",           // type of action(ex - “member”, “apply”)
+        user_agent : "User Agent",          // $_SERVER["HTTP_USER_AGENT"]
+        remote_addr :  "User IP"            // $_SERVER["REMOTE_ADDR"]
+     }
+   ]
 ```
 
 
@@ -112,17 +114,19 @@
     *   Action data should be displayed in json type.
 
     ```javascript
-    [{
-       lpinfo : "network_value",                              // LPINFO cookie value
-       order_time : "132543",                               // ex) “130556”
-       member_id : "User ID of who register",	        
-       unique_id : "number of member",		
-       action : "member",			                // action code(max-length : 100)
-       action_name : "Registration",                             // max-length : 300
-       category_code : "member",		                // type of action(ex – “member”, “apply”)
-       user_agent : "User Agent",			        // $_SERVER["HTTP_USER_AGENT"]
-       remote_addr :  "User IP"				// $_SERVER["REMOTE_ADDR"]
-    }]
+    [
+      {
+         lpinfo : "network_value",                  // LPINFO cookie value
+         order_time : "132543",                     // ex) “130556”
+         member_id : "User ID of who register",	        
+         unique_id : "number of member",		
+         action : "member",                         // action code(max-length : 100)
+         action_name : "Registration",              // max-length : 300
+         category_code : "member",                  // type of action(ex – “member”, “apply”)
+         user_agent : "User Agent",                 // $_SERVER["HTTP_USER_AGENT"]
+         remote_addr :  "User IP"                   // $_SERVER["REMOTE_ADDR"]
+      }
+    ]
     ```
 
     ​
