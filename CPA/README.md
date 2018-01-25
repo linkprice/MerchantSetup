@@ -60,17 +60,19 @@
     * KEY 이름은 **수정 할 수 없으며**, VALUE 값은 아래와 같이 입력해 주시기 바랍니다.
 
   ```javascript
-   [{
-      lpinfo : "network_value",				// LPINFO cookie 값
-      merchant_id : "Your merchant ID",			// 계약시 제공 받은 머천트 아이디
-      member_id : "User ID of who register",	        // 회원가입 ID
-      unique_id : "number of member",		        // 회원번호(Unique 값)
-      action : "member",                                  // 액션 코드(예 - "member", "apply")
-      action_name : "회원가입",                            // 액션 이름(예 - "회원가입", "신청서 작성")
-      category_code : "member",		                // 회원가입 종류(예-"member","apply")
-      user_agent : "User Agent",			        // $_SERVER["HTTP_USER_AGENT"]
-      remote_addr :  "User IP"				// $_SERVER["REMOTE_ADDR"]
-   }]
+   [
+     {
+        lpinfo : "network_value",				// LPINFO cookie 값
+        merchant_id : "Your merchant ID",			// 계약시 제공 받은 머천트 아이디
+        member_id : "User ID of who register",	        // 회원가입 ID
+        unique_id : "number of member",		        // 회원번호(Unique 값)
+        action : "member",                                // 액션 코드(예 - "member", "apply")
+        action_name : "회원가입",                          // 액션 이름(예 - "회원가입", "신청서 작성")
+        category_code : "member",		                // 회원가입 종류(예-"member","apply")
+        user_agent : "User Agent",			// $_SERVER["HTTP_USER_AGENT"]
+        remote_addr :  "User IP"				// $_SERVER["REMOTE_ADDR"]
+     }
+   ]
    ```
 
 4. 샘플 코드
@@ -103,17 +105,19 @@
     * 실적 정보는 json 형식으로 출력하시기 바랍니다.
 
 ```javascript
-[{
-   lpinfo : "network_value",                              // LPINFO cookie 값
-   order_time : "132543",                               // 가입시간(hhmmss)
-   member_id : "User ID of who register",	        // 회원가입 ID
-   unique_id : "number of member",			// 회원번호(Unique 값)
-   action : "member",			                // 액션 코드(예 - "member", "apply")
-   action_name : "회원가입",                             // 액션 이름(예 - "회원가입", "신청서 작성")
-   category_code : "member",		                // 회원가입 종류(예-"member","apply")
-   user_agent : "User Agent",			        // $_SERVER["HTTP_USER_AGENT"]
-   remote_addr :  "User IP"				// $_SERVER["REMOTE_ADDR"]
-}]
+[
+  {
+   l  pinfo : "network_value",                          // LPINFO cookie 값
+     order_time : "132543",                             // 가입시간(hhmmss)
+     member_id : "User ID of who register",	        // 회원가입 ID
+     unique_id : "number of member",			// 회원번호(Unique 값)
+     action : "member",			                // 액션 코드(예 - "member", "apply")
+     action_name : "회원가입",                            // 액션 이름(예 - "회원가입", "신청서 작성")
+     category_code : "member",		                // 회원가입 종류(예-"member","apply")
+     user_agent : "User Agent",			        // $_SERVER["HTTP_USER_AGENT"]
+     remote_addr :  "User IP"				// $_SERVER["REMOTE_ADDR"]
+  }
+]
 ```
 
 3. 샘플 코드
