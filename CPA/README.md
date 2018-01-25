@@ -107,7 +107,7 @@
 ```javascript
 [
   {
-   l  pinfo : "network_value",                          // LPINFO cookie 값
+     lpinfo : "network_value",                          // LPINFO cookie 값
      order_time : "132543",                             // 가입시간(hhmmss)
      member_id : "User ID of who register",	        // 회원가입 ID
      unique_id : "number of member",			// 회원번호(Unique 값)
