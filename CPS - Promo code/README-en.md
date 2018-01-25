@@ -42,19 +42,21 @@
     *   **Do not change name of KEY** and insert value of your sales data.
 
     ```javascript
-    [{
-    	event_code : "Event code",				// Event code
-            promo_code : "Promotion code"				// Promotion code
-    	member_id : "User ID of who phurchase products",	
-    	order_code : "Order code of product",			
-    	product_code : "Product code",				
-    	product_name : "Product name",				
-    	item_count : "Item count",				
-    	sales : "Total price",					// Price * Item count
-    	category_code : "Category code of product",		
-    	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
-    	remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-    }]
+    [
+        {
+    	    event_code : "Event code",                      // Event code
+                promo_code : "Promotion code",                  // Promotion code
+    	    member_id : "User ID of who phurchase products",	
+    	    order_code : "Order code of product",			
+    	    product_code : "Product code",				
+    	    product_name : "Product name",				
+    	    item_count : "Item count",				
+    	    sales : "Total price",                          // Price * Item count
+    	    category_code : "Category code of product",		
+    	    user_agent : "User Agent",                      // $_SERVER["HTTP_USER_AGENT"]
+    	    remote_addr:  "User IP"                         // $_SERVER["REMOTE_ADDR"]
+        }
+    ]
     ```
 
     ​
@@ -85,20 +87,22 @@
     *   Sales data should be displayed in json type.
 
     ```javascript
-    [{
-    	event_code : "Event code",				// Event code
-            promo_code : "Promotion code"				// Promotion code
-    	order_time : "order time",				// ex) “130556”
-    	member_id : "User ID of who phurchase products",	
-    	order_code : "Order code of product",			
-    	product_code : "Product code",				
-    	product_name : "Product name",				
-    	item_count : "Item count",				
-    	sales : "Total price",					// Price * Item count
-    	category_code : "Category code of product",
-    	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
-    	remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-    }]
+    [
+        {
+    	    event_code : "Event code",                  // Event code
+                promo_code : "Promotion code",              // Promotion code
+    	    order_time : "order time",                  // ex) “130556”
+    	    member_id : "User ID of who phurchase products",	
+    	    order_code : "Order code of product",			
+    	    product_code : "Product code",				
+    	    product_name : "Product name",				
+    	    item_count : "Item count",				
+    	    sales : "Total price",                      // Price * Item count
+    	    category_code : "Category code of product",
+    	    user_agent : "User Agent",                  // $_SERVER["HTTP_USER_AGENT"]
+    	    remote_addr:  "User IP"                     // $_SERVER["REMOTE_ADDR"]
+        }
+    ]
     ```
 
     ​
