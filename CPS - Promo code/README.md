@@ -41,19 +41,21 @@
   * 실적 중 위의 값으로 실적 구분이  경우 링크프라이스로 연락 주십시요.
 
   ```javascript
-  [{
-  	event_code : "Event code",				// 이벤트 코드
-          promo_code : "Promotion code"				// 할인 코드
-  	member_id : "User ID of who phurchase products",	// 회원 ID
-  	order_code : "Order code of product",			// 주문번호
-  	product_code : "Product code",				// 상품코드
-  	product_name : "Product name",				// 상품명
-  	item_count : "Item count",				// 개수
-  	sales : "Total price",					// 총금액 (가격 * 개수)
-  	category_code : "Category code of product",		// 카테고리 코드
-  	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
-  	remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-  }]
+  [
+    {
+  	    event_code : "Event code",                          // 이벤트 코드
+              promo_code : "Promotion code",                      // 할인 코드
+  	    member_id : "User ID of who phurchase products",	// 회원 ID
+  	    order_code : "Order code of product",               // 주문번호
+  	    product_code : "Product code",                      // 상품코드
+  	    product_name : "Product name",                      // 상품명
+  	    item_count : "Item count",                          // 개수
+  	    sales : "Total price",                              // 총금액 (가격 * 개수)
+  	    category_code : "Category code of product",         // 카테고리 코드
+  	    user_agent : "User Agent",                          // $_SERVER["HTTP_USER_AGENT"]
+  	    remote_addr:  "User IP"                             // $_SERVER["REMOTE_ADDR"]
+    }
+  ]
   ```
 
 4. 샘플 코드
@@ -86,20 +88,22 @@
   * 실적 정보는 json 형식으로 출력하시기 바랍니다.
 
   ```javascript
-  [{
-  	event_code : "Event code",			        // 이벤트 코드
-          promo_code : "Promotion code"				// 할인 코드
-  	order_time : "order time",				// 주문시간
-  	member_id : "User ID of who phurchase products",	// 회원 ID
-  	order_code : "Order code of product",			// 주문번호
-  	product_code : "Product code",				// 상품코드
-  	product_name : "Product name",				// 상품명
-  	item_count : "Item count",				// 개수
-  	sales : "Total price",					// 총금액 (가격 * 개수)
-  	category_code : "Category code of product",		// 카테고리 코드
-  	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
-  	remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-  }]
+[
+    {
+  	    event_code : "Event code",                          // 이벤트 코드
+              promo_code : "Promotion code",                      // 할인 코드
+  	    order_time : "order time",                          // 주문시간
+  	    member_id : "User ID of who phurchase products",    // 회원 ID
+  	    order_code : "Order code of product",               // 주문번호
+  	    product_code : "Product code",                      // 상품코드
+  	    product_name : "Product name",                      // 상품명
+  	    item_count : "Item count",                          // 개수
+  	    sales : "Total price",                              // 총금액 (가격 * 개수)
+  	    category_code : "Category code of product",         // 카테고리 코드
+  	    user_agent : "User Agent",                          // $_SERVER["HTTP_USER_AGENT"]
+  	    remote_addr:  "User IP"                             // $_SERVER["REMOTE_ADDR"]
+    }
+]
   ```
 
 3. 샘플 코드
