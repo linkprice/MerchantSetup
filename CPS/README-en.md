@@ -68,7 +68,8 @@
     *   **Do not change name of KEY** and insert value of your sales data.
 
     ```javascript
-    [{
+    [
+      {
     	lpinfo : "network_value",					// LPINFO cookie value
     	merchant_id : "Your merchant ID",			// Merchant ID from Linkprice
     	member_id : "User ID of who phurchase products",	
@@ -80,8 +81,60 @@
     	category_code : "Category code of product",		
     	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
     	remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-    }]
+      }
+    ]
     ```
+    
+    * Example(One payment for multiple products)
+    ```javascript
+	[
+	  {
+		lpinfo : "A100000131|24955642000000|0000|1|0",		
+		merchant_id : "Merchant_id",				
+		member_id : "member_id",				
+		order_code : "1234567890",				
+		product_code : "example_1",				
+		product_name : "example",				
+		item_count : "1",					
+		sales : "15000",					
+		category_code : "example_category",		
+		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
+		remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
+	  },
+	  {
+		lpinfo : "A100000131|24955642000000|0000|1|0",		
+		merchant_id : "Merchant_id",				
+		member_id : "member_id",			
+		order_code : "1234567890",				
+		product_code : "example_2",				
+		product_name : "example2",				
+		item_count : "1",					
+		sales : "20000",					
+		category_code : "example_category2",		
+		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
+		remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
+	  },	    
+	]
+	```
+	
+	* Example(One payment for product)
+	```javascript
+	[
+	  {
+		lpinfo : "A100000131|24955642000000|0000|1|0",		
+		merchant_id : "Merchant_id",		
+		member_id : "member_id",				
+		order_code : "1234567890",				
+		product_code : "example_1",				
+		product_name : "example",			
+		item_count : "1",					
+		sales : "15000",					
+		category_code : "example_category",			
+		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
+		remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
+	  } 
+	]
+	```
 
     ​
 
@@ -111,7 +164,8 @@
     *   Sales data should be displayed in json type.
 
     ```javascript
-    [{
+    [
+      {
     	lpinfo : "network_value",					// LPINFO cookie value
     	order_time : "order time",				// ex) “130556”
     	member_id : "User ID of who phurchase products",	
@@ -123,7 +177,8 @@
     	category_code : "Category code of product",
     	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
     	remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-    }]
+      }
+    ]
     ```
 
     ​
