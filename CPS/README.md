@@ -110,7 +110,7 @@
 		category_code : "example_category2",			// 카테고리 코드
 		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
 		remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-	    },	    
+	    }	    
 	]
 	```
 	
