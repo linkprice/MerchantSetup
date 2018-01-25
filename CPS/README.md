@@ -60,10 +60,13 @@
 	
 	* JSON 형식으로 전송해 주시기 바랍니다.
 	
+	* 결제시 복수 상품 및 단일 상품 모두 **Array**로 보내 주시기 바랍니다.
+	
 	* KEY 이름은 **수정 할 수 없으며**, VALUE 값은 아래와 같이 입력해 주시기 바랍니다.
 	
 	```javascript
-	[{
+	[
+	    {
 		lpinfo : "network_value",				// LPINFO cookie 값
 		merchant_id : "Your merchant ID",			// 계약시 제공 받은 머천트 아이디
 		member_id : "User ID of who phurchase products",	// 회원 ID
@@ -75,8 +78,61 @@
 		category_code : "Category code of product",		// 카테고리 코드
 		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
 		remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-	}]
+	    }
+	]
 	```
+	
+	* 예제(한번 결제에 복수 상품 결제시)
+	```javascript
+	[
+	    {
+		lpinfo : "A100000131|24955642000000|0000|1|0",		// LPINFO cookie 값
+		merchant_id : "Merchant_id",				// 계약시 제공 받은 머천트 아이디
+		member_id : "member_id",				// 회원 ID
+		order_code : "1234567890",				// 주문번호
+		product_code : "example_1",				// 상품코드
+		product_name : "example",				// 상품명
+		item_count : "1",					// 개수
+		sales : "15000",					// 총금액 (가격 * 개수)
+		category_code : "example_category",			// 카테고리 코드
+		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
+		remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
+	    },
+	    {
+		lpinfo : "A100000131|24955642000000|0000|1|0",		// LPINFO cookie 값
+		merchant_id : "Merchant_id",				// 계약시 제공 받은 머천트 아이디
+		member_id : "member_id",				// 회원 ID
+		order_code : "1234567890",				// 주문번호
+		product_code : "example_2",				// 상품코드
+		product_name : "example2",				// 상품명
+		item_count : "1",					// 개수
+		sales : "20000",					// 총금액 (가격 * 개수)
+		category_code : "example_category2",			// 카테고리 코드
+		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
+		remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
+	    },	    
+	]
+	```
+	
+	* 예제(한번 결제에 단일 상품 결제시)
+	```javascript
+	[
+	    {
+		lpinfo : "A100000131|24955642000000|0000|1|0",		// LPINFO cookie 값
+		merchant_id : "Merchant_id",				// 계약시 제공 받은 머천트 아이디
+		member_id : "member_id",				// 회원 ID
+		order_code : "1234567890",				// 주문번호
+		product_code : "example_1",				// 상품코드
+		product_name : "example",				// 상품명
+		item_count : "1",					// 개수
+		sales : "15000",					// 총금액 (가격 * 개수)
+		category_code : "example_category",			// 카테고리 코드
+		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
+		remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
+	    } 
+	]
+	```
+	
 	* 실적 중 위의 값으로 실적 구분이  경우 링크프라이스로 연락 주십시요.
 
 4. 샘플 코드
@@ -109,7 +165,8 @@
 	* 실적 정보는 json 형식으로 출력하시기 바랍니다.
 	
 	```javascript
-	[{
+	[
+	    {
 		lpinfo : "network_value",				// LPINFO cookie 값
 		order_time : "order time",				// 주문시간
 		member_id : "User ID of who phurchase products",	// 회원 ID
@@ -121,7 +178,8 @@
 		category_code : "Category code of product",		// 카테고리 코드
 		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
 		remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-	}]
+	    }
+	]
 	```
 
 3. 샘플 코드
