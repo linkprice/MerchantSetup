@@ -44,7 +44,7 @@
   [
     {
   	    event_code : "Event code",                          // 이벤트 코드
-              promo_code : "Promotion code",                      // 할인 코드
+        promo_code : "Promotion code",                      // 할인 코드
   	    member_id : "User ID of who phurchase products",	// 회원 ID
   	    order_code : "Order code of product",               // 주문번호
   	    product_code : "Product code",                      // 상품코드
@@ -57,6 +57,10 @@
     }
   ]
   ```
+  
+  * 이벤트 코드(event_code) 는 링크프라이스에서 등록되어야 하는 고유코드입니다.
+  * 할인 코드(promo_code) 는 머천트 측에서 발급하여 링크프라이스에 알려줘야 하는 코드입니다.
+  * <font color=red>발급 관련해서는 링크프라이스 측에 연락 바랍니다.</font>
 
 4. 샘플 코드
   * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/PHP/index.php)
