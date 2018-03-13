@@ -3,6 +3,12 @@ $send_data = array();
 $search_order_code = "order code";	// order code from complete payment page
 define(NWNAME, "linkprice");	        // network name value from complete payment page
 
+$db_ip = "DATABASE IP";
+$db_id = "DATABASE ID";
+$db_pw = "DATABASE PASSWORD";
+$db_nm = "DATABASE NAME";
+$conn = mysqli_connect($db_ip, $db_id, $db_pw, $db_nm);
+
 /*
 Change filed name to your field name
 
@@ -17,8 +23,8 @@ Change filed name to your field name
 'member_id' => 'user_id',				// 회원 ID
 'remote_address' => '사용자의 IP(User IP)'		// $_SERVER["REMOTE_ADDR"]
 'user_agent' => '유저 에이전트(User agent)',	        // $_SERVER["HTTP_USER_AGENT"]
-
 */
+
 $sql = "select	network_value 		lpinfo,
 		'your merchant id' 	merchant_id,
 		user_id 		member_id,
