@@ -1,21 +1,27 @@
 <?php
 $auto_cancel = array();
 
+$db_ip = "DATABASE IP";
+$db_id = "DATABASE ID";
+$db_pw = "DATABASE PASSWORD";
+$db_nm = "DATABASE NAME";
+$conn = mysqli_connect($db_ip, $db_id, $db_pw, $db_nm);
+
 $sql = "select	'order_status' = 
                 CASE 
-                when order_status = '¹ÌÀÔ±Þ' then 0 
-                when order_status = 'È®Á¤' then 1
-                when order_status = 'ÁÖ¹®Ãë¼Ò' then 2
-                when order_status = 'ÁÖ¹®¾øÀ½' then 3
+                when order_status = 'ë¯¸ìž…ê¸‰' then 0 
+                when order_status = 'í™•ì •' then 1
+                when order_status = 'ì£¼ë¬¸ì·¨ì†Œ' then 2
+                when order_status = 'ì£¼ë¬¸ì—†ìŒ' then 3
                 else 9
                 END,
                 'reason' = 
                 CASE
-                when order_status = '¹ÌÀÔ±Þ' then '¹ÌÀÔ±Ý' 
-                when order_status = 'È®Á¤' then 'ÁÖ¹® ÃÖÁ¾ È®Á¤'
-                when order_status = 'ÁÖ¹®Ãë¼Ò' then 'ÁÖ¹® Ãë¼Ò'
-                when order_status = 'ÁÖ¹®¾øÀ½' then 'ÁÖ¹® ¾øÀ½'
-                else 'È®ÀÎ¿ä¸Á(¿¹¿Ü»óÈ²')
+                when order_status = 'ë¯¸ìž…ê¸‰' then 'ë¯¸ìž…ê¸ˆ' 
+                when order_status = 'í™•ì •' then 'ì£¼ë¬¸ ìµœì¢… í™•ì •'
+                when order_status = 'ì£¼ë¬¸ì·¨ì†Œ' then 'ì£¼ë¬¸ ì·¨ì†Œ'
+                when order_status = 'ì£¼ë¬¸ì—†ìŒ' then 'ì£¼ë¬¸ ì—†ìŒ'
+                else 'í™•ì¸ìš”ë§(ì˜ˆì™¸ìƒí™©')
                 END          
 		from your_order_table
 		where order_code = ?
