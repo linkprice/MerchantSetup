@@ -3,6 +3,12 @@
 define(NWNAME, "linkprice"); // network name value
 $daily_fix = array();
 
+$db_ip = "DATABASE IP";
+$db_id = "DATABASE ID";
+$db_pw = "DATABASE PASSWORD";
+$db_nm = "DATABASE NAME";
+$conn = mysqli_connect($db_ip, $db_id, $db_pw,$db_nm);
+
 /*
 Change filed name to your field name
 Do not change alias name
