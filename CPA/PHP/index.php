@@ -3,6 +3,12 @@ $send_data = array();
 $search_order_code = "User number";	// User number from complete registration page
 define(NWNAME,"linkprice");	        // network name value to recognize linkprice
 
+$db_ip = "DATABASE IP";
+$db_id = "DATABASE ID";
+$db_pw = "DATABASE PASSWORD";
+$db_nm = "DATABASE NAME";
+$conn = mysqli_connect($db_ip, $db_id, $db_pw, $db_nm);
+
 /*
 Change filed name to your field name
 
@@ -33,7 +39,7 @@ $sql = "select	network_value 		lpinfo,
 
 $stmt = mysqli_stmt_init($conn);
 if(mysqli_stmt_prepare($stmt,$sql)){
-    mysqli_stmt_bind_param($stmt,"ss",$search_order_code,NWNAME);
+    mysqli_stmt_bind_param($stmt, "ss", $search_order_code, NWNAME);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     
