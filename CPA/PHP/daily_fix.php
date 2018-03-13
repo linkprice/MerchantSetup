@@ -24,7 +24,8 @@ $sql = "select	network_value		lpinfo,
 
 $stmt = mysqli_stmt_init($conn);
 if(mysqli_stmt_prepare($stmt,$sql)){
-    mysqli_stmt_bind_param($stmt,"ss",$_REQUEST["yyyymmdd"],NWNAME);
+    $yyyymmdd = trim($_REQUEST["yyyymmdd"]);
+    mysqli_stmt_bind_param($stmt, "ss", $yyyymmdd, NWNAME);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     
