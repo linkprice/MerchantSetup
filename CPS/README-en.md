@@ -80,7 +80,8 @@
     	sales : "Total price",					// Price * Item count
     	category_code : "Category code of product",		
     	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
-    	remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
+    	remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
+		currency: "currency"				// currency to pay
       }
     ]
     ```
@@ -99,7 +100,8 @@
 		sales : "15000",					
 		category_code : "example_category",		
 		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
-		remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
+		remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
+		currency: "USD"						// currency
 	  },
 	  {
 		lpinfo : "A100000131|24955642000000|0000|1|0",		
@@ -112,7 +114,8 @@
 		sales : "20000",					
 		category_code : "example_category2",		
 		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
-		remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
+		remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
+		currency: "USD"						// currency
 	  },	    
 	]
 	```
@@ -131,7 +134,8 @@
 		sales : "15000",					
 		category_code : "example_category",			
 		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
-		remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
+		remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
+		currency: "USD"						// currency
 	  } 
 	]
 	```
