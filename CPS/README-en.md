@@ -70,7 +70,7 @@
     ```javascript
     [
       {
-    	lpinfo : "network_value",					// LPINFO cookie value
+    	lpinfo : "network_value",				// LPINFO cookie value
     	merchant_id : "Your merchant ID",			// Merchant ID from Linkprice
     	member_id : "User ID of who phurchase products",	
     	order_code : "Order code of product",			
@@ -81,7 +81,7 @@
     	category_code : "Category code of product",		
     	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
     	remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
-		currency: "currency"				// currency to pay
+		currency: "currency"					// currency to pay
       }
     ]
     ```
@@ -97,7 +97,7 @@
 		product_code : "example_1",				
 		product_name : "example",				
 		item_count : "1",					
-		sales : "15000",					
+		sales : "3.53",					
 		category_code : "example_category",		
 		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
 		remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
@@ -111,7 +111,7 @@
 		product_code : "example_2",				
 		product_name : "example2",				
 		item_count : "1",					
-		sales : "20000",					
+		sales : "2.56",					
 		category_code : "example_category2",		
 		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
 		remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
@@ -131,7 +131,7 @@
 		product_code : "example_1",				
 		product_name : "example",			
 		item_count : "1",					
-		sales : "15000",					
+		sales : "150",					
 		category_code : "example_category",			
 		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
 		remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
