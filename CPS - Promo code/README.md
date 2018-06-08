@@ -51,7 +51,6 @@
   	    product_name : "Product name",                      // 상품명
   	    item_count : "Item count",                          // 개수
   	    sales : "Total price",                              // 총금액 (가격 * 개수)
-  	    category_code : "Category code of product",         // 카테고리 코드
   	    user_agent : "User Agent",                          // $_SERVER["HTTP_USER_AGENT"]
   	    remote_addr:  "User IP"                             // $_SERVER["REMOTE_ADDR"]
     }
@@ -105,7 +104,6 @@
   	    product_name : "Product name",                      // 상품명
   	    item_count : "Item count",                          // 개수
   	    sales : "Total price",                              // 총금액 (가격 * 개수)
-  	    category_code : "Category code of product",         // 카테고리 코드
   	    user_agent : "User Agent",                          // $_SERVER["HTTP_USER_AGENT"]
   	    remote_addr:  "User IP"                             // $_SERVER["REMOTE_ADDR"]
     }
