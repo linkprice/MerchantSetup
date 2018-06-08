@@ -96,8 +96,8 @@
 [
     {
   	    event_code : "Event code",                          // 이벤트 코드
-              promo_code : "Promotion code",                      // 할인 코드 (EX: 오후 6시면 "180000" 으로 출력)
-  	    order_time : "order time",                          // 주문시간
+              promo_code : "Promotion code",                      // 할인 코드
+  	    order_time : "order time",                          // 주문시간 (EX: 오후 6시면 "180000" 으로 출력)
   	    member_id : "User ID of who phurchase products",    // 회원 ID
   	    order_code : "Order code of product",               // 주문번호
   	    product_code : "Product code",                      // 상품코드
