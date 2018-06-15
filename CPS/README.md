@@ -76,7 +76,7 @@
   	category_code : "Category code of product",		// 카테고리 코드
   	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
   	remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-      sales_type: "Sales type"					// PC, MOBILE, IOS, AND, APP(택1)    
+          sales_type: "Sales type"				// PC, MOBILE, IOS, AND, APP(택1)    
       }
   ]
   ```
@@ -96,7 +96,7 @@
   	category_code : "example_category",			// 카테고리 코드
   	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
   	remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-      sales_type: "MOBILE"					    
+          sales_type: "MOBILE"					    
       },
       {
   	lpinfo : "A100000131|24955642000000|0000|1|0",		// LPINFO cookie 값
@@ -110,7 +110,7 @@
   	category_code : "example_category2",			// 카테고리 코드
   	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
   	remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-      sales_type: "MOBILE"    
+          sales_type: "MOBILE"    
       }	    
   ]
   ```
@@ -130,7 +130,7 @@
   	category_code : "example_category",			// 카테고리 코드
   	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
   	remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-      sales_type: "APP"    
+          sales_type: "APP"    
       } 
   ]
   ```
