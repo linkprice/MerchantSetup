@@ -83,7 +83,7 @@
     	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
     	remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
     	currency: "currency"					// currency to pay
-        sales_type: "Sales type"				// PC, MOBILE, IOS, AND, APP(Choose 1) 
+            sales_type: "Sales type"				// PC, MOBILE, IOS, AND, APP(Choose 1) 
       }
     ]
     ```
