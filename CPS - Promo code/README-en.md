@@ -52,7 +52,6 @@
     	    product_name : "Product name",				
     	    item_count : "Item count",				
     	    sales : "Total price",                          // Price * Item count
-    	    category_code : "Category code of product",		
     	    user_agent : "User Agent",                      // $_SERVER["HTTP_USER_AGENT"]
     	    remote_addr:  "User IP"                         // $_SERVER["REMOTE_ADDR"]
         }
@@ -98,7 +97,6 @@
     	    product_name : "Product name",				
     	    item_count : "Item count",				
     	    sales : "Total price",                      // Price * Item count
-    	    category_code : "Category code of product",
     	    user_agent : "User Agent",                  // $_SERVER["HTTP_USER_AGENT"]
     	    remote_addr:  "User IP"                     // $_SERVER["REMOTE_ADDR"]
         }

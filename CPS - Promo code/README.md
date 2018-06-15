@@ -51,7 +51,6 @@
   	    product_name : "Product name",                      // 상품명
   	    item_count : "Item count",                          // 개수
   	    sales : "Total price",                              // 총금액 (가격 * 개수)
-  	    category_code : "Category code of product",         // 카테고리 코드
   	    user_agent : "User Agent",                          // $_SERVER["HTTP_USER_AGENT"]
   	    remote_addr:  "User IP"                             // $_SERVER["REMOTE_ADDR"]
     }
@@ -98,14 +97,13 @@
     {
   	    event_code : "Event code",                          // 이벤트 코드
               promo_code : "Promotion code",                      // 할인 코드
-  	    order_time : "order time",                          // 주문시간
+  	    order_time : "order time",                          // 주문시간 (EX: 오후 6시면 "180000" 으로 출력)
   	    member_id : "User ID of who phurchase products",    // 회원 ID
   	    order_code : "Order code of product",               // 주문번호
   	    product_code : "Product code",                      // 상품코드
   	    product_name : "Product name",                      // 상품명
   	    item_count : "Item count",                          // 개수
   	    sales : "Total price",                              // 총금액 (가격 * 개수)
-  	    category_code : "Category code of product",         // 카테고리 코드
   	    user_agent : "User Agent",                          // $_SERVER["HTTP_USER_AGENT"]
   	    remote_addr:  "User IP"                             // $_SERVER["REMOTE_ADDR"]
     }
