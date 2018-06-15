@@ -40,12 +40,12 @@
 
 ## <a name="send-data"></a>Send action data on real time
 
-1.  Save action data on real time
+1. Save action data on real time
 
     *   If there is Cookie(LPINFO) when member information is saved in your system, save
         action data 
 
-    *   Add following fields to your order table
+    *   Add following fields to your user table
 
     *   Save networld_value, networld_name, remote_address and user_agent value when you
         save member information.
@@ -59,16 +59,17 @@
 
     ​
 
-2.  Time to send action data
+2. Time to send action data
 
     *   When registration is completed, action data should be sent.
     *   Action data should be sent in Server to Server way (**If you have to use script or image way to transfer sales data, please contact Linkprice**)
 
-3.  How to set up sending action data
+3. How to set up sending action data
 
     *   See sample code and modify it to your development environment.
     *   Action data should be transfer in json type.
     *   **Do not change name of KEY** and insert value of your sales data.
+    *   Recommend to save value that classify sales_type(PC, MOBILE, IOS, AND, APP) in your order table. (If you cannot assort IOS and Android for sales_type, please insert "APP") 
 
 ```javascript
    [
@@ -82,6 +83,7 @@
         category_code : "member",           // type of action(ex - “member”, “apply”)
         user_agent : "User Agent",          // $_SERVER["HTTP_USER_AGENT"]
         remote_addr :  "User IP"            // $_SERVER["REMOTE_ADDR"]
+        sales_type :  "PC"				// PC, MOBILE, IOS, AND, APP(choose 1)          
      }
    ]
 ```
@@ -104,7 +106,7 @@
     *   Linkprice call your url to display action data once a day and recover lost data.
     *   Number of member(Unique_id) and action code(action) are used to compare data.
 
-2.  How to set up displaying sales data
+2. How to set up displaying sales data
 
     *   Display your action data to be made through Linkprice
     *   See sample code and modify it to your development environment.
@@ -125,13 +127,14 @@
          category_code : "member",                  // type of action(ex – “member”, “apply”)
          user_agent : "User Agent",                 // $_SERVER["HTTP_USER_AGENT"]
          remote_addr :  "User IP"                   // $_SERVER["REMOTE_ADDR"]
+         sales_type :  "PC"				// PC, MOBILE, APP(choose 1)       
       }
     ]
     ```
 
-    ​
+    
 
-3.  샘플코드
+3.  Sample
 
     *   [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/PHP/daily_fix.php)
     *   [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/JSP/daily_fix.jsp)

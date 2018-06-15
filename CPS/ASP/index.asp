@@ -33,6 +33,7 @@ command.CommandType = adCmdText
 ' 'member_id' => 'user_id',					// 회원 ID
 ' 'remote_address' => '사용자의 IP(User IP)'			// $_SERVER["REMOTE_ADDR"]
 ' 'user_agent' => '유저 에이전트(User agent)',	        	// $_SERVER["HTTP_USER_AGENT"]
+' 'sales_type' => '실적 구분값(Sales type)',	        // PC, MOBILE, IOS, AND, APP (choose 1)
 
 
 command.CommandText = "SELECT	network_value 			lpinfo," + _
@@ -45,7 +46,8 @@ command.CommandText = "SELECT	network_value 			lpinfo," + _
 				"count 				item_count,"+ _
 				"category 			category_code,"+ _
 				"remote_address 		remote_addr,"+ _
-				"u_agent 			user_agent"+ _
+				"u_agent 			user_agent,"+ _
+				"sales_type			sales_type"+ _
 			" FROM your_order_table"+ _
 			" WHERE order_code = ?"+ _
 			" AND	  network_name =?"

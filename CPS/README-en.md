@@ -43,7 +43,7 @@
 
 ## <a name="send-data"></a>Send sales data on real time
 
-1.  Save sales data on real time
+1. Save sales data on real time
 
     *   If there is Cookie(**LPINFO**) when purchase is completed, save sales data 
 
@@ -56,16 +56,17 @@
         | remote_address |               REMOTE_ADDR                |
         |   user_agent   |             HTTP_USER_AGENT              |
 
-2.  Time to send sales data
+2. Time to send sales data
 
     *   When **purchase is completed**, sales data should be sent. 
     *   Sales data should be sent in Server to Server way (**If you have to use script or image way to transfer sales data, please contact Linkprice**)
 
-3.  How to set up sending sales data
+3. How to set up sending sales data
 
     *   See sample code and modify it to your development environment.
     *   Sales data should be transfer in json type.
     *   **Do not change name of KEY** and insert value of your sales data.
+    *   Recommend to save value that classify sales_type(PC, MOBILE, IOS, AND, APP) in your order table. (If you cannot assort IOS and Android for sales_type, please insert "APP") 
 
     ```javascript
     [
@@ -81,64 +82,68 @@
     	category_code : "Category code of product",		
     	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
     	remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
-		currency: "currency"					// currency to pay
+    	currency: "currency"					// currency to pay
+        sales_type: "Sales type"				// PC, MOBILE, IOS, AND, APP(Choose 1) 
       }
     ]
     ```
-    
+
     * Example(One payment for multiple products)
     ```javascript
-	[
-	  {
-		lpinfo : "A100000131|24955642000000|0000|1|0",		
-		merchant_id : "Merchant_id",				
-		member_id : "member_id",				
-		order_code : "1234567890",				
-		product_code : "example_1",				
-		product_name : "example",				
-		item_count : "1",					
-		sales : "3.53",					
-		category_code : "example_category",		
-		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
-		remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
-		currency: "USD"						// currency
-	  },
-	  {
-		lpinfo : "A100000131|24955642000000|0000|1|0",		
-		merchant_id : "Merchant_id",				
-		member_id : "member_id",			
-		order_code : "1234567890",				
-		product_code : "example_2",				
-		product_name : "example2",				
-		item_count : "1",					
-		sales : "2.56",					
-		category_code : "example_category2",		
-		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
-		remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
-		currency: "USD"						// currency
-	  },	    
-	]
-	```
-	
-	* Example(One payment for product)
-	```javascript
-	[
-	  {
-		lpinfo : "A100000131|24955642000000|0000|1|0",		
-		merchant_id : "Merchant_id",		
-		member_id : "member_id",				
-		order_code : "1234567890",				
-		product_code : "example_1",				
-		product_name : "example",			
-		item_count : "1",					
-		sales : "150",					
-		category_code : "example_category",			
-		user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
-		remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
-		currency: "USD"						// currency
-	  } 
-	]
-	```
+    [
+      {
+    	lpinfo : "A100000131|24955642000000|0000|1|0",		
+    	merchant_id : "Merchant_id",				
+    	member_id : "member_id",				
+    	order_code : "1234567890",				
+    	product_code : "example_1",				
+    	product_name : "example",				
+    	item_count : "1",					
+    	sales : "3.53",					
+    	category_code : "example_category",		
+    	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
+    	remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
+    	currency: "USD"						// currency
+    	sales_typ: "APP"					      
+      },
+      {
+    	lpinfo : "A100000131|24955642000000|0000|1|0",		
+    	merchant_id : "Merchant_id",				
+    	member_id : "member_id",			
+    	order_code : "1234567890",				
+    	product_code : "example_2",				
+    	product_name : "example2",				
+    	item_count : "1",					
+    	sales : "2.56",					
+    	category_code : "example_category2",		
+    	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
+    	remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
+    	currency: "USD"						// currency
+    	sales_typ: "APP"					      
+      },	    
+    ]
+    ```
+
+    * Example(One payment for product)
+    ```javascript
+    [
+      {
+    	lpinfo : "A100000131|24955642000000|0000|1|0",		
+    	merchant_id : "Merchant_id",		
+    	member_id : "member_id",				
+    	order_code : "1234567890",				
+    	product_code : "example_1",				
+    	product_name : "example",			
+    	item_count : "1",					
+    	sales : "150",					
+    	category_code : "example_category",			
+    	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
+    	remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
+    	currency: "USD"						// currency
+    	sales_typ: "PC"					      
+      } 
+    ]
+    ```
 
     ​
 
@@ -158,7 +163,7 @@
 
     ​
 
-2.  How to set up displaying sales data
+2. How to set up displaying sales data
 
     *   Display your sales data to be made through Linkprice.
     *   See sample code and modify it to your development environment.
@@ -181,6 +186,8 @@
     	category_code : "Category code of product",
     	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
     	remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
+    	currency:  "Currency"				        
+    	sales_type:  "Sales type"				          
       }
     ]
     ```

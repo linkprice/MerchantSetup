@@ -27,6 +27,7 @@ Change filed name to your field name
 'action_name' => '액션 이름(Name of registration)'
 'remote_address' => '사용자의 IP(User IP)'		// $_SERVER["REMOTE_ADDR"]
 'user_agent' => '유저 에이전트(User agent)',	        // $_SERVER["HTTP_USER_AGENT"]
+'sales_type' => '실적 구분값(Sales type)',	        // PC, MOBILE, IOS, AND, APP (choose 1)
 
 **/
 sql = "SELECT	network_value 		lpinfo,"
@@ -37,7 +38,8 @@ sql = "SELECT	network_value 		lpinfo,"
 	 	+"'member' 		category_code,"
 		+"'회원 가입' 	     	action_name,"
 	 	+"remote_address 	remote_addr,"
-	 	+"u_agent 		user_agent"
+	 	+"u_agent 		user_agent,"
+		+"sales_type	sales_type"
 	+" FROM your_order_table"
 	+" WHERE order_code = ?"
 	+" AND	  network_name =?";

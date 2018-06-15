@@ -19,7 +19,7 @@
 
 1. Gateway 페이지 작성
     * 랜딩 페이지는 쿠키 생성 후 머천트 웹사이트로 리다이렉트하는 역할을 합니다. (샘플코드 참조) 
-   
+    
     * RETURN_DAYS(광고 효과 인정 기간) 는 **계약서에 명시되어 있는 광고 효과 인정 기간**(일단위)으로 변경하시기 바랍니다. 
     
     * 광고 인정 기간을 계약서와 다르게 변경 시 계약위반으로 불이익을 받을 수 있습니다.
@@ -34,15 +34,15 @@
 1. 실시간 회원 정보 저장
 
     * 회원 정보 저장시 Cookie(**LPINFO**)가 존재하면 회원정보를 저장합니다.
-   
+    
     * 머천트 회원가입 테이블에 아래 필드를 추가합니다.
 
-   |     FIELD      |                VALUE                |
-   | :------------: | :---------------------------------: |
-   | network_value  |           LPINFO(cookie)            |
-   |  network_name  | 링크프라이스를 구분할 수 있는 값(예-linkprice, lp) |
-   | remote_address |         사용자 IP(REMOTE_ADDR)         |
-   |   user_agent   |   사용자 user_agent(HTTP_USER_AGENT)   |
+|     FIELD      |                VALUE                |
+| :------------: | :---------------------------------: |
+| network_value  |           LPINFO(cookie)            |
+|  network_name  | 링크프라이스를 구분할 수 있는 값(예-linkprice, lp) |
+| remote_address |         사용자 IP(REMOTE_ADDR)         |
+|   user_agent   |   사용자 user_agent(HTTP_USER_AGENT)   |
 
     * **회원 정보 저장시** network_value, network_name, remote_address, user_agent 값을 회원가입 테이블에 저장하여 주십시요.
 
@@ -54,10 +54,9 @@
 3. 실시간 실적 전송 셋업
 
     * 샘플코드는 귀사의 개발 환경에 맞게 수정하시기 바랍니다.
-   
     * JSON 형식으로 전송해 주시기 바랍니다.
-   
     * KEY 이름은 **수정 할 수 없으며**, VALUE 값은 아래와 같이 입력해 주시기 바랍니다.
+    * 실적 전송시 sales_type(PC, MOBILE, IOS, AND, APP) 을 구분하는 값이 주문테이블에 없을 시 저장 하시길 추천드립니다. (앱 실적시 IOS나 안드로이드 구분이 안될때에는 APP으로 설정하여주세요.)
 
   ```javascript
    [
@@ -71,9 +70,10 @@
         category_code : "member",		                // 회원가입 종류(예-"member","apply")
         user_agent : "User Agent",			// $_SERVER["HTTP_USER_AGENT"]
         remote_addr :  "User IP"				// $_SERVER["REMOTE_ADDR"]
+        sales_type :  "PC"				// PC, MOBILE, APP(택 1)         
      }
    ]
-   ```
+  ```
 
 4. 샘플 코드
 
@@ -94,11 +94,11 @@
 2. 실적 정보 출력 셋업
 
     * 머천트에 저장된 회원가입 정보 중 링크프라이스를 통해서 발생한 회원가입 정보를 출력합니다.
-   
+    
     * 샘플코드는 머천트 개발 환경에 맞게 수정하시기 바랍니다.
-   
+    
     * 실직 전송된 데이터와 실적 정보 출력에서 확인되는 데이터 모두 동일해야 합니다.
-   
+    
     * 아래 예시와 같이 호출하면 해당 날짜의 실적이 출력될 수 있도록 합니다.(yyyymmdd 파라미터로 호출)
       - 예 - www.example.com/linkprice/daily_fix.php?yyyymmdd=20170701
     
@@ -116,6 +116,7 @@
      category_code : "member",		                // 회원가입 종류(예-"member","apply")
      user_agent : "User Agent",			        // $_SERVER["HTTP_USER_AGENT"]
      remote_addr :  "User IP"				// $_SERVER["REMOTE_ADDR"]
+     sales_type :  "PC"				// PC, MOBILE, APP(택 1)       
   }
 ]
 ```
