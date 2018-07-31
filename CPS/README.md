@@ -143,6 +143,27 @@
   * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/ASP/index.asp)
 
 
+5. 에러 코드
+
+| error_message                                    | 에러 상세 내용                                               |
+| ------------------------------------------------ | ------------------------------------------------------------ |
+| lpinfo parameter is empty                        | lpinfo 미입력                                                |
+| merchant_id parameter is empty.                  | merchant_id 미입력                                           |
+| order_code parameter is empty.                   | order_code(주문번호) 미입력                                  |
+| product_code parameter is empty.                 | product_code(상품코드) 미입력                                |
+| category_code parameter is empty.                | category_code 미입력                                         |
+| user_agent parameter is empty.                   | user_agent 미입력                                            |
+| remote_addr parameter is empty.                  | remote_addr (클라이언트 IP) 미입력                           |
+| item_count parameter is empty.                   | item_count(상품수량) 미입력                                  |
+| sales parameter is empty.                        | sales(상품금액) 미입력                                       |
+| product_name parameter is empty.                 | product_name(상품명) 미입력                                  |
+| lpinfo parameter does not conform to the format. | lpinfo 값이 형식에 맞지 않음                                 |
+| sales_type and user_agent parameter is empty.    | sales_type (PC/MOBILE) 구분값 미입력<br />특정 머천트만 적용 대상 |
+| The order_code of each array must be the same.   | 복수의 건일 경우 주문번호가 서로 일치하지 않음               |
+| Order code is duplicated.                        | 예전에 링크프라이스로 인입된 주문번호가 재입력됨             |
+| Required parameters are missing.                 | 필수파라미터가 누락되어 실적 인정이 안됨                     |
+| Network error during performance transmission.   | 네트워크 장애로 실적 인정이 안됨                             |
+
 ## 실적 정보 출력 (daily_fix)
 
 1. 실적 정보 출력
