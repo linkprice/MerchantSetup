@@ -145,7 +145,12 @@
     ]
     ```
 
-4. Error code
+4.  Sample
+    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.php)
+    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.jsp)
+    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.asp)
+
+5. Error code
 
 | error_message                                    |
 | ------------------------------------------------ |
@@ -166,11 +171,6 @@
 | Required parameters are missing.                 |
 | Network error during performance transmission.   |
 
-
-1.  Sample
-    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.php)
-    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.jsp)
-    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.asp)
 
 ## <a name="daily-fix"></a>Display sales data(daily_fix)
 
