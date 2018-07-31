@@ -145,7 +145,26 @@
     ]
     ```
 
-    ​
+4. Error code
+
+| error_message                                    |
+| ------------------------------------------------ |
+| lpinfo parameter is empty                        |
+| merchant_id parameter is empty.                  |
+| order_code parameter is empty.                   |
+| product_code parameter is empty.                 |
+| category_code parameter is empty.                |
+| user_agent parameter is empty.                   |
+| remote_addr parameter is empty.                  |
+| item_count parameter is empty.                   |
+| sales parameter is empty.                        |
+| product_name parameter is empty.                 |
+| lpinfo parameter does not conform to the format. |
+| sales_type and user_agent parameter is empty.    |
+| The order_code of each array must be the same.   |
+| Order code is duplicated.                        |
+| Required parameters are missing.                 |
+| Network error during performance transmission.   |
 
 
 1.  Sample
