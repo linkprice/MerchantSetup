@@ -95,6 +95,24 @@
     *   [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/JSP/index.jsp)
     *   [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/ASP/index.asp)
 
+5. Error code
+
+| error_message                                    |
+| ------------------------------------------------ |
+| lpinfo parameter is empty                        |
+| merchant_id parameter is empty.                  |
+| unique_id parameter is empty.                   |
+| action parameter is empty.                 |
+| category_code parameter is empty.                |
+| user_agent parameter is empty.                   |
+| remote_addr parameter is empty.                  |
+| action_name parameter is empty.                 |
+| lpinfo parameter does not conform to the format. |
+| sales_type and user_agent parameter is empty.    |
+| The order_code of each array must be the same.   |
+| Order code is duplicated.                        |
+| Required parameters are missing.                 |
+| Network error during performance transmission.   |
 
 
 ## <a name="daily-fix"></a>Display action data(daily_fix)
