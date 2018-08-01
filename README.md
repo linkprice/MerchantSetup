@@ -12,3 +12,5 @@
 ## [CPS 할인코드 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/CPS%20-%20Promo%20code)
 
 ## [CPS - Npay 셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Npay.md)
+
+## [FAQ](https://github.com/linkprice/MerchantSetup/blob/master/FAQ.md)
