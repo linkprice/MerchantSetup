@@ -14,3 +14,5 @@
 ## [CPS - Npay 셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Npay.md)
 
 ## [FAQ](https://github.com/linkprice/MerchantSetup/blob/master/FAQ.md)
+
+## [FAQ-en](https://github.com/linkprice/MerchantSetup/blob/master/FAQ-en.md)
