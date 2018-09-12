@@ -1,20 +1,40 @@
 ## 머천트 셋업
 
-제휴마케팅에서 광고주가 돈을 지불하는 성과는 어필리에이트 사이트 (또는 페이지) 방문자가 광고 배너 또는 링크를 클릭하여 머천트 사이트로 이동, 약속된 행위를 하는 것입니다. 
+1. CPS 웹(PC/Mobile) 셋업 가이드
 
-성과를 정확히 측정하기 위해서는 어필리에이트 사이트 방문자의 이동경로와 머천트 사이트에서의 
-구매(가입)에 대해 추적이 가능해야 하며, 이를 위해 필요한 것이 머천트 셋업입니다.
+   > 웹(PC/Mobile)에서 상품 구매 발생시 성과 측정을 위한 셋업 가이드
 
-## [CPS 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/CPS)
+   1. [한글: CPS 웹(PC/Mobile)셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/CPS)
+   2. [English: CPS Web(PC/Mobile) Setup Guide](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-en.md)
 
-## [CPA 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/CPA)
+2. CPA 웹 (PC/Mobile) 셋업 가이드
 
-## [CPA  간편 셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/master/CPA/README-simple%20setup.md)
+   > 웹(PC/Mobile)에서 회원 가입등 액션에 관한 성과 측정을 위한 셋업 가이드
+   >
+   > 셋업 방식은 2가지 중 하나를 선택하여 진행하며, 어떤 방식으로 진행할지는 링크프라이스와 협의 하셔야 합니다
 
-## [CPS 할인코드 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/CPS%20-%20Promo%20code)
+   2-1 CPA기본 셋업
 
-## [CPS - Npay 셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Npay.md)
+   	2-1 한글: [CPA 웹(PC/Mobile) 기본 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/CPA)
 
-## [FAQ](https://github.com/linkprice/MerchantSetup/blob/master/FAQ.md)
+   	2-2 English: [CPA Web(PC/Mobile) Basic Setup Guide](https://github.com/linkprice/MerchantSetup/blob/master/CPA/README-en.md)
 
-## [FAQ-en](https://github.com/linkprice/MerchantSetup/blob/master/FAQ-en.md)
+   2-2 CPA 간편 셋업
+
+   ​	2-1 한글: [CPA 웹(PC/Mobile) 간편 셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/master/CPA/README-simple%20setup.md)
+
+
+
+3. CPS 추가 셋업
+
+   >  CPS 할인 코드 및 Npay CPS 실적 측정을 위한 셋업 가이드
+
+   3-1 CPS 할인코드 셋업
+
+   ​	3-1 한글: [CPS 할인코드 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/CPS%20-%20Promo%20code)
+
+   ​	3-2 English: [CPS Promo code Setup Guide](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/README-en.md)
+
+   3-2 Napy CPS 셋업
+
+   ​	3-1 한글: [Npay CPS 셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Npay.md)
