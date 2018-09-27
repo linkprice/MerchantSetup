@@ -35,6 +35,6 @@
 
       2. English: [CPS Promo code Setup Guide](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/README-en.md)
 
-   3-2 Napy CPS 셋업
+   3-2 Npay CPS 셋업
 
       1. 한글: [Npay CPS 셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Npay.md)
