@@ -25,23 +25,23 @@
 
 3. CPS/CPA 모바일 앱 셋업 가이드(CPS/CPA Mobile Application Setup)
 
-  > 모바일 앱(Application)에서 실적 측정을 위한 셋업 가이드
-  >
-  > 3자툴을 이용 시 아래 세가지 중 하나를 선택하여 작업합니다
-  >
-  > 3자툴을 이용 하지 않고 자체 앱 트래킹 시스템 사용시 위의 1번(CPS 셋업 가이드)를 참조 합니다
+   > 모바일 앱(Application)에서 실적 측정을 위한 셋업 가이드
+   >
+   > 3자툴을 이용 시 아래 세가지 중 하나를 선택하여 작업합니다
+   >
+   > 3자툴을 이용 하지 않고 자체 앱 트래킹 시스템 사용시 위의 1번(CPS 셋업 가이드)를 참조 합니다
 
    3-1 튠(TUNE)
 
-	1. 한글: [튠(TUNE) 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/3%EC%9E%90%ED%88%B4%20%EC%95%B1%20%EC%85%8B%EC%97%85/%ED%8A%A0(TUNE))
+      1. 한글: [튠(TUNE) 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/3%EC%9E%90%ED%88%B4%20%EC%95%B1%20%EC%85%8B%EC%97%85/%ED%8A%A0)
 
    3-2 앱스프라이어(Appsflyer)
 
-	1. 한글: [앱스프라이어(Appsflyer) 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/3%EC%9E%90%ED%88%B4%20%EC%95%B1%20%EC%85%8B%EC%97%85/%EC%95%B1%EC%8A%A4%ED%94%84%EB%9D%BC%EC%9D%B4%EC%96%B4(Appsflyer))
+      1. 한글: [앱스프라이어(Appsflyer) 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/3%EC%9E%90%ED%88%B4%20%EC%95%B1%20%EC%85%8B%EC%97%85/%EC%95%B1%EC%8A%A4%ED%94%84%EB%9D%BC%EC%9D%B4%EC%96%B4)
 
    3-3 애드프릭스(Adbrix)
-  
-	1. 한글: [애드프릭스(Adbrix) 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/3%EC%9E%90%ED%88%B4%20%EC%95%B1%20%EC%85%8B%EC%97%85/%EC%95%A0%EB%93%9C%ED%94%84%EB%A6%AD%EC%8A%A4(Adbrix))
+
+      1. 한글: [애드프릭스(Adbrix) 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/3%EC%9E%90%ED%88%B4%20%EC%95%B1%20%EC%85%8B%EC%97%85/%EC%95%A0%EB%93%9C%ED%94%84%EB%A6%AD%EC%8A%A4)
 
 4. CPS 추가 셋업
 
