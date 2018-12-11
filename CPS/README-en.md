@@ -119,7 +119,7 @@
     	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
     	remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
     	currency: "USD"						// currency
-    	sales_typ: "APP"					      
+    	sales_type: "APP"					      
       },	    
     ]
     ```
@@ -140,7 +140,7 @@
     	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
     	remote_addr:  "User IP",				// $_SERVER["REMOTE_ADDR"]
     	currency: "USD"						// currency
-    	sales_typ: "PC"					      
+    	sales_type: "PC"					      
       } 
     ]
     ```
