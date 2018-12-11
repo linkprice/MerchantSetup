@@ -53,7 +53,8 @@
     	    item_count : "Item count",				
     	    sales : "Total price",                          // Price * Item count
     	    user_agent : "User Agent",                      // $_SERVER["HTTP_USER_AGENT"]
-    	    remote_addr:  "User IP"                         // $_SERVER["REMOTE_ADDR"]
+    	    remote_addr:  "User IP",                         // $_SERVER["REMOTE_ADDR"]
+    	    sales_type: "Sales Type"                         // PC, MOBILE, IOS, AND, APP(Choose 1, Option)
         }
     ]
     ```
@@ -98,7 +99,8 @@
     	    item_count : "Item count",				
     	    sales : "Total price",                      // Price * Item count
     	    user_agent : "User Agent",                  // $_SERVER["HTTP_USER_AGENT"]
-    	    remote_addr:  "User IP"                     // $_SERVER["REMOTE_ADDR"]
+    	    remote_addr:  "User IP",                     // $_SERVER["REMOTE_ADDR"]
+    	    sales_type: "Sales Type"                     // PC, MOBILE, IOS, AND, APP(Choose 1, Option)
         }
     ]
     ```
