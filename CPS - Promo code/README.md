@@ -52,7 +52,8 @@
   	    item_count : "Item count",                          // 개수
   	    sales : "Total price",                              // 총금액 (가격 * 개수)
   	    user_agent : "User Agent",                          // $_SERVER["HTTP_USER_AGENT"]
-  	    remote_addr:  "User IP"                             // $_SERVER["REMOTE_ADDR"]
+  	    remote_addr:  "User IP"                             // $_SERVER["REMOTE_ADDR"],
+        sales_type: "Sales Type"                            // PC, MOBILE, IOS, AND, APP(택1, 옵션) 
     }
   ]
   ```
@@ -105,7 +106,8 @@
   	    item_count : "Item count",                          // 개수
   	    sales : "Total price",                              // 총금액 (가격 * 개수)
   	    user_agent : "User Agent",                          // $_SERVER["HTTP_USER_AGENT"]
-  	    remote_addr:  "User IP"                             // $_SERVER["REMOTE_ADDR"]
+  	    remote_addr:  "User IP",                             // $_SERVER["REMOTE_ADDR"]
+        sales_type: "Sales Type"                              // PC, MOBILE, IOS, AND, APP(택1, 옵션) 
     }
 ]
   ```
