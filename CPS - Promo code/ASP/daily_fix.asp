@@ -27,7 +27,6 @@ command.CommandText = "SELECT	event_code 		event_code," + _
 	 		        "price 			sales,"+ _
 	 		        "product_name		product_name,"+ _
 	 		        "count 			item_count,"+ _
-	 		        "category 		category_code,"+ _
 	 		        "remote_address 	remote_addr,"+ _
 	 		        "u_agent 		user_agent"+ _
 			" FROM your_order_table"+ _
