@@ -27,7 +27,7 @@ Do not change alias name
 
 */
 $sql = "select	event_code 		event_code,
-				promo_code			promo_code,
+                promo_code 		promo_code,
                 order_time          	order_time,
 		user_id 		member_id,
 		order_code 		order_code,
