@@ -60,7 +60,7 @@ if(in_array($search_coupon_code, $linpric_coupon_list)) {
 
 	//data send
 	if (!empty($send_data)) {
-		define("LP_URL","http://tservice.linkprice.com/lppurchase_discount.php");
+		define("LP_URL","http://service.linkprice.com/lppurchase_discount.php");
 
 		$options = array(
 			'http' => array(
