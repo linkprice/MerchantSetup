@@ -19,7 +19,7 @@ Set command.ActiveConnection = conn
 command.CommandType = adCmdText
 
 command.CommandText = "SELECT	event_code 		event_code," + _
-					"promo_code			promo_code,"+ _
+	 		        "promo_code 		promo_code,"+ _
 	 		        "order_time 	        order_time,"+ _
 	 		        "user_id 		member_id,"+ _
 	 		        "order_code 		order_code,"+ _
