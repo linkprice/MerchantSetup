@@ -21,7 +21,6 @@ Do not change alias name
 'product_name' => '상품명(Product name)'
 'item_count' => '상품 개수(Quantity of product)'
 'sales' => '금액(Total price)'
-'category_code' => '계약시 협의(Category in Contract)'	// 카테고리 코드
 'member_id' => 'user_id'				// 회원 ID
 'remote_address' => '사용자의 IP(User IP)'		// $_SERVER["REMOTE_ADDR"]
 'user_agent' => '유저 에이전트(User agent)',	        // $_SERVER["HTTP_USER_AGENT"]
@@ -36,7 +35,6 @@ $sql = "select	event_code 		event_code,
 		price 			sales,
 		product_name		product_name,
 		product_count 		item_count,
-		category 		category_code,
 		remote_address 		remote_addr,
 		u_agent 		user_agent
 	from your_order_table
