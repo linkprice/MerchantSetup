@@ -17,7 +17,7 @@ String yyyymmdd = request.getParameter("yyyymmdd");
 String NWNAME = "linkprice";                   //network name for linkprice
 
 sql = "SELECT	event_code 		event_code,"
-		+"promo_code			promo_code,"
+		+"promo_code 		promo_code,"
 	 	+"order_time 		order_time,"
 	 	+"user_id 		member_id,"
 	 	+"order_code 		order_code,"
