@@ -10,7 +10,7 @@
   <br />
   <br />
 
-## 실시간 실적 전송
+## 1. 실시간 실적 전송
 
 1. 실시간 주문 정보 저장
 
@@ -68,7 +68,7 @@
   * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/ASP/index.asp)
 
 
-## 실적 정보 출력 (daily_fix)
+## 2. 실적 정보 출력 (daily_fix)
 
 1. 실적 정보 출력
 
