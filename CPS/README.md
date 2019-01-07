@@ -17,7 +17,7 @@
   <br />
   <br />
 
-## Gateway 페이지 작성
+## 1. Gateway 페이지 작성
 
 1. Gateway 페이지 작성
 
@@ -38,7 +38,7 @@
 	* [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/ASP/lpfront.asp)
 
 
-## 실시간 실적 전송
+## 2. 실시간 실적 전송
 
 1. 실시간 주문 정보 저장
 
@@ -171,7 +171,7 @@
 | Required parameters are missing.                 | 필수파라미터가 누락되어 실적 인정이 안됨                     |
 | Network error during performance transmission.   | 네트워크 장애로 실적 인정이 안됨                             |
 
-## 실적 정보 출력 (daily_fix)
+## 3. 실적 정보 출력 (daily_fix)
 
 1. 실적 정보 출력
 
