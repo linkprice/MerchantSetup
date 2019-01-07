@@ -20,7 +20,7 @@
 
 
 
-## <a name="Landing-Page"></a>Gateway Page
+## <a name="Landing-Page"></a>1. Gateway Page
 
 1.  Gateway page
 
@@ -41,7 +41,7 @@
 
     ​
 
-## <a name="send-data"></a>Send sales data on real time
+## <a name="send-data"></a>2. Send sales data on real time
 
 1. Save sales data on real time
 
@@ -172,7 +172,7 @@
 | Network error during performance transmission.   |
 
 
-## <a name="daily-fix"></a>Display sales data(daily_fix)
+## <a name="daily-fix"></a>3. Display sales data(daily_fix)
 
 1.  Display sales data
 
@@ -221,7 +221,7 @@
 
     ​
 
-## <a name="auto-cancel"></a>Cancel sales data automatically(auto_cancel)
+## <a name="auto-cancel"></a>4. Cancel sales data automatically(auto_cancel)
 
 1.  Cancel sales data automatically
 
