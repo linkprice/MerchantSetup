@@ -15,7 +15,7 @@
 <br />
 <br />
 
-## Gateway 페이지 작성
+## 1. Gateway 페이지 작성
 
 1. Gateway 페이지 작성
     * 랜딩 페이지는 쿠키 생성 후 머천트 웹사이트로 리다이렉트하는 역할을 합니다. (샘플코드 참조) 
@@ -29,7 +29,7 @@
    - [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/JSP/lpfront.jsp)
    - [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/ASP/lpfront.asp)
 
-## 실시간 실적 전송
+## 2. 실시간 실적 전송
 
 1. 실시간 회원 정보 저장
 
@@ -100,7 +100,7 @@
 | Required parameters are missing.                 | 필수파라미터가 누락되어 실적 인정이 안됨                     |
 | Network error during performance transmission.   | 네트워크 장애로 실적 인정이 안됨                             |
 
-## 실적 정보 출력 (daily_fix)
+## 3. 실적 정보 출력 (daily_fix)
 
 1. 실적 정보 출력
 
