@@ -17,7 +17,7 @@
 
 
 
-## <a name="landing-page"></a>Gateway Page
+## <a name="landing-page"></a>1. Gateway Page
 
 1.  Gateway page
 
@@ -38,7 +38,7 @@
 
 
 
-## <a name="send-data"></a>Send action data on real time
+## <a name="send-data"></a>2. Send action data on real time
 
 1. Save action data on real time
 
@@ -115,7 +115,7 @@
 | Network error during performance transmission.   |
 
 
-## <a name="daily-fix"></a>Display action data(daily_fix)
+## <a name="daily-fix"></a>3. Display action data(daily_fix)
 
 1.  Display action data
 
