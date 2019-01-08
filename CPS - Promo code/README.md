@@ -287,7 +287,7 @@
 | remote_addr  | String(20)  |   필수   |                   구매자의 REMOTE IP                   |
 | device_type  | String(10)  |   옵션   | 실적이 발생한 디바이스 타입<br>Ex) PC, MOBILE, APP<sup id="sub4">[4](#link4)</sup> |
 
-<b name="link7">[7]</b>: **hhmmss 형식**으로 실적 발생 시간만 출력되도록 작업. ex) 2018년 01월 01일 오후 01시 20분 13초 → “132013”
+<b name="link7">[7]</b>: **hhmmss 형식**으로 실적 발생 시간만 출력되도록 작업. ex) 2018년 01월 01일 오후 01시 20분 13초 → “132013” [↩](#sub7)<br>
 
 * **실적 정보 출력 예제 1. (단일주문건)**
 
