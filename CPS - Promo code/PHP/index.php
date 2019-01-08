@@ -21,8 +21,9 @@ if(in_array($search_coupon_code, $linpric_coupon_list)) {
 	'item_count' => '상품 개수(Quantity of product)',
 	'sales' => '금액(Total price)',
 	'member_id' => 'user_id',				// 회원 ID
-	'remote_address' => '사용자의 IP(User IP)'		// $_SERVER["REMOTE_ADDR"]
+	'remote_addr' => '사용자의 IP(User IP)'		// $_SERVER["REMOTE_ADDR"]
 	'user_agent' => '유저 에이전트(User agent)',	        // $_SERVER["HTTP_USER_AGENT"]
+	'device_type' => '실적 발생한 디바이스 타입' // PC웹 실적 - "PC" / 모바일 웹 실적 - "MOBILE" / 모바일 앱 실적 - "APP"
 
 	*/
 	$sql = "select	event_code 		event_code,
@@ -35,7 +36,8 @@ if(in_array($search_coupon_code, $linpric_coupon_list)) {
 			product_name		product_name,
 			count 			item_count,
 			remote_address 		remote_addr,
-			u_agent 		user_agent
+			u_agent 		user_agent,
+			device_type 		device_type
 		from your_order_table
 		where order_code = ?";
 
