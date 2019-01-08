@@ -24,11 +24,10 @@ if(in_array($search_coupon_code, $linpric_coupon_list)) {
 	'remote_addr' => '사용자의 IP(User IP)'		// $_SERVER["REMOTE_ADDR"]
 	'user_agent' => '유저 에이전트(User agent)',	        // $_SERVER["HTTP_USER_AGENT"]
 	'device_type' => '실적 발생한 디바이스 타입' // PC웹 실적 - "PC" / 모바일 웹 실적 - "MOBILE" / 모바일 앱 실적 - "APP"
-
 	*/
+	
 	$sql = "select	event_code 		event_code,
 			promo_code 		promo_code,
-			'your merchant id' 	merchant_id,
 			user_id 		member_id,
 			order_code 		order_code,
 			product_code 		product_code,
