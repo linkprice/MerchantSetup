@@ -18,7 +18,6 @@ String LP_URL = "http://service.linkprice.com/lppurchase_discount.php";
 Change filed name to your field name
 'event_code' => '이벤트 코드(Event code that is used for purchase)',
 'promo_code' => '할인 코드(promotion code that is used for purchase)',
-'merchant_id' => '계약시 제공 받은 머천트 아이디(Merchant ID from Linkprice)',
 'order_code' => '주문 코드(Order code)',
 'product_code' => '상품 코드(Product code)',
 'product_name' => '상품명(Product name)',
@@ -33,7 +32,6 @@ Change filed name to your field name
 
 sql = "SELECT	event_code 		event_code,
 		+"promo_code 		promo_code,"
-		+"'your merchant id' 	merchant_id,"
 	 	+"user_id 		member_id,"
 	 	+"order_code 		order_code,"
 		+"product_code 		product_code,"
