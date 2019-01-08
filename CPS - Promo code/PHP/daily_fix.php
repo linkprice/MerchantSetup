@@ -24,7 +24,7 @@ Do not change alias name
 'member_id' => 'user_id'				// 회원 ID
 'remote_address' => '사용자의 IP(User IP)'		// $_SERVER["REMOTE_ADDR"]
 'user_agent' => '유저 에이전트(User agent)',	        // $_SERVER["HTTP_USER_AGENT"]
-
+'device' => '실적 발생한 디바이스 타입'	        // PC웹 실적 - "PC" / 모바일 웹 실적 - "MOBILE" / 모바일 앱 실적 - "APP"
 */
 $sql = "select	event_code 		event_code,
                 promo_code 		promo_code,
@@ -36,7 +36,8 @@ $sql = "select	event_code 		event_code,
 		product_name		product_name,
 		product_count 		item_count,
 		remote_address 		remote_addr,
-		u_agent 		user_agent
+		u_agent 		user_agent,
+		device_type		device_type
 	from your_order_table
 	where yyyymmdd = ?
 	and event_code is not null
