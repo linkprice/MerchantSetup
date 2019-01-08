@@ -105,9 +105,9 @@
 
 * 모든 실적은 Server to Server 방식으로 전송됩니다. 
 
-  **스크립트 및 이미지 방식**[^5]으로 전달 시 링크프라이스 담당자에게 별도 문의 바랍니다.
+  **스크립트 및 이미지 방식**<sup id="sub5">[5](#link5)</sup>으로 전달 시 링크프라이스 담당자에게 별도 문의 바랍니다.
 
-[^5]: 스크립트 방식은 〈script src='lppurchase.php'〉〈/script〉 이런 형식으로 전송하는 방식을 의미하며<br> 이미지 or 픽셀 방식은 〈img src='lppurchase.php'/〉 이런 형식으로 전송하는 방식을 의미합니다.
+<b name="link5">[5]</b>: 스크립트 방식은 〈script src='lppurchase.php'〉〈/script〉 이런 형식으로 전송하는 방식을 의미하며<br> 이미지 or 픽셀 방식은 〈img src='lppurchase.php'/〉 이런 형식으로 전송하는 방식을 의미합니다. [↩](#sub5)<br>
 
 
 
@@ -115,15 +115,15 @@
 
 * 실적 정보는 **JSON 형식**으로 전송해 주시기 바랍니다.
 
-* 결제 시, 복수 상품 및 단일 상품 모두 **2차원 배열**[^6]로 전송해주시기 바랍니다.
+* 결제 시, 복수 상품 및 단일 상품 모두 **2차원 배열**<sup id="sub6">[6](#link6)</sup>로 전송해주시기 바랍니다.
 
-* 디바이스구분값(device_type)은 옵션값이나, 원활한 실적 확인을 위하여 전송 하시길 추천드립니다. [^4]
+* 디바이스구분값(device_type)은 옵션값이나, 원활한 실적 확인을 위하여 전송 하시길 추천드립니다. <sup id="sub4">[4](#link4)</sup>
 
 * KEY 이름은 **수정 불가하며**, VALUE 값은 아래 예제를 참고 하시어 입력해 주시기 바랍니다.
 
 * 할인코드의 유효성 체크 이후 실적 전송이 되도록 주의 바랍니다.
 
-  [^6]: 단수주문건 JSON : [{data1}],  복수주문건 JSON : [{data1}, {data2}]
+<b name="link6">[6]</b>: 단수주문건 JSON : [{data1}],  복수주문건 JSON : [{data1}, {data2}] [↩](#sub6)<br>
 
 
 
@@ -274,20 +274,20 @@
 
 |  출력필드명  | 출력타입(Byte) | 필수유무 |                          설명                          |
 | :----------: | :---------: | :------: | :----------------------------------------------------: |
-|  event_code  | string(20)  |   필수   |      링크프라이스에서 발급한 고유 이벤트 코드[^1]      |
-|  promo_code  | string(50)  |   필수   |             매체에서 홍보하는 할인코드[^2]             |
-|  order_time   | string(10)  |   필수   |         실적의 시,분,초[^7]         |
+|  event_code  | string(20)  |   필수   |      링크프라이스에서 발급한 고유 이벤트 코드<sup id="sub1">[1](#link1)</sup>      |
+|  promo_code  | string(50)  |   필수   |             매체에서 홍보하는 할인코드<sup id="sub2">[2](#link2)</sup>             |
+|  order_time   | string(10)  |   필수   |         실적의 시,분,초<sup id="sub7">[7](#link7)</sup>         |
 |  member_id   | string(10)  |   필수   | 구매자<br/>  Ex) 구매자ID, 구매자 이름 |
 |  order_code  | string(100) |   필수   |                 해당 주문건의 주문번호                 |
 | product_code | string(100) |   필수   |               해당 주문건의 상품고유번호               |
 | product_name | string(300) |   필수   |                  해당 주문건의 상품명                  |
 |  item_count  |   Integer   |   필수   |                     상품 구매 수량                     |
 |    sales     |   Integer   |   필수   |                 금액 (단가*구매수량 )                  |
-|  user_agent  | String(200) |   필수   |               구매자의 User Agent 값[^3]               |
+|  user_agent  | String(200) |   필수   |               구매자의 User Agent 값<sup id="sub3">[3](#link3)</sup>               |
 | remote_addr  | String(20)  |   필수   |                   구매자의 REMOTE IP                   |
-| device_type  | String(10)  |   옵션   | 실적이 발생한 디바이스 타입<br>Ex) PC, MOBILE, APP[^4] |
+| device_type  | String(10)  |   옵션   | 실적이 발생한 디바이스 타입<br>Ex) PC, MOBILE, APP<sup id="sub4">[4](#link4)</sup> |
 
-[^7]: **hhmmss 형식**으로 실적 발생 시간만 출력되도록 작업. ex) 2018년 01월 01일 오후 01시 20분 13초 → “132013”
+<b name="link7">[7]</b>: **hhmmss 형식**으로 실적 발생 시간만 출력되도록 작업. ex) 2018년 01월 01일 오후 01시 20분 13초 → “132013”
 
 * **실적 정보 출력 예제 1. (단일주문건)**
 
