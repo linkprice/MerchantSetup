@@ -88,10 +88,10 @@
 | remote_addr  | String(20)  |   필수   |                   구매자의 REMOTE IP                   |
 | device_type  | String(10)  |   옵션   | 실적이 발생한 디바이스 타입<br>Ex) PC, MOBILE, APP<sup>[4](#link4)</sup> |
 
-<a name="link1">[1]</a>: 이벤트 코드(event_code) - 링크프라이스와 광고주가 협의 하여 생성하는 고유코드 이며, 고정값 입니다.  <br>Ex) merchant_promocode,   merchant_sale
-<a name="link2">[2]</a>: 할인 코드(promo_code) - 실제 구매자가 사용하는 할인코드로, 광고주가 발급후 링크프라이스에 전달해야 하는 코드 입니다.   Ex) LPpromo_code01, LPpromo_code02, LPpromo_code03, LPpromo_code04, LPpromo_code05
-<a name="link3">[3]</a>: User Agent 예시 : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36"
-<a name="link4">[4]</a>: PC웹 실적 - "PC"   /   모바일 웹 실적 - "MOBILE"    /   모바일 앱 실적 - "APP"
+<a name="link1">[1]</a>: 이벤트 코드(event_code) - 링크프라이스와 광고주가 협의 하여 생성하는 고유코드 이며, 고정값 입니다.  <br>Ex) merchant_promocode,   merchant_sale<br>
+<a name="link2">[2]</a>: 할인 코드(promo_code) - 실제 구매자가 사용하는 할인코드로, 광고주가 발급후 링크프라이스에 전달해야 하는 코드 입니다.   Ex) LPpromo_code01, LPpromo_code02, LPpromo_code03, LPpromo_code04, LPpromo_code05<br>
+<a name="link3">[3]</a>: User Agent 예시 : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36"<br>
+<a name="link4">[4]</a>: PC웹 실적 - "PC"   /   모바일 웹 실적 - "MOBILE"    /   모바일 앱 실적 - "APP"<br>
 
 
 
