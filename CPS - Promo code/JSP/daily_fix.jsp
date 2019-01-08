@@ -12,6 +12,23 @@
 <%@page import="java.io.*" %>
 
 <%
+
+/*
+Change filed name to your field name
+
+'event_code' => '이벤트 코드(Event code that is used for purchase)',
+'promo_code' => '할인 코드(promotion code that is used for purchase)',
+'order_code' => '주문 코드(Order code)',
+'product_code' => '상품 코드(Product code)',
+'product_name' => '상품명(Product name)',
+'item_count' => '상품 개수(Quantity of product)',
+'sales' => '금액(Total price)',
+'member_id' => 'user_id',				// 회원 ID
+'remote_addr' => '사용자의 IP(User IP)'		// $_SERVER["REMOTE_ADDR"]
+'user_agent' => '유저 에이전트(User agent)',	        // $_SERVER["HTTP_USER_AGENT"]
+'device_type' => '실적 발생한 디바이스 타입' // PC웹 실적 - "PC" / 모바일 웹 실적 - "MOBILE" / 모바일 앱 실적 - "APP"
+*/
+
 String sql = new String();
 String yyyymmdd = request.getParameter("yyyymmdd");
 String NWNAME = "linkprice";                   //network name for linkprice
@@ -26,7 +43,8 @@ sql = "SELECT	event_code 		event_code,"
 	 	+"product_name		product_name,"
 	 	+"count 		item_count,"
 	 	+"remote_address 	remote_addr,"
-	 	+"u_agent 		user_agent"
+	 	+"u_agent 		user_agent,"
+		+"device_type 		device_type"
 	+" FROM your_order_table"
 	+" WHERE yyyymmdd = ?";
 
