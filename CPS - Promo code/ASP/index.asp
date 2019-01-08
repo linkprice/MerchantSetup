@@ -32,8 +32,9 @@ command.CommandType = adCmdText
 ' 'sales' => '금액(Total price)',
 ' 'category_code' => '계약시 협의(Category in Contract)',	// 카테고리 코드
 ' 'member_id' => 'user_id',					// 회원 ID
-' 'remote_address' => '사용자의 IP(User IP)'			// $_SERVER["REMOTE_ADDR"]
+' 'remote_address' => '사용자의 IP(User IP)',			// $_SERVER["REMOTE_ADDR"]
 ' 'user_agent' => '유저 에이전트(User agent)',	        	// $_SERVER["HTTP_USER_AGENT"]
+' 'device_type' => '실적 발생한 디바이스 타입'	        	// PC웹 실적 - "PC" / 모바일 웹 실적 - "MOBILE" / 모바일 앱 실적 - "APP"
 
 
 command.CommandText = "SELECT	event_code 		event_code," + _
@@ -47,7 +48,8 @@ command.CommandText = "SELECT	event_code 		event_code," + _
 				"count 				item_count,"+ _
 				"category 			category_code,"+ _
 				"remote_address 		remote_addr,"+ _
-				"u_agent 			user_agent"+ _
+				"u_agent 			user_agent,"+ _
+				"device_type 			device_type"+ _
 			" FROM your_order_table"+ _
 			" WHERE order_code = ?"
 
