@@ -19,6 +19,7 @@ Change filed name to your field name
 'event_code' => '이벤트 코드(Event code that is used for purchase)',
 'promo_code' => '할인 코드(promotion code that is used for purchase)',
 'order_code' => '주문 코드(Order code)',
+'order_time' => '주문시간의 시,분,초',
 'product_code' => '상품 코드(Product code)',
 'product_name' => '상품명(Product name)',
 'item_count' => '상품 개수(Quantity of product)',
