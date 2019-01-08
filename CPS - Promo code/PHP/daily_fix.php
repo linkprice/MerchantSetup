@@ -22,7 +22,7 @@ Do not change alias name
 'item_count' => '상품 개수(Quantity of product)'
 'sales' => '금액(Total price)'
 'member_id' => 'user_id'				// 회원 ID
-'remote_address' => '사용자의 IP(User IP)'		// $_SERVER["REMOTE_ADDR"]
+'remote_addr' => '사용자의 IP(User IP)'		// $_SERVER["REMOTE_ADDR"]
 'user_agent' => '유저 에이전트(User agent)',	        // $_SERVER["HTTP_USER_AGENT"]
 'device' => '실적 발생한 디바이스 타입'	        // PC웹 실적 - "PC" / 모바일 웹 실적 - "MOBILE" / 모바일 앱 실적 - "APP"
 */
