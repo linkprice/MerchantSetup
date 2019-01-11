@@ -1,6 +1,6 @@
 ## 셋업 요약
 
-### [1. Gateway 페이지 작성 (LPINFO 쿠키생성)](https://github.com/linkprice/MerchantSetup/tree/master/CPS#랜딩-페이지-작성)
+### [1. Gateway 페이지 작성](https://github.com/linkprice/MerchantSetup/tree/master/CPS#랜딩-페이지-작성)
 
 ### [2. 실적 전송](https://github.com/linkprice/MerchantSetup/tree/master/CPS#실시간-실적-전송)
 * 구매 완료시 링크프라이스로 실적 전송 (**Server to Server 방식**)
@@ -21,7 +21,8 @@
 
 1. Gateway 페이지 작성
 
-	* 랜딩 페이지는 쿠키 생성 후 머천트 웹사이트로 리다이렉트하는 역할을 합니다. (샘플코드 참조) 
+	* 랜딩 페이지는 쿠키 생성 후 머천트 웹사이트로 리다이렉트하는 역할을 합니다. (샘플코드 참조)
+          (머천트 시스템 환경에 따라 **쿠키가 아닌 다른 방식**으로 lpinfo를 광고 효과 인정 기간동안 저장 하실 수 있습니다)
 
 	* RETURN_DAYS(광고 효과 인정 기간) 는 **계약서에 명시되어 있는 광고 효과 인정 기간**(일단위)으로 변경하시기 바랍니다.
 	
