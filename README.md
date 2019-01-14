@@ -10,18 +10,12 @@
 2. CPA 웹 (PC/Mobile) 셋업 가이드
 
    > 웹(PC/Mobile)에서 회원 가입등 액션에 관한 성과 측정을 위한 셋업 가이드
-   >
-   > 셋업 방식은 2가지 중 하나를 선택하여 진행하며, 어떤 방식으로 진행할지는 링크프라이스와 협의 하셔야 합니다
 
    2-1 CPA기본 셋업
 
       1. 한글: [CPA 웹(PC/Mobile) 기본 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/CPA)
 
       2. English: [CPA Web(PC/Mobile) Basic Setup Guide](https://github.com/linkprice/MerchantSetup/blob/master/CPA/README-en.md)
-
-   2-2 CPA 간편 셋업
-
-      1. 한글: [CPA 웹(PC/Mobile) 간편 셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/master/CPA/README-simple%20setup.md)
 
 3. CPS/CPA 모바일 앱 셋업 가이드(CPS/CPA Mobile Application Setup)
 
