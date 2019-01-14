@@ -11,8 +11,6 @@
 
    > 웹(PC/Mobile)에서 회원 가입등 액션에 관한 성과 측정을 위한 셋업 가이드
 
-   2-1 CPA기본 셋업
-
       1. 한글: [CPA 웹(PC/Mobile) 기본 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/CPA)
 
       2. English: [CPA Web(PC/Mobile) Basic Setup Guide](https://github.com/linkprice/MerchantSetup/blob/master/CPA/README-en.md)
