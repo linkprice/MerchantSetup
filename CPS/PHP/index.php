@@ -1,7 +1,7 @@
 <?php
 $send_data = array();
 $search_order_code = "order code";	// order code from complete payment page
-define(NWNAME, "linkprice");	        // network name value from complete payment page
+define("NWNAME", "linkprice");	        // network name value from complete payment page
 
 $db_ip = "DATABASE IP";
 $db_id = "DATABASE ID";
