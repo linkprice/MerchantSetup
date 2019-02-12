@@ -39,7 +39,7 @@
     "category_code" : "elec1000-23323",        
     "user_agent" : "{User agent}",	       
     "remote_addr" : "127.0.0.1",
-    "device_type" : "APP",	       
+    "device_type" : "AND",	       
     "payed_yyyymmdd" : "2018-07-01T11:13:44+00:00", 		       
     "confirmed_yyyymmdd" : "2018-10-10T11:13:10+00:00", 		       
     "canceled_yyyymmdd" : "2018-12-03T15:13:30+00:00"		       
@@ -79,7 +79,7 @@
 | **category_code** |  String   | 상품의 카테고리 코드                                         |
 |    user_agent     |  String   | $_SERVER["HTTP_USER_AGENT"]                                  |
 |    remote_addr    |  String   | 구매자 IP                                                    |
-|    device_type     |  String   | 구매자 디바이스 정보 (PC, MOBILE, APP)<br />PC : PC 웹<br />MOBILE : 모바일 웹<br />APP : 모바일 앱 구매 |
+|    device_type     |  String   | 구매자 디바이스 정보 (PC, MOBILE, AND, IOS)<br />PC : PC 웹<br />MOBILE : 모바일 웹<br />AND : 안드로이드 앱 구매<br />IOS : IOS 앱 구매 |
 |   **payed_yyyymmdd**    |  Date | 실적 결제 날짜 <br />(Date Format : ISO-8601 ex.  2018-07-27T10:13:44+00:00) |
 |   **confirmed_yyyymmdd**    | Date | 실적 확정 날짜<br />(Date Format : ISO-8601 ex.  2018-09-10T12:13:10+00:00) |
 |   **canceled_yyyymmdd**    | Date | 실적 취소 날짜<br />(Date Format: ISO-8601, ex.  2018-11-03T16:13:30+00:00) |
