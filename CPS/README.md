@@ -1,222 +1,448 @@
-## 셋업 요약
+## 1. lpinfo 테이블 생성
 
-### [1. Gateway 페이지 작성](https://github.com/linkprice/MerchantSetup/tree/master/CPS#랜딩-페이지-작성)
+1. 링크프라이스는 실적 추적을 위하여 다음의 데이터가(이하 **링크프라이스 데이터**) 반드시 필요합니다.
 
-### [2. 실적 전송](https://github.com/linkprice/MerchantSetup/tree/master/CPS#실시간-실적-전송)
-* 구매 완료시 링크프라이스로 실적 전송 (**Server to Server 방식**)
+    1. lpinfo: "lpinfo"라는 쿠키에 저장된 값
+    2. user_agent: USER_AGENT정보
+    3. ip: 사용자의 IP주소
+    4. device_type: 장치 구분 값
+        1. web-pc: 모바일이 아닌 장치에서 발생한 웹 실적
+        2. web-mobile: 모바일 장치에서 발생한 웹 실적
+        3. app-android: Android App을 통해 발생한 실적
+        4. app-ios: iOS App을 통해 발생한 실적 
 
-### [3. 실적 정보 출력](https://github.com/linkprice/MerchantSetup/tree/master/CPS#실적-정보-출력-daily_fix)
- * 머천트 주문 정보와 링크프라이스 실적을 대조하여 누락된 실적을 복구하기 위한 작업
+2. **링크프라이스 데이터**를 저장 할 테이블(Lpinfo)을 아래처럼 새로이 생성합니다.
 
-### [4. 자동 실적 취소](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Auto%20Cancel.md) / [월배치 정산](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Monthly%20Merchant%20Calculate.md)
- * 머천트 주문 취소시 링크프라이스 실적 자동 취소
-
- * 월배치 정산
-
-  <br />
-  <br />
-  <br />
-
-## 1. Gateway 페이지 작성
-
-1. Gateway 페이지 작성
-
-	* 랜딩 페이지는 쿠키 생성 후 머천트 웹사이트로 리다이렉트하는 역할을 합니다. (샘플코드 참조)
-          
-	* 머천트 시스템 환경에 따라 **쿠키가 아닌 다른 방식**으로 lpinfo를 광고 효과 인정 기간동안 저장 하실 수 있습니다.
-
-	* RETURN_DAYS(광고 효과 인정 기간) 는 **계약서에 명시되어 있는 광고 효과 인정 기간**(일단위)으로 변경하시기 바랍니다.
-	
-	* PC 웹과 모바일 웹의 타겟 페이지가 다를 경우 user agent로부터 PC와 모바일 구별 후 타겟 페이지를 변경해 주시기 바랍니다.
-	
-	* 모바일 App의 경우 모바일 App이 열리는 URL로 리다이렉션 합니다.
-	
-	* 광고 인정 기간을 계약서와 다르게 변경 시 계약위반으로 불이익을 받을 수 있습니다.
-
-2. 샘플 코드
-
-	* [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/lpfront.php)
-	* [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/JSP/lpfront.jsp)
-	* [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/ASP/lpfront.asp)
-
-
-## 2. 실시간 실적 전송
-
-1. 실시간 주문 정보 저장
-
-   * 구매 완료시 Cookie(**LPINFO**)가 존재하면 주문 정보를 저장합니다.
-
-   * 머천트 주문 테이블에 아래 필드를 추가합니다.
-
-   |     FIELD      |                VALUE                |
-   | :------------: | :---------------------------------: |
-   | network_value  |           LPINFO(cookie)            |
-   | network_name  | 링크프라이스를 구분할 수 있는 값(예-linkprice, lp) |
-   | remote_address |         사용자 IP(REMOTE_ADDR)         |
-   | user_agent   |   사용자 user_agent(HTTP_USER_AGENT)   |
-
-   * **구매 완료 시점**에 network_value, network_name, remote_address, user_agent 값을 주문 테이블에 저장하여 주십시오.
-
-2. 실시간 실적 전송 시점
-
-  * **구매 완료**시 실적을 전송하기 위해 실적전송 코드(샘플 참조)를 삽입해야 합니다.
-
-  * 모든 실적은 Server to Server 방식으로 전송됩니다. (단, *스크립트(script) 및 이미지(image) 방식으로 전달 시 링크프라이스로 별도 문의 주셔야 합니다*)
-
-3. 실시간 실적 전송 셋업
-
-  * 샘플코드는 귀사의 개발 환경에 맞게 수정하시기 바랍니다.
-  * JSON 형식으로 전송해 주시기 바랍니다.
-  * 결제시 복수 상품 및 단일 상품 모두 **Array**로 보내 주시기 바랍니다.
-  * KEY 이름은 **수정 할 수 없으며**, VALUE 값은 아래와 같이 입력해 주시기 바랍니다.
-  * 실적 전송시 sales_type(PC, MOBILE, IOS, AND, APP) 을 구분하는 값이 주문테이블에 없을 시 저장 하시길 추천드립니다. (앱 실적시 IOS나 안드로이드 구분이 안될때에는 APP으로 설정하여주세요.)
-
-  ```javascript
-  [
-      {
-  	lpinfo : "network_value",				// LPINFO cookie 값
-  	merchant_id : "Your merchant ID",			// 계약시 제공 받은 머천트 아이디
-  	member_id : "User ID of who phurchase products",	// 회원 ID
-  	order_code : "Order code of product",			// 주문번호
-  	product_code : "Product code",				// 상품코드
-  	product_name : "Product name",				// 상품명
-  	item_count : "Item count",				// 개수
-  	sales : "Total price",					// 총금액 (가격 * 개수)
-  	category_code : "Category code of product",		// 카테고리 코드
-  	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
-  	remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-          sales_type: "Sales type"				// PC, MOBILE, IOS, AND, APP(택1)    
-      }
-  ]
+  ```mysql
+    create table lpinfo(
+    	id int not null,
+        order_id varchar(30),
+        product_id varchar(30),
+        lpinfo varchar(580),
+        user_agent varchar(300),
+        ip varchar(50),
+        device_type varchar(10)
+    )
   ```
 
-  * 예제(한번 결제에 복수 상품 결제시)
-  ```javascript
-  [
-      {
-  	lpinfo : "A100000131|24955642000000|0000|1|0",		// LPINFO cookie 값
-  	merchant_id : "Merchant_id",				// 계약시 제공 받은 머천트 아이디
-  	member_id : "member_id",				// 회원 ID
-  	order_code : "1234567890",				// 주문번호
-  	product_code : "example_1",				// 상품코드
-  	product_name : "example",				// 상품명
-  	item_count : "1",					// 개수
-  	sales : "15000",					// 총금액 (가격 * 개수)
-  	category_code : "example_category",			// 카테고리 코드
-  	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
-  	remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-          sales_type: "MOBILE"					    
-      },
-      {
-  	lpinfo : "A100000131|24955642000000|0000|1|0",		// LPINFO cookie 값
-  	merchant_id : "Merchant_id",				// 계약시 제공 받은 머천트 아이디
-  	member_id : "member_id",				// 회원 ID
-  	order_code : "1234567890",				// 주문번호
-  	product_code : "example_2",				// 상품코드
-  	product_name : "example2",				// 상품명
-  	item_count : "1",					// 개수
-  	sales : "20000",					// 총금액 (가격 * 개수)
-  	category_code : "example_category2",			// 카테고리 코드
-  	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
-  	remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-          sales_type: "MOBILE"    
-      }	    
-  ]
-  ```
+3. **결제 완료 후**, 위에서 생성한 테이블에 **링크프라이스 데이터를 반드시 저장해야 합니다**.
 
-  * 예제(한번 결제에 단일 상품 결제시)
-  ```javascript
-  [
-      {
-  	lpinfo : "A100000131|24955642000000|0000|1|0",		// LPINFO cookie 값
-  	merchant_id : "Merchant_id",				// 계약시 제공 받은 머천트 아이디
-  	member_id : "member_id",				// 회원 ID
-  	order_code : "1234567890",				// 주문번호
-  	product_code : "example_1",				// 상품코드
-  	product_name : "example",				// 상품명
-  	item_count : "1",					// 개수
-  	sales : "15000",					// 총금액 (가격 * 개수)
-  	category_code : "example_category",			// 카테고리 코드
-  	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
-  	remote_addr:  "User IP"				        // $_SERVER["REMOTE_ADDR"]
-          sales_type: "APP"    
-      } 
-  ]
-  ```
-
-  * 실적 중 위의 값으로 실적 구분이  경우 링크프라이스로 연락 주십시요.
-
-4. 샘플 코드
-  * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.php)
-  * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/JSP/index.jsp)
-  * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/ASP/index.asp)
+4. 링크프라이스를 통해 발생한 실적만 저장 하여 주십시요(lpinfo라는 쿠키가 존재하는 경우에만 위의 테이블에 저장하십시요)
 
 
-5. 에러 코드
 
-| error_message                                    | 에러 상세 내용                                               |
-| ------------------------------------------------ | ------------------------------------------------------------ |
-| lpinfo parameter is empty                        | lpinfo 미입력                                                |
-| merchant_id parameter is empty.                  | merchant_id 미입력                                           |
-| order_code parameter is empty.                   | order_code(주문번호) 미입력                                  |
-| product_code parameter is empty.                 | product_code(상품코드) 미입력                                |
-| category_code parameter is empty.                | category_code 미입력                                         |
-| user_agent parameter is empty.                   | user_agent 미입력                                            |
-| remote_addr parameter is empty.                  | remote_addr (클라이언트 IP) 미입력                           |
-| item_count parameter is empty.                   | item_count(상품수량) 미입력                                  |
-| sales parameter is empty.                        | sales(상품금액) 미입력                                       |
-| product_name parameter is empty.                 | product_name(상품명) 미입력                                  |
-| lpinfo parameter does not conform to the format. | lpinfo 값이 형식에 맞지 않음                                 |
-| sales_type and user_agent parameter is empty.    | sales_type (PC/MOBILE) 구분값 미입력<br />특정 머천트만 적용 대상 |
-| The order_code of each array must be the same.   | 복수의 건일 경우 주문번호가 서로 일치하지 않음               |
-| Order code is duplicated.                        | 예전에 링크프라이스로 인입된 주문번호가 재입력됨             |
-| Required parameters are missing.                 | 필수파라미터가 누락되어 실적 인정이 안됨                     |
-| Network error during performance transmission.   | 네트워크 장애로 실적 인정이 안됨                             |
+## 2. 게이트웨이 페이지
 
-## 3. 실적 정보 출력 (daily_fix)
+1. 게이트웨이 페이지란?
 
-1. 실적 정보 출력
+    1. 사용자가 배너를 클릭 하면, 링크프라이스를 거쳐, 머천트로 리다이렉션 합니다.
+    2. 머천트로 리다이렉션 할 때, 처음으로 거치는 웹페이지를 게이트웨이 페이지라고 합니다.
+    3. 이 게이트웨이 페이지는 유효성 체크, 쿠키 생성, 목적 페이지로 리다이렉션 등의 작업을 합니다.
 
-	* 머천트 주문 정보와 링크프라이스의 실적을 대조하여 누락된 실적을 복구하기 위한 작업입니다.
+2. 게이트웨이 페이지의 가장 중요한 목적은 **"lpinfo"로 쿠키를 생성**하는 것입니다.
 
-	* 머천트의 실적 정보 출력 URL를 링크프라이스에서 일별 호출하여 자동으로 복구합니다.
-	
-	* 주문번호(order_code)와 상품코드(product_code)로 실적을 대조합니다.
+3. 게이트웨이 페이지를 생성 한 후, 링크프라이스에서 전달받은 자바스크립를 추가하여 주십시요.
 
-2. 실적 정보 출력 셋업
+    1. 게이트웨이 페이지 생성은 사용하시는 서버 환경에 따라 달라 질 수 있습니다.
+    2. **이 게이트웨이 페이지는 아무나 접근 가능한 웹페이지이며 https로 접속 가능해야 합니다**. https가 불가한 경우 링크프라이스에 연락 주세요.
+    3. 예를 들어  https://www.yourdomain.com/linkprice/gateway 처럼, 게이트웨이 페이지를 생성 해 주세요.
 
-  * 머천트에 저장된 주문 정보 중 링크프라이스를 통해서 발생한 주문을 출력합니다.
+4. 게이트웨이 페이지 생성 후 **링크프라이스에서 제공하는 자바스크립트(javascript)를 추가하여 주십시요**. 아래의 스크립트는 샘플코드로 실제코드와는 다릅니다. 반드시 링크프라이스에서 제공하는 자바스크립트를 게이트웨이 페이지에 추가 해 주세요.
 
-  * 샘플코드는 머천트 개발 환경에 맞게 수정하시기 바랍니다.
+    ```javascript
+     <!-- Google Tag Manager -->
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-P3HTV4');</script>
+      <!-- End Google Tag Manager -->
+    ```
 
-  * 실적 전송된 데이터와 실적 정보 출력에서 확인되는 데이터 모두 동일해야 합니다.
+5. **게이트웨이 페이지 URL을 링크프라이스에 알려 주세요**.
 
-  * 아래 예시와 같이 호출하면 해당 날짜의 실적 정보가 출력될 수 있도록 합니다. (yyyymmdd 파라미터로 호출)
-  	* 예 - www.example.com/linkprice/daily_fix.php?yyyymmdd=20170701 실적 전송된 데이터와 실적 정보 출력에서 확인되는 데이터는 모두 동일해야 합니다.	
 
-  * 실적 정보는 json 형식으로 출력하시기 바랍니다.
 
-  ```javascript
-  [
-      {
-  	lpinfo : "network_value",				// LPINFO cookie 값
-  	order_time : "order time",				// 주문시간
-  	member_id : "User ID of who phurchase products",	// 회원 ID
-  	order_code : "Order code of product",			// 주문번호
-  	product_code : "Product code",				// 상품코드
-  	product_name : "Product name",				// 상품명
-  	item_count : "Item count",				// 개수
-  	sales : "Total price",					// 총금액 (가격 * 개수)
-  	category_code : "Category code of product",		// 카테고리 코드
-  	user_agent : "User Agent",				// $_SERVER["HTTP_USER_AGENT"]
-  	remote_addr: "User IP"				        // $_SERVER["REMOTE_ADDR"]
-  	sales_type: "Sales type"		       
-      }
-  ]
-  ```
+## 3. 실시간 실적 전송
 
-3. 샘플 코드
+1. 결제 성공시, 링크프라이스에 아래의 Request 데이터를 json 으로 전송합니다. 
 
-	* [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/daily_fix.php)
-	* [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/JSP/daily_fix.jsp)
-	* [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/ASP/daily_fix.asp)
+    1. 이 json에는 하나의 주문(order)만 있어야 합니다. 
+    2. 여러 개의 다른 주문(order)이 포함 되어서는 안됩니다.
+    3. 하나의 주문(order)에 여러 가지의 상품을 샀다면, 하나의 json에 그 여러개의 상품이 모두 포함되어야 합니다.
+
+2. Request
+    1. order
+        1. order_id(string): 주문번호, 구매자가 인지 가능한 주문번호이어야 누락신고시 이 주문번호로 누락 여부를 조회할 수 있습니다.
+        2. final_paid_price(float):  배송비를 제외 한 실결제 금액
+            1. 배송비를 구매자가 부담시 실결제금액에서 배송비를 제외한 금액입니다.
+            2. 무료배송인 경우엔 실결제 금액 전체입니다.
+        3. user_name(string): 누락신고시 누구의 실적인지를 알기 위해 사용 할 구매자 이름
+        4. currency(string): 상품 결제시 사용된 통화
+            1. ISO 4217 사용
+            2. 예) USD, KRW, CNY, EUR
+    2. products
+        1. product_id(string): 상품 ID
+
+        2. product_name(string): 상품 이름
+
+        3. category_code(string): 상품 카테고리 코드
+
+        4. category_name(string): 상품 카테고리 이름
+
+            1. 해당 상품의 모든 카테고리 이름을 넣어주세요.
+            2. 의류 > 남성의류 > 자켓 > 아우터 일 경우 아래와 같이 작성하여 주세요.
+
+            ```json
+            "category_name": ["의류", "남성의류", "자켓", "아우터"]
+            ```
+
+        5. quantity(unsigned int): 구매 갯수
+
+        6. product_final_price(float): 구매자가 이 상품을 구매하기 위하여 결제해야 할 금액
+
+        7. paid_at(string): 결제 완료 시간
+
+            1. 결제 완료 시간이란 결제가 성공한 시간을 뜻합니다.
+            2. Date Format : ISO-8601 ex. 2018-07-27T10:13:44+00:00
+
+        8. confirmed_at(string): 구매 확정 시간
+
+            1. 구매 확정이란 상품이 배송되어 쇼핑몰에서 지정한 환불/취소 기간이 지나 더 이상 환불/취소 불가능한 상태를 뜻합니다.
+            2. 구매 확정 시간이란 구매 확정 상태가 된 시간을 뜻합니다.
+            3. 구매 확정이 되지 않았다면 공백 문자열을 전송 해 주세요.
+            4. 구매 확정이 되었다면 구매 확정 시간을 ISO-8601 포맷으로 전송 해 주세요.
+            5. 예) 2018-07-27T10:13:44+00:00
+
+        9. caceled_at(string): 구매 취소 확정 시간
+
+            1. 구매 취소 확정이란 구매자의 요청으로 환불/취소가 처리 완료된 시간을 뜻합니다.
+            2. 취소 확정이 되지 않았다면 공백 문자열을 전송 해 주세요.
+            3. 취소 확정이 되었다면 취소 확정 시간을 ISO-8601 포맷으로 전송 해 주세요.
+            4. 예) 2018-07-27T10:13:44+00:00
+    3. linkprice
+        1. lpinfo(string): "lpinfo"라는 쿠키에 저장된 값
+        2. merchant_id(string): 링크프라이스로부터 받은 머천트 ID
+        3. user_agent(string): USER_AGENT정보
+        4. remote_addr(string): 구매자의 IP주소. 서버 주소가 아닌 실 구매자의 IP주소를 전송 해 주세요.
+        5. device_type(string): 장치 구분 값
+            1. web-pc: 모바일이이 아닌 장치에서 발생한 웹 실적
+            2. web-mobile: 모바일 장치에서 발생한 웹 실적
+            3. app-ios: iOS App을 통해 발생한 실적 
+            4. app-android: Android App을 통해 발생한 실적
+
+
+3. Request Sample
+
+   1. 구매자가 7000원짜리 HDMI 케이블2개, 6000원짜리 봉지라면 3개를 구매하였고, 무료배송인 경우
+        1. 각 상품의 product_final_price의 합은 final_paid_price와 같아야 합니다: 14000 + 18000 = 32000
+        2. 아래의 샘플은 
+
+   ```json
+   {
+       "order": {
+           "order_id": "o190203-h78X3",
+           "final_paid_price": 32000,
+           "currency": "KRW",
+           "user_name": "구매자"
+       },
+       "products": [
+           {
+               "product_id": "P87-234-anx87",
+               "product_name": "UHD 4K 넥시 HDMI케이블",
+               "category_code": "132782",
+               "category_name": ["컴퓨터 주변기기", "케이블", "HDMI케이블"],
+               "quantity": 2,
+               "product_final_price": 14000,
+               "paid_at": "2019-02-12T11:13:44+00:00",
+               "confirmed_at": "",
+               "canceled_at": ""
+           },
+           {
+               "product_id": "P23-983-Z3272",
+               "product_name": "농심 오징어짬뽕124g(5개)",
+               "category_code": "237018",
+               "category_name": ["가공식품", "라면", "봉지라면"],
+               "quantity": 3,
+               "product_final_price": 18000,
+               "paid_at": "2019-02-12T11:13:44+00:00",
+               "confirmed_at": "",
+               "canceled_at": ""
+           }
+       ],
+       "linkprice": {
+           "merchant_id": "sample",
+           "lpinfo": "A123456789|9832|A|m|a8uakljfa",
+           "user_agent": "Mozilla/5.0...",
+           "remote_addr": "127.0.0.1",
+           "device_type": "web-pc"
+       }
+   }
+   ```
+
+   2. 구매자가  7000원짜리 HDMI 케이블2개, 6000원짜리 봉지라면 3개를 구매하였고, 배송비 3000원은 구매자가 추가로 지불한 경우
+
+     1. 실결제 금액은 배송비 3000원을 포함한 35000원입니다.
+     2. final_paid_price는 실결제 금액 35000원에서 배송비 3000원을 뺀 **32000**원입니다
+     3. 각 상품의 product_final_price의 합은 final_paid_price와 같아야 합니다: 14000 + 18000 = 32000
+
+   ```json
+   {
+       "order": {
+           "order_id": "o190203-h78X3",
+           "final_paid_price": 32000,
+           ...
+    	},
+    	"products": [
+        	{
+                "product_name": "UHD 4K 넥시 HDMI케이블",
+                "product_final_price": 14000,
+               ...
+        	},
+        	{
+                "product_name": "농심 오징어짬뽕124g(5개)",
+                "product_final_price": 18000,
+               ...
+       	}
+    	],
+    	"linkprice": {
+            "merchant_id": "sample",
+            "lpinfo": "A123456789|9832|A|m|a8uakljfa",
+            ...
+    	}
+   }
+   ```
+
+   3. 구매자가  7000원짜리 HDMI 케이블2개, 6000원짜리 봉지라면 3개를 구매하였고, 무료배송이고,  최종적으로 전체 상품에 대해 10%할인 쿠폰을 사용한 경우
+       1. 쿠폰 적용전에 결제해야 할 금액은 32000원입니다. 10% 쿠폰을 사용하였으므로 최종적으로 구매자가 지불해야 할 금액은 **28800**원입니다
+       2. 10% 쿠폰 적용전에 hdmi 케이블의 product_final_price은 14000원이었는데, 10% 쿠폰을 적용하면 12600원이므로 hdmi 케이블의 product_final_price은 **12600**원입니다.
+       3. 10% 쿠폰 적용전에 봉지라면의 product_final_price은 18000원이었는데, 10% 쿠폰을 적용하면 16200 원이므로 봉지라면의 product_final_price은 **16200**원입니다.
+       4. 28800(final_paid_price) = 12600(product_final_price은) + 16200(product_final_price)
+
+   ```json
+   {
+       "order": {
+           "order_id": "o190203-h78X3",
+           "final_paid_price": 28800,
+           ...
+    	},
+    	"products": [
+        	{
+                "product_name": "UHD 4K 넥시 HDMI케이블",
+                "product_final_price": 12600,
+               ...
+        	},
+        	{
+                "product_name": "농심 오징어짬뽕124g(5개)",
+                "product_final_price": 16200,
+               ...
+       	}
+    	],
+    	"linkprice": {
+            "merchant_id": "sample",
+            "lpinfo": "A123456789|9832|A|m|a8uakljfa",
+            ...
+    	}
+   }
+   ```
+
+
+   4. 구매자가  7000원짜리 HDMI 케이블2개, 6000원짜리 봉지라면 3개를 구매하였고, 무료배송이고, 최종적으로 식품 카테고리에 대해 5000원 할인 쿠폰을 사용한 경우
+         1. 쿠폰 적용전에 결제해야 할 금액은 32000원입니다. 5000원 쿠폰을 사용하였으므로 최종적으로 구매자가 지불해야 할 금액은 **27000**원입니다
+         2. hdmi 케이블은 쿠폰 적용을 받지 않으므로 product_final_price은 **14000**원입니다.
+         3. 봉지라면의 경우 18000원에서 5000원을 뺀 **13000**원이 product_final_price입니다
+         4. 27000(final_paid_price) = 14000(product_final_price은) + 13000(product_final_price)
+
+   ```json
+   {
+       "order": {
+           "order_id": "o190203-h78X3",
+           "final_paid_price": 27000,
+           ...
+    	},
+    	"products": [
+        	{
+                "product_name": "UHD 4K 넥시 HDMI케이블",
+                "product_final_price": 14000,
+               ...
+        	},
+        	{
+                "product_name": "농심 오징어짬뽕124g(5개)",
+                "product_final_price": 13000,
+               ...
+       	}
+    	],
+    	"linkprice": {
+            "merchant_id": "sample",
+            "lpinfo": "A123456789|9832|A|m|a8uakljfa",
+            ...
+    	}
+   }
+   ```
+
+   5. 구매자가  7000원짜리 HDMI 케이블2개, 6000원짜리 봉지라면 3개를 구매하였고, 무료배송이고, 최종적으로 마일리지 3000원을 사용한 경우
+       1. 쿠폰 적용전에 결제해야 할 금액은 32000원입니다. 3000원 마일리지를 사용하였으므로 최종적으로 구매자가 지불해야 할 금액은 **29000**원입니다
+       2. 마일리지 적용전 hdmi 케이블의 product_final_price은 14000원 이었는데 3000원 마일리지를 사용하였으므로 14000 - 3000 * 14000 / 32000 = **12688**원 입니다
+       3. 마일리지 적용전 봉지라면의 product_final_price은 18000원 이었는데 3000원 마일리지를 사용하였으므로 18000 - 3000 * 18000 / 32000 = **16313**원 입니다
+       4. 29000(final_paid_price) = 12688(product_final_price은) + 16313(product_final_price)
+
+   ```json
+   {
+       "order": {
+           "order_id": "o190203-h78X3",
+           "final_paid_price": 29000,
+           ...
+       },
+       "products": [
+           {
+               "product_name": "UHD 4K 넥시 HDMI케이블",
+               "product_final_price": 12688,
+               ...
+           },
+           {
+               "product_name": "농심 오징어짬뽕124g(5개)",
+               "product_final_price": 16313,
+               ...
+           }
+       ],
+       "linkprice": {
+           "merchant_id": "sample",
+           "lpinfo": "A123456789|9832|A|m|a8uakljfa",
+           ...
+       }
+   }
+   ```
+
+   
+
+4. Response
+
+   1. 응답 바디는 JSON객체입니다.
+
+       | KEY           | VALUE                                 |
+       | ------------- | ------------------------------------- |
+       | is_success    | true / false<br />실적 전송 성공 여부 |
+       | error_message | 에러 메세지                           |
+       | order_code    | 주문 코드                             |
+       | product_code  | 상품 코드                             |
+
+   2. Respons Sample
+
+       1. 전송 성공시
+
+       ```json
+       [
+           {
+               "is_success": true,
+               "error_message": "",
+               "order_code": "order_115",
+               "product_code": "product1"
+           },
+           {
+               "is_success": true,
+               "error_message": "",
+               "order_code": "order_115",
+               "product_code": "product2"
+           }
+       ]
+       ```
+
+       2. 전송 실패시
+
+       ```json
+       [
+           {
+               "is_success": false,
+               "error_message": "lpinfo parameter is empty.",
+               "order_code": "order_115",
+               "product_code": "product1"
+           },
+           {
+               "is_success": false,
+               "error_message": "lpinfo parameter is empty.",
+               "order_code": "order_115",
+               "product_code": "product2"
+           }
+       ]
+       
+       ```
+
+       
+
+       * CPS 에러 메세지
+
+       | error_message                                                | 에러 상세 내용                                               |
+       | ------------------------------------------------------------ | ------------------------------------------------------------ |
+       | This is not a valid JSON string.                             | REQUEST 가 JSON 형식이 아님                                  |
+       | order.order_id parameter is empty.                           | action.unique_id 미입력                                      |
+       | order.final_paid_price parameter is empty.                   | action.final_paid_price 미입력                               |
+       | order.final_paid_price is not integer.                       | action.final_paid_price integer형이 아님                     |
+       | order.currency parameter is empty.                           | action.currency미입력                                        |
+       | order.user_name parameter is empty.                          | action.member_id 미입력                                      |
+       | products parameter is empty.                                 | action.action_name 미입력                                    |
+       | linkprice.lpinfo parameter is empty.                         | action.category_code 미입력                                  |
+       | linkprice.lpinfo parameter does not conform to the format.   | linkprice.lpinfo 미입력                                      |
+       | linkprice.user_agent parameter is empty.                     | linkprice.user_agent 미입력                                  |
+       | linkprice.remote_addr parameter is empty.                    | linkprice.remote_addr 미입력                                 |
+       | linkprice.device_type parameter is empty.                    | linkprice.device_type 미입력                                 |
+       | products[i].product_id parameter is empty.                   | products i번째 product_id 미입력                             |
+       | products[i].product_name parameter is empty.                 | products i번째 product_name 미입력                           |
+       | products[i].category_code parameter is empty.                | products i번째 category_code 미입력                          |
+       | products[i].product_final_price parameter is empty.          | products i번째 product_final_price 미입력                    |
+       | The amount of order.final_paid_price does not match the total amount of products.product_final_price. | products의 합산 금액과 order.final_paid_price 금액이 일치하지 않음. |
+       | There was a problem sending your performance.                | 실적 전송 오류                                               |
+
+       
+
+
+## 4. 실적 목록
+
+1. 실적 목록이란?
+
+    1. 정확하고 빠른 정산을 위하여 링크프라이스 실적 데이터를 제공하는 API입니다.
+    2. 머천트 주문 정보와 링크프라이스의 실적을 대조하여 누락된 실적을 복구합니다.
+
+2. 실적 목록 출력
+
+   1. 링크프라이스가 머천트 API를 호출하여 실적목록을 확인 하며, 실적 목록 API는 머천트가 직접 작성 해 주셔야 합니다.
+   2. 실시간 실적 전송된 데이터와 실적 목록 API에서 확인되는 데이터는 모두 동일해야 합니다.
+   3. 아래와 같이 링크프라이스에서 머천트 API를 호출하게 되며, **paid_ymd, confirmed_ymd, canceled_ymd**세가지 파라미터를 사용 하여 조회 할 수 있어야 합니다.
+
+   ```shell
+   curl https://api.yourdomain.com/linkprice/order_list_v1?paid_ymd=20181220
+   ```
+
+   4. 파라미터 설명
+
+   | 파라미터      | 값                                    |
+   | ------------- | ------------------------------------- |
+   | paid_ymd      | 결제 완료 조회 날짜. 예) 20181220 <BR />해당날짜에 결제가 완료된 모든 링크프라이스 실적을 보여줍니다. |
+   | confirmed_ymd | 구매 확정 조회 날짜. 예) 20181220 <BR />해당날짜에 구매가 확정된 모든 링크프라이스 실적을 보여줍니다. |
+   | canceled_ymd  | 취소 확정 조회 날짜. 예) 20181220 <BR />해당날짜에 구매 취소가 확정된 모든 링크프라이스 실적을 보여줍니다. |
+
+   5. 데이터 포맷은 ndjson(www.ndjson.org)입니다.
+
+        1. 주문 하나 하나를 json으로 바꿉니다. 이 때, 하나의 주문 json안에는 줄바꿈("\n") 기호가 있어서는 안됩니다.
+        2. 하나의 주문 json과 다른 json 주문사이에는 구분자로 줄바꿈("\n") 기호로 구별되어야 합니다.
+        3. 응답(ndjosn) 예제
+
+        ```json
+        {"order":{"order_id":"ord-123-01",.....},"products":[....],"linkprice":{...}}\n
+        {"order":{"order_id":"ord-123-02",.....},"products":[....],"linkprice":{...}}\n
+        {"order":{"order_id":"ord-123-03",.....},"products":[....],"linkprice":{...}}\n
+        {"order":{"order_id":"ord-123-04",.....},"products":[....],"linkprice":{...}}\n
+        ```
+
+
+
+
+## 5. FAQ
+
+* Q: 무통장입금의 경우 어느 시점에 실시간 실적을 전송해야 하나요?
+
+  * A: 원칙적으로 무통장 입금이 확인된 시점에 실시간 실적을 전송해야 합니다.
+* Q: 이미 CPS 셋업이 되어 있는 경우에는 어떻게 하나요?
+
+  * A: 이미 CPS 셋업이 되어 있다면, 구 버전으로 셋업이 되어 있을 확률이 높습니다. 데이터 처리 방식이나 내용이 많이 바뀌었으므로, 현재 버전으로 재 셋업 해 주세요.
+* Q: Npay 사용 시 어떻게 실시간 실적을 전송해야 하나요?
+    * A: [Npay 셋업 메뉴얼](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Npay.md)
