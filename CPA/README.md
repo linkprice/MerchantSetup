@@ -187,24 +187,24 @@
         
         ```
 
-        * 에러 메세지
+        * CPA 에러 메세지
 
-        | error_message                                    | 에러 상세 내용                                   |
-        | ------------------------------------------------ | ------------------------------------------------ |
-        | lpinfo parameter is empty                        | lpinfo 미입력                                    |
-        | merchant_id parameter is empty.                  | merchant_id 미입력                               |
-        | unique_id parameter is empty.                    | unique_id(회원 번호) 미입력                      |
-        | category_code parameter is empty.                | category_code 미입력                             |
-        | category_name parmeter is empty                  | category_name 미입력                             |
-        | user_agent parameter is empty.                   | user_agent 미입력                                |
-        | remote_addr parameter is empty.                  | remote_addr (클라이언트 IP) 미입력               |
-        | final_paid_price parameter is empty.             | final_paid_price(실결제금액) 미입력              |
-        | action_name parameter is empty.                  | action_name 미입력                               |
-        | lpinfo parameter does not conform to the format. | lpinfo 값이 형식에 맞지 않음                     |
-        | device_type is empty.                            | device_type 구분값 미입력                        |
-        | unique code is duplicated.                       | 예전에 링크프라이스로 인입된 회원번호가 재입력됨 |
-        | Required parameters are missing.                 | 필수파라미터가 누락되어 실적 인정이 안됨         |
-        | Network error during performance transmission.   | 네트워크 장애로 실적 인정이 안됨                 |
+       | error_message                                              | 에러 상세 내용                           |
+       | ---------------------------------------------------------- | ---------------------------------------- |
+       | This is not a valid JSON string.                           | REQUEST 가 JSON 형식이 아님              |
+       | action.unique_id parameter is empty.                       | action.unique_id 미입력                  |
+       | action.final_paid_price parameter is empty.                | action.final_paid_price 미입력           |
+       | action.final_paid_price is not integer.                    | action.final_paid_price integer형이 아님 |
+       | action.currency parameter is empty.                        | action.currency미입력                    |
+       | action.member_id parameter is empty.                       | action.member_id 미입력                  |
+       | action.action_name parameter is empty.                     | action.action_name 미입력                |
+       | action.category_code parameter is empty.                   | action.category_code 미입력              |
+       | linkprice.lpinfo parameter is empty.                       | linkprice.lpinfo 미입력                  |
+       | linkprice.lpinfo parameter does not conform to the format. | linkprice.lpinfo이 올바른 형식이 아님    |
+       | linkprice.user_agent parameter is empty.                   | linkprice.user_agent 미입력              |
+       | linkprice.remote_addr parameter is empty.                  | linkprice.remote_addr 미입력             |
+       | linkprice.device_type parameter is empty.                  | linkprice.device_type 미입력             |
+       | There was a problem sending your performance.              | 실적 전송 오류                           |
 
     
 
