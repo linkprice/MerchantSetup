@@ -4,7 +4,7 @@
 
    > 웹(PC/Mobile)에서 상품 구매 발생시 성과 측정을 위한 셋업 가이드
 
-   1. 한글: [CPS 웹(PC/Mobile)셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/CPS)
+   1. 한글: [CPS 웹(PC/Mobile)셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/v3/CPS)
    2. English: [CPS Web(PC/Mobile) Setup Guide](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-en.md)
 
 2. CPA 웹 (PC/Mobile) 셋업 가이드
