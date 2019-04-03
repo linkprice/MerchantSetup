@@ -420,17 +420,29 @@
    | confirmed_ymd | 구매 확정 조회 날짜. 예) 20181220 <BR />해당날짜에 구매가 확정된 모든 링크프라이스 실적을 보여줍니다. |
    | canceled_ymd  | 취소 확정 조회 날짜. 예) 20181220 <BR />해당날짜에 구매 취소가 확정된 모든 링크프라이스 실적을 보여줍니다. |
 
-   5. 데이터 포맷은 ndjson(www.ndjson.org)입니다.
+   5. 데이터 포맷은 chunked입니다.
+         (https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Transfer-Encoding)
 
-        1. 주문 하나 하나를 json으로 바꿉니다. 이 때, 하나의 주문 json안에는 줄바꿈("\n") 기호가 있어서는 안됩니다.
-        2. 하나의 주문 json과 다른 json 주문사이에는 구분자로 줄바꿈("\n") 기호로 구별되어야 합니다.
-        3. 응답(ndjosn) 예제
+        1. Content-Lengh 헤더는 생략됩니다.
+        2. 각 청크 앞부분에 청크의 길이가 16진수 형태로 오게되며 그 뒤에 \r\n이 나옵니다
+        3. 종료 청크는 길이가 0이며 그뒤에 \r\n이 나온 후 마지막줄에 \r\n으로 끝납니다.
+        4. 응답(chunked) 예제
 
-        ```json
-        {"order":{"order_id":"ord-123-01",.....},"products":[....],"linkprice":{...}}\n
-        {"order":{"order_id":"ord-123-02",.....},"products":[....],"linkprice":{...}}\n
-        {"order":{"order_id":"ord-123-03",.....},"products":[....],"linkprice":{...}}\n
-        {"order":{"order_id":"ord-123-04",.....},"products":[....],"linkprice":{...}}\n
+        ```
+        HTTP/1.1 200 OK 
+        Content-Type: text/plain 
+        Transfer-Encoding: chunked
+        
+        1a4\r\n
+        {"action":{"unique_id":"ord-123-01",....},"linkprice":{...}}\r\n
+        1b1\r\n
+        {"order":{"unique_id":"ord-123-02",.....},"linkprice":{...}}\r\n
+        1ab\r\n
+        {"order":{"unique_id":"ord-123-03",.....},"linkprice":{...}}\r\n
+        1a9\r\n
+        {"order":{"unique_id":"ord-123-04",.....},"linkprice":{...}}\r\n
+        0\r\n
+        \r\n
         ```
 
 
