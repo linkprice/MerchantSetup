@@ -35,9 +35,9 @@
 
 2. 샘플 코드
 
-	* [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/lpfront.php)
-	* [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/JSP/lpfront.jsp)
-	* [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/ASP/lpfront.asp)
+	* [PHP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/lpfront.php)
+	* [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/JSP/lpfront.jsp)
+	* [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/ASP/lpfront.asp)
 
 
 ## 2. 실시간 실적 전송
@@ -147,9 +147,9 @@
   * 실적 중 위의 값으로 실적 구분이  경우 링크프라이스로 연락 주십시요.
 
 4. 샘플 코드
-  * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.php)
-  * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/JSP/index.jsp)
-  * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/ASP/index.asp)
+  * [PHP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/index.php)
+  * [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/JSP/index.jsp)
+  * [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/ASP/index.asp)
 
 
 5. 에러 코드
@@ -217,6 +217,6 @@
 
 3. 샘플 코드
 
-	* [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/daily_fix.php)
-	* [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/JSP/daily_fix.jsp)
-	* [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/ASP/daily_fix.asp)
+	* [PHP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/daily_fix.php)
+	* [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/JSP/daily_fix.jsp)
+	* [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/ASP/daily_fix.asp)
