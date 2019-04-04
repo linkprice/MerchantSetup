@@ -1,12 +1,12 @@
 ## 셋업 요약
 
-### [1. Gateway 페이지 작성 (LPINFO 쿠키생성)](https://github.com/linkprice/MerchantSetup/tree/master/CPA#랜딩-페이지-작성)
+### [1. Gateway 페이지 작성 (LPINFO 쿠키생성)](https://github.com/linkprice/MerchantSetup/tree/v3/CPA#랜딩-페이지-작성)
 
-### [2. 실적 전송](https://github.com/linkprice/MerchantSetup/tree/master/CPA#실시간-실적-전송)
+### [2. 실적 전송](https://github.com/linkprice/MerchantSetup/tree/v3/CPA#실시간-실적-전송)
 
 * 회원 가입 완료시 링크프라이스로 실적 전송 (**Server to Server 방식**)
 
-### [3. 실적 정보 출력](https://github.com/linkprice/MerchantSetup/tree/master/CPA#실적-정보-출력-daily_fix)
+### [3. 실적 정보 출력](https://github.com/linkprice/MerchantSetup/tree/v3/CPA#실적-정보-출력-daily_fix)
 
 * 머천트 회원가입 정보와 링크프라이스 실적을 대조하여 누락된 실적을 복구하기 위한 작업
 
@@ -25,9 +25,9 @@
     * 광고 인정 기간을 계약서와 다르게 변경 시 계약위반으로 불이익을 받을 수 있습니다.
    
 2. 샘플 코드
-   - [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/PHP/lpfront.php)
-   - [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/JSP/lpfront.jsp)
-   - [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/ASP/lpfront.asp)
+   - [PHP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/PHP/lpfront.php)
+   - [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/JSP/lpfront.jsp)
+   - [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/ASP/lpfront.asp)
 
 ## 2. 실시간 실적 전송
 
@@ -77,9 +77,9 @@
 
 4. 샘플 코드
 
-   - [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/PHP/index.php)
-   - [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/JSP/index.jsp)
-   - [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/ASP/index.asp)
+   - [PHP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/PHP/index.php)
+   - [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/JSP/index.jsp)
+   - [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/ASP/index.asp)
 
 5. 에러 코드
 
@@ -142,6 +142,6 @@
 
 3. 샘플 코드
 
-   - [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/PHP/daily_fix.php)
-   - [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/JSP/daily_fix.jsp)
-   - [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/ASP/daily_fix.asp)
+   - [PHP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/PHP/daily_fix.php)
+   - [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/JSP/daily_fix.jsp)
+   - [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/ASP/daily_fix.asp)
