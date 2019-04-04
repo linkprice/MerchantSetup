@@ -68,6 +68,7 @@
 1. 회원 가입 완료 시, 링크프라이스에 아래의 Request 데이터를 json 으로 전송합니다. 
     1. 이 json에는 하나의 회원가입 정보만 있어야 합니다. 
     2. 여러 개의 다른 회원가입 정보 포함 되어서는 안됩니다.
+    3. Request URL- ://service.linkprice.com/lppurchase_cpa_v4.php
 
 2. Request
     1. action
