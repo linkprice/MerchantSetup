@@ -32,9 +32,9 @@
 
 2.  Sample code
 
-    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/PHP/lpfront.php)
-    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/PHP/lpfront.jsp)
-    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/PHP/lpfront.asp)
+    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/PHP/lpfront.php)
+    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/PHP/lpfront.jsp)
+    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/PHP/lpfront.asp)
 
 
 
@@ -91,9 +91,9 @@
 
 
 4.  Sample
-    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/PHP/index.php)
-    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/JSP/index.jsp)
-    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/ASP/index.asp)
+    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/PHP/index.php)
+    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/JSP/index.jsp)
+    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/ASP/index.asp)
 
 5. Error code
 
@@ -154,9 +154,9 @@
 
 3.  Sample
 
-    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/PHP/daily_fix.php)
-    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/JSP/daily_fix.jsp)
-    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPA/JSP/daily_fix.asp)
+    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/PHP/daily_fix.php)
+    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/JSP/daily_fix.jsp)
+    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/JSP/daily_fix.asp)
 
     ​
 
