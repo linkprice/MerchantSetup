@@ -70,6 +70,7 @@
     1. There should be one order information in json data. 
     2. It cannot include multi orders.
     3. If there are multi products in one order, it should be in same json data.
+    4. Request URL- ://service.linkprice.com/lppurchase_cps_v4.php
 
 2. Request
 
