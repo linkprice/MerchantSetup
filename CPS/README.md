@@ -70,6 +70,7 @@
     1. 이 json에는 하나의 주문(order)만 있어야 합니다. 
     2. 여러 개의 다른 주문(order)이 포함 되어서는 안됩니다.
     3. 하나의 주문(order)에 여러 가지의 상품을 샀다면, 하나의 json에 그 여러개의 상품이 모두 포함되어야 합니다.
+    4. Request URL- ://service.linkprice.com/lppurchase_cps_v4.php
 
 2. Request
     1. order
