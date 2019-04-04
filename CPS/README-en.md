@@ -35,9 +35,9 @@
 
 2.  Sample code
 
-    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/lpfront.php)
-    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/lpfront.jsp)
-    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/lpfront.asp)
+    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/lpfront.php)
+    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/lpfront.jsp)
+    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/lpfront.asp)
 
     ​
 
@@ -146,9 +146,9 @@
     ```
 
 4.  Sample
-    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.php)
-    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.jsp)
-    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/index.asp)
+    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/index.php)
+    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/index.jsp)
+    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/index.asp)
 
 5. Error code
 
@@ -215,9 +215,9 @@
 
 3.  Sample(daily_fix)
 
-    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/daily_fix.php)
-    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/daily_fix.jsp)
-    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/daily_fix.asp)
+    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/daily_fix.php)
+    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/daily_fix.jsp)
+    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/daily_fix.asp)
 
     ​
 
@@ -261,6 +261,6 @@
 
 
 1.  Sample(auto_cancel)
-    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/auto_cancel.php)
-    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/auto_cancel.jsp)
-    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/auto_cancel.asp)
+    *   [PHP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/auto_cancel.php)
+    *   [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/auto_cancel.jsp)
+    *   [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/auto_cancel.asp)
