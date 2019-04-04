@@ -1,4 +1,4 @@
-## 1. lpinfo 테이블 생성
+## 1. Create "lpinfo" table
 
 1. The data below is required to track linkprice's sales data.
 
@@ -31,7 +31,7 @@
 
 
 
-## 2. 게이트웨이 페이지
+## 2. Gateway page
 
 1. What is Gateway?
 
@@ -153,12 +153,12 @@
 
     1. Response body is JSON.
 
-        | KEY           | VALUE                                 |
-        | ------------- | ------------------------------------- |
-        | is_success    | true / false<br />실적 전송 성공 여부 |
-        | error_message | 에러 메세지                           |
-        | order_code    | 주문 코드                             |
-        | product_cde   | 상품 코드                             |
+        | KEY           | VALUE         |
+        | ------------- | ------------- |
+        | is_success    | true / false  |
+        | error_message | Error message |
+        | order_code    | Order code    |
+        | product_cde   | Product code  |
 
     2. Respons Sample
 
@@ -191,7 +191,7 @@
 
         * CPA error message
 
-        | error_message                                              | 에러 상세 내용                              |
+        | error_message                                              | Detail                                      |
         | ---------------------------------------------------------- | ------------------------------------------- |
         | This is not a valid JSON string.                           | REQUEST data is not Json                    |
         | action.unique_id parameter is empty.                       | action.unique_id is empty                   |
@@ -227,7 +227,7 @@
     curl https://api.yourdomain.com/linkprice/order_list_v1?paid_ymd=20181220
     ```
 
-    4. 파라미터 설명
+    4. Parameter
 
     | Parameter     | Value                                                        |
     | ------------- | ------------------------------------------------------------ |
