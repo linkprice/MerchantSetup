@@ -25,7 +25,7 @@
       )
     ```
 
-3. After user finished payment, you should store linkprice's data in "Lpinfo" table.
+3. After user finished payment, **you should store only linkprice's data in "Lpinfo" table.**
 
 4. In this table, you should store only linkpirce's data(When there is "lpinfo" cookie, linkprice's data should be stored)
 
@@ -227,67 +227,67 @@
 
     2. Respons Sample
 
-        1. Success to transfer data
+       1. Success to transfer data
 
-        ```json
-        [
-            {
-                "is_success": true,
-                "error_message": "",
-                "order_code": "order_115",
-                "product_code": "product1"
-            },
-            {
-                "is_success": true,
-                "error_message": "",
-                "order_code": "order_115",
-                "product_code": "product2"
-            }
-        ]
-        ```
+       ```json
+       [
+           {
+               "is_success": true,
+               "error_message": "",
+               "order_code": "order_115",
+               "product_code": "product1"
+           },
+           {
+               "is_success": true,
+               "error_message": "",
+               "order_code": "order_115",
+               "product_code": "product2"
+           }
+       ]
+       ```
 
-        2. Fail to transfer data
+       2. Fail to transfer data
 
-        ```json
-        [
-            {
-                "is_success": false,
-                "error_message": "lpinfo parameter is empty.",
-                "order_code": "order_115",
-                "product_code": "product1"
-            },
-            {
-                "is_success": false,
-                "error_message": "lpinfo parameter is empty.",
-                "order_code": "order_115",
-                "product_code": "product2"
-            }
-        ]
-        
-        ```
+       ```json
+       [
+           {
+               "is_success": false,
+               "error_message": "lpinfo parameter is empty.",
+               "order_code": "order_115",
+               "product_code": "product1"
+           },
+           {
+               "is_success": false,
+               "error_message": "lpinfo parameter is empty.",
+               "order_code": "order_115",
+               "product_code": "product2"
+           }
+       ]
+       
+       ```
 
-        * Error messa
+       * CPS 에러 메세지
 
-        | error_message                                    |
-        | ------------------------------------------------ |
-        | lpinfo parameter is empty                        |
-        | merchant_id parameter is empty.                  |
-        | order_id parameter is empty.                     |
-        | product_code parameter is empty.                 |
-        | category_code parameter is empty.                |
-        | category_name parmeter is empty                  |
-        | user_agent parameter is empty.                   |
-        | remote_addr parameter is empty.                  |
-        | quantity parameter is empty.                     |
-        | final_paid_price parameter is empty.             |
-        | product_final_price parameter is empty           |
-        | product_name parameter is empty.                 |
-        | paid_at parameter is empty                       |
-        | lpinfo parameter does not conform to the format. |
-        | device_type is empty.                            |
-        | Order code is duplicated.                        |
-        | Required parameters are missing.                 |
-        | Network error during performance transmission.   |
+       | error_message                                                | Explaining                                               |
+       | ------------------------------------------------------------ | -------------------------------------------------------- |
+       | This is not a valid JSON string.                             | Data type is not Json                                    |
+       | order.order_id parameter is empty.                           | action.unique_id is empty                                |
+       | order.final_paid_price parameter is empty.                   | action.final_paid_price is empty                         |
+       | order.final_paid_price is not integer.                       | Data type of action.final_paid_price is not integer      |
+       | order.currency parameter is empty.                           | action.currency is empty                                 |
+       | order.user_name parameter is empty.                          | action.member_id is empty                                |
+       | products parameter is empty.                                 | action.action_name is empty                              |
+       | linkprice.lpinfo parameter is empty.                         | action.category_code is empty                            |
+       | linkprice.lpinfo parameter does not conform to the format.   | linkprice.lpinfo is empty                                |
+       | linkprice.user_agent parameter is empty.                     | linkprice.user_agent is empty                            |
+       | linkprice.remote_addr parameter is empty.                    | linkprice.remote_addr is empty                           |
+       | linkprice.device_type parameter is empty.                    | linkprice.device_type is empty                           |
+       | products[i].product_id parameter is empty.                   | product_id is empty                                      |
+       | products[i].product_name parameter is empty.                 | product_name is empty                                    |
+       | products[i].category_code parameter is empty.                | category_code is empty                                   |
+       | products[i].product_final_price parameter is empty.          | product_final_price is empty                             |
+       | The amount of order.final_paid_price does not match the total amount of products.product_final_price. | Sum of products and order.final_paid_price are not equal |
+       | There was a problem sending your performance.                | Transferring error                                       |
 
     
 
@@ -316,17 +316,29 @@
     | confirmed_ymd | The day that order is confirmed 예) 20181220 <BR />Display all confirmed sales data on this day |
     | canceled_ymd  | The day that order is canceled 예) 20181220 <BR />Display all canceled sales data on this day |
 
-    5. Data format is ndjson(www.ndjson.org).
+    5. Data format is chunked.
+        (https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Transfer-Encoding)
 
-        1. Each order should be encoded by json type and there is no "\n" in json data.
-        2. There is "\n" between each json data.
-        3. Response(ndjosn) sample
+        1. The Content-Length header is omitted.
+        2. At the beginning of each chunk you need to add the length of the current chunk in hexadecimal format, followed by '\r\n'.
+        3. The terminating chunk is a regular chunk, with the exception that its length is zero.
+        4. Response(ndjosn) sample
 
-        ```json
-        {"order":{"order_id":"ord-123-01",.....},"products":[....],"linkprice":{...}}\n
-        {"order":{"order_id":"ord-123-02",.....},"products":[....],"linkprice":{...}}\n
-        {"order":{"order_id":"ord-123-03",.....},"products":[....],"linkprice":{...}}\n
-        {"order":{"order_id":"ord-123-04",.....},"products":[....],"linkprice":{...}}\n
+        ```
+        HTTP/1.1 200 OK 
+        Content-Type: text/plain 
+        Transfer-Encoding: chunked
+        
+        1a4\r\n
+        {"action":{"unique_id":"ord-123-01",....},"linkprice":{...}}\r\n
+        1b1\r\n
+        {"order":{"unique_id":"ord-123-02",.....},"linkprice":{...}}\r\n
+        1ab\r\n
+        {"order":{"unique_id":"ord-123-03",.....},"linkprice":{...}}\r\n
+        1a9\r\n
+        {"order":{"unique_id":"ord-123-04",.....},"linkprice":{...}}\r\n
+        0\r\n
+        \r\n
         ```
 
 
