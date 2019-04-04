@@ -69,6 +69,7 @@
 
     1. There should be one order information in json data. 
     2. It cannot include multi registration information.
+    3. Request URL- ://service.linkprice.com/lppurchase_cps_v4.php
 
 2. Request
 
