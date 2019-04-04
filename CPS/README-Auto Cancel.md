@@ -30,6 +30,6 @@
 
 3. 샘플 코드
 
-   * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/PHP/auto_cancel.php)
-   * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/JSP/auto_cancel.jsp)
-   * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS/ASP/auto_cancel.asp)
+   * [PHP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/auto_cancel.php)
+   * [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/JSP/auto_cancel.jsp)
+   * [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/ASP/auto_cancel.asp)
