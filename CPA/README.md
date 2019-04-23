@@ -243,7 +243,7 @@
 
         ```
         HTTP/1.1 200 OK 
-        Content-Type: text/plain 
+        Content-Type: application/x-ndjson 
         Transfer-Encoding: chunked
         
         1a4\r\n
