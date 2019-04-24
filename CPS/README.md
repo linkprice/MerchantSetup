@@ -421,7 +421,7 @@
    | confirmed_ymd | 구매 확정 조회 날짜. 예) 20181220 <BR />해당날짜에 구매가 확정된 모든 링크프라이스 실적을 보여줍니다. |
    | canceled_ymd  | 취소 확정 조회 날짜. 예) 20181220 <BR />해당날짜에 구매 취소가 확정된 모든 링크프라이스 실적을 보여줍니다. |
 
-   5. 데이터 포맷은 chunked입니다.
+   5. 데이터는 스트리밍(Streaming)으로 보내고, chunked 방식으로 보내야 합니다.
          (https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Transfer-Encoding)
 
         1. Content-Lengh 헤더는 생략됩니다.
