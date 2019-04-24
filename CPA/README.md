@@ -233,7 +233,7 @@
     | paid_ymd      | 회원 가입, 상담 신청 완료 조회 날짜. 예) 20181220 <BR />해당날짜에 회원 가입 상담 신청이 완료된 모든 링크프라이스 실적을 보여줍니다. |
 
 
-    5. 데이터 포맷은 chunked입니다.
+    5. 데이터는 스트리밍(Streaming)으로 보내고, chunked 방식으로 보내야 합니다.
          (https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Transfer-Encoding)
 
         1. Content-Lengh 헤더는 생략됩니다.
