@@ -233,29 +233,16 @@
     | paid_ymd      | 회원 가입, 상담 신청 완료 조회 날짜. 예) 20181220 <BR />해당날짜에 회원 가입 상담 신청이 완료된 모든 링크프라이스 실적을 보여줍니다. |
 
 
-    5. 데이터는 스트리밍(Streaming)으로 보내고, chunked 방식으로 보내야 합니다.
-         (https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Transfer-Encoding)
+    5. 실적 목록은 json 형식으로 출력하시기 바랍니다.
+       1. 예
 
-        1. Content-Lengh 헤더는 생략됩니다.
-        2. 각 청크 앞부분에 청크의 길이가 16진수 형태로 오게되며 그 뒤에 \r\n이 나옵니다
-        3. 종료 청크는 길이가 0이며 그뒤에 \r\n이 나온 후 마지막줄에 \r\n으로 끝납니다.
-        4. 응답(chunked) 예제
-
-        ```
-        HTTP/1.1 200 OK 
-        Content-Type: application/x-ndjson 
-        Transfer-Encoding: chunked
-        
-        1a4\r\n
-        {"action":{"unique_id":"ord-123-01",....},"linkprice":{...}}\r\n
-        1b1\r\n
-        {"order":{"unique_id":"ord-123-02",.....},"linkprice":{...}}\r\n
-        1ab\r\n
-        {"order":{"unique_id":"ord-123-03",.....},"linkprice":{...}}\r\n
-        1a9\r\n
-        {"order":{"unique_id":"ord-123-04",.....},"linkprice":{...}}\r\n
-        0\r\n
-        \r\n
+        ```json
+        [
+            {"action":{"unique_id":"ord-123-01",....},"linkprice":{...}},   
+            {"order":{"unique_id":"ord-123-02",.....},"linkprice":{...}},    
+            {"order":{"unique_id":"ord-123-03",.....},"linkprice":{...}},       
+            {"order":{"unique_id":"ord-123-04",.....},"linkprice":{...}}
+        ]
         ```
 
         
