@@ -239,9 +239,9 @@
         ```json
         [
             {"action":{"unique_id":"ord-123-01",....},"linkprice":{...}},   
-            {"order":{"unique_id":"ord-123-02",.....},"linkprice":{...}},    
-            {"order":{"unique_id":"ord-123-03",.....},"linkprice":{...}},       
-            {"order":{"unique_id":"ord-123-04",.....},"linkprice":{...}}
+            {"action":{"unique_id":"ord-123-02",.....},"linkprice":{...}},    
+            {"action":{"unique_id":"ord-123-03",.....},"linkprice":{...}},       
+            {"action":{"unique_id":"ord-123-04",.....},"linkprice":{...}}
         ]
         ```
 
