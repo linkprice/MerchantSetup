@@ -8,7 +8,7 @@
 ### [3. 실적 정보 출력](https://github.com/linkprice/MerchantSetup/tree/master/CPS#실적-정보-출력-daily_fix)
  * 머천트 주문 정보와 링크프라이스 실적을 대조하여 누락된 실적을 복구하기 위한 작업
 
-### [4. 자동 실적 취소](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Auto%20Cancel.md) / [월배치 정산](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Monthly%20Merchant%20Calculate.md)
+### [4. 자동 실적 취소](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/README-Auto%20Cancel.md) / [월배치 정산](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/README-Monthly%20Merchant%20Calculate.md)
  * 머천트 주문 취소시 링크프라이스 실적 자동 취소
 
  * 월배치 정산
