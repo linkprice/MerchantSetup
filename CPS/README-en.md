@@ -317,29 +317,15 @@
     | confirmed_ymd | The day that order is confirmed 예) 20181220 <BR />Display all confirmed sales data on this day |
     | canceled_ymd  | The day that order is canceled 예) 20181220 <BR />Display all canceled sales data on this day |
 
-    5. Data format is chunked.
-        (https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Transfer-Encoding)
-
-        1. The Content-Length header is omitted.
-        2. At the beginning of each chunk you need to add the length of the current chunk in hexadecimal format, followed by '\r\n'.
-        3. The terminating chunk is a regular chunk, with the exception that its length is zero.
-        4. Response(ndjosn) sample
+    5. Data format is json
 
         ```
-        HTTP/1.1 200 OK 
-        Content-Type: text/plain 
-        Transfer-Encoding: chunked
-        
-        1a4\r\n
-        {"action":{"unique_id":"ord-123-01",....},"linkprice":{...}}\r\n
-        1b1\r\n
-        {"order":{"unique_id":"ord-123-02",.....},"linkprice":{...}}\r\n
-        1ab\r\n
-        {"order":{"unique_id":"ord-123-03",.....},"linkprice":{...}}\r\n
-        1a9\r\n
-        {"order":{"unique_id":"ord-123-04",.....},"linkprice":{...}}\r\n
-        0\r\n
-        \r\n
+        [
+            {"order":{"order_id":"ord-123-01",....},"products":[...],"linkprice":{...}},
+            {"order":{"order_id":"ord-123-02",....},"products":[...],"linkprice":{...}},
+            {"order":{"order_id":"ord-123-03",....},"products":[...],"linkprice":{...}},
+            {"order":{"order_id":"ord-123-04",....},"products":[...],"linkprice":{...}}
+        ]
         ```
 
 
