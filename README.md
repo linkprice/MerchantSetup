@@ -19,7 +19,7 @@
    > 모바일 앱(Application)에서 실적 측정을 위한 셋업 가이드
    >
    
-      1. 한글: [앱 트래킹 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/CPS/README-app.MD)
+      1. 한글: [앱 트래킹 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/CPS/README-app.md)
    
 4. CPS 추가 셋업
 
