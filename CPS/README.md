@@ -126,7 +126,7 @@
         2. merchant_id(string): 링크프라이스로부터 받은 머천트 ID
         3. user_agent(string): USER_AGENT정보
         4. remote_addr(string): 구매자의 IP주소. 서버 주소가 아닌 실 구매자의 IP주소를 전송 해 주세요.
-        5. device_type(string): 장치 구분 값
+        5. <a name="device_type"></a>device_type(string): 장치 구분 값
             1. web-pc: 모바일이이 아닌 장치에서 발생한 웹 실적
             2. web-mobile: 모바일 장치에서 발생한 웹 실적
             3. app-ios: iOS App을 통해 발생한 실적 
