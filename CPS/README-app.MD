@@ -5,7 +5,7 @@
     4. 게이트웨이 페이지: 사용자가 광고 클릭 시 머천트 사이트로 이동 시, 처음으로 거치는 페이지로 유효성 체크, 쿠키 생성, 목적 페이지로 리다이렉션 하는 페이지입니다.
     5. deep link, target_url: 매체사에 광고 주소 생성시에 머천트 홈으로 가지 않고 홍보하려는 특정 상품의 상세 페이지로 배너를 생성 할 수도 있습니다. 이러한 링크를 deep link라고 하며, 이 때의 특정 상품 상세 페이지의 url을 target url 이라고 합니다.
 2. CPS 웹 셋업이 되어 있습니까?
-    1. CPS 웹 셋업이 되어 있지 않다면, 먼저 CPS 웹 셋업이 선행되어야 합니다. 매뉴얼을 참고 하여, 먼저 CPS 웹 셋업 작업을 선행해 주세요. [(CPS 셋업 메뉴얼)](<https://github.com/linkprice/MerchantSetup/tree/master/CPS>)
+    1. CPS 웹 셋업이 되어 있지 않다면, 먼저 CPS 웹 셋업이 선행되어야 합니다. 매뉴얼을 참고 하여, 먼저 CPS 웹 셋업 작업을 선행해 주세요. [(CPS 셋업 메뉴얼)](https://github.com/linkprice/MerchantSetup/tree/master/CPS)
     2. CPS 웹 셋업이 되어 있다면, CPS 웹 셋업 방식을 파악해 주십시오. 웹 셋업 버전에 따라 셋업 방식이 다를 수 있습니다.  2019년 4월 이후에 셋업이 되어 있고 게이트 웨이 페이지스의 소스를 봤을 때, Google Tag Manager로 되어 있다면  셋업 버전이 4 입니다. 또는 실시간 실적 전송을 하는 서버 주소의 url이 service.linkprice.com/lppurchase_cps_v4.php이거나 service.linkprice.com/lppurchase_cpa_v4.php 이라면 셋업 버전이 4 입니다.
         1. 버전 2 ~ 3
             1. 게이트웨이 페이지
@@ -34,13 +34,13 @@
             5. 페이스북 앱
 5. 앱 셋업의 실시간 실적 전송 방식은 크게 2가지로 나누어 집니다.
     1. 3자툴을 사용하여 앱 실적을 전송 하는 경우에 아래 매뉴얼을 참조하여 작업 해 주세요. 링크프라이스에서는 현재 아래에 명기된 3가지 방식만 지원하고 있습니다.
-        1. [튠 셋업 가이드]([https://github.com/linkprice/MerchantSetup/tree/master/3%EC%9E%90%ED%88%B4%20%EC%95%B1%20%EC%85%8B%EC%97%85/%ED%8A%A0](https://github.com/linkprice/MerchantSetup/tree/master/3자툴 앱 셋업/튠)) 
-        2. [앱스플라이어 셋업 가이드]([https://github.com/linkprice/MerchantSetup/tree/master/3%EC%9E%90%ED%88%B4%20%EC%95%B1%20%EC%85%8B%EC%97%85/%EC%95%B1%EC%8A%A4%ED%94%84%EB%9D%BC%EC%9D%B4%EC%96%B4](https://github.com/linkprice/MerchantSetup/tree/master/3자툴 앱 셋업/앱스프라이어))
-        3. [애드브릭스 셋업 가이드]([https://github.com/linkprice/MerchantSetup/tree/master/3%EC%9E%90%ED%88%B4%20%EC%95%B1%20%EC%85%8B%EC%97%85/%EC%95%A0%EB%93%9C%ED%94%84%EB%A6%AD%EC%8A%A4](https://github.com/linkprice/MerchantSetup/tree/master/3자툴 앱 셋업/애드프릭스))
+        1. [튠 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/3%EC%9E%90%ED%88%B4%20%EC%95%B1%20%EC%85%8B%EC%97%85/%ED%8A%A0) 
+        2. [앱스플라이어 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/3%EC%9E%90%ED%88%B4%20%EC%95%B1%20%EC%85%8B%EC%97%85/%EC%95%B1%EC%8A%A4%ED%94%84%EB%9D%BC%EC%9D%B4%EC%96%B4)
+        3. [애드브릭스 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/3%EC%9E%90%ED%88%B4%20%EC%95%B1%20%EC%85%8B%EC%97%85/%EC%95%A0%EB%93%9C%ED%94%84%EB%A6%AD%EC%8A%A4)
     2. 만일 위에 명기된 3자툴을 사용하여 실적 전송을 하지 않는 경우, 실시간 실적을 직접 전송 해 주셔야 합니다. 웹 셋업이 되어 있다면, 버전에 따라 script로 전송 할 수도 있고, 서버에서 json으로 데이터를 전송할 수도 있습니다. 앱으로 구매한 경우에도 웹과 동일한 방식으로 실적이 전송 될 수 있도록 작업하면 됩니다.
 6. 자동 누락 복구 / 자동 취소 / 실적 목록도 앱으로 구매한 경우에도 웹과 동일하게 자동 누락 복구 / 자동 취소 / 실적 목록이 작동 할 수 있도록 작업 해 주세요.
 6. 앱 실적을 웹 실적과 구분해서 보내줘야 합니다.
-    1. [디바이스 타입 참조](<https://github.com/linkprice/MerchantSetup/blob/master/CPS/README.md#device_type>)
+    1. [디바이스 타입 참조](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README.md#device_type)
 7. 앱 실적과 웹 실적의 전송 방식 및 전송 금액 기준 그리고 실적 인정 기준이 동일해야 합니다.
     1. 실적 전송 방식(실시간 실적 / 확정 시 전송)등 기분이 웹과 앱이 동일 해야 합니다.
     2. 웹 셋업 시 실적 전송 금액의 경우 배송비 / 할인쿠폰 / 포인트 사용 을 제외한 실 결제금액으로 전송 할 경우 앱 CPS 셋업 시 에도 동일한 기준으로 실적이 전송 되어야 합니다.
