@@ -20,7 +20,9 @@
 	</intent-filter>
 </activity>
 ```
-
+* \<category\> 설명
+    1. **android:name="android.intent.category.DEFAULT"**: 앱이 암시적 인텐트에도 응답할수 있게 선언합니다.
+    2. **android:name="android.intent.category.BROWSABLE"**: intent-filter가 웹 브라우저에서 접근하기 위해 선언합니다.
 * \<data\> 설명
     1. **android:host**: 게이트웨이 페이지의 host 부분을 선언합니다.
     2. **android:scheme**: 게이트웨이 페이지의 scheme(일반적으로 http나 https) 을 선언합니다.
