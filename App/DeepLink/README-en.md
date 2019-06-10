@@ -1,6 +1,6 @@
 # Android DeepLink Setup
 
-> This is how to set when user clicks link, app open if app is installed without setting default app through deeplink.
+> This is how to set when user clicks link, open App if app is installed without setting default app through deeplink.
 
 
 
