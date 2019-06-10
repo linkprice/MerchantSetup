@@ -41,4 +41,4 @@ intent://gw.linkprice.com?lpinfo=A100000131%7C2600239200004E%7C0000%7CB%7C1 #Int
   
   
 
-![](C:\Users\LG\Documents\카카오톡 받은 파일\deeplink-explain.png)
+![](https://github.com/linkprice/MerchantSetup/blob/master/%EC%95%B1%20%EC%85%8B%EC%97%85/%EB%94%A5%EB%A7%81%ED%81%AC/deeplink-explain.png)
