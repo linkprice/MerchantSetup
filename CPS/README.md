@@ -382,13 +382,13 @@
        | error_message                                                | 에러 상세 내용                                               |
        | ------------------------------------------------------------ | ------------------------------------------------------------ |
        | This is not a valid JSON string.                             | REQUEST 가 JSON 형식이 아님                                  |
-       | order.order_id parameter is empty.                           | action.unique_id 미입력                                      |
-       | order.final_paid_price parameter is empty.                   | action.final_paid_price 미입력                               |
-       | order.final_paid_price is not integer.                       | action.final_paid_price integer형이 아님                     |
-       | order.currency parameter is empty.                           | action.currency미입력                                        |
-       | order.user_name parameter is empty.                          | action.member_id 미입력                                      |
-       | products parameter is empty.                                 | action.action_name 미입력                                    |
-       | linkprice.lpinfo parameter is empty.                         | action.category_code 미입력                                  |
+       | order.order_id parameter is empty.                           | order.order_id 미입력                                      |
+       | order.final_paid_price parameter is empty.                   | order.final_paid_price 미입력                               |
+       | order.final_paid_price is not integer.                       | order.final_paid_price integer형이 아님                     |
+       | order.currency parameter is empty.                           | order.currency 미입력                                        |
+       | order.user_name parameter is empty.                          | order.user_name 미입력                                      |
+       | products parameter is empty.                                 | products 미입력                                    |
+       | linkprice.lpinfo parameter is empty.                         | linkprice.lpinfo 미입력                                  |
        | linkprice.lpinfo parameter does not conform to the format.   | linkprice.lpinfo 미입력                                      |
        | linkprice.user_agent parameter is empty.                     | linkprice.user_agent 미입력                                  |
        | linkprice.remote_addr parameter is empty.                    | linkprice.remote_addr 미입력                                 |
