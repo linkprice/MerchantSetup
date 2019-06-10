@@ -51,3 +51,6 @@ intent://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&target_url=h
 
 
 ![](https://github.com/linkprice/MerchantSetup/blob/master/App/DeepLink/deeplink.png)
+
+
+
