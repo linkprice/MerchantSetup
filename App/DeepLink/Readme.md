@@ -50,4 +50,4 @@ intent://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&target_url=h
   6. **https://www.linkprice.com/your_path/?param=values** 만일 앱이 설치 되어 있지 않을 경우 redirection할 URL
 
 
-![](https://github.com/linkprice/MerchantSetup/blob/master/%EC%95%B1%20%EC%85%8B%EC%97%85/%EB%94%A5%EB%A7%81%ED%81%AC/deeplink.png)
+![](https://github.com/linkprice/MerchantSetup/blob/master/App/DeepLink/deeplink.png)
