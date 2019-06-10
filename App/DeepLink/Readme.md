@@ -1,4 +1,4 @@
-# DeepLink Setup
+# 안드로이드 DeepLink Setup
 
 > URL 클릭시 앱이 설치 되어 있는 경우 앱으로 열리고, 앱이 설치 되어 있지 않은 경우 특정 페이지로 redirection 시키는 방법에 대해 설명합니다.
 
@@ -41,7 +41,7 @@ intent://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&target_url=h
 
   2.  **gw.linkprice.com**  게이트웨이 페이지의 host: 게이트웨이 페이지의 host 부분만 추출합니다
 
-  3. **lpinfo=A100000131|2600239200004E|0000|B|1 ** 링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 lpinfo의 값
+  3. **lpinfo=A100000131|2600239200004E|0000|B|1** 링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 lpinfo의 값
 
   4. **target_url=https://www.linkprice.com/path/page?pid=17234**  링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 target_url의 값
 
