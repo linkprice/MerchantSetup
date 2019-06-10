@@ -1,16 +1,6 @@
-##  메뉴얼에 대해
+##                                                                                                                               1. 할인코드 CPS 란?
 
-* 해당 메뉴얼은 2018년 01월 07일에 작성된 문서입니다.
-
-* 최신화된 문서는 아래 URL 링크를 통해서 일람하실 수 있습니다.
-
-  https://github.com/linkprice/MerchantSetup/tree/master/CPS%20-%20Promo%20code 
-
-
-
-##                                                                                                                               할인코드 CPS 란?
-
-* 할인 코드를 이용해 매체가 홍보를 진행하여, 구매자가 해당 할인 코드를 사용해  
+* 링크프라이스 전용 할인 코드를 이용해 매체가 홍보를 진행하고, 구매자가 해당 할인 코드를 사용해  
 
   구매나 예약 등의 실적이 발생되면 할인과 동시에 링크프라이스 측에 실적을 전송하는 것을 의미합니다.
 
@@ -24,336 +14,286 @@
 
 
 
-## 할인코드 셋업 요약
+## 2. 테이블 생성
 
-* 광고주 측과 링크프라이스끼리 주고 받는 통신들은  Server to Server 방식이 권장됩니다.
-* 해당 셋업은 총 3가지 파트로 구분되어 작업이 요구됩니다.
+1. 링크프라이스는 실적 추적을 위하여 다음의 데이터가(이하 **링크프라이스 데이터**) 반드시 필요합니다.
+   1. event_code (string): 링크프라이스에서 생성하는 고유코드로 고정값 입니다. 
+   2. promo_code(string) : 실제 구매자가 사용하는 할인코드로(매체 홍보시 사용), 링크프라이스용 할인코드를 발급후 해당 코드를 알려주세요.
+   3. user_agent: USER_AGENT정보
+   4. ip: 사용자의 IP주소
+   5. device_type: 장치 구분 값
+      1. web-pc: 모바일이 아닌 장치에서 발생한 웹 실적
+      2. web-mobile: 모바일 장치에서 발생한 웹 실적
+      3. app-android: Android App을 통해 발생한 실적
+      4. app-ios: iOS App을 통해 발생한 실적 
+2. **링크프라이스 데이터**를 저장 할 테이블(Lpinfo)을 아래처럼 변경합니다. 만약 lpinfo 테이블이 존재하지 않는다면, 담당자에게 문의 해 주세요.
 
+```mysql
+alter table lpinfo add event_code varchar(20);
+alter table lpinfo add promo_code varchar(50);
+```
 
+1. **결제 완료 후**, 위에서 생성한 테이블에 **링크프라이스 데이터를 반드시 저장해야 합니다**.
+2. 링크프라이스 전용 할인코드를 사용하여 발생한 실적만 저장 하여 주십시요.
 
-### 1. 실시간 실적 전송
 
-* 할인코드를 사용하여 광고주 측 웹사이트에서 구매와 동시에 링크프라이스로 실적 전송을 해주는 작업입니다.
 
-* 이러한 작업들을 저희 측에서는 통칭 "실시간 실적 전송" 이라고 합니다.
+## 3. 실시간 실적 전송
 
+1. 결제 성공시, 링크프라이스에 아래의 Request 데이터를 json 으로 전송합니다. 
 
+   1. 이 json에는 하나의 주문(order)만 있어야 합니다. 
+   2. 여러 개의 다른 주문(order)이 포함 되어서는 안됩니다.
+   3. 하나의 주문(order)에 여러 가지의 상품을 샀다면, 하나의 json에 그 여러개의 상품이 모두 포함되어야 합니다.
+   4. Request URL- ://service.linkprice.com/lppurchase_cps_v4.php
 
-### 2. 실적 정보 출력 (Daily_fix)
-
- * 광고주의 주문 정보와 링크프라이스 실적을 대조하여 실시간 실적 전송 중 누락된 실적을 복구하기 위한 작업
-
- * 이러한 작업들을 저희 측에서는 통칭 "Daily Fix" 라고 합니다.
-
- * 기존에 "일반 CPS용 Daily Fix" 를 작업했던 광고주라도 할인코드 셋업을 위해선
-
-    "할인코드용 Daily Fix" 작업이 필요합니다.
-
-
-
-### 3. 자동 실적 취소(auto_cancel)
-- 일반 CPS 프로그램에서 자동 실적 취소를 사용하고 있는 광고주는 
-
-  사용 중인 자동 실적 취소 URL 호출 시 할인코드 CPS 실적의 주문 상태 값도 일반 CPS와 동일하게 출력되도록 작업해주시면 됩니다. 
-
-  (확인이 어려우시면 링크프라이스 담당자님께 문의하시면 됩니다.)
-
-
-
-<u>**연동 작업을 모두 완료하시면 테스트를 위해 작업하신 URL을 링크프라이스 담당자에게 전달 주시면 됩니다.**</u> 
-
-
-
-
-
-## 1. 실시간 실적 전송
-
-### 1) 실시간 주문 정보 저장
-
-* 링크프라이스 전용 **할인코드**를 사용하여 구매한 경우 Daily_Fix를 위하여 주문 데이터를 저장해야 합니다.
-* 주문 테이블에 아래의 필드를 저장하시길 추천드립니다.
-* 필수값 전송이 어려운 경우 링크프라이스 담당자에게 연락바랍니다.
-
-|    필드명    | 타입(Byte)  | 필수유무 |                          설명                          |
-| :----------: | :---------: | :------: | :----------------------------------------------------: |
-|  event_code  | string(20)  |   필수   |      링크프라이스에서 발급한 고유 이벤트 코드<sup id="sub1">[1](#link1)</sup>      |
-|  promo_code  | string(50)  |   필수   |             매체에서 홍보하는 할인코드<sup id="sub2">[2](#link2)</sup>             |
-|  member_id   | string(10)  |   필수   |         구매자<br>  Ex) 구매자ID, 구매자 이름          |
-|  order_code  | string(100) |   필수   |                 해당 주문건의 주문번호                 |
-| product_code | string(100) |   필수   |               해당 주문건의 상품고유번호               |
-| product_name | string(300) |   필수   |                  해당 주문건의 상품명                  |
-|  item_count  |   Integer   |   필수   |                     상품 구매 수량                     |
-|    sales     |   Integer   |   필수   |                 금액 (단가*구매수량 )                  |
-|  user_agent  | String(200) |   필수   |               구매자의 User Agent 값<sup id="sub3">[3](#link3)</sup>               |
-| remote_addr  | String(20)  |   필수   |                   구매자의 REMOTE IP                   |
-| device_type  | String(10)  |   옵션   | 실적이 발생한 디바이스 타입<br>Ex) PC, MOBILE, APP<sup id="sub4">[4](#link4)</sup> |
-
-<b name="link1">[1]</b>: 이벤트 코드(event_code) - 링크프라이스와 광고주가 협의 하여 생성하는 고유코드 이며, 고정값 입니다.  <br>Ex) merchant_promocode,   merchant_sale [↩](#sub1)<br>
-<b name="link2">[2]</b>: 할인 코드(promo_code) - 실제 구매자가 사용하는 할인코드로, 광고주가 발급후 링크프라이스에 전달해야 하는 코드 입니다.   Ex) LPpromo_code01, LPpromo_code02, LPpromo_code03, LPpromo_code04, LPpromo_code05 [↩](#sub2)<br>
-<b name="link3">[3]</b>: User Agent 예시 : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36" [↩](#sub3)<br>
-<b name="link4">[4]</b>: PC웹 실적 - "PC"   /   모바일 웹 실적 - "MOBILE"    /   모바일 앱 실적 - "APP" [↩](#sub3)<br>
-
-
-
-### 2) 실적 전송 셋업 작업
-
-* 실적 전송은 구매가 완료됨과 동시에 전송해 주시면 됩니다. 
-
-* **구매 완료**시 실적을 전송하기 위해 실적전송 코드를 삽입해야 합니다. (샘플 코드 참조)
-
-* 샘플 코드는 각 광고주의 개발 환경에 맞게 수정하시기 바랍니다. 
-
-* 모든 실적은 Server to Server 방식으로 전송됩니다. 
-
-  **스크립트 및 이미지 방식**<sup id="sub5">[5](#link5)</sup>으로 전달 시 링크프라이스 담당자에게 별도 문의 바랍니다.
-
-<b name="link5">[5]</b>: 스크립트 방식은 〈script src='lppurchase.php'〉〈/script〉 이런 형식으로 전송하는 방식을 의미하며<br> 이미지 or 픽셀 방식은 〈img src='lppurchase.php'/〉 이런 형식으로 전송하는 방식을 의미합니다. [↩](#sub5)<br>
-
-
-
-### 3) 작업시 유의사항
-
-* 실적 정보는 **JSON 형식**으로 전송해 주시기 바랍니다.
-
-* 결제 시, 복수 상품 및 단일 상품 모두 **2차원 배열**<sup id="sub6">[6](#link6)</sup>로 전송해주시기 바랍니다.
-
-* 디바이스구분값(device_type)은 옵션값이나, 원활한 실적 확인을 위하여 전송 하시길 추천드립니다. <sup id="sub4">[4](#link4)</sup>
-
-* KEY 이름은 **수정 불가하며**, VALUE 값은 아래 예제를 참고 하시어 입력해 주시기 바랍니다.
-
-* 할인코드의 유효성 체크 이후 실적 전송이 되도록 주의 바랍니다.
-
-<b name="link6">[6]</b>: 단수주문건 JSON : [{data1}],  복수주문건 JSON : [{data1}, {data2}] [↩](#sub6)<br>
-
-
-
-* **광고주 → 링크프라이스 실적 전송 예제1. (단일주문건)**
-
-  ```javascript
-  [
-    {
-  	    event_code : "LINKPRICE_EVENT_CODE",                          
-          promo_code : "PROMO_CODE01",                     
-  	    member_id : "member_id",	
-  	    order_code : "ORDER123456789",
-  	    product_code : "00000001",                     
-  	    product_name : "사과",                 
-  	    item_count : 1,                      
-  	    sales : 1000,                              
-  	    user_agent : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36",                          
-  	    remote_addr:  "211.211.211.211",                            
-  	    device_type: "PC"                             
-    }
-  ]
-  ```
-
-* **광고주 → 링크프라이스 실적 전송 예제2. (복수주문건)**
-
-  ```json
-  [
-    {
-  	    event_code : "LINKPRICE_EVENT_CODE",                          
-          promo_code : "PROMO_CODE01",                     
-  	    member_id : "member_id",	
-  	    order_code : "ORDER123456789",
-  	    product_code : "00000001",                     
-  	    product_name : "사과",                 
-  	    item_count : 1,                      
-  	    sales : 1000,                              
-  	    user_agent : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36",                          
-  	    remote_addr:  "211.211.211.211",                            
-  	    device_type: "PC"                             
-    },
-    {
-  	    event_code : "LINKPRICE_EVENT_CODE",                          
-          promo_code : "PROMO_CODE01",                     
-  	    member_id : "member_id",	
-  	    order_code : "ORDER123456789",              
-  	    product_code : "00000002",                     
-  	    product_name : "딸기",                      
-  	    item_count : 2,                         
-  	    sales : 4000,                           
-  	    user_agent : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36",                         
-  	    remote_addr:  "211.211.211.211",                            
-  	    device_type: "PC"                         
-    },
-  ]
-  ```
-
-
-
-### 4) 실적 전송 응답 코드
-
-* **링크프라이스 →  광고주 응답 (정상일 경우)**
-
-  ```json
-  [
-      {
-          "is_success": true,
-          "error_message": "",
-          "order_code": "주문번호",
-          "product_code": "상품코드"
-      }
-  ]
-  ```
-
-* **링크프라이스 → 광고주 응답  (실패할 경우)**
-
-  실적 전송이 정상적으로 이루어지지 않은 경우 하기 에러 메세지를 참고하시어 수정해주시면 됩니다. 
-
-  ```json
-  [
-      {
-          "is_success": false,
-          "error_message": "에러 상세 내용",
-          "order_code": "주문번호",
-          "product_code": "상품코드"
-      }
-  ]
-  ```
-* 에러 메세지
-
-|                 error_message                  |                        에러 상세 내용                        |
-| :--------------------------------------------: | :----------------------------------------------------------: |
-|         event_code parameter is empty.         |                event_code(이벤트코드) 미입력                 |
-|         promo_code parameter is empty.         |                 promo_code(할인코드) 미입력                  |
-|         order_code parameter is empty.         |                 order_code(주문번호) 미입력                  |
-|        product_code parameter is empty.        |                product_code(상품코드) 미입력                 |
-|         user_agent parameter is empty.         |           user_agent(브라우저 사용자 정보) 미입력            |
-|        remote_addr parameter is empty.         |              remote_addr (클라이언트 IP) 미입력              |
-|         item_count parameter is empty.         |                 item_count(상품수량) 미입력                  |
-|           sales parameter is empty.            |                    sales(상품금액) 미입력                    |
-|        product_name parameter is empty.        |                 product_name(상품명) 미입력                  |
-|               event is nothing.                |   이벤트가 존재하지 않음.<br>링크프라이스 담당자에게 문의    |
-| The order_code of each array must be the same. | 복수의 건일 경우 주문번호가 서로 불일치<br/>링크프라이스 담당자에게 문의 |
-|           Order code is duplicated.            | 예전에 링크프라이스로 인입된 주문번호가 재호출<br/>링크프라이스 담당자에게 문의 |
-|        Required parameters are missing.        | 필수파라미터가 누락되어 실적 미인정 상태<br/>링크프라이스 담당자에게 문의 |
-| Network error during performance transmission. | 네트워크 장애로 실적 미인정 상태<br/>링크프라이스 담당자에게 문의 |
-
-
-
-### 5) 실적 전송 샘플 코드
-
-   * [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/PHP/index.php)
-
-   * [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/JSP/index.jsp)
-
-   * [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/ASP/index.asp)
-
-
-
-
-
-## 2. 실적 정보 출력 (daily_fix)
-
-### 1) 실적 정보 출력 셋업 작업
-
-* 광고주의 실적 정보 출력 URL을 **링크프라이스에서 일별 호출**하여 자동으로 복구합니다.
-
-  이때, 주문번호(order_code)와 상품코드(product_code)를 기준으로 실적의 복구 유무를 판단합니다.
-
-* 광고주에 저장된 주문 정보 중 링크프라이스를 통해서 발생한 실적을  **JSON형식**으로 출력해주셔야 합니다.
-
-* 아래 예시와 같이 호출하면 해당 날짜의 실적 정보가 출력될 수 있도록 합니다. **(yyyymmdd 파라미터로 호출)**
-
-  링크프라이스는 URL Query String으로 실적 호출합니다. 
-
-  호출 URL 예시 - www.example.com/linkprice/promo_code/daily_fix.php?yyyymmdd=20170701 
-
-
-
-### 2) 작업시 유의사항
-
-* 샘플 코드는 머천트 개발 환경에 맞게 수정하시기 바랍니다. 
-
-* **KEY 이름은 임의로 수정 불가**하며, VALUE 값은 아래 예제를 참고하여 출력바랍니다.
-
-* 실적 전송된 데이터와 실적 정보 출력에서 확인되는 VALUE 값은 모두 동일해야 합니다.
-
-
-
-|  출력필드명  | 출력타입(Byte) | 필수유무 |                          설명                          |
-| :----------: | :---------: | :------: | :----------------------------------------------------: |
-|  event_code  | string(20)  |   필수   |      링크프라이스에서 발급한 고유 이벤트 코드<sup id="sub1">[1](#link1)</sup>      |
-|  promo_code  | string(50)  |   필수   |             매체에서 홍보하는 할인코드<sup id="sub2">[2](#link2)</sup>             |
-|  order_time   | string(10)  |   필수   |         실적의 시,분,초<sup id="sub7">[7](#link7)</sup>         |
-|  member_id   | string(10)  |   필수   | 구매자<br/>  Ex) 구매자ID, 구매자 이름 |
-|  order_code  | string(100) |   필수   |                 해당 주문건의 주문번호                 |
-| product_code | string(100) |   필수   |               해당 주문건의 상품고유번호               |
-| product_name | string(300) |   필수   |                  해당 주문건의 상품명                  |
-|  item_count  |   Integer   |   필수   |                     상품 구매 수량                     |
-|    sales     |   Integer   |   필수   |                 금액 (단가*구매수량 )                  |
-|  user_agent  | String(200) |   필수   |               구매자의 User Agent 값<sup id="sub3">[3](#link3)</sup>               |
-| remote_addr  | String(20)  |   필수   |                   구매자의 REMOTE IP                   |
-| device_type  | String(10)  |   옵션   | 실적이 발생한 디바이스 타입<br>Ex) PC, MOBILE, APP<sup id="sub4">[4](#link4)</sup> |
-
-<b name="link7">[7]</b>: **hhmmss 형식**으로 실적 발생 시간만 출력되도록 작업. ex) 2018년 01월 01일 오후 01시 20분 13초 → “132013” [↩](#sub7)<br>
-
-* **실적 정보 출력 예제 1. (단일주문건)**
-
-  ```javascript
-  [
-    {
-          event_code : "LINKPRICE_EVENT_CODE",                          
-          promo_code : "PROMO_CODE01",    
-          order_time : "170524"
-          member_id : "member_id",	
-          order_code : "ORDER123456789",
-          product_code : "00000001",                     
-          product_name : "사과",                 
-          item_count : 1,                      
-          sales : 1000,                              
-          user_agent : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36",                          
-          remote_addr:  "211.211.211.211",                            
-          device_type: "PC"                             
-      }
-  ]
-  ```
-
-
-
-* **실적 정보 출력 예제 2. (복수주문건)**
-
-  ```json
-  [
-      {
-          event_code : "LINKPRICE_EVENT_CODE",                          
-          promo_code : "PROMO_CODE01",    
-          order_time : "170524"
-          member_id : "member_id",	
-          order_code : "ORDER123456789",
-          product_code : "00000001",                     
-          product_name : "사과",                 
-          item_count : 1,                      
-          sales : 1000,                              
-          user_agent : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36",                          
-          remote_addr:  "211.211.211.211",                            
-          device_type: "PC"                             
-      },
-      {
-          event_code : "LINKPRICE_EVENT_CODE",                          
-          promo_code : "PROMO_CODE01",
-          order_time : "170524"
-          member_id : "member_id",	
-          order_code : "ORDER123456789",              
-          product_code : "00000002",                     
-          product_name : "딸기",                      
-          item_count : 2,                         
-          sales : 4000,                           
-          user_agent : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36",                         
-          remote_addr:  "211.211.211.211",                            
-          device_type: "PC"                         
-      }
-  ]
-  ```
-
-
-
-
-### 3) 실적 정보 출력 샘플 코드
-
-* [PHP](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/PHP/daily_fix.php)
-* [JSP](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/JSP/daily_fix.jsp)
-* [ASP](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/ASP/daily_fix.asp)
-
-
+2. Request
+
+   1. order
+
+      1. order_id(string): 주문번호, 구매자가 인지 가능한 주문번호이어야 누락신고시 이 주문번호로 누락 여부를 조회할 수 있습니다.
+      2. final_paid_price(float):  배송비를 제외 한 실결제 금액
+         1. 배송비를 구매자가 부담시 실결제금액에서 배송비를 제외한 금액입니다.
+         2. 무료배송인 경우엔 실결제 금액 전체입니다.
+      3. user_name(string): 누락신고시 누구의 실적인지를 알기 위해 사용 할 구매자 이름
+      4. currency(string): 상품 결제시 사용된 통화
+         1. ISO 4217 사용
+         2. 예) USD, KRW, CNY, EUR
+
+   2. products
+
+      1. product_id(string): 상품 ID
+
+      2. product_name(string): 상품 이름
+
+      3. category_code(string): 상품 카테고리 코드
+
+      4. category_name(string): 상품 카테고리 이름
+
+         1. 해당 상품의 모든 카테고리 이름을 넣어주세요.
+         2. 의류 > 남성의류 > 자켓 > 아우터 일 경우 아래와 같이 작성하여 주세요.
+
+         ```json
+         "category_name": ["의류", "남성의류", "자켓", "아우터"]
+         ```
+
+      5. quantity(unsigned int): 구매 갯수
+
+      6. product_final_price(float): 구매자가 이 상품을 구매하기 위하여 결제해야 할 금액
+
+      7. paid_at(string): 결제 완료 시간
+
+         1. 결제 완료 시간이란 결제가 성공한 시간을 뜻합니다.
+         2. Date Format : ISO-8601 ex. 2018-07-27T10:13:44+00:00
+
+      8. confirmed_at(string): 구매 확정 시간
+
+         1. 구매 확정이란 상품이 배송되어 쇼핑몰에서 지정한 환불/취소 기간이 지나 더 이상 환불/취소 불가능한 상태를 뜻합니다.
+         2. 구매 확정 시간이란 구매 확정 상태가 된 시간을 뜻합니다.
+         3. 구매 확정이 되지 않았다면 공백 문자열을 전송 해 주세요.
+         4. 구매 확정이 되었다면 구매 확정 시간을 ISO-8601 포맷으로 전송 해 주세요.
+         5. 예) 2018-07-27T10:13:44+00:00
+
+      9. caceled_at(string): 구매 취소 확정 시간
+
+         1. 구매 취소 확정이란 구매자의 요청으로 환불/취소가 처리 완료된 시간을 뜻합니다.
+         2. 취소 확정이 되지 않았다면 공백 문자열을 전송 해 주세요.
+         3. 취소 확정이 되었다면 취소 확정 시간을 ISO-8601 포맷으로 전송 해 주세요.
+         4. 예) 2018-07-27T10:13:44+00:00
+
+   3. linkprice
+
+      1. merchant_id(string): 링크프라이스로부터 받은 머천트 ID
+      2. event_code (string): 링크프라이스에서 생성하는 고유코드로 고정값 입니다.
+      3. promo_code(string) : 실제 구매자가 사용하는 할인코드로(매체 홍보시 사용), 링크프라이스용 할인코드를 발급후 해당 코드를 알려주세요.
+      4. user_agent(string): USER_AGENT정보
+      5. remote_addr(string): 구매자의 IP주소. 서버 주소가 아닌 실 구매자의 IP주소를 전송 해 주세요.
+      6. device_type(string): 장치 구분 값
+         1. web-pc: 모바일이이 아닌 장치에서 발생한 웹 실적
+         2. web-mobile: 모바일 장치에서 발생한 웹 실적
+         3. app-ios: iOS App을 통해 발생한 실적 
+         4. app-android: Android App을 통해 발생한 실적
+
+3. Request Sample
+
+   1. 구매자가  7000원짜리 HDMI 케이블2개, 6000원짜리 봉지라면 3개를 구매하였고, 무료배송이고,  링크프라이스 할인코드를 사용하여 최종적으로 전체 상품에 대해 10%할인된 경우 
+        * event_code : LINKPRICE_EVENT_CODE
+        * promo_code : PROMO_CODE01
+
+            1. 쿠폰 적용전에 결제해야 할 금액은 32000원입니다. 10% 쿠폰을 사용하였으므로 최종적으로 구매자가 지불해야 할 금액은 **28800**원입니다
+            2. 10% 쿠폰 적용전에 hdmi 케이블의 product_final_price은 14000원이었는데, 10% 쿠폰을 적용하면 12600원이므로 hdmi 케이블의 product_final_price은 **12600**원입니다.
+             3. 10% 쿠폰 적용전에 봉지라면의 product_final_price은 18000원이었는데, 10% 쿠폰을 적용하면 16200 원이므로 봉지라면의 product_final_price은 **16200**원입니다.
+             4. 28800(final_paid_price) = 12600(product_final_price은) + 16200(product_final_price)
+
+
+   ```json
+   {
+       "order": {
+           "order_id": "o190203-h78X3",
+           "final_paid_price": 28800,
+           "currency": "KRW",
+           "user_name": "구매자"
+       },
+       "products": [
+           {
+               "product_id": "P87-234-anx87",
+               "product_name": "UHD 4K 넥시 HDMI케이블",
+               "category_code": "132782",
+               "category_name": ["컴퓨터 주변기기", "케이블", "HDMI케이블"],
+               "quantity": 2,
+               "product_final_price": 12600,
+               "paid_at": "2019-02-12T11:13:44+00:00",
+               "confirmed_at": "",
+               "canceled_at": ""
+           },
+           {
+               "product_id": "P23-983-Z3272",
+               "product_name": "농심 오징어짬뽕124g(5개)",
+               "category_code": "237018",
+               "category_name": ["가공식품", "라면", "봉지라면"],
+               "quantity": 3,
+               "product_final_price": 16200,
+               "paid_at": "2019-02-12T11:13:44+00:00",
+               "confirmed_at": "",
+               "canceled_at": ""
+           }
+       ],
+       "linkprice": {
+           "merchant_id": "sample",
+           "event_code" : "LINKPRICE_EVENT_CODE", 
+           "promo_code" : "PROMO_CODE01",             
+           "user_agent": "Mozilla/5.0...",
+           "remote_addr": "127.0.0.1",
+           "device_type": "web-pc"
+       }
+   }
+   ```
+
+1. Response
+
+   1. 응답 바디는 JSON객체입니다.
+
+      | KEY           | VALUE                                 |
+      | ------------- | ------------------------------------- |
+      | is_success    | true / false<br />실적 전송 성공 여부 |
+      | error_message | 에러 메세지                           |
+      | order_code    | 주문 코드                             |
+      | product_code  | 상품 코드                             |
+
+   2. Respons Sample
+
+      1. 전송 성공시
+
+      ```json
+      [
+          {
+              "is_success": true,
+              "error_message": "",
+              "order_code": "order_115",
+              "product_code": "product1"
+          },
+          {
+              "is_success": true,
+              "error_message": "",
+              "order_code": "order_115",
+              "product_code": "product2"
+          }
+      ]
+      ```
+
+      2. 전송 실패시
+
+      ```json
+      [
+          {
+              "is_success": false,
+              "error_message": "lpinfo parameter is empty.",
+              "order_code": "order_115",
+              "product_code": "product1"
+          },
+          {
+              "is_success": false,
+              "error_message": "lpinfo parameter is empty.",
+              "order_code": "order_115",
+              "product_code": "product2"
+          }
+      ]
+      ```
+
+		+ CPS 할인코드 에러 메세지
+
+      | error_message                                                | 에러 상세 내용                                               |
+      | ------------------------------------------------------------ | ------------------------------------------------------------ |
+      | This is not a valid JSON string.                             | REQUEST 가 JSON 형식이 아님                                  |
+      | order.order_id parameter is empty.                           | order.order_id 미입력                                      |
+      | order.final_paid_price parameter is empty.                   | order.final_paid_price 미입력                               |
+      | order.final_paid_price is not integer.                       | order.final_paid_price integer형이 아님                     |
+      | order.currency parameter is empty.                           | order.currency 미입력                                        |
+      | order.user_name parameter is empty.                          | order.user_name 미입력                                      |
+      | products parameter is empty.                                 | products 미입력                                    |
+      | linkprice.promo_code parameter is empty.                         | linkprice.promo_code 미입력                                  |
+      | linkprice.event_code parameter is empty.    | linkprice.event_code 미입력                                      |
+      | event is nothing.    | 진행 중인 event 미존재                                      |
+      | linkprice.user_agent parameter is empty.                     | linkprice.user_agent 미입력                                  |
+      | linkprice.remote_addr parameter is empty.                    | linkprice.remote_addr 미입력                                 |
+      | linkprice.device_type parameter is empty.                    | linkprice.device_type 미입력                                 |
+      | products[i].product_id parameter is empty.                   | products i번째 product_id 미입력                             |
+      | products[i].product_name parameter is empty.                 | products i번째 product_name 미입력                           |
+      | products[i].category_code parameter is empty.                | products i번째 category_code 미입력                          |
+      | products[i].product_final_price parameter is empty.          | products i번째 product_final_price 미입력                    |
+      | The amount of order.final_paid_price does not match the total amount of products.product_final_price. | products의 합산 금액과 order.final_paid_price 금액이 일치하지 않음. |
+      | There was a problem sending your performance.                | 실적 전송 오류                                               |
+
+       
+
+
+## 4. 실적 목록
+
+1. 실적 목록이란?
+
+   1. 정확하고 빠른 정산을 위하여 링크프라이스 실적 데이터를 제공하는 API입니다.
+   2. 머천트 주문 정보와 링크프라이스의 실적을 대조하여 누락된 실적을 복구합니다.
+   3. **일반 CPS 프로그램에서 실적목록을 사용하고 있는 머천트는 사용 중인 실적목록 호출 시 할인코드 CPS 실적의 주문도 함께 출력되도록 작업해주시면 됩니다.**
+
+2. 실적 목록 출력
+
+   1. 링크프라이스가 머천트 API를 호출하여 실적목록을 확인 하며, 실적 목록 API는 머천트가 직접 작성 해 주셔야 합니다.
+   2. 실시간 실적 전송된 데이터와 실적 목록 API에서 확인되는 데이터는 모두 동일해야 합니다.
+   3. 아래와 같이 링크프라이스에서 머천트 API를 호출하게 되며, **paid_ymd, confirmed_ymd, canceled_ymd**세가지 파라미터를 사용 하여 조회 할 수 있어야 합니다.
+
+   ```shell
+   curl https://api.yourdomain.com/linkprice/order_list_v1?paid_ymd=20181220
+   ```
+
+   1. 파라미터 설명
+
+   | 파라미터      | 값                                                           |
+   | ------------- | ------------------------------------------------------------ |
+   | paid_ymd      | 결제 완료 조회 날짜. 예) 20181220 <BR />해당날짜에 결제가 완료된 모든 링크프라이스 실적을 보여줍니다. |
+   | confirmed_ymd | 구매 확정 조회 날짜. 예) 20181220 <BR />해당날짜에 구매가 확정된 모든 링크프라이스 실적을 보여줍니다. |
+   | canceled_ymd  | 취소 확정 조회 날짜. 예) 20181220 <BR />해당날짜에 구매 취소가 확정된 모든 링크프라이스 실적을 보여줍니다. |
+
+   1. 실적 목록은 json 형식으로 출력하시기 바랍니다.
+
+      1. 예
+
+      ```json
+      [
+          {"order":{"order_id":"ord-123-01",....},"products":[...],"linkprice":{...}},
+          {"order":{"order_id":"ord-123-02",....},"products":[...],"linkprice":{...}},
+          {"order":{"order_id":"ord-123-03",....},"products":[...],"linkprice":{...}},
+          {"order":{"order_id":"ord-123-04",....},"products":[...],"linkprice":{...}}
+      ]
+      ```
+
+
+## 5. FAQ
+
+- Q: 이벤트 코드(event_code) 란 무엇인가요?
+  - A: 링크프라이스에서 생성하는 고유코드이며, 생성된 이벤트 코드는 담당자에게 문의하시며 됩니다. 
+- Q: 할인 코드(promo_code)란 무엇인가요?
+  - A:  매체에서 홍보시 사용하고, 실제 구매자가 귀사의 사이트에서 사용하게될 할인코드로 링크프라이스 전용 할인코드를 생성하시면 담당자에게 알려주셔야 합니다. 
+- Q: 링크프라이스 배너로 유입되어 lpinfo가 존재한 상태로 할인코드를 사용한 경우 처리방법을 알려주세요.
+  - A:  할인코드 실적으로만 처리해주시면 됩니다. 
+ - Q: 할인코드 실적의 금액 처리방법을 알려주세요. 
+     - A:  Request Sample을 참고하시고 각 상품의 배송비를 제외한 구매자의 실 결제금액이 전송되도록 해주시면 됩니다. 
