@@ -42,9 +42,9 @@
 
 1. 앱 셋업의 실시간 실적 전송 방식은 크게 2가지로 나누어 집니다.
 2. 3자툴을 사용하여 앱 실적을 전송 하는 경우에 아래 매뉴얼을 참조하여 작업 해 주세요. 링크프라이스에서는 현재 아래에 명기된 3가지 방식만 지원하고 있습니다.
-    1. [튠 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/3%EC%9E%90%ED%88%B4%20%EC%95%B1%20%EC%85%8B%EC%97%85/%ED%8A%A0) 
-    2. [앱스플라이어 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/3%EC%9E%90%ED%88%B4%20%EC%95%B1%20%EC%85%8B%EC%97%85/%EC%95%B1%EC%8A%A4%ED%94%84%EB%9D%BC%EC%9D%B4%EC%96%B4)
-    3. [애드브릭스 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/3%EC%9E%90%ED%88%B4%20%EC%95%B1%20%EC%85%8B%EC%97%85/%EC%95%A0%EB%93%9C%ED%94%84%EB%A6%AD%EC%8A%A4)
+    1. [튠 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/App/Tune) 
+    2. [앱스플라이어 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/App/Appsflyer)
+    3. [애드브릭스 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/App/Adbix)
 3. 만일 위에 명기된 3자툴을 사용하여 실적 전송을 하지 않는 경우, 실시간 실적을 직접 전송 해 주셔야 합니다. 웹 셋업이 되어 있다면, 버전에 따라 script로 전송 할 수도 있고, 서버에서 json으로 데이터를 전송할 수도 있습니다. 앱으로 구매한 경우에도 웹과 동일한 방식으로 실적이 전송 될 수 있도록 작업하면 됩니다.
 4. 앱 실적을 웹 실적과 구분해서 보내줘야 합니다.
     1. [디바이스 타입 참조](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README.md#device_type)

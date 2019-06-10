@@ -5,7 +5,7 @@
    *  Media Source Configuration 메뉴에서 기본으로 사용하는 Integration Parameters를 그대로 사용함
    * 참조: [Integrated-Media-Source-Partner-Configuration]([Integrated-Media-Source-Partner-Configuration](https://support.appsflyer.com/hc/en-us/articles/207033816-Integrated-Media-Source-Partner-Configuration))
 
-   ![1536811824140](https://github.com/linkprice/MerchantSetup/blob/master/%EC%95%B1%20%EC%85%8B%EC%97%85/%EC%95%B1%EC%8A%A4%ED%94%84%EB%9D%BC%EC%9D%B4%EC%96%B4/appsflyer1.png)
+   ![1536811824140](https://github.com/linkprice/MerchantSetup/blob/master/App/Appsflyer/appsflyer1.png)
 
 2. 앱 In-App 이벤트 클릭주소 생성: 예-회원가입, 문의하기, 상품 구매 등
 
@@ -15,7 +15,7 @@
      * [In-App-Events-Overview](https://support.appsflyer.com/hc/en-us/articles/207031986-In-App-Events-Overview)(인앱 이벤트 개요)
      * [Available-Macros-on-AppsFlyer-s-Postbacks](https://support.appsflyer.com/hc/en-us/articles/207273946-Available-Macros-on-AppsFlyer-s-Postbacks)(인앱 이벤트 발생 시 전달하는 값)
 
-   ![1536812060663](https://github.com/linkprice/MerchantSetup/blob/master/%EC%95%B1%20%EC%85%8B%EC%97%85/%EC%95%B1%EC%8A%A4%ED%94%84%EB%9D%BC%EC%9D%B4%EC%96%B4/appsflyer3.png)
+   ![1536812060663](https://github.com/linkprice/MerchantSetup/blob/master/App/Appsflyer/appsflyer3.png)
 
    * 회원가입일 경우
 

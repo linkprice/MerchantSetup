@@ -3,7 +3,7 @@
 1. 파트너사 등록
    * Attribution Analytics -> PARTNERS -> Intergrated Partners 에서 'linkprice' 검색
 
-![1536805653521](https://github.com/linkprice/MerchantSetup/blob/master/%EC%95%B1%20%EC%85%8B%EC%97%85/%ED%8A%A0/tune1.png)
+![1536805653521](https://github.com/linkprice/MerchantSetup/blob/master/App/Tune/tune1.png)
 
 
 
@@ -11,17 +11,17 @@
 
    * Attribution Analytics -> PARTNERS -> Measurement URLs 생성
 
-   ![1536805710808](https://github.com/linkprice/MerchantSetup/blob/master/%EC%95%B1%20%EC%85%8B%EC%97%85/%ED%8A%A0/tune3.png)
+   ![1536805710808](https://github.com/linkprice/MerchantSetup/blob/master/App/Tune/tune3.png)
 
    * Select your App 에서 연동 할 앱 선택
    * Select your Partner 에서 LinkPriceCo. ltd. 선택
 
-   ![1536805792200](https://github.com/linkprice/MerchantSetup/blob/master/%EC%95%B1%20%EC%85%8B%EC%97%85/%ED%8A%A0/tune5.png)
+   ![1536805792200](https://github.com/linkprice/MerchantSetup/blob/master/App/Tune/tune5.png)
 
    * URL 확인 후 저장
    * 생성된 Measurement URL을 링크프라이스로 전다
 
-   ![1536805829846](https://github.com/linkprice/MerchantSetup/blob/master/%EC%95%B1%20%EC%85%8B%EC%97%85/%ED%8A%A0/tune7.png)
+   ![1536805829846](https://github.com/linkprice/MerchantSetup/blob/master/App/Tune/tune7.png)
 
 
 
@@ -29,7 +29,7 @@
 
    * Attribution Analytics -> PARTNERS -> Data Sharing -> Postbacks URLs -> Simplified 에서 Purchase 활성화
 
-   ![1536805918578](https://github.com/linkprice/MerchantSetup/blob/master/%EC%95%B1%20%EC%85%8B%EC%97%85/%ED%8A%A0/tune9.png)
+   ![1536805918578](https://github.com/linkprice/MerchantSetup/blob/master/App/Tune/tune9.png)
 
 
 

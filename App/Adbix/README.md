@@ -10,7 +10,7 @@
 
    * 채널명을 링크프라이스로 검색한 후 선택합니다.
 
-   ![1536812627740](https://github.com/linkprice/MerchantSetup/blob/master/%EC%95%B1%20%EC%85%8B%EC%97%85/%EC%95%A0%EB%93%9C%ED%94%84%EB%A6%AD%EC%8A%A4/adbrix1.png)
+   ![1536812627740](https://github.com/linkprice/MerchantSetup/blob/master/App/Adbix/adbrix1.png)
 
 
 
@@ -26,4 +26,4 @@
 
 * 위와 같이 설정하여 발급한 트래킹 링크를 링크프라이스에 전달합니다
 
-![adbrix](https://github.com/linkprice/MerchantSetup/blob/master/%EC%95%B1%20%EC%85%8B%EC%97%85/%EC%95%A0%EB%93%9C%ED%94%84%EB%A6%AD%EC%8A%A4/adbrix3.png)
+![adbrix](https://github.com/linkprice/MerchantSetup/blob/master/App/Adbix/adbrix3.png)
