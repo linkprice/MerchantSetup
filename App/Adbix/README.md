@@ -27,3 +27,10 @@
 * 위와 같이 설정하여 발급한 트래킹 링크를 링크프라이스에 전달합니다
 
 ![adbrix](https://github.com/linkprice/MerchantSetup/blob/master/App/Adbix/adbrix3.png)
+
+4. 딥링크
+
+    * 딥링크 사용 및 설정을 위하여 아래의 링크를 확인 해 주세요.
+
+        [딥링크](<http://help.igaworks.com/hc/ko/3_3/Content/Article/adbrix_aos#toc22>)
+

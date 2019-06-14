@@ -37,3 +37,9 @@
 
      ※ 위와 다른 파라미터를 사용하신다면, 해당 파라미터 정보를 링크프라이스에 전달 바랍니다.
      위의 내용이 없으시면 위와 같은 파라미터 이름으로 추가 작업 해주시면 됩니다.
+   
+3. 딥링크
+
+   * 딥링크 사용 및 설정을 위하여 아래의 링크를 확인 해 주세요.
+
+       [딥링크]([https://support.appsflyer.com/hc/ko/articles/207032126-AppsFlyer-SDK-%EC%97%B0%EB%8F%99-%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C#5-%EB%94%A5-%EB%A7%81%ED%82%B9-%ED%8A%B8%EB%9E%98%ED%82%B9](https://support.appsflyer.com/hc/ko/articles/207032126-AppsFlyer-SDK-연동-안드로이드#5-딥-링킹-트래킹)) 
