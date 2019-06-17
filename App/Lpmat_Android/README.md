@@ -24,7 +24,7 @@ allprojects {
 ~~~groovy
 dependencies {
     ...
-	implementation 'com.github.linkprice:LPMobileAT_Android:1.0.6'
+	implementation 'com.github.linkprice:LPMobileAT_Android:1.0.7'
 }
 ~~~
 
@@ -270,51 +270,36 @@ protected void onCreate(Bundle savedInstanceState) {
 ## 6. 사용자 정의 링크(DeepLink)
 * target_url 변수로 전달 됩니다.
 * DeepLink에 해당하는 Activity가 존재 하지 않을 경우, 절대 오류가 나오지 않아야 합니다.
-* 예제 1
-    * PC target_url: www.linkprice.com/clickbuy/product-detail.php?pid=2342134&show=AHFSD 
-    * Mobile target_url: m.linkpricecom/shop/product/2342134
 
 ~~~java
+/*
+예1) 상품 상세 페이지
+PC target_url: www.linkprice.com/clickbuy/product-detail.php?pid=2342134&show=AHFSD 
+Mobile target_url: m.linkpricecom/shop/product/2342134
+
+예2) 검색 페이지
+PC target_url:  www.linkprice.com/clickbuy/search-result.php?keyword=%EA%B2%80%EC%83%89%EC%96%B4
+Mobile target_url:  m.linkprice.com/search/%EA%B2%80%EC%83%89%EC%96%B4
+
+*/
+
 LpMobileAT lpMobileAT = new LpMobileAT(this, getIntent());
 
 String deepLink = lpMobileAT.getDl();
+Intent intent = new Intent(this, MainActivity.class);
 
 if(Pattern.matches("/product-detail.php*", deepLink) || Pattern.matches("/shop/product/*", deepLink)) {
-    Intent intent = new Intent(this, productDetailActivity.class);
-    String pid = "2342134";
-    intent.putExtra(EXTRA_MESSAGE, pid);
-    startActivity(intent);
+    // 상품 상세 Activity 로 이동
+    intent = new Intent(this, productDetailActivity.class);
+    String pid = lpMobileAt.getQuery(deepLink, 'pid');
+    intent.putExtra('pid', pid);
 } else if (Pattern.matches("/search-result.php*", deepLink) || Pattern.matches("m.linkprice.com/search*", deepLink)) {
-    Intent intent = new Intent(this, seachActivity.class);
-    String keyword = "keyword";
-    intent.putExtra(EXTRA_MESSAGE, keyword)
-    startActivity(intent);
-} else {
-    Intent intent = new Intent(this, MainActivity.class);
-    startActivity(intent);
+    // 검색 Activity 로 이동
+    intent = new Intent(this, seachActivity.class);
+    String keyword = lpMobileAt.getQuery(deepLink, 'keyword');
+    intent.putExtra('keyword', keyword) 
 }
-~~~
-* 예제 2
-    * PC target_url:  www.linkprice.com/clickbuy/search-result.php?keyword=%EA%B2%80%EC%83%89%EC%96%B4
-    * Mobile target_url:  m.linkprice.com/search/%EA%B2%80%EC%83%89%EC%96%B4
 
-~~~java
-LpMobileAT lpMobileAT = new LpMobileAT(this, getIntent());
-
-String deepLink = lpMobileAT.getDl();
-
-if(Pattern.matches("/product-detail.php*", deepLink) || Pattern.matches("/shop/product/*", deepLink)) {
-    Intent intent = new Intent(this, productDetailActivity.class);
-    String pid = "2342134";
-    intent.putExtra(EXTRA_MESSAGE, pid);
-    startActivity(intent);
-} else if (Pattern.matches("/search-result.php*", deepLink) || Pattern.matches("m.linkprice.com/search*", deepLink)) {
-    Intent intent = new Intent(this, seachActivity.class);
-    String keyword = "%EA%B2%80%EC%83%89%EC%96%B4";
-    intent.putExtra(EXTRA_MESSAGE, keyword)
-    startActivity(intent);
-} else {
-    Intent intent = new Intent(this, MainActivity.class);
-    startActivity(intent);
-}
+// DeepLink에 해당하는 Activity가 없다면 MainActivity 실행
+startActivity(intent);
 ~~~
