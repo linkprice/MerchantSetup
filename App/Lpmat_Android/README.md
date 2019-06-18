@@ -28,8 +28,6 @@ dependencies {
 }
 ~~~
 
-
-
 ## 3. AndroidMnifest.xml 설정
 
 > URL  클릭 시 해당 앱이 설치되어 있으면 앱이 실행되고, 설치가 되어 있지 않으면 Google Play 스토어나 특정 페이지로 redirection 하기 위한 설정 및 앱 설치 시 refferer 값 전달을 위한 설정입니다.
@@ -102,43 +100,6 @@ public void onReceive(Context context, Intent intent) {
     lpMobileAT.setTagValueReceiver();
 }
 ```
-
-## 4. 게이트웨이 페이지
-
-1. user-agent의 값으로부터 계산하여 android일 경우, 아래의 형식으로 URL을 생성하여, 이 URL로 redirect 한다.
-
-~~~
-intent://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&target_url=https://www.linkprice.com/path/page?pid=17234#Intent;scheme=https;package=com.linkprice.test-app;S.browser_fallback_url=https://www.linkprice.com/your_path/?param=values;end
-~~~
-
-2. 각 변수 설명
-   1. **https** 게이트웨이 페이지의 scheme: 일반적으로 http나 https 입니다
-   
-   2. **gw.linkprice.com** 게이트웨이 페이지의 host: 게이트웨이 페이지의 host 부분만 추출합니다.
-   
-   3. **lpinfo=A100000131|2600239200004E|0000|B|1** 링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 lpinfo의 값
-   
-   4. **target_url=https://www.linkprice.com/path/page?pid=17234** 링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 target_url의 값
-   
-   5. **com.linkprice.test-app** 귀사의 Android APP의 package name
-   
-   6. **https://www.linkprice.com/your_path/?param=values** 만일 앱이 설치 되어 있지 않을 경우 redirection할 URL
-   
-   7. 머천트 정책에 따라 6번에 설명된 redirection을 어떻게 할지 상의 하여 주세요.
-   
-       1. Google Playstore로 보내는 경우 "lpinfo"(3번 설명 참조)를 같이 보내주셔야 합니다. 
-   
-           ```
-           S.browser_fallback_url=market://details?com.linkprice.test-app&referrer=LPINFO%3DA100000131%7C2598664800005F%7C0000%7CB%7C1%26rd%3D30
-           ```
-   
-       2. 웹으로 보내는 경우  게이트페이지로 전달 된 "target_url" 파라미터 값을 사용하시면 됩니다. target_url롤 전달된 값 이 "https://www.linkprice.com/path/page?pid=17234" 일 경우,
-   
-           ```
-           S.brwoser_fallback_url=https://www.linkprice.com/path/page?pid=17234
-           ```
-   
-           
 
 ## 4. 실적 전송
 
@@ -290,11 +251,11 @@ protected void onCreate(Bundle savedInstanceState) {
 /*
 예1) 상품 상세 페이지
 PC target_url: www.linkprice.com/clickbuy/product-detail.php?pid=2342134&show=AHFSD 
-Mobile target_url: m.linkprice.com/shop/product/2342134
+Mobile target_url: m.linkprice.com/shop/product?pid=2342134
 
 예2) 검색 페이지
 PC target_url:  www.linkprice.com/clickbuy/search-result.php?keyword=%EA%B2%80%EC%83%89%EC%96%B4
-Mobile target_url:  m.linkprice.com/search/%EA%B2%80%EC%83%89%EC%96%B4
+Mobile target_url:  m.linkprice.com/search?keyword=%EA%B2%80%EC%83%89%EC%96%B4
 
 */
 
@@ -304,12 +265,12 @@ String deepLink = lpMobileAT.getDl();
 URL dl = new URL(deepLink);
 Intent intent = new Intent(this, MainActivity.class);
 
-if((dl.getHost() == "www.linkprice.com" || dl.getHost() == "m.linkprice.com") && (dl.getPath() == "/clickbuy/product-detail.php" || dl.getPath().contains("/shop/product/")) {
+if((dl.getHost() == "www.linkprice.com" && dl.getPath() == "/clickbuy/product-detail.php") || (dl.getHost() == "m.linkprice.com" && dl.getPath().contains("/shop/product/")) {
     // 상품 상세 Activity 로 이동
     intent = new Intent(this, productDetailActivity.class);
     String pid = lpMobileAt.getQuery(deepLink, 'pid');
     intent.putExtra('pid', pid);
-} else if ((dl.getHost() == "www.linkprice.com" || dl.getHost() == "m.linkprice.com") && (dl.getPath() == "/clickbuy/search-result.php" || dl.getPath().contains("/search/")) {
+} else if ((dl.getHost() == "www.linkprice.com" || dl.getPath() == "/clickbuy/search-result.php") || (dl.getHost() == "m.linkprice.com" && dl.getPath().contains("/search/")) {
     // 검색 Activity 로 이동
     intent = new Intent(this, seachActivity.class);
     String keyword = lpMobileAt.getQuery(deepLink, 'keyword');
