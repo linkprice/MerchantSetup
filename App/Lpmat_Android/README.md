@@ -149,7 +149,7 @@ intent://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&target_url=h
 
 ```java
 // lpinfo(클릭정보) 얻기
-LpMobileAT lpMobileAT = new LpMobileAT(mContext, getIntent());
+LpMobileAT lpMobileAT = new LpMobileAT(context, getIntent());
 String lpinfo = lpMobileAt.getTagValue();
 ```
 
@@ -160,7 +160,7 @@ String lpinfo = lpMobileAt.getTagValue();
 #### 4.2.1 CPS 실적 전송 (상품 구매)
 
 ```java
-LpMobileAT lpMobileAT = new LpMobileAT(mContext, getIntent());
+LpMobileAT lpMobileAT = new LpMobileAT(Context, getIntent());
 
 Map<String, Object> order = new HashMap<>();
 order.put("order_id", "o111232-323234");            // order ID
@@ -217,7 +217,7 @@ lpMobileAT.send();
 #### 4.2.2 CPA 실적 전송 (회원 가입, 미션 수행)
 
 ```java
-LpMobileAT lpMobileAT = new LpMobileAT(mContext, getIntent());
+LpMobileAT lpMobileAT = new LpMobileAT(Context, getIntent());
 
 Map<String, Object> order = new HashMap<>();
 order.put("unique_id", "");
