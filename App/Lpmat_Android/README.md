@@ -142,7 +142,22 @@ intent://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&target_url=h
 
 ## 4. 실적 전송
 
-### 4.1 CPS 실적 전송 (상품 구매)
+### 4.1 실적 전송이 S2S(서버 to 서버)로 셋업 되있는 경우
+
+1. CPS 웹 셋업을 통하여 이미 실적을 S2S(서버 to 서버)로 보내고 있고, 앱 실적도 서버를 통하여 처리 하는 경우 앱에서는 실적을 전송하지 않으셔도 됩니다. 
+2. lpinfo(클릭정보)가 서버에 없고 앱에만 있을경우 lpinfo를 서버로 보내줍니다.
+
+```java
+// lpinfo(클릭정보) 얻기
+LpMobileAT lpMobileAT = new LpMobileAT(mContext, getIntent());
+String lpinfo = lpMobileAt.getTagValue();
+```
+
+### 4.2 실적 전송이 클라이언트에서 스크립트로 셋업 되있는 경우
+
+1. CPS 웹 실적을 서버가 아닌 클라이언트에서 스크립트 형식으로 보내시고 계신다면, 앱에서 반드시 실적 전송을 하여야 합니다.
+
+#### 4.2.1 CPS 실적 전송 (상품 구매)
 
 ```java
 LpMobileAT lpMobileAT = new LpMobileAT(mContext, getIntent());
@@ -199,7 +214,7 @@ lpMobileAT.send();
 
   [CPS 실적 데이터 설명](<https://github.com/linkprice/MerchantSetup/tree/master/CPS#4-%EC%8B%A4%EC%8B%9C%EA%B0%84-%EC%8B%A4%EC%A0%81-%EC%A0%84%EC%86%A1>)
 
-### 4.2 CPA 실적 전송 (회원 가입, 미션 수행)
+#### 4.2.2 CPA 실적 전송 (회원 가입, 미션 수행)
 
 ```java
 LpMobileAT lpMobileAT = new LpMobileAT(mContext, getIntent());
@@ -228,7 +243,7 @@ lpMobileAT.send();
 
   [CPA 실적 데이터 설명](<https://github.com/linkprice/MerchantSetup/tree/master/CPA#3-%EC%8B%A4%EC%8B%9C%EA%B0%84-%EC%8B%A4%EC%A0%81-%EC%A0%84%EC%86%A1>)
 
-### 4.3 CPI 실적 전송(InstallReceiver.java)
+#### 4.2.3 CPI 실적 전송(InstallReceiver.java)
 
 ~~~java
 @Override
@@ -275,7 +290,7 @@ protected void onCreate(Bundle savedInstanceState) {
 /*
 예1) 상품 상세 페이지
 PC target_url: www.linkprice.com/clickbuy/product-detail.php?pid=2342134&show=AHFSD 
-Mobile target_url: m.linkpricecom/shop/product/2342134
+Mobile target_url: m.linkprice.com/shop/product/2342134
 
 예2) 검색 페이지
 PC target_url:  www.linkprice.com/clickbuy/search-result.php?keyword=%EA%B2%80%EC%83%89%EC%96%B4
@@ -286,14 +301,15 @@ Mobile target_url:  m.linkprice.com/search/%EA%B2%80%EC%83%89%EC%96%B4
 LpMobileAT lpMobileAT = new LpMobileAT(this, getIntent());
 
 String deepLink = lpMobileAT.getDl();
+URL dl = new URL(deepLink);
 Intent intent = new Intent(this, MainActivity.class);
 
-if(Pattern.matches("/product-detail.php*", deepLink) || Pattern.matches("/shop/product/*", deepLink)) {
+if((dl.getHost() == "www.linkprice.com" || dl.getHost() == "m.linkprice.com") && (dl.getPath() == "/clickbuy/product-detail.php" || dl.getPath().contains("/shop/product/")) {
     // 상품 상세 Activity 로 이동
     intent = new Intent(this, productDetailActivity.class);
     String pid = lpMobileAt.getQuery(deepLink, 'pid');
     intent.putExtra('pid', pid);
-} else if (Pattern.matches("/search-result.php*", deepLink) || Pattern.matches("m.linkprice.com/search*", deepLink)) {
+} else if ((dl.getHost() == "www.linkprice.com" || dl.getHost() == "m.linkprice.com") && (dl.getPath() == "/clickbuy/search-result.php" || dl.getPath().contains("/search/")) {
     // 검색 Activity 로 이동
     intent = new Intent(this, seachActivity.class);
     String keyword = lpMobileAt.getQuery(deepLink, 'keyword');
