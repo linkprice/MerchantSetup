@@ -265,12 +265,12 @@ String deepLink = lpMobileAT.getDl();
 URL dl = new URL(deepLink);
 Intent intent = new Intent(this, MainActivity.class);
 
-if((dl.getHost() == "www.linkprice.com" && dl.getPath() == "/clickbuy/product-detail.php") || (dl.getHost() == "m.linkprice.com" && dl.getPath().contains("/shop/product/")) {
+if((dl.getHost() == "www.linkprice.com" && dl.getPath() == "/clickbuy/product-detail.php") || (dl.getHost() == "m.linkprice.com" && dl.getPath() =="/shop/product")) {
     // 상품 상세 Activity 로 이동
     intent = new Intent(this, productDetailActivity.class);
     String pid = lpMobileAt.getQuery(deepLink, 'pid');
     intent.putExtra('pid', pid);
-} else if ((dl.getHost() == "www.linkprice.com" || dl.getPath() == "/clickbuy/search-result.php") || (dl.getHost() == "m.linkprice.com" && dl.getPath().contains("/search/")) {
+} else if ((dl.getHost() == "www.linkprice.com" || dl.getPath() == "/clickbuy/search-result.php") || (dl.getHost() == "m.linkprice.com" && dl.getPath() = "/search")) {
     // 검색 Activity 로 이동
     intent = new Intent(this, seachActivity.class);
     String keyword = lpMobileAt.getQuery(deepLink, 'keyword');
