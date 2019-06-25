@@ -4,11 +4,11 @@
 
     구매나 예약 등의 실적이 발생되면 할인과 동시에 링크프라이스 측에 실적을 전송하는 것을 의미합니다.
 
-    ![캡처1](C:/Users/LG/Downloads/Telegram%20Desktop/image2.png)
+    ![캡처1](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/image2.png)
 
 * 간략한 흐름도는 다음과 같습니다.
 
-![캡처2](C:/Users/LG/Downloads/Telegram%20Desktop/image1.png)
+![캡처2](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/image1.png)
 
 
 
