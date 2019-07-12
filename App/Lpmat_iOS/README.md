@@ -36,11 +36,11 @@ pod 'LPMobileAT'
 
 1. 연관 도메인을 활성화 후 등록합니다. 
 
-![유니버셜 링크 설정](https://github.com/linkprice/MerchantSetup/tree/master/App/Lpmat_iOS/01.png)
+![유니버셜 링크 설정](https://github.com/linkprice/MerchantSetup/blob/master/App/Lpmat_iOS/01.png)
 
 2. entitlements 파일에서 도메인이 설정되어 있는지 확인합니다.
 
-![유니버셜 링크 - 설정된 도메인 확인](https://github.com/linkprice/MerchantSetup/tree/master/App/Lpmat_iOS/02.png)
+![유니버셜 링크 - 설정된 도메인 확인](https://github.com/linkprice/MerchantSetup/blob/master/App/Lpmat_iOS/02.png)
 
 3. AASA(apple-app-site-association)파일 등록
 
