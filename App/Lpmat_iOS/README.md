@@ -1,74 +1,266 @@
 ## 1. 제휴 마케팅이란
 
 > 제휴 마케팅이란 제품/ 서비스 등을 판매하는 인터넷 업체(Merchant)가 고객을 끌어들이고 진열, 판매하는 공간으로 자신의 사이트 뿐만 아니라 다른 관련 사이트(Affiliate)로 까지 공간을 확장하여 
-> 이때 발생하는 수입을 제휴맺은 사이트(Affiliate)와 공유하는 새로운 형태의 마케팅 기법입니다. 
+> 이때 발생하는 수입을 제휴맺은 사이트(Affiliate)와 공유하는 새로운 형태의 마케팅 기법입니다.
 
-1. [제휴 마케팅 소개](https://helpdesk.linkprice.com/pages/merchant-faq-introduce)
-
-## 2. CPS 웹 셋업 여부
-
-1. CPS 웹 셋업이 되어 있지 않다면, 먼저 CPS 웹 셋업이 선행되어야 합니다. 매뉴얼을 참고 하여, 먼저 CPS 웹 셋업 작업을 선행해 주세요. [(CPS 셋업 메뉴얼)](https://github.com/linkprice/MerchantSetup/tree/master/CPS)
-2. CPS 웹 셋업이 되어 있다면, CPS 웹 셋업 방식을 파악해 주십시오. 웹 셋업 버전에 따라 셋업 방식이 다를 수 있습니다.  2019년 4월 이후에 셋업이 되어 있고 게이트 웨이 페이지스의 소스를 봤을 때, Google Tag Manager로 되어 있다면  셋업 버전이 4 입니다. 또는 실시간 실적 전송을 하는 서버 주소의 url이 service.linkprice.com/lppurchase_cps_v4.php이거나 service.linkprice.com/lppurchase_cpa_v4.php 이라면 셋업 버전이 4 입니다.
-    1. 버전 2 ~ 3
-        1. 게이트웨이 페이지
-        2. 실시간 실적 전송
-        3. 자동 누락 복구: 실시간 실적 전송시 네트워크등의 문제로 실적 전송이 누락 시, 익일 자동 누락 복구 기능을 통하여 누락 된 실적을 복구 하게 됩니다.
-        4. 자동 취소: 빠르고 정확한 정산을 위하여 취소된 실적을 자동으로 처리하게 되는 기능입니다.
-    2. 버전 4
-        1. 게이트웨이 페이지
-        2. 실시간 실적 전송
-        3. 실적 목록: 누락된 실적을 복구 및 빠르고 정확한 정산 자동화를 위한 API
-
-## 3. 게이트웨이 페이지
-
-1. 웹 셋업의 게이트웨이 페이지 작동 방식을 파악 후, 앱의 경우에 앱 전용의 분기 처리 페이지가 필요합니다.
-2. 모바일 앱의 경우 이 페이지에서 앱의 설치 유무에 따라, 앱의 특정 페이지가 열리거나 마켓 페이지로 이동하도록 하는 페이지를 직접 추가 해 주시고 이 페이지의 사용 방법을 링크프라이스에 알려 주세요
-3. 앱이 설치 되어 있지 않은 상태에서 마켓으로 이동하여 신규로 앱을 설치한 경우에도, 설치 이후  lpinfo값이 맞게 저장되어 실적이 전송되어야 합니다.
-4. 앱이 이미 설치 되어 있는 상태에서 이 페이지를 거치면 기본적으로 target_url이 앱으로 열려야 합니다.
-6. PC 웹 기준으로 작성한 target_url 이든, Mobile 웹 기준으로 작성한 target_url이든, 모바일 앱으로도 이 target_url이  열리도록 작업 해 주셔야 합니다. 예를 들어 PC 웹 기준으로 작성한 상품 상세페이지로 가는 deep link가 모바일 앱에서도 동일한 상품 상세 페이지가 열려도록 해야 합니다. 특히 오류 페이지로 이동해서는 안됩니다.
-7. 앱이 이미 설치 되어 있다면, 다음의 모든 경우에도 머천트 앱으로 target_url이 열려야 합니다.
-    1. 웹 브라우저에서 배너를 클릭한 경우
-    2. 웹 브라우저에서 주소창에 click.linkprice.com으로 시작하는 주소를 직접 입력한 경우
-    3. 매체사 앱에서 배너를 클릭한 경우
-    4. 아래의 타사 앱에서 배너 또는 click.linkprice.com으로 시작하는 링크를 클릭 한 경우
-        1. 카카오톡 앱
-        2. 네이버 앱
-        3. 다음 앱
-        4. 밴드 앱
-        5. 페이스북 앱
-
-## 4. 실시간 실적 전송
-
-3. 웹 셋업이 되어 있다면, 버전에 따라 script로 전송 할 수도 있고, 서버에서 json으로 데이터를 전송할 수도 있습니다. 앱으로 구매한 경우에도 웹과 동일한 방식으로 실적이 전송 될 수 있도록 작업하면 됩니다.
-4. 앱 실적을 웹 실적과 구분해서 보내줘야 합니다.
-    1. [디바이스 타입 참조](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README.md#device_type)
-5. 앱 실적과 웹 실적의 전송 방식 및 전송 금액 기준 그리고 실적 인정 기준이 동일해야 합니다.
-    1. 실적 전송 방식(실시간 실적 / 확정 시 전송)등 기분이 웹과 앱이 동일 해야 합니다.
-    2. 웹 셋업 시 실적 전송 금액의 경우 배송비 / 할인쿠폰 / 포인트 사용 을 제외한 실 결제금액으로 전송 할 경우 앱 CPS 셋업 시 에도 동일한 기준으로 실적이 전송 되어야 합니다.
-        (단, 예외 사항이 발생 할 경우 링크프라이스 개발팀으로 연락 주십시요.)
-    3. 웹 셋업 시 실적 인정 기준이 특정 카테고리만 실적을 인정하여 전송 할 겨우 앱 CPS 셋업 시 에도 동일한 기준으로 실적 전송이 되어야 합니다.
-        (단, 예외 사항이 발생 할 겨우 링크프라이스 개발팀으로 회신이 필요 합니다.)
-
-## 5. 실적 목록
-
-1. 자동 누락 복구 / 자동 취소 / 실적 목록도 앱으로 구매한 경우에도 웹과 동일하게 자동 누락 복구 / 자동 취소 / 실적 목록이 작동 할 수 있도록 작업 해 주세요.
-
-## 6. FAQ
-
-* Q: lpinfo란 무엇인가요?
-    * A: 링크프라이스에서 전달한 광고 유입 정보
-
-* Q: 게이트웨이 페이지란 무엇인가요?
-    * A: 사용자가 광고 클릭 시 머천트 사이트로 이동 시, 처음으로 거치는 페이지로 유효성 체크, 쿠키 생성, 목적 페이지로 리다이렉션 하는 페이지입니다.
-
-* Q: deep link, target_url란 무엇인가요? 
-    * A: 매체사에 광고 주소 생성시에 머천트 홈으로 가지 않고 홍보하려는 특정 상품의 상세 페이지로 배너를 생성 할 수도 있습니다. 이러한 링크를 deep link라고 하며, 이 때의 특정 상품 상세 페이지의 url을 target url 이라고 합니다.
+1. [제휴 마케팅 소개](https://helpdest.linkprice.com/pages/merchant-faq-introduce)
 
 
 
+## 2. LinkPrice SDK 를 프로젝트에 추가하기
+
+### 2.1 CocoaPod 을 사용하여 설치하기
+
+CocoaPod 을 사용하고 있다면 아래 내용을 Podfile 에 추가한 후 `pod install` 명령을 사용하여 간단하게 Xcode 프로젝트에 추가할 수 있습니다.
+```
+pod 'LPMobileAT'
+```
+
+### 2.2 브릿지 헤더 파일 추가
+
+* LPMobileAT.framework가 Object-C로 작성되었기 때문에 브릿지 헤더 파일을 추가해야 합니다.
+* <프로젝트이름-Bridging-Header.h> 파일 생성 후 아래 내용을 추가합니다.
+```swift
+#import <LPMobileAT/LPMobileAT.h>
+```
+## 3. Universal Link 설정 
+
+> URL 클릭 시 해당 앱이 설치되어 있으면 앱이 실행되어야 하며, 설치가 되어 있지 않으면 App Store나 특정 페이지로 redirection 하기 위한 설정입니다.
 
 
 
+### 3.1 연관 도메인 설정 
+
+* URL을 통해 앱에 진입했을 경우 파라미터를 전달받고 싶거나 deep link를 구현하고 싶다면 해당 설정 작업을 진행합니다. 
+* Universal Link는 **https**에서만 실행 가능합니다.
+
+1. 연관 도메인을 활성화 후 등록합니다. 
+
+![유니버셜 링크 설정](https://github.com/linkprice/MerchantSetup/tree/master/App/Lpmat_iOS/01.png)
+
+2. entitlements 파일에서 도메인이 설정되어 있는지 확인합니다.
+
+![유니버셜 링크 - 설정된 도메인 확인](https://github.com/linkprice/MerchantSetup/tree/master/App/Lpmat_iOS/02.png)
+
+3. AASA(apple-app-site-association)파일 등록
+
+* AASA파일은 연관 도메인으로 등록된 웹사이트의 루트 또는 ./well-known 디렉토리 하위에 저장합니다.
+
+	* 예시
+    	* https://example.com/app-app-site-association
+    	* https://example.com/.well-known/app-app-site-association
+
+```json
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+    {
+      "appID": "{team ID}.{bundle ID}",
+      "paths": ["*"]
+    }
+    ]
+  }
+}
+```
+
+* appID: team ID와 bundle ID로 구성되며, 포맷은 {team ID}.{Bundle ID} 입니다.
+    * team ID는 [Apple developer center](https://developer.apple.com/membercenter) 에서 확인 할 수 있습니다.
+
+### 3.2 AppDeletegate.swift 에 해당 코드를 추가합니다.
+
+``` swift
+/*
+예1) 상품 상세 페이지
+PC target_url: www.linkprice.com/clickbuy/product-detail.php?pid=2342134&show=AHFSD 
+Mobile target_url: m.linkprice.com/shop/product?pid=2342134
+
+예2) 검색 페이지
+PC target_url:  www.linkprice.com/clickbuy/search-result.php?keyword=%EA%B2%80%EC%83%89%EC%96%B4
+Mobile target_url:  m.linkprice.com/search?keyword=%EA%B2%80%EC%83%89%EC%96%B4
+
+*/
+
+
+//for iOS >= 9.2 (Universal Link)
+func application(_ application: UIApplication,
+                     continue userActivity: NSUserActivity,
+                     restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+
+  if(userActivity.activityType == NSUserActivityTypeBrowsingWeb) {
+  	return self.handleDeepLink(url: userActivity.webpageURL! as NSURL)
+  }
+
+	return true
+}
+
+private func handleDeepLink(url: NSURL) -> Bool {
+  //track deep link
+  LPMobileAT.applicationDidOpen(url as URL!)
+    
+  // 여기에 <url> 값이 가리키는 페이지로 이동하도록 deep link 기능을 구현해 주어야 합니다.
+  guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+        let incomingURL = userActivity.webpageURL
+        let components = NSURLComponents(url: incomingURL, resolvingAgainstBaseURL: true)
+        let path = components.path
+    	let host = components.host
+        let params = components?.queryItems
+        
+    if ((host == "www.linkprice.com" && path == "/clickbuy/product-detail.php") || (host == "m.linkprice.com" && path =="/shop/product")) {
+  
+         let mainStoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+         let productDetail = mainStoryboard.instantiateViewController(withIdentifier: "productDetailViewController") as! productDetailViewController
+        let navigationController = self.window?.rootViewController as! UINavigationController
+        
+        productDetail.pid = params.first(where: { $0.name == "pid" } )
+        navigationController.pushViewController(productDetail, animated: false)
+    
+        return true
+        
+    } else if((host == "www.linkprice.com" || path == "/clickbuy/search-result.php") || (host == "m.linkprice.com" && path = "/search")) {
+        
+        let mainStoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+         let searchResult = mainStoryboard.instantiateViewController(withIdentifier: "searchResultViewController") as! productDetailViewController
+        let navigationController = self.window?.rootViewController as! UINavigationController
+        
+        productDetail.keyword = params.first(where: { $0.name == "keyword" } )
+        navigationController.pushViewController(searchResult, animated: false)
+        
+        return  true
+    }  
+   
+  return true
+}
+```
+
+
+### 3.3 SDK 초기화
+
+AppDelegate.swift 파일을 열어서 아래와 같이 API 를 호출하는 코드를 추가해 주세요.
+
+```swift
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    // Override point for customization after application launch.
+    LPMobileAT.initialize
+    
+    return true
+}
+```
+
+
+
+## 5. 실적 전송
+
+### 5.1 실적 전송이 S2S(서버 to 서버)로 셋업 되있는 경우
+
+1. CPS 웹 셋업을 통하여 이미 실적을 S2S(서버 to 서버)로 보내고 있고, 앱 실적도 서버를 통하여 처리 하는 경우 앱에서는 실적을 전송하지 않으셔도 됩니다.
+2. lpinfo(클릭정보)가 서버에 없고 앱에만 있을경우 lpinfo를 서버로 보내줍니다.
+
+```Swift
+//lpinfo(클릭정보) 얻기
+LpMobileAT.getLpinfo
+```
+
+### 5.2 실적 전송이 클라이언트에서 스크립트로 셋업 되있는 경우
+
+1. CPS 웹 실적을 서버가 아닌 클라이언트에서 스크립트 형식으로 보내시고 계신다면, 앱에서 반드시 실적 전송을 하여야 합니다.
+2. 머천트가 진행하는 서비스에 맞게 아래의 실적 전송 방식을 선택하여 구현하시면 됩니다.
+    * CPS만 진행하신다면, CPS 실적 전송만 하시면 됩니다.
+    * CPS와 CPA를 같이 하신다면 CPS와 CPA 실적 전송을 모두 구현 하여 주셔야 합니다. 
+
+#### 5.2.1 CPS 실적 전송 (상품 구매)
+
+```swift
+LPMobileAT.trackEvent(LPEventType.CPS,
+          withValues: [
+              "order": [
+                "order_id": "o190203-2323213",
+                "final_paid_price": 32000,
+                "currency": "KRW",
+                "user_name": "user"
+            ],
+            "products": [
+                [
+                    "product_id": "P87-234-anx87",
+                    "product_name": "test",
+                    "category_code": "132782",
+                    "category_name": ["test1", "test2", "test3"],
+                    "quantity": 2,
+                    "product_final_price": 14000,
+                    "paid_at": "2019-02-12T11:13:44+00:00",
+                    "confirmed_at": "",
+                    "canceled_at": ""
+                ],
+                [
+                    "product_id": "P23-983-Z3272",
+                    "product_name": "test product",
+                    "category_code": "237018",
+                    "category_name": ["test4", "test5", "test6"],
+                    "quantity": 3,
+                    "product_final_price": 18000,
+                    "paid_at": "2019-02-12T11:13:44+00:00",
+                    "confirmed_at": "",
+                    "canceled_at": ""
+                ]
+            ],
+            "linkprice": [
+                "merchant_id": "clickbuy",
+                "user_agent": "Mozilla/5.0...",
+                "remote_addr": "127.0.0.1"
+            ]
+        ])
+           
+```
+
+* user agent이 없을 경우 null로 보내 주십시요.
+
+* 쿠폰 및 마일리지 사용에 따른 "product_final_price"는 아래 링크를 확인 하여 주세요.
+
+    [product_final_price 계산](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README.md#final_paid_price)
+
+* 자세한 데이터에 대한 설명은 아래 링크플 확인 하여 주세요.
+
+    [CPS 실적 데이터 설명](https://github.com/linkprice/MerchantSetup/tree/master/CPS#4-실시간-실적-전송)
+
+####5.2.2 CPA 실적 전송 (회원 가입, 미션 수행)
+
+```swift
+LPMobileAT.trackEvent(LPEventType.CPA,
+          withValues: [
+              "action": [
+                    "unique_id": "10002356",
+                    "final_paid_price": 0,
+                    "currency": "KRW",
+                    "member_id": "exampleId",
+                    "action_code": "free_101",
+                    "action_name": "free join",
+                    "category_code": "register"
+                ],
+                "linkprice": [
+                    "merchant_id": "clickbuy",
+                    "user_agent": "Mozilla/5.0...",
+                    "remote_addr": "127.0.0.1",
+                ]
+        ])
+           
+```
+
+* CPA경우 일일 IP제한(3개)이 있으므로, 사용자의 실제 IP가 넘어오지 않을 경우, 실적에 중대한 오류가 발생됩니다.
+
+* CPA 데이터에 대한 자세한 설명은 아래 링크를 확인하여 주세요.
+
+    [CPA 실적 데이터 설명](https://github.com/linkprice/MerchantSetup/tree/master/CPA#3-실시간-실적-전송)
+
+#### 5.2.3 CPI 실적 전송
+
+```swift
+ /* CPI sending data
+  * param1: merchant ID 
+  * ua: user agent information
+  * remoteAddr: user remote address
+ */ 
+LPMobileAT.autoCpi("clickbuy", ua: "User Agent", remoteAddr: "127.0.0.1")
+```
 
 
 
