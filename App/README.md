@@ -27,12 +27,3 @@
 #### 2.2.1 Adbrix(애드브릭스)
 
 1. [Adbrix 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/App/Adbix)
-
-#### 2.2.2 Appsflyer(앱스플라이서)
-
-1. [Appsflyer 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/App/Appsflyer)
-
-    
-
-
-
