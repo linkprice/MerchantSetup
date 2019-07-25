@@ -14,11 +14,13 @@
 #### 2.1.1 Android
 
 1. [Android 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/App/Lpmat_Android)
+2. [Android setup guide(en)](https://github.com/linkprice/MerchantSetup/blob/master/App/Lpmat_Android/README-en.md)
 
 
 #### 2.1.2 iOS
 
 1. [iOS 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/App/Lpmat_iOS)
+2. [iOS setup guide(en)](https://github.com/linkprice/MerchantSetup/tree/master/App/Lpmat_iOS/READEME-en.md)
 
 ### 2.2 3자툴 사용하여 셋업
 
