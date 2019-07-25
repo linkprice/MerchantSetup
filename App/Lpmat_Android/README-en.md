@@ -115,7 +115,7 @@ Intent());
 String lpinfo = lpMobileAt.getTagValue();
 ```
 
-### 4.2 if you send sales data in client side
+### 4.2 If you send sales data in client side
 
 1.  If you send sales data in client side for CPS, you should send it in App 
 
