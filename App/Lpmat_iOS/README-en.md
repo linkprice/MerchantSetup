@@ -1,54 +1,54 @@
-## 1. 제휴 마케팅이란
+## 1. Affiliate Marketing
 
-> 제휴 마케팅이란 제품/ 서비스 등을 판매하는 인터넷 업체(Merchant)가 고객을 끌어들이고 진열, 판매하는 공간으로 자신의 사이트 뿐만 아니라 다른 관련 사이트(Affiliate)로 까지 공간을 확장하여 
-> 이때 발생하는 수입을 제휴맺은 사이트(Affiliate)와 공유하는 새로운 형태의 마케팅 기법입니다.
-
-1. [제휴 마케팅 소개](https://helpdest.linkprice.com/pages/merchant-faq-introduce)
+> Affiliate Marketing is one of internet marketing method originated by Amazon.com in 1996, in which Merchant sites serving ecommerce increase traffic and revenue by gathering affiliates who wants to get money by advertising other sites. Especially, it is characterized that it pays advertisement fees only when real performances that merchants want occurred.
 
 
 
-## 2. LinkPrice SDK 를 프로젝트에 추가하기
+## 2. Import Linkprice library
 
-### 2.1 CocoaPod 을 사용하여 설치하기
+### 2.1 CocoaPod
 
-CocoaPod 을 사용하고 있다면 아래 내용을 Podfile 에 추가한 후 `pod install` 명령을 사용하여 간단하게 Xcode 프로젝트에 추가할 수 있습니다.
+Add 'LPMobileAT' in Podfile then install pod
+
 ```
 pod 'LPMobileAT'
 ```
 
-### 2.2 브릿지 헤더 파일 추가
+### 2.2 Add bridge header file
 
-* LPMobileAT.framework가 Object-C로 작성되었기 때문에 브릿지 헤더 파일을 추가해야 합니다.
-* <프로젝트이름-Bridging-Header.h> 파일 생성 후 아래 내용을 추가합니다.
+- LPMobileAT.framework is Objective-C so you should make bridege header file. 
+- Make <projectName-Bridging-Header.h> file then add below.
+
 ```swift
 #import <LPMobileAT/LPMobileAT.h>
 ```
-## 3. Universal Link 설정 
 
-> URL 클릭 시 해당 앱이 설치되어 있으면 앱이 실행되어야 하며, 설치가 되어 있지 않으면 App Store나 특정 페이지로 redirection 하기 위한 설정입니다.
+## 3. Universal Link
+
+> When customer clicks link, if there is App in coutomer's phone, it opens App. If not, it goes to Google Play store or specific page
 
 
 
-### 3.1 연관 도메인 설정 
+### 3.1 Associated Link 
 
-* URL을 통해 앱에 진입했을 경우 파라미터를 전달받고 싶거나 deep link를 구현하고 싶다면 해당 설정 작업을 진행합니다. 
-* Universal Link는 **https**에서만 실행 가능합니다.
+- URL을 통해 앱에 진입했을 경우 파라미터를 전달받고 싶거나 deep link를 구현하고 싶다면 해당 설정 작업을 진행합니다. 
+- If you want to open app with URL or use deep link in iOS, you should set below. 
+- Universal Link works with only **https**
 
-1. 연관 도메인을 활성화 후 등록합니다. 
+1. Turn on Associated link and register domain.
 
-![유니버셜 링크 설정](https://github.com/linkprice/MerchantSetup/blob/master/App/Lpmat_iOS/01.png)
+![Universal Link setting](https://github.com/linkprice/MerchantSetup/blob/master/App/Lpmat_iOS/01.png)
 
-2. entitlements 파일에서 도메인이 설정되어 있는지 확인합니다.
+2. Check domain in entitlements file
 
-![유니버셜 링크 - 설정된 도메인 확인](https://github.com/linkprice/MerchantSetup/blob/master/App/Lpmat_iOS/02.png)
+![Check domain](https://github.com/linkprice/MerchantSetup/blob/master/App/Lpmat_iOS/02.png)
 
-3. AASA(apple-app-site-association)파일 등록
+3. Add AASA(apple-app-site-association) file
 
-* AASA파일은 연관 도메인으로 등록된 웹사이트의 루트 또는 ./well-known 디렉토리 하위에 저장합니다.
-
-	* 예시
-    	* https://example.com/app-app-site-association
-    	* https://example.com/.well-known/app-app-site-association
+- AASA should be in root of website or ./well-known directory.
+  - EX
+    - https://example.com/app-app-site-association
+  - https://example.com/.well-known/app-app-site-association
 
 ```json
 {
@@ -64,18 +64,18 @@ pod 'LPMobileAT'
 }
 ```
 
-* appID: team ID와 bundle ID로 구성되며, 포맷은 {team ID}.{Bundle ID} 입니다.
-    * team ID는 [Apple developer center](https://developer.apple.com/membercenter) 에서 확인 할 수 있습니다.
+- appID: Format is {team ID}.{Bundle ID}
+  - You can check your team ID in [Apple developer center](https://developer.apple.com/membercenter) 
 
-### 3.2 AppDeletegate.swift 에 해당 코드를 추가합니다.
+### 3.2 AppDeletegate.swift
 
-``` swift
+```swift
 /*
-예1) 상품 상세 페이지
+EX1) product detail page
 PC target_url: www.linkprice.com/clickbuy/product-detail.php?pid=2342134&show=AHFSD 
 Mobile target_url: m.linkprice.com/shop/product?pid=2342134
 
-예2) 검색 페이지
+EX2) search page
 PC target_url:  www.linkprice.com/clickbuy/search-result.php?keyword=%EA%B2%80%EC%83%89%EC%96%B4
 Mobile target_url:  m.linkprice.com/search?keyword=%EA%B2%80%EC%83%89%EC%96%B4
 
@@ -98,7 +98,7 @@ private func handleDeepLink(url: NSURL) -> Bool {
   //track deep link
   LPMobileAT.applicationDidOpen(url as URL!)
     
-  // 여기에 <url> 값이 가리키는 페이지로 이동하도록 deep link 기능을 구현해 주어야 합니다.
+  // implement deeplink here
   guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
         let incomingURL = userActivity.webpageURL
         let components = NSURLComponents(url: incomingURL, resolvingAgainstBaseURL: true)
@@ -133,10 +133,9 @@ private func handleDeepLink(url: NSURL) -> Bool {
 }
 ```
 
+### 3.3 Initialize SDK
 
-### 3.3 SDK 초기화
-
-AppDelegate.swift 파일을 열어서 아래와 같이 API 를 호출하는 코드를 추가해 주세요.
+Add code that call API in AppDelegate.swift
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -149,26 +148,23 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 
 
-## 4. 실적 전송
+## 4. Send sales data
 
-### 4.1 실적 전송이 S2S(서버 to 서버)로 셋업 되있는 경우
+### 4.1 If you send sales data in S2S(Server to Server)
 
-1. CPS 웹 셋업을 통하여 이미 실적을 S2S(서버 to 서버)로 보내고 있고, 앱 실적도 서버를 통하여 처리 하는 경우 앱에서는 실적을 전송하지 않으셔도 됩니다.
-2. lpinfo(클릭정보)가 서버에 없고 앱에만 있을경우 lpinfo를 서버로 보내줍니다.
+1.  If you already send sales data in S2S(Server to Server) for CPS, you should not send data.
+2. If lpinfo(click information) is not in server, you can send lpinfo from app to server.
 
 ```Swift
-//lpinfo(클릭정보) 얻기
+Get lpinfo(click info)//lpinfo(클릭정보) 얻기
 LpMobileAT.getLpinfo
 ```
 
 ### 4.2 실적 전송이 클라이언트에서 스크립트로 셋업 되있는 경우
 
-1. CPS 웹 실적을 서버가 아닌 클라이언트에서 스크립트 형식으로 보내시고 계신다면, 앱에서 반드시 실적 전송을 하여야 합니다.
-2. 머천트가 진행하는 서비스에 맞게 아래의 실적 전송 방식을 선택하여 구현하시면 됩니다.
-    * CPS만 진행하신다면, CPS 실적 전송만 하시면 됩니다.
-    * CPS와 CPA를 같이 하신다면 CPS와 CPA 실적 전송을 모두 구현 하여 주셔야 합니다. 
+1. If you send sales data in client side for CPS, you should send it in App 
 
-#### 4.2.1 CPS 실적 전송 (상품 구매)
+#### 4.2.1 Send saels data for CPS
 
 ```swift
 LPMobileAT.trackEvent(LPEventType.CPS,
@@ -212,17 +208,17 @@ LPMobileAT.trackEvent(LPEventType.CPS,
            
 ```
 
-* user agent이 없을 경우 null로 보내 주십시요.
+- If there in no user agent, send null for user agent
 
-* 쿠폰 및 마일리지 사용에 따른 "product_final_price"는 아래 링크를 확인 하여 주세요.
+- Check "product_final_price" in link below, if you use coupon.
 
-    [product_final_price 계산](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README.md#final_paid_price)
+  [product_final_price](<https://github.com/linkprice/MerchantSetup/blob/master/CPS/README.md#final_paid_price>)
 
-* 자세한 데이터에 대한 설명은 아래 링크플 확인 하여 주세요.
+- Check detail of CPS data in link below.
 
-    [CPS 실적 데이터 설명](https://github.com/linkprice/MerchantSetup/tree/master/CPS#4-실시간-실적-전송)
+  [CPS data](https://github.com/linkprice/MerchantSetup/tree/master/CPS#4-실시간-실적-전송)
 
-#### 4.2.2 CPA 실적 전송 (회원 가입, 미션 수행)
+#### 4.2.2 Send saels data for CPA
 
 ```swift
 LPMobileAT.trackEvent(LPEventType.CPA,
@@ -245,13 +241,13 @@ LPMobileAT.trackEvent(LPEventType.CPA,
            
 ```
 
-* CPA경우 일일 IP제한(3개)이 있으므로, 사용자의 실제 IP가 넘어오지 않을 경우, 실적에 중대한 오류가 발생됩니다.
+- There is daily limitaion for IP(3times) so if you do not send real IP for user, it can occur problem.
 
-* CPA 데이터에 대한 자세한 설명은 아래 링크를 확인하여 주세요.
+- Check detail of CPA data in link below.
 
-    [CPA 실적 데이터 설명](https://github.com/linkprice/MerchantSetup/tree/master/CPA#3-실시간-실적-전송)
+  [CPA data](https://github.com/linkprice/MerchantSetup/tree/master/CPA#3-실시간-실적-전송)
 
-#### 4.2.3 CPI 실적 전송
+#### 4.2.3 Send saels data for CPI
 
 ```swift
  /* CPI sending data
@@ -262,5 +258,5 @@ LPMobileAT.trackEvent(LPEventType.CPA,
 LPMobileAT.autoCpi("clickbuy", ua: "User Agent", remoteAddr: "127.0.0.1")
 ```
 
-
+* There is daily limitaion for IP(3times) so if you do not send real IP for user, it can occur problem.
 
