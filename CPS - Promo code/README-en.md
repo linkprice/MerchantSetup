@@ -252,7 +252,7 @@ alter table lpinfo add promo_code varchar(50);
 
    4. Parameter
 
-   | 파라미터      | 값                                                           |
+   | Parameter      | Value                                                           |
    | ------------- | ------------------------------------------------------------ |
    | paid_ymd      | Payment day. EX) 20181220 <BR />Display all Linkprice sales data on this payment day. |
    | confirmed_ymd | The day that order is confirmed 예) 20181220 <BR />Display all confirmed sales data on this day |
