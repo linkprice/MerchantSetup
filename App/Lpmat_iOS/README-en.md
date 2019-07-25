@@ -31,7 +31,6 @@ pod 'LPMobileAT'
 
 ### 3.1 Associated Link 
 
-- URL을 통해 앱에 진입했을 경우 파라미터를 전달받고 싶거나 deep link를 구현하고 싶다면 해당 설정 작업을 진행합니다. 
 - If you want to open app with URL or use deep link in iOS, you should set below. 
 - Universal Link works with only **https**
 
@@ -156,11 +155,11 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 2. If lpinfo(click information) is not in server, you can send lpinfo from app to server.
 
 ```Swift
-Get lpinfo(click info)//lpinfo(클릭정보) 얻기
+// Get lpinfo(click info)
 LpMobileAT.getLpinfo
 ```
 
-### 4.2 실적 전송이 클라이언트에서 스크립트로 셋업 되있는 경우
+### 4.2 If you send sales data in client side
 
 1. If you send sales data in client side for CPS, you should send it in App 
 
@@ -216,7 +215,7 @@ LPMobileAT.trackEvent(LPEventType.CPS,
 
 - Check detail of CPS data in link below.
 
-  [CPS data](https://github.com/linkprice/MerchantSetup/tree/master/CPS#4-실시간-실적-전송)
+  [CPS data](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-en.md)
 
 #### 4.2.2 Send saels data for CPA
 
@@ -245,7 +244,7 @@ LPMobileAT.trackEvent(LPEventType.CPA,
 
 - Check detail of CPA data in link below.
 
-  [CPA data](https://github.com/linkprice/MerchantSetup/tree/master/CPA#3-실시간-실적-전송)
+  [CPA data](https://github.com/linkprice/MerchantSetup/blob/master/CPA/README-en.md)
 
 #### 4.2.3 Send saels data for CPI
 
