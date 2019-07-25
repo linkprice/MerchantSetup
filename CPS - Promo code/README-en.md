@@ -232,7 +232,7 @@ alter table lpinfo add promo_code varchar(50);
 
 
 
-## 4. 실적 목록
+## 4. Sales Data List
 
 1. Sales Data List?
 
