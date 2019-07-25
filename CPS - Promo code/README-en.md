@@ -1,4 +1,4 @@
-## 1. 할인코드 CPS 란?
+## 1. Promotion code CPS
 
 - Affiliate use promotion code that provide from Linkprice to advertise and when customer uses promotion code to buy production, sales data will be send to Linkprice.
 
@@ -34,7 +34,7 @@ alter table lpinfo add promo_code varchar(50);
 
 
 
-## 3. 실시간 실적 전송
+## 3. Send sales data
 
 1. After user finish payment, send Request data below in json type
 
@@ -67,7 +67,7 @@ alter table lpinfo add promo_code varchar(50);
       4. category_name(string): Category Name
 
          1. Put all category names
-         2. EX) Clothe > Men > Jacket > Rider jacket 일 경우 아래와 같이 작성하여 주세요.
+         2. EX
 
          ```json
          "category_name": ["Clothe", "Men", "Jacket", "Rider Jacket"]
@@ -123,7 +123,7 @@ alter table lpinfo add promo_code varchar(50);
        "products": [
            {
                "product_id": "P87-234-anx87",
-               "product_name": "UHD 4K 넥시 HDMI케이블",
+               "product_name": "UHD 4K cable",
                "category_code": "132782",
                "category_name": ["computer", "cable", "HDMI cable"],
                "quantity": 2,
@@ -206,9 +206,9 @@ alter table lpinfo add promo_code varchar(50);
       ]
       ```
 
-      - CPS 할인코드 에러 메세지      
+      - Promotion code CPS error message      
 
-      | error_message                                                | 에러 상세 내용                                           |
+      | error_message                                                | Error message                                            |
       | ------------------------------------------------------------ | -------------------------------------------------------- |
       | This is not a valid JSON string.                             | Data type is not Json                                    |
       | order.order_id parameter is empty.                           | order.order_id is empty                                  |
@@ -261,7 +261,7 @@ alter table lpinfo add promo_code varchar(50);
    5. Data format is json
 
       ```json
-[
+      [
           {"order":{"order_id":"ord-123-01",....},"products":[...],"linkprice":{...}},
           {"order":{"order_id":"ord-123-02",....},"products":[...],"linkprice":{...}},
           {"order":{"order_id":"ord-123-03",....},"products":[...],"linkprice":{...}},
