@@ -74,19 +74,19 @@
     1. action
         1. unique_id(string): 회원번호
             1. 회원 ID가 아닌 회원에게 부여되는 번호.
-            2. unique한 값이여야 합니다.
-        2. final_paid_price(number): 사용자가 결제한 실결제 금액
+            1. unique한 값이여야 합니다.
+        1. final_paid_price(number): 사용자가 결제한 실결제 금액
             1. 무료 회원가입 및 무료 서비스일 경우 0으로 보냅니다.
-            2. 유료 회원가입 및 유료 서비스 결제시 결제 금액을 전달 합니다.
-        3. action_name(string): 서비스 이름
+            1. 유료 회원가입 및 유료 서비스 결제시 결제 금액을 전달 합니다.
+        1. action_name(string): 서비스 이름
             1. 예) "무료 회원가입", "신청서 작성"
-        4. action_code(string): 서비스 코드
-        5. currency(string): 상품 결제시 사용된 통화
+        1. category_code: 액션에 해당하는 카테고리 코드
+            1. 예) "register", "apply"    
+        1. action_code(string): 위의 category_code 값을 그대로 보내 주세요.
+        1. currency(string): 상품 결제시 사용된 통화
             1. ISO 4217 사용
             2. 예) USD, KRW, CNY, EUR
-        6. member_id: 사용자 ID
-        7. category_code: 액션에 해당하는 카테고리 코드
-            1. 예) "register", "apply"
+        1. member_id: 사용자 ID
     2. linkprice
         1. lpinfo(string): "lpinfo"라는 쿠키에 저장된 값
         2. merchant_id(string): 링크프라이스로부터 받은 머천트 ID
@@ -109,9 +109,9 @@
             "final_paid_price": 0,
             "currency": "KRW",
             "member_id": "exampleId",
-            "action_code": "free_101",
             "action_name": "무료 회원 가입",
-            "category_code": "register"
+            "category_code": "register",
+            "action_code": "register"
         },
         "linkprice": {
             "merchant_id": "sample",
@@ -132,9 +132,9 @@
             "final_paid_price": 10000,
             "currency": "KRW",
             "member_id": "exampleId",
-            "action_code": "paid_law1223",
             "action_name": "유료 법률 상담 신청",
-            "category_code": "request3002"
+            "category_code": "paid_register",
+            "action_code": "paid_register"
         },
         "linkprice": {
             "merchant_id": "sample",
@@ -220,7 +220,7 @@
 
     1. 링크프라이스가 머천트 API를 호출하여 실적목록을 확인 하며, 실적 목록 API는 머천트가 직접 작성 해 주셔야 합니다.
     2. 실시간 실적 전송된 데이터와 실적 목록 API에서 확인되는 데이터는 모두 동일해야 합니다.
-    3. 아래와 같이 링크프라이스에서 머천트 API를 호출하게 되며, **paid_ymd, confirmed_ymd, canceled_ymd**세가지 파라미터를 사용 하여 조회 할 수 있어야 합니다.
+    3. 아래와 같이 링크프라이스에서 머천트 API를 호출하게 되며, **paid_ymd** 파라미터를 사용 하여 조회 할 수 있어야 합니다.
 
     ```shell
     curl https://api.yourdomain.com/linkprice/order_list_v1?paid_ymd=20181220
