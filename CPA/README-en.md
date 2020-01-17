@@ -1,4 +1,4 @@
-## SUMMARY
+﻿## SUMMARY
 
 ### [1. Gateway Page(Create cookie called LPINFO)](#landing-page)
 
@@ -28,7 +28,7 @@
         different from contract, it should be a breach of contract so you may have
         disadvantage.
 
-        ​
+        
 
 2.  Sample code
 
@@ -57,12 +57,17 @@
         | remote_address |               REMOTE_ADDR                |
         |   user_agent   |             HTTP_USER_AGENT              |
 
-    ​
+    
 
 2. Time to send action data
 
-    *   When registration is completed, action data should be sent.
-    *   Action data should be sent in Server to Server way (**If you have to use script or image way to transfer sales data, please contact Linkprice**)
+    * When registration is completed, action data should be sent.
+
+    * Action data should be sent in Server to Server way (**If you have to use script or image way to transfer sales data, please contact Linkprice**)
+
+    * If you are operating at the same time as a CPA advertising network other than LinkPrice, you should only send the performance of the last clicked network. If you need to different setup, please contact LinkPrice for consultation.
+
+      
 
 3. How to set up sending action data
 
@@ -137,12 +142,12 @@
     [
       {
          lpinfo : "network_value",                  // LPINFO cookie value
-         order_time : "132543",                     // ex) “130556”
+         order_time : "132543",                     // ex) “130556”
          member_id : "User ID of who register",	        
          unique_id : "number of member",		
          action : "member",                         // action code(max-length : 100)
-         action_name : "Registration",              // max-length : 300
-         category_code : "member",                  // type of action(ex – “member”, “apply”)
+         action_name : "Registration",              // max-length : 300
+         category_code : "member",                  // type of action(ex – “member”, “apply”)
          user_agent : "User Agent",                 // $_SERVER["HTTP_USER_AGENT"]
          remote_addr :  "User IP"                   // $_SERVER["REMOTE_ADDR"]
          sales_type :  "PC"				// PC, MOBILE, APP(choose 1)       
@@ -158,5 +163,4 @@
     *   [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/JSP/daily_fix.jsp)
     *   [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPA/JSP/daily_fix.asp)
 
-    ​
-
+    

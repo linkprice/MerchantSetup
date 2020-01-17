@@ -1,4 +1,4 @@
-## SUMMARY
+﻿## SUMMARY
 
 ### [1. Gateway Page(Create cookie called LPINFO)](#Landing-Page)
 
@@ -31,7 +31,7 @@
         different from contract, it should be a breach of contract so you may have
         disadvantage.
 
-        ​
+        
 
 2.  Sample code
 
@@ -39,7 +39,7 @@
     *   [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/lpfront.jsp)
     *   [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/lpfront.asp)
 
-    ​
+    
 
 ## <a name="send-data"></a>2. Send sales data on real time
 
@@ -60,6 +60,7 @@
 
     *   When **purchase is completed**, sales data should be sent. 
     *   Sales data should be sent in Server to Server way (**If you have to use script or image way to transfer sales data, please contact Linkprice**)
+    *   If you are operating at the same time as a CPS advertising network other than LinkPrice, you should only send the performance of the last clicked network. If you need to different setup, please contact LinkPrice for consultation.
 
 3. How to set up sending sales data
 
@@ -180,7 +181,7 @@
     *   Linkprice call your url to display sales data once a day and recover lost data.
     *   Order code(order_code) and product code(product_code) are used to compare data.
 
-    ​
+    
 
 2. How to set up displaying sales data
 
@@ -211,7 +212,7 @@
     ]
     ```
 
-    ​
+    
 
 3.  Sample(daily_fix)
 
@@ -219,7 +220,7 @@
     *   [JSP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/daily_fix.jsp)
     *   [ASP](https://github.com/linkprice/MerchantSetup/blob/v3/CPS/PHP/daily_fix.asp)
 
-    ​
+    
 
 ## <a name="auto-cancel"></a>4. Cancel sales data automatically(auto_cancel)
 
@@ -245,7 +246,7 @@
     }
     ```
 
-    ​
+    
 
     *   Chart of result code
 
@@ -257,7 +258,7 @@
     |  3   | There is no order number | Cancel                                   |
     |  9   | Exception                | Linkprice will check this order          |
 
-    ​
+    
 
 
 1.  Sample(auto_cancel)

@@ -1,4 +1,4 @@
-## 셋업 요약
+﻿## 셋업 요약
 
 ### [1. Gateway 페이지 작성 (LPINFO 쿠키생성)](https://github.com/linkprice/MerchantSetup/tree/v3/CPA#랜딩-페이지-작성)
 
@@ -10,7 +10,6 @@
 
 * 머천트 회원가입 정보와 링크프라이스 실적을 대조하여 누락된 실적을 복구하기 위한 작업
 
-
 <br />
 <br />
 <br />
@@ -20,7 +19,7 @@
 1. Gateway 페이지 작성
     * 랜딩 페이지는 쿠키 생성 후 머천트 웹사이트로 리다이렉트하는 역할을 합니다. (샘플코드 참조) 
     
-    * RETURN_DAYS(광고 효과 인정 기간) 는 **계약서에 명시되어 있는 광고 효과 인정 기간**(일단위)으로 변경하시기 바랍니다. 
+    * RETURN_DAYS(광고 효과 인정 기간) 는 **계약서에 명시되어 있는 광고 효과 인정 기간**(일단위)으로 변경하시기 바랍니다. 
     
     * 광고 인정 기간을 계약서와 다르게 변경 시 계약위반으로 불이익을 받을 수 있습니다.
    
@@ -50,6 +49,7 @@
 
     * **회원 가입 완료**시 실적을 전송하기 위해 실적전송 코드(샘플 참조)를 삽입해야 합니다.
     * 모든 실적은 Server to Server 방식으로 전송됩니다. (단, *스크립트(script) 및 이미지(image) 방식으로 전달 시 링크프라이스로 별도 문의 주셔야 합니다*)
+    * 링크프라이스 이외의 CPA 광고 네트워크와 동시에 운영하는 경우, 마지막 클릭한 네트워크의 실적만 전송해야 합니다. 이와 다르게 셋업 해야하는 경우 링크프라이스에 연락하여 협의해주세요.       
 
 3. 실시간 실적 전송 셋업
 
@@ -67,7 +67,7 @@
         unique_id : "number of member",		        // 회원번호(Unique 값)
         action : "member",                                // 액션 코드(예 - "member", "apply")
         action_name : "회원가입",                          // 액션 이름(예 - "회원가입", "신청서 작성")
-        category_code : "member",		                // 회원가입 종류(예-"member","apply")
+        category_code : "member",		                // 회원가입 종류(예-"member","apply")
         user_agent : "User Agent",			// $_SERVER["HTTP_USER_AGENT"]
         remote_addr :  "User IP"				// $_SERVER["REMOTE_ADDR"]
         sales_type :  "PC"				// PC, MOBILE, APP(택 1)         
@@ -121,18 +121,18 @@
     * 아래 예시와 같이 호출하면 해당 날짜의 실적이 출력될 수 있도록 합니다.(yyyymmdd 파라미터로 호출)
       - 예 - www.example.com/linkprice/daily_fix.php?yyyymmdd=20170701
     
-    * 실적 정보는 json 형식으로 출력하시기 바랍니다.
+    * 실적 정보는 json 형식으로 출력하시기 바랍니다.
 
 ```javascript
 [
   {
      lpinfo : "network_value",                          // LPINFO cookie 값
-     order_time : "132543",                             // 가입시간(hhmmss)
+     order_time : "132543",                             // 가입시간(hhmmss)
      member_id : "User ID of who register",	        // 회원가입 ID
      unique_id : "number of member",			// 회원번호(Unique 값)
-     action : "member",			                // 액션 코드(예 - "member", "apply")
-     action_name : "회원가입",                            // 액션 이름(예 - "회원가입", "신청서 작성")
-     category_code : "member",		                // 회원가입 종류(예-"member","apply")
+     action : "member",			                // 액션 코드(예 - "member", "apply")
+     action_name : "회원가입",                            // 액션 이름(예 - "회원가입", "신청서 작성")
+     category_code : "member",		                // 회원가입 종류(예-"member","apply")
      user_agent : "User Agent",			        // $_SERVER["HTTP_USER_AGENT"]
      remote_addr :  "User IP"				// $_SERVER["REMOTE_ADDR"]
      sales_type :  "PC"				// PC, MOBILE, APP(택 1)       
