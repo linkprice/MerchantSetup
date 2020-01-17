@@ -1,4 +1,4 @@
-## 1. 제휴 마케팅이란
+﻿## 1. 제휴 마케팅이란
 
 > 제휴 마케팅이란 제품/ 서비스 등을 판매하는 인터넷 업체(Merchant)가 고객을 끌어들이고 진열, 판매하는 공간으로 자신의 사이트 뿐만 아니라 다른 관련 사이트(Affiliate)로 까지 공간을 확장하여 
 > 이때 발생하는 수입을 제휴맺은 사이트(Affiliate)와 공유하는 새로운 형태의 마케팅 기법입니다. 
@@ -9,7 +9,7 @@
 
 1. 링크프라이스는 실적 추적을 위하여 다음의 데이터가(이하 **링크프라이스 데이터**) 반드시 필요합니다.
 
-    1. lpinfo: "lpinfo"라는 쿠키에 저장된 값
+    1. lpinfo: "LPINFO"라는 쿠키에 저장된 값
     2. user_agent: USER_AGENT정보
     3. ip: 사용자의 IP주소
     4. device_type: 장치 구분 값
@@ -28,13 +28,13 @@
         lpinfo varchar(580),
         user_agent varchar(300),
         ip varchar(50),
-        device_type varchar(10)
+        device_type varchar(11)
     )
   ```
 
 3. **결제 완료 후**, 위에서 생성한 테이블에 **링크프라이스 데이터를 반드시 저장해야 합니다**.
 
-4. 링크프라이스를 통해 발생한 실적만 저장 하여 주십시요(lpinfo라는 쿠키가 존재하는 경우에만 위의 테이블에 저장하십시요)
+4. 링크프라이스를 통해 발생한 실적만 저장 하여 주십시요(LPINFO라는 쿠키가 존재하는 경우에만 위의 테이블에 저장하십시요)
 
 
 
@@ -46,7 +46,7 @@
     2. 머천트로 리다이렉션 할 때, 처음으로 거치는 웹페이지를 게이트웨이 페이지라고 합니다.
     3. 이 게이트웨이 페이지는 유효성 체크, 쿠키 생성, 목적 페이지로 리다이렉션 등의 작업을 합니다.
 
-2. 게이트웨이 페이지의 가장 중요한 목적은 **"lpinfo"로 쿠키를 생성**하는 것입니다.
+2. 게이트웨이 페이지의 가장 중요한 목적은 **"LPINFO" 쿠키를 생성**하는 것입니다.
 
 3. 게이트웨이 페이지를 생성 한 후, 링크프라이스에서 전달받은 자바스크립를 추가하여 주십시요.
 
@@ -77,7 +77,8 @@
     1. 이 json에는 하나의 주문(order)만 있어야 합니다. 
     2. 여러 개의 다른 주문(order)이 포함 되어서는 안됩니다.
     3. 하나의 주문(order)에 여러 가지의 상품을 샀다면, 하나의 json에 그 여러개의 상품이 모두 포함되어야 합니다.
-    4. Request URL- ://service.linkprice.com/lppurchase_cps_v4.php
+    4. 링크프라이스 이외의 CPS 광고 네트워크와 동시에 운영하는 경우, 마지막 클릭한 네트워크의 실적만 전송해야 합니다. 이와 다르게 셋업 해야하는 경우 링크프라이스에 연락하여 협의해주세요.
+    5. Request URL- ://service.linkprice.com/lppurchase_cps_v4.php 
 
 2. Request
     1. order
@@ -129,7 +130,7 @@
             3. 취소 확정이 되었다면 취소 확정 시간을 ISO-8601 포맷으로 전송 해 주세요.
             4. 예) 2018-07-27T10:13:44+09:00
     3. linkprice
-        1. lpinfo(string): "lpinfo"라는 쿠키에 저장된 값
+        1. lpinfo(string): "LPINFO"라는 쿠키에 저장된 값
         2. merchant_id(string): 링크프라이스로부터 받은 머천트 ID
         3. user_agent(string): USER_AGENT정보
         4. remote_addr(string): 구매자의 IP주소. 서버 주소가 아닌 실 구매자의 IP주소를 전송 해 주세요.
@@ -288,7 +289,7 @@
    }
    ```
 
-   5. <a name="final_paid_price"></a>구매자가  7000원짜리 HDMI 케이블2개, 6000원짜리 봉지라면 3개를 구매하였고, 무료배송이고, 최종적으로 마일리지 3000원을 사용한 경우
+   5. 구매자가  7000원짜리 HDMI 케이블2개, 6000원짜리 봉지라면 3개를 구매하였고, 무료배송이고, 최종적으로 마일리지 3000원을 사용한 경우
        1. 쿠폰 적용전에 결제해야 할 금액은 32000원입니다. 3000원 마일리지를 사용하였으므로 최종적으로 구매자가 지불해야 할 금액은 **29000**원입니다
        2. 마일리지 적용전 hdmi 케이블의 product_final_price은 14000원 이었는데 3000원 마일리지를 사용하였으므로 14000 - 3000 * 14000 / 32000 = **12688**원 입니다
        3. 마일리지 적용전 봉지라면의 product_final_price은 18000원 이었는데 3000원 마일리지를 사용하였으므로 18000 - 3000 * 18000 / 32000 = **16313**원 입니다
@@ -382,13 +383,13 @@
        | error_message                                                | 에러 상세 내용                                               |
        | ------------------------------------------------------------ | ------------------------------------------------------------ |
        | This is not a valid JSON string.                             | REQUEST 가 JSON 형식이 아님                                  |
-       | order.order_id parameter is empty.                           | order.order_id 미입력                                      |
-       | order.final_paid_price parameter is empty.                   | order.final_paid_price 미입력                               |
-       | order.final_paid_price is not integer.                       | order.final_paid_price integer형이 아님                     |
-       | order.currency parameter is empty.                           | order.currency 미입력                                        |
-       | order.user_name parameter is empty.                          | order.user_name 미입력                                      |
-       | products parameter is empty.                                 | products 미입력                                    |
-       | linkprice.lpinfo parameter is empty.                         | linkprice.lpinfo 미입력                                  |
+       | order.order_id parameter is empty.                           | action.unique_id 미입력                                      |
+       | order.final_paid_price parameter is empty.                   | action.final_paid_price 미입력                               |
+       | order.final_paid_price is not integer.                       | action.final_paid_price integer형이 아님                     |
+       | order.currency parameter is empty.                           | action.currency미입력                                        |
+       | order.user_name parameter is empty.                          | action.member_id 미입력                                      |
+       | products parameter is empty.                                 | action.action_name 미입력                                    |
+       | linkprice.lpinfo parameter is empty.                         | action.category_code 미입력                                  |
        | linkprice.lpinfo parameter does not conform to the format.   | linkprice.lpinfo 미입력                                      |
        | linkprice.user_agent parameter is empty.                     | linkprice.user_agent 미입력                                  |
        | linkprice.remote_addr parameter is empty.                    | linkprice.remote_addr 미입력                                 |
@@ -439,7 +440,7 @@
             {"order":{"order_id":"ord-123-04",....},"products":[...],"linkprice":{...}}
        ]
 
-        ```
+       ```
 
 
 

@@ -1,8 +1,8 @@
-## 1. lpinfo 테이블 생성
+﻿## 1. lpinfo 테이블 생성
 
 1. 링크프라이스는 실적 추적을 위하여 다음의 데이터가(이하 **링크프라이스 데이터**) 반드시 필요합니다.
 
-    1. lpinfo: "lpinfo"라는 쿠키에 저장된 값
+    1. lpinfo: "LPINFO"라는 쿠키에 저장된 값
     2. user_agent: USER_AGENT정보
     3. ip: 사용자의 IP주소
     4. device_type: 장치 구분 값
@@ -21,13 +21,13 @@
           lpinfo varchar(580),
           user_agent varchar(300),
           ip varchar(50),
-          device_type varchar(10)
+          device_type varchar(11)
       )
     ```
 
 3. **회원 가입 완료 후**, 위에서 생성한 테이블에 **링크프라이스 데이터를 반드시 저장해야 합니다**.
 
-4. 링크프라이스를 통해 발생한 실적만 저장 하여 주십시요(lpinfo라는 쿠키가 존재하는 경우에만 위의 테이블에 저장하십시요)
+4. 링크프라이스를 통해 발생한 실적만 저장 하여 주십시요(LPINFO라는 쿠키가 존재하는 경우에만 위의 테이블에 저장하십시요)
 
 
 
@@ -39,7 +39,7 @@
     2. 머천트로 리다이렉션 할 때, 처음으로 거치는 웹페이지를 게이트웨이 페이지라고 합니다.
     3. 이 게이트웨이 페이지는 유효성 체크, 쿠키 생성, 목적 페이지로 리다이렉션 등의 작업을 합니다.
 
-2. 게이트웨이 페이지의 가장 중요한 목적은 **"lpinfo"로 쿠키를 생성**하는 것입니다.
+2. 게이트웨이 페이지의 가장 중요한 목적은 **"LPINFO"로 쿠키를 생성**하는 것입니다.
 
 3. 게이트웨이 페이지를 생성 한 후, 링크프라이스에서 전달받은 자바스크립를 추가하여 주십시요.
 
@@ -68,7 +68,8 @@
 1. 회원 가입 완료 시, 링크프라이스에 아래의 Request 데이터를 json 으로 전송합니다. 
     1. 이 json에는 하나의 회원가입 정보만 있어야 합니다. 
     2. 여러 개의 다른 회원가입 정보 포함 되어서는 안됩니다.
-    3. Request URL- ://service.linkprice.com/lppurchase_cpa_v4.php
+    3. 링크프라이스 이외의 CPA 광고 네트워크와 동시에 운영하는 경우, 마지막 클릭한 네트워크의 실적만 전송해야 합니다. 이와 다르게 셋업 해야하는 경우 링크프라이스에 연락하여 협의해주세요.
+    4. Request URL- ://service.linkprice.com/lppurchase_cpa_v4.php
 
 2. Request
     1. action
@@ -88,7 +89,7 @@
             2. 예) USD, KRW, CNY, EUR
         1. member_id: 사용자 ID
     2. linkprice
-        1. lpinfo(string): "lpinfo"라는 쿠키에 저장된 값
+        1. lpinfo(string): "LPINFO"라는 쿠키에 저장된 값
         2. merchant_id(string): 링크프라이스로부터 받은 머천트 ID
         3. user_agent(string): USER_AGENT정보
         4. remote_addr(string): 사용자의 IP주소. 서버 주소가 아닌 실 사용자의 IP주소를 전송 해 주세요.
@@ -96,8 +97,8 @@
             1. web-pc: 모바일이이 아닌 장치에서 발생한 웹 실적
             2. web-mobile: 모바일 장치에서 발생한 웹 실적
             3. app-ios: iOS App을 통해 발생한 실적 
-            4. app-android: Android App을 통해 발생한 실적
-
+        4. app-android: Android App을 통해 발생한 실적
+    
 3. Request Sample
 
     1. 사용자가 무료 회원 가입을 하였을 경우
@@ -235,7 +236,7 @@
 
     5. 실적 목록은 json 형식으로 출력하시기 바랍니다.
        1. 예
-
+    
         ```json
         [
             {"action":{"unique_id":"ord-123-01",....},"linkprice":{...}},   
@@ -244,5 +245,3 @@
             {"action":{"unique_id":"ord-123-04",.....},"linkprice":{...}}
         ]
         ```
-
-        

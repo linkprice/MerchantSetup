@@ -1,8 +1,8 @@
-## 1. Create "lpinfo" table
+﻿## 1. Create "lpinfo" table
 
 1. The data below is required to track linkprice's sales data.
 
-    1. lpinfo: cookie value named "lpinfo"
+    1. lpinfo: cookie value named "LPINFO"
     2. user_agent: USER_AGENT information
     3. ip: IP address of User
     4. device_type
@@ -21,13 +21,13 @@
           lpinfo varchar(580),
           user_agent varchar(300),
           ip varchar(50),
-          device_type varchar(10)
+          device_type varchar(11)
       )
     ```
 
 3. After user finished payment, **you should store only linkprice's data in "Lpinfo" table.**
 
-4. In this table, you should store only linkpirce's data(When there is "lpinfo" cookie, linkprice's data should be stored)
+4. In this table, you should store only linkpirce's data(When there is "LPINFO" cookie, linkprice's data should be stored)
 
 
 
@@ -39,7 +39,7 @@
     2. When user redirect to merchant, the first page in merchant side is Gateway page.
     3. Gateway checks validation, sets cookie and redirects to final destination in merchant site.
 
-2. The most important purpose for Gateway is to set "lpinfo" cookie which is information of linkprice's click.
+2. The most important purpose for Gateway is to set "LPINFO" cookie which is information of linkprice's click.
 
 3. Please insert script(javascript) from linkprice after make gateway page.
 
@@ -70,6 +70,7 @@
     1. There should be one order information in json data. 
     2. It cannot include multi orders.
     3. If there are multi products in one order, it should be in same json data.
+    4. If you are operating at the same time as a CPS advertising network other than LinkPrice, you should only send the performance of the last clicked network. If you need to different setup, please contact LinkPrice for consultation.
     4. Request URL- ://service.linkprice.com/lppurchase_cps_v4.php
 
 2. Request
@@ -124,7 +125,7 @@
 
     3. linkprice
 
-        1. lpinfo(string): "lpinfo" cookie value
+        1. lpinfo(string): "LPINFO" cookie value
         2. merchant_id(string): Merchant ID that Linkprice provides
         3. user_agent(string): USER_AGENT information
         4. remote_addr(string): User IP. It is client IP not server IP.
@@ -327,6 +328,5 @@
             {"order":{"order_id":"ord-123-04",....},"products":[...],"linkprice":{...}}
         ]
         ```
-
 
 

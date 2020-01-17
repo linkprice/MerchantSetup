@@ -1,8 +1,8 @@
-## 1. Create "lpinfo" table
+﻿## 1. Create "lpinfo" table
 
 1. The data below is required to track linkprice's sales data.
 
-    1. lpinfo: cookie value named "lpinfo"
+    1. lpinfo: cookie value named "LPINFO"
     2. user_agent: USER_AGENT information
     3. ip: IP address of User
     4. device_type
@@ -21,13 +21,13 @@
           lpinfo varchar(580),
           user_agent varchar(300),
           ip varchar(50),
-          device_type varchar(10)
+          device_type varchar(11)
       )
     ```
 
 3. After user finished register, **you should store only linkprice's data in "Lpinfo" table.**
 
-4. In this table, you should store only linkpirce's data(When there is "lpinfo" cookie, linkprice's data should be stored)
+4. In this table, you should store only linkpirce's data(When there is "LPINFO" cookie, linkprice's data should be stored)
 
 
 
@@ -39,7 +39,7 @@
     2. When user redirect to merchant, the first page in merchant side is Gateway page.
     3. Gateway checks validation, sets cookie and redirects to final destination in merchant site.
 
-2. The main function of Gateway is to set "lpinfo" cookie which is information of linkprice's click.
+2. The main function of Gateway is to set "LPINFO" cookie which is information of linkprice's click.
 
 3. Please insert script(javascript) from linkprice after make gateway page.
 
@@ -69,7 +69,8 @@
 
     1. There should be one order information in json data. 
     2. It cannot include multi registration information.
-    3. Request URL- ://service.linkprice.com/lppurchase_cps_v4.php
+    3. If you are operating at the same time as a CPA advertising network other than LinkPrice, you should only send the performance of the last clicked network. If you need to different setup, please contact LinkPrice for consultation. 
+    4. Request URL- ://service.linkprice.com/lppurchase_cps_v4.php
 
 2. Request
 
@@ -90,7 +91,7 @@
         7. category_code: Category code
             1. EX) "register", "apply"
     2. linkprice
-        1. lpinfo(string): "lpinfo" cookie value
+        1. lpinfo(string): "LPINFO" cookie value
         2. merchant_id(string): Merchant ID that Linkprice provides
         3. user_agent(string): USER_AGENT information
         4. remote_addr(string): User IP. It is client IP not server IP.
@@ -159,7 +160,7 @@
         | is_success    | true / false  |
         | error_message | Error message |
         | order_code    | Order code    |
-        | product_cde   | Product code  |
+        | product_code  | Product code  |
 
     2. Respons Sample
 
@@ -222,7 +223,7 @@
 
     1. Merchant should make API and Linkprice will call Sales Data List API.
     2. Sending sales data to Linkprice and displaying sales data should be the same.
-    3. Linkprice call API like below and three parameters, **paid_ymd, confirmed_ymd and canceled_ymd**  can be used.
+    3. Linkprice call API like below and three parameters, **paid_ymd** can be used.
 
     ```shell
     curl https://api.yourdomain.com/linkprice/order_list_v1?paid_ymd=20181220
@@ -230,35 +231,16 @@
 
     4. Parameter
 
-    | Parameter     | Value                                                        |
-    | ------------- | ------------------------------------------------------------ |
-    | paid_ymd      | Registration day or payment day for paid service. EX) 20181220 <BR />Display all Linkprice sales data on this registration day or payment day. |
-    | confirmed_ymd | The day that registration is confirmed EX) 20181220 <BR />Display all confirmed sales data on this day |
-    | canceled_ymd  | Thd day that registration is canceled EX) 20181220 <BR />Display all canceled registration or service on this day |
+    | Parameter | Value                                                        |
+    | --------- | ------------------------------------------------------------ |
+    | paid_ymd  | Registration day or payment day for paid service. EX) 20181220 <BR />Display all Linkprice sales data on this registration day or payment day. |
 
-    5. Data format is chunked.
-        (https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Transfer-Encoding)
-
-        1. The Content-Length header is omitted.
-        2. At the beginning of each chunk you need to add the length of the current chunk in hexadecimal format, followed by '\r\n'.
-        3. The terminating chunk is a regular chunk, with the exception that its length is zero.
-        4. Response(ndjosn) sample
-
-        ```
-        HTTP/1.1 200 OK 
-        Content-Type: text/plain 
-        Transfer-Encoding: chunked
-        
-        1a4\r\n
-        {"action":{"unique_id":"ord-123-01",....},"linkprice":{...}}\r\n
-        1b1\r\n
-        {"order":{"unique_id":"ord-123-02",.....},"linkprice":{...}}\r\n
-        1ab\r\n
-        {"order":{"unique_id":"ord-123-03",.....},"linkprice":{...}}\r\n
-        1a9\r\n
-        {"order":{"unique_id":"ord-123-04",.....},"linkprice":{...}}\r\n
-        0\r\n
-        \r\n
-        ```
-
-        
+   5. Data format is json
+         ```
+       [
+    {"action":{"unique_id":"ord-123-01",....},"linkprice":{...}},   
+    {"action":{"unique_id":"ord-123-02",.....},"linkprice":{...}},    
+    {"action":{"unique_id":"ord-123-03",.....},"linkprice":{...}},       
+    {"action":{"unique_id":"ord-123-04",.....},"linkprice":{...}}
+]
+       ```
