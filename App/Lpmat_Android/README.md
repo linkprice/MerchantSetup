@@ -5,34 +5,11 @@
 
 1. [제휴 마케팅 소개](https://helpdest.linkprice.com/pages/merchant-faq-introduce)
 
-## 2. lpmat library 설정
-
-1. 프로젝트 build.gradle 에 maven { url ‘https://jitpack.io’ } 을  다음과 같이 추가합니다.
-
-~~~groovy
-allprojects {
-    repositories {
-        google()
-        jcenter()
-        maven { url 'https://jitpack.io' }
-    }
-}
-~~~
-
-2. 앱 build.gradle 에 dependency를 아래와 같이 추가합니다.
-
-~~~groovy
-dependencies {
-    ...
-	implementation 'com.github.linkprice:LPMobileAT_Android:1.0.7'
-}
-~~~
-
-## 3. AndroidManifest.xml 설정
+## 2. AndroidManifest.xml 설정
 
 > URL  클릭 시 해당 앱이 설치되어 있으면 앱이 실행되고, 설치가 되어 있지 않으면 Google Play 스토어나 특정 페이지로 redirection 하기 위한 설정 및 앱 설치 시 refferer 값 전달을 위한 설정입니다.
 
-### 3.1 scheme 및 host 설정
+### 2.1 scheme 및 host 설정
 
 * 귀사의 앱의 AndroidManifest.xml파일에서 실행하고자 하는 Activity 아래에 intent-filter를 선언합니다.
 * 예를 들어, 귀사의 게이트웨이 페이지의 URL이 "https://gw.linkprice.com/gateway/lpfront.php" 일때, 아래와 같이 선언합니다.
@@ -66,7 +43,7 @@ dependencies {
   1. **android:host**: 게이트웨이 페이지의 host부분을 선언합니다.
   2. **android:scheme**: 게이트웨이 페이지의 scheme(일반적으로 http나 https)을 선언합니다.
 
-### 3.2 권한 설정
+### 2.2 권한 설정
 
 * 인터넷 연결 및 네트워크 상태를 확인 할 수 있도록 AndroidManifest.xml에 권한을 추가해주세요.
 
@@ -76,7 +53,7 @@ dependencies {
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 ```
 
-### 3.3 리시버 등록
+### 2.3 리시버 등록
 
 * Google Play 스토어를 통해서 앱을 다운로드 받아 설치하면 설치 이벤트 가 발생합니다.
 * AndroidManifest.xml에 리시버를 등록해 주면 설치 이벤트 를 수신받을 수 있으며, 이 때 INSTALL_REFERRER 값이 전달됩니다.
@@ -92,7 +69,7 @@ dependencies {
 </receiver>
 ```
 
-### 3.4 리시버 수정(InstallReceiver.java)
+### 2.4 리시버 수정(InstallReceiver.java)
 ```java
 @Override
 public void onReceive(Context context, Intent intent) {
@@ -101,9 +78,9 @@ public void onReceive(Context context, Intent intent) {
 }
 ```
 
-## 4. 실적 전송
+## 3. 실적 전송
 
-### 4.1 실적 전송이 S2S(서버 to 서버)로 셋업 되있는 경우
+### 3.1 실적 전송이 S2S(서버 to 서버)로 셋업 되있는 경우
 
 1. CPS 웹 셋업을 통하여 이미 실적을 S2S(서버 to 서버)로 보내고 있고, 앱 실적도 서버를 통하여 처리 하는 경우 앱에서는 실적을 전송하지 않으셔도 됩니다. 
 2. lpinfo(클릭정보)가 서버에 없고 앱에만 있을경우 lpinfo를 서버로 보내줍니다.
@@ -114,11 +91,11 @@ LpMobileAT lpMobileAT = new LpMobileAT(context, getIntent());
 String lpinfo = lpMobileAt.getTagValue();
 ```
 
-### 4.2 실적 전송이 클라이언트에서 스크립트로 셋업 되있는 경우
+### 3.2 실적 전송이 클라이언트에서 스크립트로 셋업 되있는 경우
 
 1. CPS 웹 실적을 서버가 아닌 클라이언트에서 스크립트 형식으로 보내시고 계신다면, 앱에서 반드시 실적 전송을 하여야 합니다.
 
-#### 4.2.1 CPS 실적 전송 (상품 구매)
+#### 3.2.1 CPS 실적 전송 (상품 구매)
 
 ```java
 LpMobileAT lpMobileAT = new LpMobileAT(Context, getIntent());
@@ -175,7 +152,7 @@ lpMobileAT.send();
 
   [CPS 실적 데이터 설명](<https://github.com/linkprice/MerchantSetup/tree/master/CPS#4-%EC%8B%A4%EC%8B%9C%EA%B0%84-%EC%8B%A4%EC%A0%81-%EC%A0%84%EC%86%A1>)
 
-#### 4.2.2 CPA 실적 전송 (회원 가입, 미션 수행)
+#### 3.2.2 CPA 실적 전송 (회원 가입, 미션 수행)
 
 ```java
 LpMobileAT lpMobileAT = new LpMobileAT(Context, getIntent());
@@ -204,7 +181,7 @@ lpMobileAT.send();
 
   [CPA 실적 데이터 설명](<https://github.com/linkprice/MerchantSetup/tree/master/CPA#3-%EC%8B%A4%EC%8B%9C%EA%B0%84-%EC%8B%A4%EC%A0%81-%EC%A0%84%EC%86%A1>)
 
-#### 4.2.3 CPI 실적 전송(InstallReceiver.java)
+#### 3.2.3 CPI 실적 전송(InstallReceiver.java)
 
 ~~~java
 @Override
@@ -229,7 +206,7 @@ lpMobileAT.send();
 
 
 
-## 5. 실행(배너 클릭시)할 때 마다 어필리에이트 변경
+## 4. 실행(배너 클릭시)할 때 마다 어필리에이트 변경
 
 ## MainActivity.java
 ```java
@@ -243,7 +220,7 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 ```
 
-## 6. 사용자 정의 링크(DeepLink)
+## 5. 사용자 정의 링크(DeepLink)
 * target_url 변수로 전달 됩니다.
 * DeepLink에 해당하는 Activity가 존재 하지 않을 경우, 절대 오류가 나오지 않아야 합니다.
 
