@@ -45,7 +45,7 @@
 
 - 모바일 웹 목적페이지로 이동 해야 합니다. 
 
-		3-3) 앱 설치자인 경우 
+3-3) 앱 설치자인 경우 
 
 - 광고주 앱의 목적페이지로 앱이 오픈 되어야 합니다. 
 - 목적페이지는 어필리에이트의 사용자 정의 링크(deep link)생성에 따라 메인페이지, 특정 상품페이지, 이벤트 페이지 등으로 변경됩니다. 
@@ -56,7 +56,7 @@
 
 5) 상호 대조를 위해 광고주 DB에 실적 데이터 보관
 
-6) 링크프라이스로 구매 실적 전송 ([3. 실적 전송](# 3. 실적 전송) 참조) , 데일리픽스, 자동 실적 취소 작업 ([V2버전 웹 셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/v2/Merchant%20Setup%20Guide_Kor_ver2.5.pdf) 참조)
+6) 링크프라이스로 구매 실적 전송 ([3. 실적 전송](https://github.com/linkprice/MerchantSetup/tree/master/App/Linkprice_iOS#3-%EC%8B%A4%EC%A0%81-%EC%A0%84%EC%86%A1) 참조) , 데일리픽스, 자동 실적 취소 작업 ([V2버전 웹 셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/v2/Merchant%20Setup%20Guide_Kor_ver2.5.pdf) 참조)
 
 
 
