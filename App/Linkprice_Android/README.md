@@ -37,9 +37,10 @@
 
 2) 링크프라이스에서 광고주 게이트웨이 페이지에 LPINFO (쿠키)생성에 필요한 값과 목적페이지 URL 전달
 
-- 배너 클릭시마다 변경되는 LPINFO의 last값을 저장합니다. ([4. 실행(배너 클릭시)할 때 마다 어필리에이트 변경](#4. 실행(배너 클릭시)할 때 마다 어필리에이트 변경) 참조)
+- 배너 클릭시마다 변경되는 LPINFO의 last값을 저장합니다. ([4. 실행(배너 클릭시)할 때 마다 어필리에이트 변경](https://github.com/linkprice/MerchantSetup/tree/master/App/Linkprice_Android#4-%EC%8B%A4%ED%96%89%EB%B0%B0%EB%84%88-%ED%81%B4%EB%A6%AD%EC%8B%9C%ED%95%A0-%EB%95%8C-%EB%A7%88%EB%8B%A4-%EC%96%B4%ED%95%84%EB%A6%AC%EC%97%90%EC%9D%B4%ED%8A%B8-%EB%B3%80%EA%B2%BD) 참조)
 
-3) device_type에 따라 웹 또는 앱 목적페이지로 이동 ([2. AndroidManifest.xml 설정](#2. AndroidManifest.xml 설정) 참조)
+3) device_type에 따라 웹 또는 앱 목적페이지로 이동 ([2. AndroidManifest.xml 설정](https://github.com/linkprice/MerchantSetup/tree/master/App/Linkprice_Android#2-androidmanifestxml-%EC%84%A4%EC%A0%95) 참조)
+
 
 ​	3-2) 앱 미설치자인 경우 
 
@@ -241,11 +242,11 @@ mItems.put(item2);
 
 * 쿠폰 및 마일리지 사용에 따른 "product_final_price"는 아래 링크를 확인 하여 주세요.
 
-  [product_final_price 계산](<https://github.com/linkprice/MerchantSetup/blob/master/CPS/README.md#final_paid_price>)
+  [product_final_price 계산](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README.md#4-%EC%8B%A4%EC%8B%9C%EA%B0%84-%EC%8B%A4%EC%A0%81-%EC%A0%84%EC%86%A1)
 
-* 자세한 데이터에 대한 설명은 아래 링크플 확인 하여 주세요.
+* 자세한 데이터에 대한 설명은 아래 링크를 확인 하여 주세요.
 
-  [CPS 실적 데이터 설명](<https://github.com/linkprice/MerchantSetup/tree/master/CPS#4-%EC%8B%A4%EC%8B%9C%EA%B0%84-%EC%8B%A4%EC%A0%81-%EC%A0%84%EC%86%A1>)
+  [CPS 실적 데이터 설명](https://github.com/linkprice/MerchantSetup/tree/master/CPS#4-%EC%8B%A4%EC%8B%9C%EA%B0%84-%EC%8B%A4%EC%A0%81-%EC%A0%84%EC%86%A1)
 
 
 

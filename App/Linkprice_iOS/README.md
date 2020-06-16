@@ -39,7 +39,7 @@
 
 - 배너 클릭시마다 변경되는 LPINFO의 last값을 저장합니다. 
 
-3) device_type에 따라 웹 또는 앱 목적페이지로 이동 ([2. Universal Link 설정 ](#2. Universal Link 설정) 참조)
+3) device_type에 따라 웹 또는 앱 목적페이지로 이동 ([2. Universal Link 설정 ](https://github.com/linkprice/MerchantSetup/tree/master/App/Linkprice_iOS#2-universal-link-%EC%84%A4%EC%A0%95) 참조)
 
 ​	3-2) 앱 미설지자인 경우 
 
@@ -73,11 +73,11 @@
 
 1. 연관 도메인을 활성화 후 등록합니다. 
 
-![유니버셜 링크 설정](https://github.com/linkprice/MerchantSetup/blob/master/App/Linkprice_iOS/01.png)
+![유니버셜 링크 설정](01.png)
 
 2. entitlements 파일에서 도메인이 설정되어 있는지 확인합니다.
 
-![유니버셜 링크 - 설정된 도메인 확인](https://github.com/linkprice/MerchantSetup/blob/master/App/Linkprice_iOS/02.png)
+![유니버셜 링크 - 설정된 도메인 확인](02.png)
 
 3. AASA(apple-app-site-association)파일 등록
 
@@ -278,7 +278,7 @@ let jsonData = try JSONSerialization.data(withJSONObject: salesData, options: .p
 
 * 쿠폰 및 마일리지 사용에 따른 "product_final_price"는 아래 링크를 확인 하여 주세요.
 
-    [product_final_price 계산](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README.md#final_paid_price)
+    [product_final_price 계산](https://github.com/linkprice/MerchantSetup/tree/master/CPS#4-실시간-실적-전송)
 
 * 자세한 데이터에 대한 설명은 아래 링크플 확인 하여 주세요.
 
