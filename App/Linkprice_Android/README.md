@@ -68,7 +68,7 @@
 
 * 귀사의 앱의 AndroidManifest.xml파일에서 실행하고자 하는 Activity 아래에 intent-filter를 선언합니다.
 * 예를 들어, 귀사의 게이트웨이 페이지의 URL이 "https://gw.linkprice.com/gateway/lpfront.php" 일때, 아래와 같이 선언합니다.
-* V4버전을 이용중이시라면, 링크프라이스 담당자에게 알려주세요. ([APPLink 가이드](./AppLink/Readme.md) 참조)
+* V4버전을 이용중이시라면, 링크프라이스 담당자에게 알려주세요. ([APPLink 가이드](../AppLink/Readme.md) 참조)
 
 ```xml
 <activity
