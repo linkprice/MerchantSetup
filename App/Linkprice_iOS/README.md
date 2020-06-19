@@ -39,13 +39,13 @@
 
 - 배너 클릭시마다 변경되는 LPINFO의 last값을 저장합니다. 
 
-3) device_type에 따라 웹 또는 앱 목적페이지로 이동 ([2. Universal Link 설정 ](https://github.com/linkprice/MerchantSetup/tree/master/App/Linkprice_iOS#2-universal-link-%EC%84%A4%EC%A0%95) 참조)
+3) device_type에 따라 웹 또는 앱 목적페이지로 이동 ([2. Universal Link 설정 ](#2. Universal Link 설정) 참조)
 
 ​	3-2) 앱 미설지자인 경우 
 
 - 모바일 웹 목적페이지로 이동 해야 합니다. 
 
-3-3) 앱 설치자인 경우 
+		3-3) 앱 설치자인 경우 
 
 - 광고주 앱의 목적페이지로 앱이 오픈 되어야 합니다. 
 - 목적페이지는 어필리에이트의 사용자 정의 링크(deep link)생성에 따라 메인페이지, 특정 상품페이지, 이벤트 페이지 등으로 변경됩니다. 
@@ -56,7 +56,7 @@
 
 5) 상호 대조를 위해 광고주 DB에 실적 데이터 보관
 
-6) 링크프라이스로 구매 실적 전송 ([3. 실적 전송](https://github.com/linkprice/MerchantSetup/tree/master/App/Linkprice_iOS#3-%EC%8B%A4%EC%A0%81-%EC%A0%84%EC%86%A1) 참조) , 데일리픽스, 자동 실적 취소 작업 ([V2버전 웹 셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/v2/Merchant%20Setup%20Guide_Kor_ver2.5.pdf) 참조)
+6) 링크프라이스로 구매 실적 전송 ([3. 실적 전송](# 3. 실적 전송) 참조) , 데일리픽스, 자동 실적 취소 작업 ([V2버전 웹 셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/v2/Merchant%20Setup%20Guide_Kor_ver2.5.pdf) 참조)
 
 
 
@@ -73,19 +73,18 @@
 
 1. 연관 도메인을 활성화 후 등록합니다. 
 
-![유니버셜 링크 설정](01.png)
+![유니버셜 링크 설정](https://github.com/linkprice/MerchantSetup/blob/master/App/Lpmat_iOS/01.png)
 
 2. entitlements 파일에서 도메인이 설정되어 있는지 확인합니다.
 
-![유니버셜 링크 - 설정된 도메인 확인](02.png)
+![유니버셜 링크 - 설정된 도메인 확인](https://github.com/linkprice/MerchantSetup/blob/master/App/Lpmat_iOS/02.png)
 
-3. AASA(apple-app-site-association)파일 등록
+3. AASA(D)파일 등록
 
-* AASA파일은 연관 도메인으로 등록된 웹사이트의 루트 또는 ./well-known 디렉토리 하위에 저장합니다.
+* AASA파일은 연관 도메인으로 등록된 웹사이트의 루트에 저장합니다.
 
 	* 예시
-    	* https://example.com/app-app-site-association
-    	* https://example.com/.well-known/app-app-site-association
+    	* https://example.com/apple-app-site-association
 
 ```json
 {
@@ -206,82 +205,13 @@ private func splitQuery(url: String) -> Dictionary<String, String>{
 
 ## 3. 실적 전송
 
-### 3.1 실적 전송이 S2S(서버 to 서버)로 셋업 되있는 경우
+#### 3.1. 실적 전송을 하는 API 생성
 
-1. CPS 웹 셋업을 통하여 이미 실적을 S2S(서버 to 서버)로 보내고 있고, 앱 실적도 서버를 통하여 처리 하는 경우 앱에서는 실적을 전송하지 않으셔도 됩니다.
-2. lpinfo(클릭정보)가 서버에 없고 앱에만 있을경우 lpinfo를 서버로 보내줍니다.
+* 웹에서 실시간 실적 전송을 하는 부분을 API로 생성하여야 합니다.
 
-```Swift
-//lpinfo(클릭정보) 얻기
-UserDefaults.standard.string(forKey: "lpinfo")
-```
+#### 3.2. 실적 전송을 하는 API 생성
 
-### 3.2 실적 전송이 클라이언트에서 스크립트로 셋업 되있는 경우
-
-1. CPS 웹 실적을 서버가 아닌 클라이언트에서 스크립트 형식으로 보내시고 계신다면, 앱에서 반드시 실적 전송을 하여야 합니다.
-2. 머천트가 진행하는 서비스에 맞게 아래의 실적 전송 방식을 선택하여 구현하시면 됩니다.
-    * CPS만 진행하신다면, CPS 실적 전송만 하시면 됩니다.
-    * CPS와 CPA를 같이 하신다면 CPS와 CPA 실적 전송을 모두 구현 하여 주셔야 합니다. 
-
-#### 3.2.1 CPS 실적 전송 (상품 구매)
-
-```swift
-var lpinfo = UserDefaults.standard.string(forKey: "lpinfo")
-
-salesData: [
-              "order": [
-                "order_id": "o190203-2323213",
-                "final_paid_price": 32000,
-                "currency": "KRW",
-                "user_name": "user"
-            ],
-            "products": [
-                [
-                    "product_id": "P87-234-anx87",
-                    "product_name": "test",
-                    "category_code": "132782",
-                    "category_name": ["test1", "test2", "test3"],
-                    "quantity": 2,
-                    "product_final_price": 14000,
-                    "paid_at": "2019-02-12T11:13:44+00:00",
-                    "confirmed_at": "",
-                    "canceled_at": ""
-                ],
-                [
-                    "product_id": "P23-983-Z3272",
-                    "product_name": "test product",
-                    "category_code": "237018",
-                    "category_name": ["test4", "test5", "test6"],
-                    "quantity": 3,
-                    "product_final_price": 18000,
-                    "paid_at": "2019-02-12T11:13:44+00:00",
-                    "confirmed_at": "",
-                    "canceled_at": ""
-                ]
-            ],
-            "linkprice": [
-                "merchant_id": "clickbuy",
-                "lpinfo": lpinfo,
-                "user_agent": "Mozilla/5.0...",
-                "remote_addr": "127.0.0.1",
-                "device_type": "app-ios"
-            ]
-        ] as [String: Any]
-
-let jsonData = try JSONSerialization.data(withJSONObject: salesData, options: .prettyPrinted)
-
-//saels 데이타 생성 후 링크프라이스로 전송
-//End point: https://service.linkprice.com/lppurchase_cps_v4.php         
-```
-
-* user agent이 없을 경우 null로 보내 주십시요.
-
-* 쿠폰 및 마일리지 사용에 따른 "product_final_price"는 아래 링크를 확인 하여 주세요.
-
-    [product_final_price 계산](https://github.com/linkprice/MerchantSetup/tree/master/CPS#4-실시간-실적-전송)
-
-* 자세한 데이터에 대한 설명은 아래 링크플 확인 하여 주세요.
-
-    [CPS 실적 데이터 설명](https://github.com/linkprice/MerchantSetup/tree/master/CPS#4-실시간-실적-전송)
+* 실적 발생 시 웹의 실적 전송 API를 호출해 실적 전송을 하여야 합니다.
+* API 호출 시 UserDefaults에 저장된 lpinfo의 값을 불러옵니다.
 
 
