@@ -37,19 +37,18 @@
 
 2) 링크프라이스에서 광고주 게이트웨이 페이지에 LPINFO (쿠키)생성에 필요한 값과 목적페이지 URL 전달
 
-- 배너 클릭시마다 변경되는 LPINFO의 last값을 저장합니다. ([4. 실행(배너 클릭시)할 때 마다 어필리에이트 변경](https://github.com/linkprice/MerchantSetup/tree/master/App/Linkprice_Android#4-%EC%8B%A4%ED%96%89%EB%B0%B0%EB%84%88-%ED%81%B4%EB%A6%AD%EC%8B%9C%ED%95%A0-%EB%95%8C-%EB%A7%88%EB%8B%A4-%EC%96%B4%ED%95%84%EB%A6%AC%EC%97%90%EC%9D%B4%ED%8A%B8-%EB%B3%80%EA%B2%BD) 참조)
+- 배너 클릭시마다 변경되는 LPINFO의 last값을 저장합니다. ([4. 실행(배너 클릭시)할 때 마다 어필리에이트 변경](#4. 실행(배너 클릭시)할 때 마다 어필리에이트 변경) 참조)
 
-3) device_type에 따라 웹 또는 앱 목적페이지로 이동 ([2. AndroidManifest.xml 설정](https://github.com/linkprice/MerchantSetup/tree/master/App/Linkprice_Android#2-androidmanifestxml-%EC%84%A4%EC%A0%95) 참조)
-
+3) device_type에 따라 웹 또는 앱 목적페이지로 이동 ([2. AndroidManifest.xml 설정](#2. AndroidManifest.xml 설정) 참조)
 
 ​	3-2) 앱 미설치자인 경우 
 
 - 모바일 웹 목적페이지로 이동 해야 합니다. 
 
-3-3) 앱 설치자인 경우 
+		3-3) 앱 설치자인 경우 
 
 - 광고주 앱의 목적페이지로 앱이 오픈 되어야 합니다. 
-- 목적페이지는 어필리에이트의 사용자 정의 링크 생성에 따라 메인페이지, 특정 상품페이지, 이벤트 페이지 등으로 변경됩니다. ([5.사용자 정의 링크](https://github.com/linkprice/MerchantSetup/tree/master/App/Linkprice_Android#5-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%EB%A7%81%ED%81%AC) 참조)
+- 목적페이지는 어필리에이트의 사용자 정의 링크 생성에 따라 메인페이지, 특정 상품페이지, 이벤트 페이지 등으로 변경됩니다. ([5.사용자 정의 링크](# 5. 사용자 정의 링크) 참조)
 - 타사 앱(카카오톡 / 네이버 / 다음 / 밴드 / 페이스북 / 크롬 / 인터넷 / 사파리 / 매체사 앱 등…)에서 배너를 클릭 한 경우 광고주 앱의 목적페이지로 앱이 오픈 되어야 합니다. 
 - 오류 페이지로 이동하지 않도록 주의해주세요.
 
@@ -57,7 +56,7 @@
 
 5) 상호 대조를 위해 광고주 DB에 실적 데이터 보관
 
-6) 링크프라이스로 구매 실적 전송 ([3. 실적 전송](https://github.com/linkprice/MerchantSetup/tree/master/App/Linkprice_Android#3-%EC%8B%A4%EC%A0%81-%EC%A0%84%EC%86%A1) 참조) , 데일리픽스, 자동 실적 취소 작업 ([V2버전 웹 셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/v2/Merchant%20Setup%20Guide_Kor_ver2.5.pdf) 참조)
+6) 링크프라이스로 구매 실적 전송 ([3. 실적 전송](# 3. 실적 전송) 참조) , 데일리픽스, 자동 실적 취소 작업 ([V2버전 웹 셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/v2/Merchant%20Setup%20Guide_Kor_ver2.5.pdf) 참조)
 
 
 
@@ -69,7 +68,6 @@
 
 * 귀사의 앱의 AndroidManifest.xml파일에서 실행하고자 하는 Activity 아래에 intent-filter를 선언합니다.
 * 예를 들어, 귀사의 게이트웨이 페이지의 URL이 "https://gw.linkprice.com/gateway/lpfront.php" 일때, 아래와 같이 선언합니다.
-* V4버전을 이용중이시라면, 링크프라이스 담당자에게 알려주세요. ([APPLink 가이드](../AppLink/Readme.md) 참조)
 
 ```xml
 <activity
@@ -97,7 +95,7 @@
   2. **android:name="android.intent.category.BROWSABLE"**: intent-filter가 웹 브라우저에서 접근하기 위해 선언합니다.
 * \<data\> 설명
   1. **android:host**: 게이트웨이 페이지의 host부분을 선언합니다.
-  2. **android:scheme**: 게이트웨이 페이지의 scheme(custom scheme)을 선언합니다.
+  2. **android:scheme**: 게이트웨이 페이지의 scheme(http, https가 아닌 custom scheme)을 선언합니다.
 
 ### 2.2. 권한 설정
 
@@ -177,76 +175,45 @@ public void onReceive(Context context, Intent intent) {
 }
 ```
 
+### 2.5. 게이트웨이 페이지 수정 (Lpfront)
+
+* AndroidManifest.xml 설정이 완료된 후, 게이트웨이 페이지(Lpfront)의 수정을 해야 합니다.
+
+* user-agent의 값으로부터 계산하여 android일 경우, 아래의 형식으로 url을 생성하여, 이 url로 redirect 한다, sample url
+```
+intent://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&target_url=https://www.linkprice.com/path/page?pid=17234#Intent;scheme=custom scheme;package=com.linkprice.test-app;S.browser_fallback_url=https://www.linkprice.com/your_path/?param=values;end
+```
+
+* 각 변수 설명
+
+  1. **custom scheme** 게이트웨이 페이지의 scheme: http, https가 아닌 custom scheme으로 지정합니다.
+
+  2.  **gw.linkprice.com**  게이트웨이 페이지의 host: 게이트웨이 페이지의 host 부분만 추출합니다
+
+  3. **lpinfo=A100000131|2600239200004E|0000|B|1** 링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 lpinfo의 값
+
+  4. **target_url=https://www.linkprice.com/path/page?pid=17234**  링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 target_url의 값
+
+  5.  **com.linkprice.test-app** 귀사의 Android APP의 package name
+  
+  6. **https://www.linkprice.com/your_path/?param=values** 만일 앱이 설치 되어 있지 않을 경우 redirection할 URL
+
+
+![](./applink.png)
+
+
 
 
 ## 3. 실적 전송
 
-### 3.1. 실적 전송이 클라이언트에서 스크립트로 셋업 되있는 경우
+#### 3.1. 실적 전송을 하는 API 생성
 
-1. CPS 웹 실적을 서버가 아닌 클라이언트에서 스크립트 형식으로 보내시고 계신다면, 앱에서 반드시 실적 전송을 하여야 합니다.
+* 웹에서 실시간 실적 전송을 하는 부분을 API로 생성하여야 합니다.
 
-#### 3.1.1. CPS 실적 전송 (상품 구매)
+#### 3.2. 실적 전송을 하는 API 생성
 
-```java
-SharedPreferences mSharedPreferences = context.getSharedPreferences("your preference",  Context.MODE_PRIVATE);
-JSONArray mItems = new JSONArray();
-JSONObject orderInfo = new JSONObject();
-JSONObject linkprice = new JSONObject();
-
-Map<String, Object> order = new HashMap<>();
-orderInfo.put("order_id", "o111232-323234");            // order ID
-orderInfo.put("final_paid_price", 70000);               // total price user paid
-orderInfo.put("currency", "KRW");                       // currency
-orderInfo.put("user_name", "tester");                   // user name
-
-Map<String, Object> lp = new HashMap<>();
-linkprice.put("user_agent", "user agent info");            // user agent
-linkprice.put("remote_addr", "127.0.0.1");                 // remote address
-linkprice.put("merchant_id", "clickbuy");                  // merchant ID that linkprice provide
-linkprice.put("lpinfo", mSharedPreferences.getString("lpinfo", null));
-linkprice.put("device_type", "app_android");
-
-
-//Map<String, Object> item = new HashMap<>();
-JSONObject item = new JSONObject();
-item.put("product_id", "productCode");              // product code
-item.put("product_name", "product name");           // product name
-item.put("category_code", "category code");         // category code
-item.put("category_name", "category name");         // category name
-item.put("quantity", 1);                            // quantity
-item.put("product_final_price", 59000);             // amount user paid
-item.put("paid_at", "2019-02-12T11:13:44+00:00");   // time user paid
-item.put("confirmed_at", "");
-item.put("canceled_at", "");
-
-mItems.put(item);
-
-//Map<String, Object> item2 = new HashMap<>();
-JSONObject item2 = new JSONObject();
-item2.put("product_id", "productCode2");            // product code
-item2.put("product_name", "product name2");         // product name
-item2.put("category_code", "category code2");       // category code
-item2.put("category_name", "category name2");       // category name
-item2.put("quantity", 1);                           // quantity
-item2.put("product_final_price", 11000);            // amount user paid
-item2.put("paid_at", "2019-02-12T11:13:44+00:00");  // paid time
-item2.put("confirmed_at", "");
-item2.put("canceled_at", "");
-
-mItems.put(item2);
-
-
-```
-
-* user agent이 없을 경우 null로 보내 주십시요.
-
-* 쿠폰 및 마일리지 사용에 따른 "product_final_price"는 아래 링크를 확인 하여 주세요.
-
-  [product_final_price 계산](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README.md#4-%EC%8B%A4%EC%8B%9C%EA%B0%84-%EC%8B%A4%EC%A0%81-%EC%A0%84%EC%86%A1)
-
-* 자세한 데이터에 대한 설명은 아래 링크를 확인 하여 주세요.
-
-  [CPS 실적 데이터 설명](https://github.com/linkprice/MerchantSetup/tree/master/CPS#4-%EC%8B%A4%EC%8B%9C%EA%B0%84-%EC%8B%A4%EC%A0%81-%EC%A0%84%EC%86%A1)
+* 실적 발생 시 웹의 실적 전송 API를 호출해 실적 전송을 하여야 합니다.
+* API 호출 시 SharedPreferences에 저장된 lpinfo의 값을 불러옵니다.
 
 
 

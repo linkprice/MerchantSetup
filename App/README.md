@@ -25,4 +25,7 @@
 
 #### 2.2.1 Adbrix(애드브릭스)
 
-1. [Adbrix 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/App/Adbix)
+> 링크프라이스에서 애드브릭스의 오리지널 버전을 더 이상 지원하지 않습니다. 
+> 애드브릭스의 리마스터 버전만을 지원합니다.
+
+> 애드브릭스를 이미 사용하고 계시다면, 링크프라이스 담당자님께 연락 주세요.
