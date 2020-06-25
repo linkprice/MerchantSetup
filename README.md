@@ -25,15 +25,16 @@
 
    >  CPS 할인 코드 및 Npay CPS 실적 측정을 위한 셋업 가이드
 
-   4-1 CPS 할인코드 셋업
+   1. CPS 할인코드 셋업
 
       1. 한글: [CPS 할인코드 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/CPS%20-%20Promo%20code)
 
       2. English: [CPS Promo code Setup Guide](https://github.com/linkprice/MerchantSetup/blob/master/CPS%20-%20Promo%20code/README-en.md)
 
-   4-2 Npay(네이버 페이) CPS 셋업
-
-      1. 네이버페이로 결제한 경우도 링크프라이스 실적 처리되어야 합니다. 사용중인 네이버페이 서비스타입에 맞게 가이드 선택하여 추가 셋업 해주시면 됩니다.  네이버페이 서비스타입을 모르는 경우 [네이버페이 ](https://developer.pay.naver.com/introduce/naverpay)에서 확인해주세요.
-         2. 네이버페이 주문형: [셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Npay.md)
-         3. 네이버페이 결제형: [셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Npay2.md)
+   2. Npay(네이버 페이) CPS 셋업
+      > 네이버페이로 결제한 경우도 링크프라이스 실적 처리되어야 합니다. 사용중인 네이버페이 서비스타입에 맞게 가이드 선택하여 추가 셋업 해주시면 됩니다.  네이버페이 서비스타입을 모르는 경우 [네이버페이 ](https://developer.pay.naver.com/introduce/naverpay)에서 확인해주세요.
+      
+      1. 네이버페이 주문형: [셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Npay.md)
+      
+      2. 네이버페이 결제형: [셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Npay2.md)
 
