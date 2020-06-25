@@ -451,8 +451,12 @@
 * Q: 이미 CPS 셋업이 되어 있는 경우에는 어떻게 하나요?
 
   * A: 이미 CPS 셋업이 되어 있다면, 구 버전으로 셋업이 되어 있을 확률이 높습니다. 데이터 처리 방식이나 내용이 많이 바뀌었으므로, 현재 버전으로 재 셋업 해 주세요.
+
 * Q: Npay 사용 시 어떻게 실시간 실적을 전송해야 하나요?
-    * A: [Npay 셋업 메뉴얼](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Npay.md)
+    
+    * A: 네이버페이 주문형: [셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Npay.md)
+    * A: 네이버페이 결제형: [셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Npay2.md)
+
 * Q: lpinfo란 무엇인가요?
     * A: 링크프라이스에서 전달한 광고 유입 정보
 
