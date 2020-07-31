@@ -107,71 +107,110 @@
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 ```
 
-### 2.3. 리시버 등록
+### 2.3. 의존성 추가
 
-* Google Play 스토어를 통해서 앱을 다운로드 받아 설치하면 설치 이벤트 가 발생합니다.
-* AndroidManifest.xml에 리시버를 등록해 주면 설치 이벤트 를 수신받을 수 있으며, 이 때 INSTALL_REFERRER 값이 전달됩니다.
+* 구글 인스톨 리퍼러 API를 통해서만 구글 인스톨 리퍼러 정보를 얻을 수 있습니다.
+* build.gradle에 의존성을 추가해주세요.
 
-```xml
-<receiver
-	android:name=".InstallReceiver"
-	android:enabled="true"
-	android:exported="true" >
-	<intent-filter>
-		<action android:name="com.android.vending.INSTALL_REFERRER" />
-	</intent-filter>
-</receiver>
+```gradle
+dependencies {
+	implementation 'com.android.installreferrer:installreferrer:1.1'
+}
 ```
 
-### 2.4. 리시버 수정(InstallReceiver.java)
+### 2.4. Google Play에 연결하여 Install Referrer 값 가져오기(MainActivity.java)
+
+* Play 스토어 앱과 연결이 되면 Install Referrer 값을 가져올 수 있습니다.
+
 ```java
+private InstallReferrerClient mInstallReferrerClient;
+private SharedPreferences mSharedPreferences;
+
 @Override
-public void onReceive(Context context, Intent intent) {
-    	mContext = context;
-    	mIntent = intent;
-    	String log_tag = "your app debug log";
-    
-    	Bundle extras = mIntent.getExtras();
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
 
-        if (null == extras) {
-            Log.d(log_tag, "extra null");
-            return false;
-        }
+    // Install Referrer
+    LpMobileAT lpMobileAT = new LpMobileAT(this, getIntent());
+    lpMobileAT.setTagValueInstallReferrer();
 
-        SharedPreferences.Editor prefEditor = mSharedPreferences.edit();
-        String referrer = extras.getString("referrer");
+    Context mContext = this;
+    String log_tag = "your app debug log";
 
-        if (null == referrer) {
-            Log.d(log_tag, "referrer null");
-            return false;
-        }
+    mInstallReferrerClient = InstallReferrerClient.newBuilder(mContext).build();
+    mSharedPreferences = mContext.getSharedPreferences(log_tag,  Context.MODE_PRIVATE);
 
-        try {
-            Map<String, String> referrerParse = parseQuery(referrer);
+    if (!getReferrerCheck()) {
 
-            // LPINFO
-            String lpinfo = referrerParse.get("LPINFO");
+        mInstallReferrerClient.startConnection(new InstallReferrerStateListener() {
 
-            if (setLpinfo(prefEditor, lpinfo)) {
+            @Override
+            public void onInstallReferrerSetupFinished(int responseCode) {
+                switch (responseCode) {
+                    case InstallReferrerClient.InstallReferrerResponse.OK:
+                        // Connection established.
+                        // 구글 플레이 앱과 연결이 성공했을 때, 리퍼러 데이터를 얻기 위한 작업을 수행합니다.
+                        String referrer = null;
 
-                // 광고 인정 기간
-                String rd = referrerParse.get("rd");
-                setRD(prefEditor, rd);
-                // 리퍼러
-                setReferrer(prefEditor, referrer);
-                // 등록 시간
-                setCreateTime(prefEditor);
+                        try {
+                            ReferrerDetails response = mInstallReferrerClient.getInstallReferrer();
+                            referrer = response.getInstallReferrer();
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                            return;
+                        }
 
-                prefEditor.apply();
+                        SharedPreferences.Editor prefEditor = mSharedPreferences.edit();
 
-                return true;
+                        // install_referrer check 처리
+                        setReferrerCheck(prefEditor);
+                        prefEditor.apply();
+
+                        if (null == referrer) {
+                            Log.d(log_tag, "referrer null");
+                            return;
+                        }
+
+                        try {
+                            Map<String, String> referrerParse = parseQuery(referrer);
+
+                            // LPINFO
+                            String lpinfo = referrerParse.get("LPINFO");
+
+                            if (setLpinfo(prefEditor, lpinfo)) {
+
+                                // 광고 인정 기간
+                                String rd = referrerParse.get("rd");
+                                setRD(prefEditor, rd);
+                                // 리퍼러
+                                setReferrer(prefEditor, referrer);
+                                // 등록 시간
+                                setCreateTime(prefEditor);
+
+                                prefEditor.apply();
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED:
+                        // API not available on the current Play Store app.
+                        break;
+                    case InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE:
+                        // Connection couldn't be established.
+                        break;
+                }
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return false;
+            @Override
+            public void onInstallReferrerServiceDisconnected() {
+                // Try to restart the connection on the next request to
+                // Google Play by calling the startConnection() method.
+            }
+        });
+    }
 }
 ```
 
@@ -225,20 +264,19 @@ intent://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&target_url=h
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    Intent mIntent = new Intent();
-    Context mContext = new Context();
 
     LpMobileAT lpMobileAT = new LpMobileAT(this, getIntent());
     lpMobileAT.setTagValueActivity();
+
+    Context mContext = this;
+    Intent mIntent = getIntent();
     String log_tag = "your app debug log";
-    SharedPreferences mSharedPreferences = context.getSharedPreferences(log_tag,  Context.MODE_PRIVATE);
-    mIntent = getIntent();
-    mContext = this;
-    
+    SharedPreferences mSharedPreferences = mContext.getSharedPreferences(log_tag,  Context.MODE_PRIVATE);
+
     Uri data = mIntent.getData();
     if (null == data) {
         Log.d(log_tag, "setTagValueActivity - uri null");
-        return false;
+        return;
     }
 
     SharedPreferences.Editor prefEditor = mSharedPreferences.edit();
@@ -248,9 +286,9 @@ protected void onCreate(Bundle savedInstanceState) {
         String lpinfo = data.getQueryParameter("LPINFO");
 
         if (lpinfo != null) {
-			// lpinfo 
+            // lpinfo
             prefEditor.putString("lpinfo", lpinfo);
-          
+
             // 광고 인정 기간
             String rd = data.getQueryParameter("rd");
             int mRd;
@@ -260,25 +298,23 @@ protected void onCreate(Bundle savedInstanceState) {
                 mRd = 0;
             }
             prefEditor.putInt("rd", mRd);
-            
+
             // 리퍼러
             prefEditor.putString("referrer", data.toString());
-            
-            // 등록 시간
-            setCreateTime(prefEditor);
-			Calendar createCalendar = Calendar.getInstance();
-            long create_time = createCalendar.getTimeInMillis();
-        	prefEditor.putLong("create_time", create_time);
-            
-            prefEditor.apply();
 
-            return true;
+            // 등록 시간
+            Calendar createCalendar = Calendar.getInstance();
+            long create_time = createCalendar.getTimeInMillis();
+            prefEditor.putLong("create_time", create_time);
+
+            // install_referrer check 처리
+            prefEditor.putBoolean("referrer_check", true);
+
+            prefEditor.apply();
         }
     } catch(Exception e) {
         e.printStackTrace();
     }
-
-    return false;
 }
 ```
 
