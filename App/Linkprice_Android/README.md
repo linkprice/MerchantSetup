@@ -124,7 +124,9 @@ dependencies {
 
 ```java
 private InstallReferrerClient mInstallReferrerClient;
+private Context mContext;
 private SharedPreferences mSharedPreferences;
+private String sharedId = "linkprice_shared_id";
 
 @Override
 protected void onCreate(Bundle savedInstanceState) {
@@ -132,16 +134,13 @@ protected void onCreate(Bundle savedInstanceState) {
     setContentView(R.layout.activity_main);
 
     // Install Referrer
-    LpMobileAT lpMobileAT = new LpMobileAT(this, getIntent());
-    lpMobileAT.setTagValueInstallReferrer();
-
-    Context mContext = this;
-    String log_tag = "your app debug log";
+    mContext = this;
 
     mInstallReferrerClient = InstallReferrerClient.newBuilder(mContext).build();
-    mSharedPreferences = mContext.getSharedPreferences(log_tag,  Context.MODE_PRIVATE);
+    mSharedPreferences = mContext.getSharedPreferences(sharedId, Context.MODE_PRIVATE);
 
-    if (!getReferrerCheck()) {
+    // install_referrer 처리 여부 화인
+    if (!mSharedPreferences.getBoolean("referrer_check", false)) {
 
         mInstallReferrerClient.startConnection(new InstallReferrerStateListener() {
 
@@ -164,13 +163,15 @@ protected void onCreate(Bundle savedInstanceState) {
                         SharedPreferences.Editor prefEditor = mSharedPreferences.edit();
 
                         // install_referrer check 처리
-                        setReferrerCheck(prefEditor);
+                        prefEditor.putBoolean("referrer_check", true);
                         prefEditor.apply();
 
                         if (null == referrer) {
-                            Log.d(log_tag, "referrer null");
+                            Log.d(sharedId, "referrer - null");
                             return;
                         }
+
+                        Log.d(sharedId, "referrer - " + referrer);
 
                         try {
                             Map<String, String> referrerParse = parseQuery(referrer);
@@ -178,18 +179,36 @@ protected void onCreate(Bundle savedInstanceState) {
                             // LPINFO
                             String lpinfo = referrerParse.get("LPINFO");
 
-                            if (setLpinfo(prefEditor, lpinfo)) {
-
-                                // 광고 인정 기간
-                                String rd = referrerParse.get("rd");
-                                setRD(prefEditor, rd);
-                                // 리퍼러
-                                setReferrer(prefEditor, referrer);
-                                // 등록 시간
-                                setCreateTime(prefEditor);
-
-                                prefEditor.apply();
+                            if (null == lpinfo) {
+                                Log.d(sharedId, "lpinfo - null");
+                                return;
                             }
+                            Log.d(sharedId, "lpinfo - " + lpinfo);
+                            prefEditor.putString("lpinfo", lpinfo);
+
+                            // 광고 인정 기간
+                            String rd = referrerParse.get("rd");
+                            int mRd;
+
+                            try {
+                                mRd = Integer.parseInt(rd);
+                            } catch (Exception e) {
+                                mRd = 0;
+                            }
+
+                            if (mRd < 0) {
+                                mRd = 0;
+                            }
+                            Log.d(sharedId, "rd - " + mRd);
+                            prefEditor.putInt("rd", mRd);
+                            // 리퍼러
+                            prefEditor.putString("referrer", referrer);
+                            // 등록 시간
+                            Calendar createCalendar = Calendar.getInstance();
+                            long create_time = createCalendar.getTimeInMillis();
+                            prefEditor.putLong("create_time", create_time);
+
+                            prefEditor.apply();
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -211,6 +230,36 @@ protected void onCreate(Bundle savedInstanceState) {
             }
         });
     }
+}
+
+// referrer 파싱
+private Map<String, String> parseQuery(String query)
+        throws UnsupportedEncodingException {
+
+    Map<String, String> queryPairs = new LinkedHashMap<>();
+
+    String mQuery = URLDecoder.decode(query, "UTF-8");
+    String[] pairs = mQuery.split("&");
+
+    int queryIdx;
+    String queryKey = null;
+    String queryValue = null;
+
+    for (String pair : pairs) {
+        queryIdx = pair.indexOf("=");
+
+        queryKey = pair.substring(0, queryIdx);
+        queryValue = pair.substring(queryIdx + 1);
+
+        queryPairs.put(queryKey, queryValue);
+    }
+
+    // 광고 인정 기간 초기화
+    if (!queryPairs.containsKey("rd")) {
+        queryPairs.put("rd", "0");
+    }
+
+    return queryPairs;
 }
 ```
 
@@ -260,24 +309,25 @@ intent://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&target_url=h
 
 ## MainActivity.java
 ```java
+private Context mContext;
+private SharedPreferences mSharedPreferences;
+private String sharedId = "linkprice_shared_id";
+
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    LpMobileAT lpMobileAT = new LpMobileAT(this, getIntent());
-    lpMobileAT.setTagValueActivity();
+    // url
+    mContext = this;
+    mSharedPreferences = mContext.getSharedPreferences(sharedId, Context.MODE_PRIVATE);
 
-    Context mContext = this;
-    Intent mIntent = getIntent();
-    String log_tag = "your app debug log";
-    SharedPreferences mSharedPreferences = mContext.getSharedPreferences(log_tag,  Context.MODE_PRIVATE);
-
-    Uri data = mIntent.getData();
+    Uri data = getIntent().getData();
     if (null == data) {
-        Log.d(log_tag, "setTagValueActivity - uri null");
+        Log.d(sharedId, "uri - null");
         return;
     }
+    Log.d(sharedId, "uri - " + data.toString());
 
     SharedPreferences.Editor prefEditor = mSharedPreferences.edit();
 
@@ -285,33 +335,36 @@ protected void onCreate(Bundle savedInstanceState) {
         // LPINFO
         String lpinfo = data.getQueryParameter("LPINFO");
 
-        if (lpinfo != null) {
-            // lpinfo
-            prefEditor.putString("lpinfo", lpinfo);
-
-            // 광고 인정 기간
-            String rd = data.getQueryParameter("rd");
-            int mRd;
-            try {
-                mRd = Integer.parseInt(rd);
-            } catch (Exception e) {
-                mRd = 0;
-            }
-            prefEditor.putInt("rd", mRd);
-
-            // 리퍼러
-            prefEditor.putString("referrer", data.toString());
-
-            // 등록 시간
-            Calendar createCalendar = Calendar.getInstance();
-            long create_time = createCalendar.getTimeInMillis();
-            prefEditor.putLong("create_time", create_time);
-
-            // install_referrer check 처리
-            prefEditor.putBoolean("referrer_check", true);
-
-            prefEditor.apply();
+        if (null == lpinfo) {
+            Log.d(sharedId, "lpinfo - null");
+            return;
         }
+        Log.d(sharedId, "lpinfo - " + lpinfo);
+        prefEditor.putString("lpinfo", lpinfo);
+
+        // 광고 인정 기간
+        String rd = data.getQueryParameter("rd");
+        int mRd;
+
+        try {
+            mRd = Integer.parseInt(rd);
+        } catch (Exception e) {
+            mRd = 0;
+        }
+
+        if (mRd < 0) {
+            mRd = 0;
+        }
+        Log.d(sharedId, "rd - " + mRd);
+        prefEditor.putInt("rd", mRd);
+        // 리퍼러
+        prefEditor.putString("referrer", data.toString());
+        // 등록 시간
+        Calendar createCalendar = Calendar.getInstance();
+        long create_time = createCalendar.getTimeInMillis();
+        prefEditor.putLong("create_time", create_time);
+
+        prefEditor.apply();
     } catch(Exception e) {
         e.printStackTrace();
     }
