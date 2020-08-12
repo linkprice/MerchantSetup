@@ -176,8 +176,8 @@ protected void onCreate(Bundle savedInstanceState) {
                         try {
                             Map<String, String> referrerParse = parseQuery(referrer);
 
-                            // LPINFO
-                            String lpinfo = referrerParse.get("LPINFO");
+                            // lpinfo
+                            String lpinfo = referrerParse.get("lpinfo");
 
                             if (null == lpinfo) {
                                 Log.d(sharedId, "lpinfo - null");
@@ -332,8 +332,8 @@ protected void onCreate(Bundle savedInstanceState) {
     SharedPreferences.Editor prefEditor = mSharedPreferences.edit();
 
     try {
-        // LPINFO
-        String lpinfo = data.getQueryParameter("LPINFO");
+        // lpinfo
+        String lpinfo = data.getQueryParameter("lpinfo");
 
         if (null == lpinfo) {
             Log.d(sharedId, "lpinfo - null");
