@@ -10,7 +10,7 @@
 
 ### 1.1. V2 웹 셋업 개요 
 
-![Imgur](https://i.imgur.com/KpsDx0S.png)
+![ex_screenshot](../v2_web_setup_process_img.png)
 
 1) 링크프라이스 배너 클릭
 
@@ -30,7 +30,7 @@
 
 ### 1.2. V2 APP 셋업 개요 
 
-![Imgur](https://i.imgur.com/m3wwhB1.png)
+![ex_screenshot](../v2_app_setup_process_img.png)
 
 1) 링크프라이스 배너 클릭
 
@@ -69,7 +69,7 @@
 ### 2.1. scheme 및 host 설정
 
 * 귀사의 앱의 AndroidManifest.xml파일에서 실행하고자 하는 Activity 아래에 intent-filter를 선언합니다.
-* 예를 들어, 귀사의 게이트웨이 페이지에서 지정한 CUSTOM URL이 "lpfront://gateway" 일때, 아래와 같이 선언합니다.
+* 예를 들어, 귀사의 게이트웨이 페이지에서 지정한 CUSTOM URL이 "intent://gw.linkprice.com" 일때, 아래와 같이 선언합니다.
 
 ```xml
 <activity
@@ -85,7 +85,7 @@
 		<action android:name="android.intent.action.VIEW" />
 		<category android:name="android.intent.category.DEFAULT" />
 		<category android:name="android.intent.category.BROWSABLE" />
-		<data android:host="gateway" android:scheme="lpfront"/>
+		<data android:host="gw.linkprice.com" android:scheme="intent"/>
 	</intent-filter>
 </activity>
 ```
@@ -117,8 +117,6 @@
 
 ```gradle
 dependencies {
-	..................
-	..................
 	implementation 'com.android.installreferrer:installreferrer:1.1'
 }
 ```
@@ -126,29 +124,22 @@ dependencies {
 ### 2.4. 게이트웨이 페이지 수정 (Lpfront)
 
 * AndroidManifest.xml 설정이 완료된 후, 게이트웨이 페이지(Lpfront)의 수정을 해야 합니다.
-* user-agent의 값으로부터 계산하여 android일 경우, 아래의 형식으로 url을 생성하여, 이 url로 redirect 한다, sample url
-* intent:// 대신 custom scheme를 사용가능 합니다.
+* user-agent의 값으로부터 계산하여 android일 경우, 아래의 형식으로 url을 생성하여, 이 url로 redirect 합니다.
 
 ```
-intent://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1|20&target_url=https://www.linkprice.com/path/page?pid=17234#Intent;scheme=custom scheme;package=com.linkprice.test-app;S.browser_fallback_url=https://www.linkprice.com/your_path/?param=values;end
+intent://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&rd=20&target_url=https://www.linkprice.com/path/page?pid=17234#Intent;scheme=custom scheme;package=com.linkprice.test-app;S.browser_fallback_url=https://www.linkprice.com/your_path/?param=values;end
 ```
 
 * 각 변수 설명
 
   1. **custom scheme** 게이트웨이 페이지의 scheme: http, https가 아닌 custom scheme으로 지정합니다.
-
-  2. **gw.linkprice.com**  게이트웨이 페이지의 host: 게이트웨이 페이지의 host 부분만 추출합니다
-
-  3. **lpinfo=A100000131|2600239200004E|0000|B|1|20** 링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 lpinfo의 값
-
-  4. **target_url=https://www.linkprice.com/path/page?pid=17234**  링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 target_url의 값
-
+2. **gw.linkprice.com**  게이트웨이 페이지의 host: 게이트웨이 페이지의 host 부분만 추출합니다
+  3. **lpinfo=A100000131|2600239200004E|0000|B|1** 링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 lpinfo의 값
+4. **target_url=https://www.linkprice.com/path/page?pid=17234**  링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 target_url의 값
   5. **com.linkprice.test-app** 귀사의 Android APP의 package name
+6. **https://www.linkprice.com/your_path/?param=values** 만일 앱이 설치 되어 있지 않을 경우 redirection할 URL
+  7. **rd=20** 광고가 인정되는 기간
 
-  6. **https://www.linkprice.com/your_path/?param=values** 만일 앱이 설치 되어 있지 않을 경우 redirection할 URL
-
-
-![](D:/주용준/4. 매뉴얼/applink.png)
 
 
 
@@ -380,236 +371,12 @@ protected void onCreate(Bundle savedInstanceState) {
 * 사용자 정의 링크에 해당하는 Activity가 존재 하지 않을 경우, 절대 오류가 나오지 않아야 합니다.
 
 ~~~java
-/*
-예1) 상품 상세 페이지
-PC target_url: www.linkprice.com/clickbuy/product-detail.php?pid=2342134&show=AHFSD 
-Mobile target_url: m.linkprice.com/shop/product?pid=2342134
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-예2) 검색 페이지
-PC target_url:  www.linkprice.com/clickbuy/search-result.php?keyword=%EA%B2%80%EC%83%89%EC%96%B4
-Mobile target_url:  m.linkprice.com/search?keyword=%EA%B2%80%EC%83%89%EC%96%B4
-
-*/
-
-String deeplink = null;
-Intent mIntent = getIntent();
-Uri data = mIntent.getData();
-if(data != null) {
-	try{
-        deeplink = data.getQueryParameter("target_url");
-    } catch (Exception e){
-
-    }    
-} 
-
-URL dl = new URL(deepLink);
-Intent intent = new Intent(this, MainActivity.class);
-
-if((dl.getHost().equals("www.linkprice.com") && dl.getPath().equals("/clickbuy/product-detail.php")) || (dl.getHost().equals("m.linkprice.com") && dl.getPath().equals("/shop/product"))) {
-            // 상품 상세 Activity 로 이동
-            intent = new Intent(this, productDetailActivity.class);
-            String pid = parseQuery(deepLink, 'pid');
-            intent.putExtra('pid', pid);
-        } else if ((dl.getHost().equals("www.linkprice.com") && dl.getPath().equals("/clickbuy/search-result.php")) || (dl.getHost().equals("m.linkprice.com") && dl.getPath().equals("/search"))) {
-    // 검색 Activity 로 이동
-    intent = new Intent(this, seachActivity.class);
-    String keyword = getQuery(deepLink, 'keyword');
-    intent.putExtra('keyword', keyword) 
-}
-
-// 사용자 정의 링크에 해당하는 Activity가 없다면 MainActivity 실행
-startActivity(intent);
-
-/********************************* getQuery method *************************************/
-public Map<String, String> getQuery(URL url) throws UnsupportedEncodingException {
-    Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-    String query = url.getQuery();
-    if(query.indexOf("&") > 0) {
-        String[] pairs = query.split("&");
-        for (String pair : pairs) {
-            int idx = pair.indexOf("=");
-            query_pairs.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"), URLDecoder.decode(pair.substring(idx + 1), "UTF-8"));
-        }
-    } else {
-        String[] pairs = new String[1];
-        pairs[0] = query;
-        for (String pair : pairs) {
-
-            int idx = pair.indexOf("=");
-            query_pairs.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"), URLDecoder.decode(pair.substring(idx + 1), "UTF-8"));
-        }
-    }
-
-    return query_pairs;
-}
-
-~~~
-
-## 6. 전체코드
-
-- 위 단계별 처리 내용을 종합하여 샘플코드를 작성하였습니다. 참고 부탁드립니다.
-- 주석에 (옵션)으로 표기된 코드들은 머천트 상황에 따라서 연동 여부를 선택할 수 있습니다.
-
-```java
-//---------------------------------------------------------------------
-// [2.4(옵션) Google Play에 연결하여 Install Referrer 값 가져오기를 위한 선언]
-private InstallReferrerClient mInstallReferrerClient; 
-//---------------------------------------------------------------------
-private Context mContext;
-private SharedPreferences mSharedPreferences;
-private String sharedId = "linkprice_shared_id";
-
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-	
-    //url
-    mContext = this;    
-    mSharedPreferences = mContext.getSharedPreferences(sharedId, Context.MODE_PRIVATE);
-    
-    // [2.4(옵션) Google Play에 연결하여 Install Referrer 값 가져오기 시작]
-    mInstallReferrerClient = InstallReferrerClient.newBuilder(mContext).build();
-
-    // install_referrer 처리 여부 화인
-    if (!mSharedPreferences.getBoolean("referrer_check", false)) {
-
-        mInstallReferrerClient.startConnection(new InstallReferrerStateListener() {
-
-            @Override
-            public void onInstallReferrerSetupFinished(int responseCode) {
-                switch (responseCode) {
-                    case InstallReferrerClient.InstallReferrerResponse.OK:
-                        // Connection established.
-                        // 구글 플레이 앱과 연결이 성공했을 때, 리퍼러 데이터를 얻기 위한 작업을 수행합니다.
-                        String referrer = null;
-
-                        try {
-                            ReferrerDetails response = mInstallReferrerClient.getInstallReferrer();
-                            referrer = response.getInstallReferrer();
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-                            return;
-                        }
-
-                        SharedPreferences.Editor prefEditor = mSharedPreferences.edit();
-
-                        // install_referrer check 처리
-                        prefEditor.putBoolean("referrer_check", true);
-                        prefEditor.apply();
-
-                        if (null == referrer) {
-                            Log.d(sharedId, "referrer - null");
-                            return;
-                        }
-
-                        Log.d(sharedId, "referrer - " + referrer);
-
-                        try {
-                            Map<String, String> referrerParse = parseQuery(referrer);
-
-                            // lpinfo
-                            String lpinfo = referrerParse.get("lpinfo");
-
-                            if (null == lpinfo) {
-                                Log.d(sharedId, "lpinfo - null");
-                                return;
-                            }
-                            Log.d(sharedId, "lpinfo - " + lpinfo);
-                            prefEditor.putString("lpinfo", lpinfo);
-
-                            // 광고 인정 기간
-                            String rd = referrerParse.get("rd");
-                            int mRd;
-
-                            try {
-                                mRd = Integer.parseInt(rd);
-                            } catch (Exception e) {
-                                mRd = 0;
-                            }
-
-                            if (mRd < 0) {
-                                mRd = 0;
-                            }
-                            Log.d(sharedId, "rd - " + mRd);
-                            prefEditor.putInt("rd", mRd);
-                            // 리퍼러
-                            prefEditor.putString("referrer", referrer);
-                            // 등록 시간
-                            Calendar createCalendar = Calendar.getInstance();
-                            long create_time = createCalendar.getTimeInMillis();
-                            prefEditor.putLong("create_time", create_time);
-
-                            prefEditor.apply();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED:
-                        // API not available on the current Play Store app.
-                        break;
-                    case InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE:
-                        // Connection couldn't be established.
-                        break;
-                }
-            }
-
-            @Override
-            public void onInstallReferrerServiceDisconnected() {
-                // Try to restart the connection on the next request to
-                // Google Play by calling the startConnection() method.
-            }
-        });
-    }
-	// [2.4(옵션) Google Play에 연결하여 Install Referrer 값 가져오기 종료]
-    
-    // [4. 실행(배너 클릭시)할 때 마다 어필리에이트 변경 시작]
-    Uri data = getIntent().getData();
-    if (null == data) {
-        Log.d(sharedId, "uri - null");
-        return;
-    }
-    Log.d(sharedId, "uri - " + data.toString());
-
-    SharedPreferences.Editor prefEditor = mSharedPreferences.edit();
-
-    try {
-        // lpinfo
-        String lpinfo = data.getQueryParameter("lpinfo");
-
-        if (null == lpinfo) {
-            Log.d(sharedId, "lpinfo - null");
-            return;
-        }
-        Log.d(sharedId, "lpinfo - " + lpinfo);
-        prefEditor.putString("lpinfo", lpinfo);
-
-        // 광고 인정 기간
-        String rd = data.getQueryParameter("rd");
-        int mRd;
-
-        try {
-            mRd = Integer.parseInt(rd);
-        } catch (Exception e) {
-            mRd = 0;
-        }
-
-        if (mRd < 0) {
-            mRd = 0;
-        }
-        Log.d(sharedId, "rd - " + mRd);
-        prefEditor.putInt("rd", mRd);
-        // 리퍼러
-        prefEditor.putString("referrer", data.toString());
-        // 등록 시간
-        Calendar createCalendar = Calendar.getInstance();
-        long create_time = createCalendar.getTimeInMillis();
-        prefEditor.putLong("create_time", create_time);
-
-        prefEditor.apply();
-        
-        // [5.(옵션) 사용자 정의 링크 시작]
         /*
         예1) 상품 상세 페이지
         PC target_url: www.linkprice.com/clickbuy/product-detail.php?pid=2342134&show=AHFSD 
@@ -623,6 +390,7 @@ protected void onCreate(Bundle savedInstanceState) {
 
         String deeplink = null;
         Intent mIntent = getIntent();
+        Uri data = mIntent.getData();
         if(data != null) {
             try{
                 deeplink = data.getQueryParameter("target_url");
@@ -631,59 +399,283 @@ protected void onCreate(Bundle savedInstanceState) {
             }    
         } 
 
-        URL dl = new URL(deeplink);
+        URL dl = new URL(deepLink);
         Intent intent = new Intent(this, MainActivity.class);
 
         if((dl.getHost().equals("www.linkprice.com") && dl.getPath().equals("/clickbuy/product-detail.php")) || (dl.getHost().equals("m.linkprice.com") && dl.getPath().equals("/shop/product"))) {
             // 상품 상세 Activity 로 이동
             intent = new Intent(this, productDetailActivity.class);
-            String pid = parseQuery(deepLink, 'pid');
-            intent.putExtra('pid', pid);
+            String pid = data.getQueryParameter("pid");
+            intent.putExtra("pid", pid);
         } else if ((dl.getHost().equals("www.linkprice.com") && dl.getPath().equals("/clickbuy/search-result.php")) || (dl.getHost().equals("m.linkprice.com") && dl.getPath().equals("/search"))) {
             // 검색 Activity 로 이동
-            intent = new Intent(this, seachActivity.class);
-            String keyword = parseQuery(deepLink, 'keyword');
-            intent.putExtra('keyword', keyword) 
+            intent = new Intent(this, searchActivity.class);
+            String keyword = data.getQueryParameter("keyword");
+            intent.putExtra("keyword", keyword);
+        }
+
+        // 사용자 정의 링크에 해당하는 Activity가 없다면 MainActivity 실행
+        startActivity(intent);
+
+        /********************************* getQuery method *************************************/
+        public Map<String, String> getQuery(URL url) throws UnsupportedEncodingException {
+            Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+            String query = url.getQuery();
+            if(query.indexOf("&") > 0) {
+                String[] pairs = query.split("&");
+                for (String pair : pairs) {
+                    int idx = pair.indexOf("=");
+                    query_pairs.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"), URLDecoder.decode(pair.substring(idx + 1), "UTF-8"));
+                }
+            } else {
+                String[] pairs = new String[1];
+                pairs[0] = query;
+                for (String pair : pairs) {
+
+                    int idx = pair.indexOf("=");
+                    query_pairs.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"), URLDecoder.decode(pair.substring(idx + 1), "UTF-8"));
+                }
+            }
+
+            return query_pairs;
+        }
+    }
+~~~
+
+
+
+## 6. 샘플코드
+
+- 위 3, 4, 5 단계를 통합한 전체 코드입니다.
+- 주석에 (옵션)으로 표기된 코드들은 머천트 상황에 따라서 연동 여부를 선택할 수 있습니다.
+
+```java
+public class MainActivity extends AppCompatActivity {
+	//---------------------------------------------------------------------
+    // [3(옵션) Google Play에 연결하여 Install Referrer 값 가져오기를 위한 선언]
+    private InstallReferrerClient mInstallReferrerClient; 
+    //---------------------------------------------------------------------
+    private Context mContext;
+    private SharedPreferences mSharedPreferences;
+    private String sharedId = "linkprice_shared_id";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mContext = this;    
+        mSharedPreferences = mContext.getSharedPreferences(sharedId, Context.MODE_PRIVATE);
+
+        // [3(옵션) Google Play에 연결하여 Install Referrer 값 가져오기 시작]
+        mInstallReferrerClient = InstallReferrerClient.newBuilder(mContext).build();
+
+        // install_referrer 처리 여부 화인
+        if (!mSharedPreferences.getBoolean("referrer_check", false)) {
+
+            mInstallReferrerClient.startConnection(new InstallReferrerStateListener() {
+
+                @Override
+                public void onInstallReferrerSetupFinished(int responseCode) {
+                    switch (responseCode) {
+                        case InstallReferrerClient.InstallReferrerResponse.OK:
+                            // Connection established.
+                            // 구글 플레이 앱과 연결이 성공했을 때, 리퍼러 데이터를 얻기 위한 작업을 수행합니다.
+                            String referrer = null;
+
+                            try {
+                                ReferrerDetails response = mInstallReferrerClient.getInstallReferrer();
+                                referrer = response.getInstallReferrer();
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                                return;
+                            }
+
+                            SharedPreferences.Editor prefEditor = mSharedPreferences.edit();
+
+                            // install_referrer check 처리
+                            prefEditor.putBoolean("referrer_check", true);
+                            prefEditor.apply();
+
+                            if (null == referrer) {
+                                Log.d(sharedId, "referrer - null");
+                                return;
+                            }
+
+                            Log.d(sharedId, "referrer - " + referrer);
+
+                            try {
+                                Map<String, String> referrerParse = parseQuery(referrer);
+
+                                // lpinfo
+                                String lpinfo = referrerParse.get("lpinfo");
+
+                                if (null == lpinfo) {
+                                    Log.d(sharedId, "lpinfo - null");
+                                    return;
+                                }
+                                Log.d(sharedId, "lpinfo - " + lpinfo);
+                                prefEditor.putString("lpinfo", lpinfo);
+
+                                // 광고 인정 기간
+                                String rd = referrerParse.get("rd");
+                                int mRd;
+
+                                try {
+                                    mRd = Integer.parseInt(rd);
+                                } catch (Exception e) {
+                                    mRd = 0;
+                                }
+
+                                if (mRd < 0) {
+                                    mRd = 0;
+                                }
+                                Log.d(sharedId, "rd - " + mRd);
+                                prefEditor.putInt("rd", mRd);
+                                // 리퍼러
+                                prefEditor.putString("referrer", referrer);
+                                // 등록 시간
+                                Calendar createCalendar = Calendar.getInstance();
+                                long create_time = createCalendar.getTimeInMillis();
+                                prefEditor.putLong("create_time", create_time);
+
+                                prefEditor.apply();
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        case InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED:
+                            // API not available on the current Play Store app.
+                            break;
+                        case InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE:
+                            // Connection couldn't be established.
+                            break;
+                    }
+                }
+
+                @Override
+                public void onInstallReferrerServiceDisconnected() {
+                    // Try to restart the connection on the next request to
+                    // Google Play by calling the startConnection() method.
+                }
+            });
+        }
+        // [4. 실행(배너 클릭시)할 때 마다 어필리에이트 변경 시작]
+        Uri data = getIntent().getData();
+        if (null == data) {
+            Log.d(sharedId, "uri - null");
+            return;
+        }
+        Log.d(sharedId, "uri - " + data.toString());
+
+        SharedPreferences.Editor prefEditor = mSharedPreferences.edit();
+
+        try {
+            // lpinfo
+            String lpinfo = data.getQueryParameter("lpinfo");
+
+            if (null == lpinfo) {
+                Log.d(sharedId, "lpinfo - null");
+                return;
+            }
+            Log.d(sharedId, "lpinfo - " + lpinfo);
+            prefEditor.putString("lpinfo", lpinfo);
+
+            // 광고 인정 기간
+            String rd = data.getQueryParameter("rd");
+            int mRd;
+
+            try {
+                mRd = Integer.parseInt(rd);
+            } catch (Exception e) {
+                mRd = 0;
+            }
+
+            if (mRd < 0) {
+                mRd = 0;
+            }
+            Log.d(sharedId, "rd - " + mRd);
+            prefEditor.putInt("rd", mRd);
+            // 리퍼러
+            prefEditor.putString("referrer", data.toString());
+            // 등록 시간
+            Calendar createCalendar = Calendar.getInstance();
+            long create_time = createCalendar.getTimeInMillis();
+            prefEditor.putLong("create_time", create_time);
+
+            prefEditor.apply();
+
+            // [5.(옵션) 사용자 정의 링크 함수 호출]        
+            moveDeepLink();
+            
+        } catch(Exception e) {
+            e.printStackTrace();
+        }    
+    }
+
+    // referrer 파싱
+    private Map<String, String> parseQuery(String query)
+            throws UnsupportedEncodingException {
+
+        Map<String, String> queryPairs = new LinkedHashMap<>();
+
+        String mQuery = URLDecoder.decode(query, "UTF-8");
+        String[] pairs = mQuery.split("&");
+
+        int queryIdx;
+        String queryKey = null;
+        String queryValue = null;
+
+        for (String pair : pairs) {
+            queryIdx = pair.indexOf("=");
+
+            queryKey = pair.substring(0, queryIdx);
+            queryValue = pair.substring(queryIdx + 1);
+
+            queryPairs.put(queryKey, queryValue);
+        }
+
+        // 광고 인정 기간 초기화
+        if (!queryPairs.containsKey("rd")) {
+            queryPairs.put("rd", "0");
+        }
+
+        return queryPairs;
+    }
+    
+    public void moveDeepLink() throws MalformedURLException {
+
+        String deeplink = null;
+
+        Uri data = getIntent().getData();
+
+        if(data != null) {
+            try{
+                deeplink = data.getQueryParameter("target_url");
+            } catch (Exception e){
+
+            }
+        }
+
+        URL dl = new URL(deeplink);
+        Intent intent = new Intent(this, MainActivity.class);
+
+        if((dl.getHost().equals("www.linkprice.com") && dl.getPath().equals("/clickbuy_cps/product-detail.php")) || (dl.getHost().equals("m.linkprice.com") && dl.getPath().equals("/shop/product"))) {
+            // 상품 상세 Activity 로 이동
+            intent = new Intent(this, productDetailActivity.class);
+            String pid = data.getQueryParameter("pid");
+            intent.putExtra("pid", pid);
+        }
+        else if ((dl.getHost().equals("www.linkprice.com") && dl.getPath().equals("/clickbuy_cps/search-result.php")) || (dl.getHost().equals("m.linkprice.com") && dl.getPath().equals("/search"))) {
+            // 검색 Activity 로 이동
+            intent = new Intent(this, searchActivity.class);
+            String keyword = data.getQueryParameter("keyword");
+            intent.putExtra("keyword", keyword);
         }
         // 사용자 정의 링크에 해당하는 Activity가 없다면 MainActivity 실행
         startActivity(intent);
-        // [5.(옵션) 사용자 정의 링크 종료]
-    } catch(Exception e) {
-        e.printStackTrace();
-    }    
-    // [4. 실행(배너 클릭시)할 때 마다 어필리에이트 변경 종료]
-    
-}
-
-// referrer 파싱
-private Map<String, String> parseQuery(String query)
-        throws UnsupportedEncodingException {
-
-    Map<String, String> queryPairs = new LinkedHashMap<>();
-
-    String mQuery = URLDecoder.decode(query, "UTF-8");
-    String[] pairs = mQuery.split("&");
-
-    int queryIdx;
-    String queryKey = null;
-    String queryValue = null;
-
-    for (String pair : pairs) {
-        queryIdx = pair.indexOf("=");
-
-        queryKey = pair.substring(0, queryIdx);
-        queryValue = pair.substring(queryIdx + 1);
-
-        queryPairs.put(queryKey, queryValue);
     }
-
-    // 광고 인정 기간 초기화
-    if (!queryPairs.containsKey("rd")) {
-        queryPairs.put("rd", "0");
-    }
-
-    return queryPairs;
 }
-
 ```
 
