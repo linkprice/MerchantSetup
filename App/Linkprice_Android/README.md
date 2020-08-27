@@ -452,7 +452,7 @@ public class MainActivity extends AppCompatActivity {
 ```java
 public class MainActivity extends AppCompatActivity {
 	//---------------------------------------------------------------------
-    // [3(옵션) Google Play에 연결하여 Install Referrer 값 가져오기를 위한 선언]
+    // [3. (옵션) Google Play에 연결하여 Install Referrer 값 가져오기를 위한 선언]
     private InstallReferrerClient mInstallReferrerClient; 
     //---------------------------------------------------------------------
     private Context mContext;
@@ -467,7 +467,7 @@ public class MainActivity extends AppCompatActivity {
         mContext = this;    
         mSharedPreferences = mContext.getSharedPreferences(sharedId, Context.MODE_PRIVATE);
 
-        // [3(옵션) Google Play에 연결하여 Install Referrer 값 가져오기 시작]
+        // [3. (옵션) Google Play에 연결하여 Install Referrer 값 가져오기 시작]
         mInstallReferrerClient = InstallReferrerClient.newBuilder(mContext).build();
 
         // install_referrer 처리 여부 화인
@@ -647,14 +647,11 @@ public class MainActivity extends AppCompatActivity {
     public void moveDeepLink() throws MalformedURLException {
 
         String deeplink = null;
-
         Uri data = getIntent().getData();
-
         if(data != null) {
             try{
                 deeplink = data.getQueryParameter("target_url");
             } catch (Exception e){
-
             }
         }
 
