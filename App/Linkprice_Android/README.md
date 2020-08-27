@@ -607,7 +607,7 @@ protected void onCreate(Bundle savedInstanceState) {
 }
     
     
-// 사용자 정의 링크로 이동
+// [5. (옵션)사용자 정의 링크로 이동]
 public void moveDeepLink() {            
     /*
     예1) 상품 상세 페이지
