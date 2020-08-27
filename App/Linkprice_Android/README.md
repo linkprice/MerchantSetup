@@ -69,7 +69,7 @@
 ### 2.1. scheme 및 host 설정
 
 * 귀사의 앱의 AndroidManifest.xml파일에서 실행하고자 하는 Activity 아래에 intent-filter를 선언합니다.
-* 예를 들어, 귀사의 게이트웨이 페이지에서 지정한 CUSTOM URL이 "intent://gw.linkprice.com" 일때, 아래와 같이 선언합니다.
+* 예를 들어, 귀사의 게이트웨이 페이지에서 지정한 CUSTOM URL이 "lpfront://gw.linkprice.com" 일때, 아래와 같이 선언합니다.
 
 ```xml
 <activity
@@ -85,7 +85,7 @@
 		<action android:name="android.intent.action.VIEW" />
 		<category android:name="android.intent.category.DEFAULT" />
 		<category android:name="android.intent.category.BROWSABLE" />
-		<data android:host="gw.linkprice.com" android:scheme="intent"/>
+		<data android:host="gw.linkprice.com" android:scheme="lpfront"/>
 	</intent-filter>
 </activity>
 ```
@@ -127,18 +127,17 @@ dependencies {
 * user-agent의 값으로부터 계산하여 android일 경우, 아래의 형식으로 url을 생성하여, 이 url로 redirect 합니다.
 
 ```
-intent://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&rd=20&target_url=https://www.linkprice.com/path/page?pid=17234#Intent;scheme=custom scheme;package=com.linkprice.test-app;S.browser_fallback_url=https://www.linkprice.com/your_path/?param=values;end
+lpfront://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&rd=20&target_url=https://www.linkprice.com/path/page?pid=17234#Intent;scheme=custom scheme;package=com.linkprice.test-app;S.browser_fallback_url=https://www.linkprice.com/your_path/?param=values;end
 ```
 
 * 각 변수 설명
-
-  1. **custom scheme** 게이트웨이 페이지의 scheme: http, https가 아닌 custom scheme으로 지정합니다.
-2. **gw.linkprice.com**  게이트웨이 페이지의 host: 게이트웨이 페이지의 host 부분만 추출합니다
-  3. **lpinfo=A100000131|2600239200004E|0000|B|1** 링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 lpinfo의 값
-4. **target_url=https://www.linkprice.com/path/page?pid=17234**  링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 target_url의 값
-  5. **com.linkprice.test-app** 귀사의 Android APP의 package name
-6. **https://www.linkprice.com/your_path/?param=values** 만일 앱이 설치 되어 있지 않을 경우 redirection할 URL
-  7. **rd=20** 광고가 인정되는 기간
+  1. **lpfront** 게이트웨이 페이지의 scheme: http, https가 아닌 custom scheme으로 지정합니다.
+    2. **gw.linkprice.com**  게이트웨이 페이지의 host: 게이트웨이 페이지의 host 부분만 추출합니다
+    3. **lpinfo=A100000131|2600239200004E|0000|B|1** 링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 lpinfo의 값
+    4. **target_url=https://www.linkprice.com/path/page?pid=17234**  링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 target_url의 값
+    5. **com.linkprice.test-app** 귀사의 Android APP의 package name
+    6. **https://www.linkprice.com/your_path/?param=values** 만일 앱이 설치 되어 있지 않을 경우 redirection할 URL
+    7. **rd=20** 광고가 인정되는 기간
 
 
 
@@ -376,68 +375,55 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+		
+        moveDeepLink();
+        
+		//target_url에 따라서 activity를 변경하는 함수 생성
+        public void moveDeepLink() {            
+            /*
+            예1) 상품 상세 페이지
+            PC target_url: www.linkprice.com/clickbuy/product-detail.php?pid=2342134&show=AHFSD 
+            Mobile target_url: m.linkprice.com/shop/product?pid=2342134
 
-        /*
-        예1) 상품 상세 페이지
-        PC target_url: www.linkprice.com/clickbuy/product-detail.php?pid=2342134&show=AHFSD 
-        Mobile target_url: m.linkprice.com/shop/product?pid=2342134
+            예2) 검색 페이지
+            PC target_url:  www.linkprice.com/clickbuy/search-result.php?keyword=%EA%B2%80%EC%83%89%EC%96%B4
+            Mobile target_url:  m.linkprice.com/search?keyword=%EA%B2%80%EC%83%89%EC%96%B4
+            */
+            
+            String deeplink = null;
+            Uri data = getIntent().getData();
 
-        예2) 검색 페이지
-        PC target_url:  www.linkprice.com/clickbuy/search-result.php?keyword=%EA%B2%80%EC%83%89%EC%96%B4
-        Mobile target_url:  m.linkprice.com/search?keyword=%EA%B2%80%EC%83%89%EC%96%B4
-
-        */
-
-        String deeplink = null;
-        Intent mIntent = getIntent();
-        Uri data = mIntent.getData();
-        if(data != null) {
-            try{
-                deeplink = data.getQueryParameter("target_url");
-            } catch (Exception e){
-
-            }    
-        } 
-
-        URL dl = new URL(deepLink);
-        Intent intent = new Intent(this, MainActivity.class);
-
-        if((dl.getHost().equals("www.linkprice.com") && dl.getPath().equals("/clickbuy/product-detail.php")) || (dl.getHost().equals("m.linkprice.com") && dl.getPath().equals("/shop/product"))) {
-            // 상품 상세 Activity 로 이동
-            intent = new Intent(this, productDetailActivity.class);
-            String pid = data.getQueryParameter("pid");
-            intent.putExtra("pid", pid);
-        } else if ((dl.getHost().equals("www.linkprice.com") && dl.getPath().equals("/clickbuy/search-result.php")) || (dl.getHost().equals("m.linkprice.com") && dl.getPath().equals("/search"))) {
-            // 검색 Activity 로 이동
-            intent = new Intent(this, searchActivity.class);
-            String keyword = data.getQueryParameter("keyword");
-            intent.putExtra("keyword", keyword);
-        }
-
-        // 사용자 정의 링크에 해당하는 Activity가 없다면 MainActivity 실행
-        startActivity(intent);
-
-        /********************************* getQuery method *************************************/
-        public Map<String, String> getQuery(URL url) throws UnsupportedEncodingException {
-            Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-            String query = url.getQuery();
-            if(query.indexOf("&") > 0) {
-                String[] pairs = query.split("&");
-                for (String pair : pairs) {
-                    int idx = pair.indexOf("=");
-                    query_pairs.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"), URLDecoder.decode(pair.substring(idx + 1), "UTF-8"));
-                }
-            } else {
-                String[] pairs = new String[1];
-                pairs[0] = query;
-                for (String pair : pairs) {
-
-                    int idx = pair.indexOf("=");
-                    query_pairs.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"), URLDecoder.decode(pair.substring(idx + 1), "UTF-8"));
+            if(data != null) {
+                try{
+                    deeplink = data.getQueryParameter("target_url");
+                } catch (Exception e){
                 }
             }
 
-            return query_pairs;
+            URL dl = null;
+
+            try {
+                dl = new URL(deeplink);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            Intent intent = new Intent(this, MainActivity.class);
+
+            if((dl.getHost().equals("www.linkprice.com") && dl.getPath().equals("/clickbuy_cps/product-detail.php")) || (dl.getHost().equals("m.linkprice.com") && dl.getPath().equals("/shop/product"))) {
+                // 상품 상세 Activity 로 이동
+                intent = new Intent(this, productDetailActivity.class);
+                String pid = data.getQueryParameter("pid");
+                intent.putExtra("pid", pid);
+            }
+            else if ((dl.getHost().equals("www.linkprice.com") && dl.getPath().equals("/clickbuy_cps/search-result.php")) || (dl.getHost().equals("m.linkprice.com") && dl.getPath().equals("/search"))) {
+                // 검색 Activity 로 이동
+                intent = new Intent(this, searchActivity.class);
+                String keyword = data.getQueryParameter("keyword");
+                intent.putExtra("keyword", keyword);
+            }
+            // 사용자 정의 링크에 해당하는 Activity가 없다면 MainActivity 실행
+            startActivity(intent);
         }
     }
 ~~~
@@ -540,6 +526,9 @@ public class MainActivity extends AppCompatActivity {
                                 prefEditor.putLong("create_time", create_time);
 
                                 prefEditor.apply();
+                                
+                                // [5.(옵션) 사용자 정의 링크 함수 호출]        
+                                moveDeepLink();
 
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -644,10 +633,11 @@ public class MainActivity extends AppCompatActivity {
         return queryPairs;
     }
     
-    public void moveDeepLink() throws MalformedURLException {
-
+    public void moveDeepLink() {
+        
         String deeplink = null;
         Uri data = getIntent().getData();
+
         if(data != null) {
             try{
                 deeplink = data.getQueryParameter("target_url");
@@ -655,7 +645,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        URL dl = new URL(deeplink);
+        URL dl = null;
+        
+        try {
+            dl = new URL(deeplink);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        
         Intent intent = new Intent(this, MainActivity.class);
 
         if((dl.getHost().equals("www.linkprice.com") && dl.getPath().equals("/clickbuy_cps/product-detail.php")) || (dl.getHost().equals("m.linkprice.com") && dl.getPath().equals("/shop/product"))) {
