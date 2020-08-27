@@ -1,4 +1,4 @@
-# APP Android 직접 셋업
+# ata android:host="gw.linkprice.com" android:sAPP Android 직접 셋업
 
 ## 1. 제휴 마케팅이란
 
@@ -287,10 +287,6 @@ private Map<String, String> parseQuery(String query)
     return queryPairs;
 }
 ```
-
-
-
-
 
 
 
