@@ -127,11 +127,11 @@ dependencies {
 * user-agent의 값으로부터 계산하여 android일 경우, 아래의 형식으로 url을 생성하여, 이 url로 redirect 합니다.
 
 ```
-lpfront://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&rd=20&target_url=https://www.linkprice.com/path/page?pid=17234#Intent;scheme=custom scheme;package=com.linkprice.test-app;S.browser_fallback_url=https://www.linkprice.com/your_path/?param=values;end
+intent://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&rd=20&target_url=https://www.linkprice.com/path/page?pid=17234#Intent;scheme=custom scheme;package=com.linkprice.test-app;S.browser_fallback_url=https://www.linkprice.com/your_path/?param=values;end
 ```
 
 * 각 변수 설명
-  1. **lpfront** 게이트웨이 페이지의 scheme: http, https가 아닌 custom scheme으로 지정합니다.
+  1. **custom scheme** 게이트웨이 페이지의 scheme: http, https가 아닌 custom scheme으로 지정합니다.
   2. **gw.linkprice.com**  게이트웨이 페이지의 host: 게이트웨이 페이지의 host 부분만 추출합니다
   3. **lpinfo=A100000131|2600239200004E|0000|B|1** 링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 lpinfo의 값
   4. **target_url=https://www.linkprice.com/path/page?pid=17234**  링크프라이스가 게이트웨이 페이지로 넘길 때 같이 넘긴 target_url의 값
