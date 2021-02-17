@@ -9,7 +9,8 @@
 * [제휴 마케팅 소개](https://helpdesk.linkprice.com/pages/merchant-faq-introduce)
 
 
-
+<br/>
+<br/>
 
 ## 2. 게이트웨이 페이지
 
