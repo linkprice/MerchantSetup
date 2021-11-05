@@ -448,7 +448,7 @@
         "order_id": "o190203-h78X3",
         "final_paid_price": 29000,
         "currency": "KRW",
-        "user_name": "구매자"
+        "user_name": "구**"
     },
     "products": [
         {
@@ -478,7 +478,7 @@
         "merchant_id": "sample",
         "lpinfo": "A123456789|9832|A|m|a8uakljfa",
         "user_agent": "Mozilla/5.0...",
-        "remote_addr": "127.0.0.1",
+        "remote_addr": "13.156.*.*",
         "device_type": "web-pc"
     }
 },
