@@ -256,11 +256,9 @@
 
 	* 마일리지 적용전 봉지라면의 product_final_price은 18000원 이었는데 3000원 마일리지를 사용하였으므로 18000 - 3000 * 18000 / 32000 = **16312.5**원 입니다.
 
-	* 각 상품의 product_final_price의 합은 final_paid_price와 같아야 하나, 부득이한 경우 원단위 차이는 허용됩니다. 
+	* 각 상품의 product_final_price의 합은 final_paid_price와 같아야 하나, 부득이한 경우 원단위 차이는 허용됩니다. 12687.5(product_final_price) + 16312.5(product_final_price) = 29000(final_paid_price) 
 
-     12687.5(product_final_price) + 16312.5(product_final_price) = 29000(final_paid_price) 
-
-   ```json
+```json
 {
     "order": {
         "order_id": "o190203-h78X3",
@@ -300,7 +298,7 @@
         "device_type": "web-pc"
     }
 }
-   ```
+```
 
    
 
