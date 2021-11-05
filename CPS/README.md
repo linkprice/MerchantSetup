@@ -156,7 +156,7 @@
     2. final_paid_price(float):  배송비를 제외 한 구매자의 실결제 금액
        * 배송비를 구매자가 부담시 실결제금액에서 배송비를 제외한 금액입니다.
        * 무료배송인 경우엔 실결제 금액 전체입니다.
-    3. user_name(string): 누락문의시 누구의 실적인지를 알기 위해 사용 할 구매자 이름
+    3. user_name(string): 누락문의시 누구의 실적인지를 알기 위해 사용 할 구매자 이름, 가급적 마스킹 처리해 주세요. 예) 김**, 이**
     4. currency(string): 상품 결제시 사용된 통화
        * ISO 4217 사용
        * 예) USD, KRW, CNY, EUR
@@ -230,7 +230,7 @@
     1. lpinfo(string): "LPINFO"라는 쿠키에 저장된 값
     2. merchant_id(string): 링크프라이스로부터 받은 광고주(머천트) ID
     3. user_agent(string): USER_AGENT정보
-    4. remote_addr(string): 구매자의 IP주소, 서버 주소가 아닌 실 구매자의 IP주소를 전송해 주세요.
+    4. remote_addr(string): 구매자의 IP주소, 가급적 마스킹 처리해 주세요. 예) 118.221.\*.\*
     5. <a name="device_type"></a>device_type(string): 장치 구분 값
        
         * web-pc: 모바일이이 아닌 장치에서 발생한 웹 실적
@@ -261,45 +261,45 @@
      12687.5(product_final_price) + 16312.5(product_final_price) = 29000(final_paid_price) 
 
    ```json
-   {
-       "order": {
-           "order_id": "o190203-h78X3",
-           "final_paid_price": 29000,
-           "currency": "KRW",
-           "user_name": "구매자"
-       },
-       "products": [
-           {
-               "product_id": "P87-234-anx87",
-               "product_name": "UHD 4K 넥시 HDMI케이블",
-               "category_code": "132782",
-               "category_name": ["컴퓨터 주변기기", "케이블", "HDMI케이블"],
-               "quantity": 2,
-               "product_final_price": 12687,
-               "paid_at": "2019-02-12T11:13:44+09:00",
-               "confirmed_at": "",
-               "canceled_at": ""
-           },
-           {
-               "product_id": "P23-983-Z3272",
-               "product_name": "농심 오징어짬뽕124g(5개)",
-               "category_code": "237018",
-               "category_name": ["가공식품", "라면", "봉지라면"],
-               "quantity": 3,
-               "product_final_price": 16312,
-	            "paid_at": "2019-02-12T11:13:44+09:00",
-            	"confirmed_at": "",
-	            "canceled_at": ""
-        }
-       ],
-       "linkprice": {
-           "merchant_id": "sample",
-           "lpinfo": "A123456789|9832|A|m|a8uakljfa",
-        	 "user_agent": "Mozilla/5.0...",
-	         "remote_addr": "127.0.0.1",
-           "device_type": "web-pc"
-       }
-   }
+{
+    "order": {
+        "order_id": "o190203-h78X3",
+        "final_paid_price": 29000,
+        "currency": "KRW",
+        "user_name": "김**"
+    },
+    "products": [
+        {
+            "product_id": "P87-234-anx87",
+            "product_name": "UHD 4K 넥시 HDMI케이블",
+            "category_code": "132782",
+            "category_name": ["컴퓨터 주변기기", "케이블", "HDMI케이블"],
+            "quantity": 2,
+            "product_final_price": 12687,
+            "paid_at": "2019-02-12T11:13:44+09:00",
+            "confirmed_at": "",
+            "canceled_at": ""
+        },
+        {
+            "product_id": "P23-983-Z3272",
+            "product_name": "농심 오징어짬뽕124g(5개)",
+            "category_code": "237018",
+            "category_name": ["가공식품", "라면", "봉지라면"],
+            "quantity": 3,
+            "product_final_price": 16312,
+             "paid_at": "2019-02-12T11:13:44+09:00",
+         	"confirmed_at": "",
+             "canceled_at": ""
+     }
+    ],
+    "linkprice": {
+        "merchant_id": "sample",
+        "lpinfo": "A123456789|9832|A|m|a8uakljfa",
+     	"user_agent": "Mozilla/5.0...",
+        "remote_addr": "118.221.*.*",
+        "device_type": "web-pc"
+    }
+}
    ```
 
    
