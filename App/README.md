@@ -13,14 +13,11 @@
 
 #### 2.1.1 Android
 
-1. [Android 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/App/Lpmat_Android)
-2. [Android setup guide(en)](https://github.com/linkprice/MerchantSetup/blob/master/App/Lpmat_Android/README-en.md)
-
+1. [Android 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/App/Linkprice_Android)
 
 #### 2.1.2 iOS
 
-1. [iOS 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/App/Lpmat_iOS)
-2. [iOS setup guide(en)](https://github.com/linkprice/MerchantSetup/tree/master/App/Lpmat_iOS/README-en.md)
+1. [iOS 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/App/Linkprice_iOS)
 
 ### 2.2 3자툴 사용하여 셋업
 
@@ -28,4 +25,7 @@
 
 #### 2.2.1 Adbrix(애드브릭스)
 
-1. [Adbrix 셋업 가이드](https://github.com/linkprice/MerchantSetup/tree/master/App/Adbix)
+> 링크프라이스에서 애드브릭스의 오리지널 버전을 더 이상 지원하지 않습니다. 
+> 애드브릭스의 리마스터 버전만을 지원합니다.
+
+> 애드브릭스를 이미 사용하고 계시다면, 링크프라이스 담당자님께 연락 주세요.

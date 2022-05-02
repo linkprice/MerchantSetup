@@ -1,4 +1,4 @@
-# 안드로이드 DeepLink Setup
+# 안드로이드 APP Link Setup
 
 > URL 클릭시 앱이 설치 되어 있는 경우 앱으로 열리고, 앱이 설치 되어 있지 않은 경우 특정 페이지로 redirection 시키는 방법에 대해 설명합니다.
 
@@ -16,7 +16,7 @@
 		<action android:name="android.intent.action.VIEW"/>
 		<category android:name="android.intent.category.DEFAULT"/>
 		<category android:name="android.intent.category.BROWSABLE"/>
-		<data android:host="gw.linkprice.com" android:scheme="https"/>
+        <data android:host="your gateway host url" android:scheme="custom scheme"/>
 	</intent-filter>
 </activity>
 ```
@@ -25,8 +25,7 @@
     2. **android:name="android.intent.category.BROWSABLE"**: intent-filter가 웹 브라우저에서 접근하기 위해 선언합니다.
 * \<data\> 설명
     1. **android:host**: 게이트웨이 페이지의 host 부분을 선언합니다.
-    2. **android:scheme**: 게이트웨이 페이지의 scheme(일반적으로 http나 https) 을 선언합니다.
-
+    2. **android:scheme**: 게이트웨이 페이지의 scheme(custom scheme)을 선언합니다.
 
 
 ## 2. 게이트웨이 페이지 수정
@@ -34,12 +33,12 @@
 * user-agent의 값으로부터 계산하여 android일 경우, 아래의 형식으로 url을 생성하여, 이 url로 redirect 한다, sample url
 
 ```
-intent://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&target_url=https://www.linkprice.com/path/page?pid=17234#Intent;scheme=https;package=com.linkprice.test-app;S.browser_fallback_url=https://www.linkprice.com/your_path/?param=values;end
+intent://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&target_url=https://www.linkprice.com/path/page?pid=17234#Intent;scheme=custom scheme;package=com.linkprice.test-app;S.browser_fallback_url=https://www.linkprice.com/your_path/?param=values;end
 ```
 
 * 각 변수 설명
 
-  1. **https** 게이트웨이 페이지의 scheme: 일반적으로 http나 https 입니다
+  1. **custom scheme** 게이트웨이 페이지의 scheme: custom scheme으로 지정합니다.
 
   2.  **gw.linkprice.com**  게이트웨이 페이지의 host: 게이트웨이 페이지의 host 부분만 추출합니다
 
@@ -52,7 +51,7 @@ intent://gw.linkprice.com?lpinfo=A100000131|2600239200004E|0000|B|1&target_url=h
   6. **https://www.linkprice.com/your_path/?param=values** 만일 앱이 설치 되어 있지 않을 경우 redirection할 URL
 
 
-![](https://github.com/linkprice/MerchantSetup/blob/master/App/DeepLink/deeplink.png)
+![](./applink.png)
 
 
 
