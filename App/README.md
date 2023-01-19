@@ -23,6 +23,17 @@
 
 > 3자툴을 사용하여 모바일 앱(Application)에서 실적 측정을 위한 셋업 가이드 입니다.
 
+## 3. 딥링크 앱 셋업
+
+### 3.1 universalLink (ios)
+1. [유니버셜 링크](https://github.com/linkprice/MerchantSetup/blob/appsetup/App/UniversalLinks.md)
+
+### 3.2 appLink (android)
+1. [앱 링크](https://github.com/linkprice/MerchantSetup/blob/appsetup/App/AppLinks.md)
+
+### 3.3 URI Scheme (android)
+1. [URI 스킴](https://github.com/linkprice/MerchantSetup/blob/appsetup/App/URI%20Scheme.md)
+
 #### 2.2.1 Adbrix(애드브릭스)
 
 > 링크프라이스에서 애드브릭스의 오리지널 버전을 더 이상 지원하지 않습니다. 
