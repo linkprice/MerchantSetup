@@ -1,4 +1,4 @@
-# 앱 셋업 앱 링크 (android)
+# 앱 링크 (android)
 > 참고 자료 : https://developer.android.com/studio/write/app-link-indexing
 
 ## 1. 매니페스트에서 인텐트 필터 만들기
