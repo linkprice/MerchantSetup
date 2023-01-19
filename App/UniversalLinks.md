@@ -53,7 +53,7 @@
 * 자격에 도메인을 추가하려면 도메인 테이블 하단에 있는 추가(+)를 클릭하여 자리표시자 도메인을 추가합니다.
 * 자리 표시자를 앱이 지원하는 서비스 및 사이트 도메인에 대한 적절한 접두사로 바꿉니다. 원하는 하위 도메인과 최상위 도메인만 포함해야 합니다.
 
-![ex_screenshot](https://github.com/linkprice/MerchantSetup/blob/appsetup/App/Untitled_1.png?raw=true)
+![ex_screenshot](https://github.com/linkprice/MerchantSetup/blob/appsetup/App/AppSetup/Untitled_1.png?raw=true)
 
 * 지정하는 각 도메인은 다음 형식을 사용
 ```xml
