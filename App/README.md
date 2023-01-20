@@ -7,14 +7,14 @@
 
 ## 2. 앱 셋업
 
-### 2.1 universalLink (ios)
-1. [유니버셜 링크](https://github.com/linkprice/MerchantSetup/blob/appsetup/App/AppSetup/UniversalLinks.md)
+### universalLink (ios)
+- [유니버셜 링크](https://github.com/linkprice/MerchantSetup/blob/master/App/AppSetup/UniversalLinks.md)
 
-### 2.2 appLink (android)
-1. [앱 링크](https://github.com/linkprice/MerchantSetup/blob/appsetup/App/AppSetup/AppLinks.md)
+### appLink (android)
+- [앱 링크](https://github.com/linkprice/MerchantSetup/blob/master/App/AppSetup/AppLinks.md)
 
-### 2.3 URI Scheme (android)
-1. [URI 스킴](https://github.com/linkprice/MerchantSetup/blob/appsetup/App/AppSetup/URI%20Scheme.md)
+### URI Scheme (android)
+- [URI 스킴](https://github.com/linkprice/MerchantSetup/blob/master/App/AppSetup/URI%20Scheme.md)
 
 ## 3. 3자툴 사용하여 셋업
 

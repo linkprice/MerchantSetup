@@ -56,7 +56,7 @@
 1. App Links Assistant에서 **Select Activity**를 클릭합니다.
 2. 목록에서 활동을 선택하고 **Insert Code**를 클릭합니다.
 
-```xml
+```
 override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
@@ -78,8 +78,8 @@ Uri appLinkData = appLinkIntent.getData();
 * 디지털 애셋 링크 파일을 사용하는 대신 [Search Console에서 사이트와 앱을 연결](https://support.google.com/webmasters/answer/6212023)할 수 있습니다.
   
 > App Links Assistant를 사용하여 앱과 웹사이트를 연결하려면 App Links Assistant에서 Open Digital Asset Links File Generator를 클릭
-![ex_screenshot](https://github.com/linkprice/MerchantSetup/blob/appsetup/App/AppSetup/applink_1.png?raw=true)
-```xml
+![ex_screenshot](https://github.com/linkprice/MerchantSetup/blob/master/App/AppSetup/applink_1.png?raw=true)
+
 1. Site domain 및 Application ID를 입력합니다.
 
 2. 디지털 애셋 링크 파일에 비밀번호 대용 Smart Lock 지원 기능을 포함하려면 Support sharing credentials between the app and the website를 선택하고 
@@ -96,13 +96,12 @@ Uri appLinkData = appLinkIntent.getData();
 6. 모두가 읽기 액세스 권한을 가질 수 있도록 assetlinks.json파일을 사이트(https://<yoursite>/.well-known/assetlinks.json)에 업로드합니다.
 
 7. Link and Verify를 클릭하여 올바른 위치에 올바른 디지털 애셋 링크 파일을 업로드했는지 확인합니다.
-```  
-  
+
 
 ## 4. 앱 링크 테스트 하기
 
-![ex_screenshot](https://github.com/linkprice/MerchantSetup/blob/appsetup/App/AppSetup/applink_2.png?raw=true)
-```xml
+![ex_screenshot](https://github.com/linkprice/MerchantSetup/blob/master/App/AppSetup/applink_2.png?raw=true)
+
 1. App Links Assistant에서 Test App Links를 클릭합니다.
   
 2. URL 입력란에 테스트할 URL을 입력합니다(예: http://recipe-app.com/recipe/grilled-potato-salad).
@@ -110,4 +109,4 @@ Uri appLinkData = appLinkIntent.getData();
 3. Run Test를 클릭합니다.
   
 4. URL 매핑이 제대로 설정되지 않았거나 존재하지 않는 경우 Test App Links창에서 URL 아래에 오류 메시지가 표시됩니다.  
-```  
+

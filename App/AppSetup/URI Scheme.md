@@ -7,7 +7,7 @@
 
 ### 1-1. 스킴 값 등록 예시
 
-![ex_screenshot](https://github.com/linkprice/MerchantSetup/blob/appsetup/App/AppSetup/URI%EC%8A%A4%ED%82%B4.png?raw=true)
+![ex_screenshot](https://github.com/linkprice/MerchantSetup/blob/master/App/AppSetup/URI%EC%8A%A4%ED%82%B4.png?raw=true)
 
 ## 2. 파라미터 전송하기
 > ‘URL?변수명=데이터’ 형식으로 URL 뒤에 붙여주어야 합니다.<br>

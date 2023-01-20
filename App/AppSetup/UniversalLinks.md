@@ -7,7 +7,7 @@
 * 연결 된 도메인 파일을 웹 사이트에 추가하려면 apple-app-site-association 확장명 없이 이름이 지정된 파일을 만듭니다.
 * 도메인에서 지원하는 서비스에 대한 파일의 JSON 코드를 업데이트 합니다.
 
-```javaScript
+```json
 {
   "applinks": {
       "details": [
@@ -53,7 +53,7 @@
 * 자격에 도메인을 추가하려면 도메인 테이블 하단에 있는 추가(+)를 클릭하여 자리표시자 도메인을 추가합니다.
 * 자리 표시자를 앱이 지원하는 서비스 및 사이트 도메인에 대한 적절한 접두사로 바꿉니다. 원하는 하위 도메인과 최상위 도메인만 포함해야 합니다.
 
-![ex_screenshot](https://github.com/linkprice/MerchantSetup/blob/appsetup/App/AppSetup/Untitled_1.png?raw=true)
+![ex_screenshot](https://github.com/linkprice/MerchantSetup/blob/master/App/AppSetup/Untitled_1.png?raw=true)
 
 * 지정하는 각 도메인은 다음 형식을 사용
 ```xml
@@ -71,7 +71,7 @@
 ## 2. 스킴 등록
 > 참고 링크 : https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app?language=objc
 
-![ex_screenshot](https://github.com/linkprice/MerchantSetup/blob/appsetup/App/AppSetup/Untitled_2.png?raw=true)
+![ex_screenshot](https://github.com/linkprice/MerchantSetup/blob/master/App/AppSetup/Untitled_2.png?raw=true)
 
 * 프로젝트 설정의 정보 탭에서 Xcode에 체계를 등록
   1. URL 구성표 상자에서 URL에 사용할 접두사 지정
@@ -84,7 +84,7 @@
 ## 3. 범용 링크에 응답하도록 앱 위임 업데이트
 > 참고 링크 : https://developer.apple.com/documentation/xcode/supporting-universal-links-in-your-app?language=objc
 
-```javaScript
+```swift
 // macOS에서 범용 링크를 처리하는 방법 예제 코드
 func application(_ application: NSApplication,
                      continue userActivity: NSUserActivity,
@@ -164,7 +164,7 @@ func application(_ application: UIApplication,
 
 * 앨범이름과 표시할 사진 색인을 포함하는 매개변수 지정
 
-```xml
+```
 https://myphotoapp.example.com/albums?albumname=vacation&index=1
 https://myphotoapp.example.com/albums?albumname=wedding&index=17
 ```
@@ -172,7 +172,7 @@ https://myphotoapp.example.com/albums?albumname=wedding&index=17
 
 ### 4-2. 범용링크 호출 예제 코드
 
-```javaScript
+```swift
 // macOS 에서 범용링크 호출 예제코드
 if let appURL = URL(string: "https://myphotoapp.example.com/albums?albumname=vacation&index=1") {
     let configuration = NSWorkspace.OpenConfiguration()
