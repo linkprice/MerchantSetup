@@ -3,7 +3,7 @@
 > 제휴 마케팅이란 제품/ 서비스 등을 판매하는 인터넷 업체(Merchant)가 고객을 끌어들이고 진열, 판매하는 공간으로 자신의 사이트 뿐만 아니라 다른 관련 사이트(Affiliate)로 까지 공간을 확장하여 
 > 이때 발생하는 수입을 제휴맺은 사이트(Affiliate)와 공유하는 새로운 형태의 마케팅 기법입니다. 
 
-1. [제휴 마케팅 소개](https://helpdesk.linkprice.com/pages/merchant-faq-introduce)
+1. [제휴 마케팅 소개](https://github.com/linkprice/MerchantSetup/blob/master/App/Marketing.md)
 
 ## 2. 앱 셋업
 
