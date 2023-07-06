@@ -5,23 +5,16 @@
 
 1. [제휴 마케팅 소개](https://github.com/linkprice/MerchantSetup/blob/master/App/Marketing.md)
 
-## 2. 앱 셋업
+## 2. 앱 직셋업
 
-### universalLink (ios)
-- [유니버셜 링크](https://github.com/linkprice/MerchantSetup/blob/master/App/AppSetup/UniversalLinks.md)
-
-### appLink (android)
-- [앱 링크](https://github.com/linkprice/MerchantSetup/blob/master/App/AppSetup/AppLinks.md)
-
-### URI Scheme (android)
-- [URI 스킴](https://github.com/linkprice/MerchantSetup/blob/master/App/AppSetup/URI%20Scheme.md)
+> 앱 직셋업은 ios는 universalLink 사용, android는 앱 링크와 URI Scheme을 사용 하여 셋업 가능합니다.
 
 ## 3. 3자툴 사용하여 셋업
 
 > 3자툴을 사용하여 모바일 앱(Application)에서 실적 측정을 위한 셋업 가이드 입니다.
 
 ### 3.1 현재 링크프라이스와 연동되어 있는 3자툴
-* Branch(브랜치)
+- [Branch(브랜치)](https://github.com/linkprice/MerchantSetup/blob/branch/App/AppSetup/branch.md)
 
 * Singular(싱귤러)
 
