@@ -23,9 +23,9 @@
 ### 3.1 현재 링크프라이스와 연동되어 있는 3자툴
 * Branch(브랜치)
 
-* Singular(싱귤러)
+* [Singular(싱귤러)](Singular/README.md)
 
-* Adbrix(애드브릭스)
+* [Adbrix(애드브릭스)](Adbrix-remaster/README.md)
 > 링크프라이스에서 애드브릭스의 오리지널 버전을 더 이상 지원하지 않습니다. 
 > 애드브릭스의 리마스터 버전만을 지원합니다.
 
