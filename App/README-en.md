@@ -1,4 +1,4 @@
-# 1. 제휴 마케팅이란
+# 1. What is Affiliate Marketing
 
 ## 1-1. Outline
 
