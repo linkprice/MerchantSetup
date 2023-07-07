@@ -1,11 +1,17 @@
-# 1. What is affiliate marketing
+# 1. 제휴 마케팅이란
+
+## 1-1. Outline
 
 ```
-Affiliate marketing is a space in which an Internet company (Merchant) that sells products/services attracts, displays, and sells customers.
+Affiliate marketing is a space where an Internet company (merchant) that sells products/services attracts, displays, and sells customers.
 It is a new type of marketing technique that shares the income generated at this time with affiliated sites.
 ```
 
 [Go to Affiliate Marketing Details](https://github.com/linkprice/MerchantSetup/blob/master/App/Marketing.md)
+
+## 1-2. Brief Flow Chart
+
+![v2_app_setup_process_img.png](v2_app_setup_process_img-en.png)
 
 # 2. How to link with the LinkPrice platform
 
@@ -29,6 +35,7 @@ LinkPrice recommends using a proven third-party solution rather than implementin
 - [Adbrix](Adbrix-remaster/README.md) - https://ad-brix.io/
 
 ## 2-2. Standalone Setup
+
 
 ```
 If you want to set up your own without using a 3rd party solution
