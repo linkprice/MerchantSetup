@@ -30,7 +30,7 @@ LinkPrice recommends using a proven third-party solution rather than implementin
 
 ### Third-party solutions supported by the LinkPrice platform
 
-- [Branch](AppSetup/branch.md) - https://www.branch.io/
+- [Branch](AppSetup/branch-en.md) - https://www.branch.io/
 - [Singular](Singular/README.md) - https://www.singular.net/
 - [Adbrix](Adbrix-remaster/README.md) - https://ad-brix.io/
 
