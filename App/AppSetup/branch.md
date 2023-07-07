@@ -12,8 +12,8 @@
 #### 2. 브랜치에 ios, android, default Redirects url을 등록해 주십시오.
 
 > Redirects url 등록 예시 
-![image](https://github.com/linkprice/MerchantSetup/blob/branch/App/AppSetup/branch_1.png)
-![image](https://github.com/linkprice/MerchantSetup/blob/branch/App/AppSetup/branch_2.png)
+![image](https://github.com/linkprice/MerchantSetup/blob/master/App/AppSetup/branch_1.png)
+![image](https://github.com/linkprice/MerchantSetup/blob/master/App/AppSetup/branch_2.png)
 
 #### 3. 커스텀 변수를 포함한 트래킹 링크를 생성하여 전달해주십시오.
 -  예시 트래킹 링크 커스텀 변수
@@ -27,7 +27,7 @@
 
 #### 4. ATTRIBUTION WINDOWS는 광고주(머천트)에서 원하시는 원하시는 광고효과 인정기간을 설정해주시면 됩니다.
    > 광고효과 인정기간이 1일로 되어있는 예시
-   ![image](https://github.com/linkprice/MerchantSetup/blob/branch/App/AppSetup/branch_3.png)
+   ![image](https://github.com/linkprice/MerchantSetup/blob/master/App/AppSetup/branch_3.png)
 
 #### 5. 브랜치에서 링크프라이스로 전송되는 실적 포스트백 호출 형식을 확인하여 수정 작업을 진행합니다.
 
