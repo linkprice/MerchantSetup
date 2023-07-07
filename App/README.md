@@ -14,7 +14,7 @@
 > 3자툴을 사용하여 모바일 앱(Application)에서 실적 측정을 위한 셋업 가이드 입니다.
 
 ### 3.1 현재 링크프라이스와 연동되어 있는 3자툴
-- [Branch(브랜치)](https://github.com/linkprice/MerchantSetup/blob/branch/App/AppSetup/branch.md)
+- [Branch(브랜치)](https://github.com/linkprice/MerchantSetup/blob/master/App/AppSetup/branch.md)
 
 * [Singular(싱귤러)](Singular/README.md)
 
