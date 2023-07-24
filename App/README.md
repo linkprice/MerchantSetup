@@ -32,6 +32,7 @@
 - [Branch](AppSetup/branch.md) - https://www.branch.io/
 - [Singular](Singular/README.md) - https://www.singular.net/
 - [Adbrix](Adbrix-remaster/README.md) - https://ad-brix.io/
+- [Airbridge](Airbridge/README.md) - https://www.airbridge.io/ 
 
 ## 2-2. 단독 셋업
 
