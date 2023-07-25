@@ -29,6 +29,13 @@
 
 클릭 어트리뷰션은 링크프라이스와 협의된 `광고 효과 인정기간`을 적용해주시면 됩니다.
 
+### 트래킹 링크 예시
+
+* AOS : https://app.appsflyer.com/com.APP?af_prt=icomas&pid=linkprice_int&af_click_lookback=7d&c=n_lkprc&clickid={clickid}&af_siteid={affiliate_id}&advertising_id={advertising_id}
+
+* IOS : https://app.appsflyer.com/idApp?af_prt=icomas&pid=linkprice_int&af_click_lookback=7d&c=n_lkprc&clickid={clickid}&af_siteid={affiliate_id}&idfa={idfa}
+
+
 ## 연동 이후
 
 앱스플라이어 연동 후 실적 발생 시 설정해주신 포스트백 이벤트에 따라 링크프라이스에 포스트백으로 실적 전송을 하고 있습니다.
