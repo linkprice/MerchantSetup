@@ -265,8 +265,30 @@
         * app-ios: iOS App을 통해 발생한 실적 
         
         * app-android: Android App을 통해 발생한 실적
-          
-          
+
+    <br>
+#### Request json 데이터 타입
+
+| KEY           | 값             | 타입            |
+|--------------------|---------------|---------------|
+| order_id           | 주문번호          | varchar(100)  |
+| final_paid_price   | 실 결제 금액       | float         |
+| currency           | 통화            | varchar(3)    |
+| user_name          | 구매자 명         | varchar(100)  |
+| product_id         | 상품코드          | varchar(100)  |
+| product_name       | 상품명           | varchar(300) |
+| category_code      | 카테고리코드        | varchar(200)  |
+| category_name      | 카테고리 명        | varchar(100)  |
+| quantity           | 구매 갯수         | int(11)       |
+| product_final_price | 상품 금액         | float         |
+| paid_at            | 주문 완료 시간      | datetime    |
+| confirmed_at       | 구매 확정 시간      | datetime      |
+| canceled_at        | 구매 취소 시간      | datetime      |
+| merchant_id        | 머천트 ID        | varchar(10)   |
+| lpinfo             | lpinfo 쿠키 값   | varchar(500)  |
+| user_agent         | user_agent 정보 | varchar(1000) |
+| remote_addr        | 구매자의 IP 주소    | varchar(100)  |
+| device_type        | 장치 구분 값       | varchar(10)   |
 
 
 ### 3. Request Sample

@@ -135,6 +135,31 @@
             3. app-android: Sales data with Android app
             4. app-ios: Sales data with iOS app
 
+    <br>
+#### Request json 데이터 타입
+
+| KEY               | VALUE                    | TYPE          |
+|-------------------|--------------------------|---------------|
+| order_id          | Order ID                 | varchar(100)  |
+| final_paid_price  | Amount that user pay     | float         |
+| currency          | Currency                 | varchar(3)    |
+| user_name         | User name                | varchar(100)  |
+| product_id        | Product ID               | varchar(100)  |
+| product_name      | Product Name             | varchar(300)  |
+| category_code     | Category Code            | varchar(200)  |
+| category_name     | Category Name            | varchar(100)  |
+| quantity          | Quantity                 | int(11)       |
+| product_final_price | product price            | float         |
+| paid_at           | payment time             | datetime      |
+| confirmed_at      | confirmed time for order | datetime      |
+| canceled_at       | canceled time for order  | datetime      |
+| merchant_id       | Merchant ID              | varchar(10)   |
+| lpinfo            | lpinfo cookie value      | varchar(500)  |
+| user_agent        | user_agent information   | varchar(1000) |
+| remote_addr       | User IP                  | varchar(100)  |
+| device_type       | item division value      | varchar(10)   |
+
+
 3. Request Sample
 
     1. When customer buy two HDMI cables which is 7000won and three instant noodles which is 6000won with free shipping 
