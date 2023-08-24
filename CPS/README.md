@@ -269,26 +269,29 @@
     <br>
 #### Request json 데이터 타입
 
-| KEY           | 값             | 타입            |
-|--------------------|---------------|---------------|
-| order_id           | 주문번호          | varchar(100)  |
-| final_paid_price   | 실 결제 금액       | float         |
-| currency           | 통화            | varchar(3)    |
-| user_name          | 구매자 명         | varchar(100)  |
-| product_id         | 상품코드          | varchar(100)  |
-| product_name       | 상품명           | varchar(300) |
-| category_code      | 카테고리코드        | varchar(200)  |
-| category_name      | 카테고리 명        | varchar(100)  |
-| quantity           | 구매 갯수         | int(11)       |
-| product_final_price | 상품 금액         | float         |
-| paid_at            | 주문 완료 시간      | datetime    |
-| confirmed_at       | 구매 확정 시간      | datetime      |
-| canceled_at        | 구매 취소 시간      | datetime      |
-| merchant_id        | 머천트 ID        | varchar(10)   |
-| lpinfo             | lpinfo 쿠키 값   | varchar(500)  |
-| user_agent         | user_agent 정보 | varchar(1000) |
-| remote_addr        | 구매자의 IP 주소    | varchar(100)  |
-| device_type        | 장치 구분 값       | varchar(10)   |
+| KEY                                         | 값                                                                                                 | 타입              |
+|---------------------------------------------|---------------------------------------------------------------------------------------------------|-----------------|
+| order                                       | 주문정보                                                                                              | object          |
+| &nbsp;&nbsp;&nbsp;&nbsp;order_id            | 구매자가 인지 가능한 주문번호로, 매체의 누락문의시 이 주문번호로 누락 여부를 조회할 수 있습니다.                                           | varchar(100)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;final_paid_price    | 배송비를 제외한 구매자의 실결제 금액입니다.<br>* 배송비를 구매자가 부담 시 실결제금액에서 배송비를 제외한 금액입니다.<br>* 무료배송인 경우엔 실결제 금액 전체입니다. | float           |
+| &nbsp;&nbsp;&nbsp;&nbsp;currency            | 상품 결제시 사용된 통화<br>ISO 4217 사용<br>예) USD, KRW, CNY, EUR                                             | varchar(3)      |
+| &nbsp;&nbsp;&nbsp;&nbsp;user_name           | 누락문의시 누구의 실적인지를 알기 위해 사용 할 구매자 이름, 가급적 마스킹 처리해 주세요. 예) 김**, 이**                                   | varchar(100)    |
+| products[]                                  | 개별 상품 데이터 리스트                                                                                     | array< object > |
+| &nbsp;&nbsp;&nbsp;&nbsp;product_id          | 상품코드                                                                                              | varchar(100)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;product_name        | 상품명                                                                                               | varchar(300)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;category_code       | 카테고리코드                                                                                            | varchar(200)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;category_name       | 카테고리 명                                                                                            | varchar(100)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;quantity            | 구매 갯수                                                                                             | int(11)         |
+| &nbsp;&nbsp;&nbsp;&nbsp;product_final_price | 상품 금액                                                                                             | float           |
+| &nbsp;&nbsp;&nbsp;&nbsp;paid_at             | 주문 완료 시간                                                                                          | datetime        |
+| &nbsp;&nbsp;&nbsp;&nbsp;confirmed_at        | 구매 확정 시간                                                                                          | datetime        |
+| &nbsp;&nbsp;&nbsp;&nbsp;canceled_at         | 구매 취소 시간                                                                                          | datetime        |
+| linkprice                                   | 링크프라이스에서 필요한 데이터                                                                                  | object          |
+| &nbsp;&nbsp;&nbsp;&nbsp;merchant_id         | 머천트 ID                                                                                            | varchar(10)     |
+| &nbsp;&nbsp;&nbsp;&nbsp;lpinfo              | lpinfo 쿠키 값                                                                                       | varchar(500)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;user_agent          | user_agent 정보                                                                                     | varchar(1000)   |
+| &nbsp;&nbsp;&nbsp;&nbsp;remote_addr         | 구매자의 IP 주소                                                                                        | varchar(100)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;device_type         | 장치 구분 값                                                                                           | varchar(10)     |
 
 
 ### 3. Request Sample
