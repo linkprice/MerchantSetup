@@ -174,124 +174,32 @@
 
 ​    
 
-### 3. Request 
+### 3. Request
+<br>
 
-1. order
-    1. order_id(string): 구매자가 인지 가능한 주문번호로, 매체의 누락문의시 이 주문번호로 누락 여부를 조회할 수 있습니다.
-    2. final_paid_price(float):  배송비를 제외 한 구매자의 실결제 금액
-       * 배송비를 구매자가 부담시 실결제금액에서 배송비를 제외한 금액입니다.
-       * 무료배송인 경우엔 실결제 금액 전체입니다.
-    3. user_name(string): 누락문의시 누구의 실적인지를 알기 위해 사용 할 구매자 이름, 가급적 마스킹 처리해 주세요. 예) 김**, 이**
-    4. currency(string): 상품 결제시 사용된 통화
-       * ISO 4217 사용
-       * 예) USD, KRW, CNY, EUR
-    
-2. products
-   1. product_id(string): 상품 ID
-   2. product_name(string): 상품 이름
-   3. category_code(string): 상품 카테고리 코드
-   4. category_name(string): 상품 카테고리 이름
-      * 해당 상품의 모든 카테고리 이름을 넣어주세요.
-      * 의류 > 남성의류 > 자켓 > 아우터 일 경우 아래와 같이 작성하여 주세요.
-       ```json
-          "category_name": ["의류", "남성의류", "자켓", "아우터"]
-       ```
-    5. quantity(unsigned int): 구매 갯수
-    6. product_final_price(float): 구매자가 이 상품을 구매하기 위하여 결제해야 할 금액
-    7. paid_at(string): 주문 완료 시간
-       * 주문 완료 시간이란 결제가 성공한 시간을 뜻합니다.
-
-       * Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)
-
-         > 예시)  대한민국(UTC+09:00 시간대)에서 2021년 01월 10일 오후 3시 44분 52초에 완료된 주문
-         >
-         > **paid_at : “2021-01-10T15:44:52+09:00”** 
-         >
-         > 예시) 중국(UTC+08:00 시간대)에서 2021년 01월 12일 오전 08시 32분 11초에 완료된 주문
-         >
-         > **paid_at : “2021-01-12T08:32:11+08:00”** 
-         >
-         > 예시) 미국(UTC-05:00 시간대)에서 2021년 01월 13일 오후 1시 11분 21초에 완료된 주문
-         >
-         > **paid_at : “2021-01-13T13:11:21-05:00”** 
-    8. confirmed_at(string): 구매 확정 시간
-       * 구매 확정 시간이란 상품이 배송되어 쇼핑몰에서 지정한 환불/취소 기간이 지나 더 이상 환불/취소가 불가능한 상태가 된 시간을 뜻합니다.
-
-       * 구매 확정 되지 않았다면 공백 문자열을 전송해주세요.
-
-       * Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)
-
-         > 예시)  대한민국(UTC+09:00 시간대)에서 2021년 01월 15일 오후 3시 44분 52초에 구매 확정된 주문
-         >
-         > **confirmed_at : “2021-01-15T15:44:52+09:00”** 
-         >
-         > 예시) 중국(UTC+08:00 시간대)에서 2021년 01월 17일 오전 08시 32분 11초에 구매 확정된 주문
-         >
-         > **confirmed_at : “2021-01-17T08:32:11+08:00”** 
-         >
-         > 예시) 미국(UTC-05:00 시간대)에서 2021년 01월 18일 오후 1시 11분 21초에 구매 확정된 주문
-         >
-         > **confirmed_at: “2021-01-18T13:11:21-05:00”** 
-    9. canceled_at(string): 구매 취소 시간
-       * 구매 취소 시간이란 구매자의 요청으로 환불, 취소, 반품 등 처리가 완료된 시간을 뜻합니다.
-       
-       * 구매 취소 되지 않았다면 공백 문자열을 전송해주세요.
-       
-       * Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)
-       
-         > 예시)  대한민국(UTC+09:00 시간대)에서 2021년 01월 20일 오전07시 11분 13초에 구매 취소된 주문
-         >
-         > **canceled_at : “2021-01-15T07:11:13+09:00”** 
-         >
-         > 예시) 중국(UTC+08:00 시간대)에서 2021년 01월 22일 오후 05시 21분 09초에 구매 취소된 주문
-         >
-         > **canceled_at : “2021-01-22T17:21:09+08:00”** 
-         >
-         > 예시) 미국(UTC-05:00 시간대)에서 2021년 01월 25일 오전 03시 20분 21초에 구매 취소된 주문
-         >
-         > **canceled_at: “2021-01-25T03:20:21-05:00”** 
-
-3. linkprice
-    1. lpinfo(string): "LPINFO"라는 쿠키에 저장된 값
-    2. merchant_id(string): 링크프라이스로부터 받은 광고주(머천트) ID
-    3. user_agent(string): USER_AGENT정보
-    4. remote_addr(string): 구매자의 IP주소, 가급적 마스킹 처리해 주세요. 예) 118.221.\*.\*
-    5. <a name="device_type"></a>device_type(string): 장치 구분 값
-       
-        * web-pc: 모바일이이 아닌 장치에서 발생한 웹 실적
-        
-        * web-mobile: 모바일 장치에서 발생한 웹 실적
-        
-        * app-ios: iOS App을 통해 발생한 실적 
-        
-        * app-android: Android App을 통해 발생한 실적
-
-    <br>
-#### Request json 데이터 타입
-
-| KEY                                         | 값                                                                                                 | 타입              |
-|---------------------------------------------|---------------------------------------------------------------------------------------------------|-----------------|
-| order                                       | 주문정보                                                                                              | object          |
-| &nbsp;&nbsp;&nbsp;&nbsp;order_id            | 구매자가 인지 가능한 주문번호로, 매체의 누락문의시 이 주문번호로 누락 여부를 조회할 수 있습니다.                                           | varchar(100)    |
-| &nbsp;&nbsp;&nbsp;&nbsp;final_paid_price    | 배송비를 제외한 구매자의 실결제 금액입니다.<br>* 배송비를 구매자가 부담 시 실결제금액에서 배송비를 제외한 금액입니다.<br>* 무료배송인 경우엔 실결제 금액 전체입니다. | float           |
-| &nbsp;&nbsp;&nbsp;&nbsp;currency            | 상품 결제시 사용된 통화<br>ISO 4217 사용<br>예) USD, KRW, CNY, EUR                                             | varchar(3)      |
-| &nbsp;&nbsp;&nbsp;&nbsp;user_name           | 누락문의시 누구의 실적인지를 알기 위해 사용 할 구매자 이름, 가급적 마스킹 처리해 주세요. 예) 김**, 이**                                   | varchar(100)    |
-| products[]                                  | 개별 상품 데이터 리스트                                                                                     | array< object > |
-| &nbsp;&nbsp;&nbsp;&nbsp;product_id          | 상품코드                                                                                              | varchar(100)    |
-| &nbsp;&nbsp;&nbsp;&nbsp;product_name        | 상품명                                                                                               | varchar(300)    |
-| &nbsp;&nbsp;&nbsp;&nbsp;category_code       | 카테고리코드                                                                                            | varchar(200)    |
-| &nbsp;&nbsp;&nbsp;&nbsp;category_name       | 카테고리 명                                                                                            | varchar(100)    |
-| &nbsp;&nbsp;&nbsp;&nbsp;quantity            | 구매 갯수                                                                                             | int(11)         |
-| &nbsp;&nbsp;&nbsp;&nbsp;product_final_price | 상품 금액                                                                                             | float           |
-| &nbsp;&nbsp;&nbsp;&nbsp;paid_at             | 주문 완료 시간                                                                                          | datetime        |
-| &nbsp;&nbsp;&nbsp;&nbsp;confirmed_at        | 구매 확정 시간                                                                                          | datetime        |
-| &nbsp;&nbsp;&nbsp;&nbsp;canceled_at         | 구매 취소 시간                                                                                          | datetime        |
-| linkprice                                   | 링크프라이스에서 필요한 데이터                                                                                  | object          |
-| &nbsp;&nbsp;&nbsp;&nbsp;merchant_id         | 머천트 ID                                                                                            | varchar(10)     |
-| &nbsp;&nbsp;&nbsp;&nbsp;lpinfo              | lpinfo 쿠키 값                                                                                       | varchar(500)    |
-| &nbsp;&nbsp;&nbsp;&nbsp;user_agent          | user_agent 정보                                                                                     | varchar(1000)   |
-| &nbsp;&nbsp;&nbsp;&nbsp;remote_addr         | 구매자의 IP 주소                                                                                        | varchar(100)    |
-| &nbsp;&nbsp;&nbsp;&nbsp;device_type         | 장치 구분 값                                                                                           | varchar(10)     |
+| KEY                                         | 값                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | 타입             |
+|---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------|
+| &nbsp;&nbsp;&nbsp;&nbsp;order               | 주문정보                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | object         |
+| &nbsp;&nbsp;&nbsp;&nbsp;order_id            | 구매자가 인지 가능한 주문번호로, 매체의 누락문의시 이 주문번호로 누락 여부를 조회할 수 있습니다.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | varchar(100)   |
+| &nbsp;&nbsp;&nbsp;&nbsp;final_paid_price    | 배송비를 제외한 구매자의 실결제 금액입니다.<br>* 배송비를 구매자가 부담 시 실결제금액에서 배송비를 제외한 금액입니다.<br>* 무료배송인 경우엔 실결제 금액 전체입니다.                                                                                                                                                                                                                                                                                                                                                                                                                                           | float          |
+| &nbsp;&nbsp;&nbsp;&nbsp;currency            | 상품 결제시 사용된 통화<br>* ISO 4217 사용<br>예) USD, KRW, CNY, EUR                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | varchar(3)     |
+| &nbsp;&nbsp;&nbsp;&nbsp;user_name           | 누락문의시 누구의 실적인지를 알기 위해 사용 할 구매자 이름, 가급적 마스킹 처리해 주세요. 예) 김**, 이**                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | varchar(100)   |
+| &nbsp;&nbsp;&nbsp;&nbsp;products[]          | 개별 상품 데이터 리스트                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | array< object > |
+| &nbsp;&nbsp;&nbsp;&nbsp;product_id          | 상품 ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | varchar(100)   |
+| &nbsp;&nbsp;&nbsp;&nbsp;product_name        | 상품 이름                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | varchar(300)   |
+| &nbsp;&nbsp;&nbsp;&nbsp;category_code       | 상품 카테고리 코드                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | varchar(200)   |
+| &nbsp;&nbsp;&nbsp;&nbsp;category_name       | 상품 카테고리 이름 <br>* 해당 상품의 모든 카테고리 이름을 넣어주세요.<br>* 예) 의류 > 남성의류 > 자켓 > 아우터 일 경우 아래와 같이 작성하여 주세요. <br>  "category_name": ["의류", "남성의류", "자켓", "아우터"]                                                                                                                                                                                                                                                                                                                                                                                            | varchar(100)   |
+| &nbsp;&nbsp;&nbsp;&nbsp;quantity            | 구매 갯수                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | int(11)        |
+| &nbsp;&nbsp;&nbsp;&nbsp;product_final_price | 구매자가 이 상품을 구매하기 위하여 결제해야 할 금액                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | float          |
+| &nbsp;&nbsp;&nbsp;&nbsp;paid_at             | 주문 완료 시간<br>* 주문 완료 시간이란 결제가 성공한 시간을 뜻합니다. <br>* Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.) <br><br>- 예시) 대한민국(UTC+09:00 시간대)에서 2021년 01월 10일 오후 3시 44분 52초에 완료된 주문 <br>paid_at : “2021-01-10T15:44:52+09:00”<br><br>- 예시) 중국(UTC+08:00 시간대)에서 2021년 01월 12일 오전 08시 32분 11초에 완료된 주문<br>paid_at : “2021-01-12T08:32:11+08:00”<br><br>- 예시) 미국(UTC-05:00 시간대)에서 2021년 01월 13일 오후 1시 11분 21초에 완료된 주문<br>paid_at : “2021-01-13T13:11:21-05:00”                                                                                                       | datetime       |
+| &nbsp;&nbsp;&nbsp;&nbsp;confirmed_at        | 구매 확정 시간<br>* 구매 확정 시간이란 상품이 배송되어 쇼핑몰에서 지정한 환불/취소 기간이 지나 더 이상 환불/취소가 불가능한 상태가 된 시간을 뜻합니다.<br>* 구매 확정 되지 않았다면 공백 문자열을 전송해주세요.<br>* Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)<br><br>- 예시) 대한민국(UTC+09:00 시간대)에서 2021년 01월 15일 오후 3시 44분 52초에 구매 확정된 주문<br>confirmed_at : “2021-01-15T15:44:52+09:00”<br><br>- 예시) 중국(UTC+08:00 시간대)에서 2021년 01월 17일 오전 08시 32분 11초에 구매 확정된 주문<br>confirmed_at : “2021-01-17T08:32:11+08:00”<br><br>- 예시) 미국(UTC-05:00 시간대)에서 2021년 01월 18일 오후 1시 11분 21초에 구매 확정된 주문<br>confirmed_at: “2021-01-18T13:11:21-05:00” | datetime       |
+| &nbsp;&nbsp;&nbsp;&nbsp;canceled_at         | 구매 취소 시간<br>* 구매 취소 시간이란 구매자의 요청으로 환불, 취소, 반품 등 처리가 완료된 시간을 뜻합니다.<br>* 구매 취소 되지 않았다면 공백 문자열을 전송해주세요.<br>* Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)<br><br>- 예시) 대한민국(UTC+09:00 시간대)에서 2021년 01월 20일 오전07시 11분 13초에 구매 취소된 주문<br>canceled_at : “2021-01-15T07:11:13+09:00”<br><br>- 예시) 중국(UTC+08:00 시간대)에서 2021년 01월 22일 오후 05시 21분 09초에 구매 취소된 주문<br>canceled_at : “2021-01-22T17:21:09+08:00”<br><br>- 예시) 미국(UTC-05:00 시간대)에서 2021년 01월 25일 오전 03시 20분 21초에 구매 취소된 주문<br>canceled_at: “2021-01-25T03:20:21-05:00”                           | datetime       |
+| &nbsp;&nbsp;&nbsp;&nbsp;linkprice           | 링크프라이스에서 필요한 데이터                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | object         |
+| &nbsp;&nbsp;&nbsp;&nbsp;merchant_id         | 링크프라이스로부터 받은 광고주(머천트) ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | varchar(10)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;lpinfo              | "LPINFO"라는 쿠키에 저장된 값                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | varchar(500)   |
+| &nbsp;&nbsp;&nbsp;&nbsp;user_agent          | user_agent 정보                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | varchar(1000)  |
+| &nbsp;&nbsp;&nbsp;&nbsp;remote_addr         | 구매자의 IP주소, 가급적 마스킹 처리해 주세요. 예) 118.221.\*.\*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | varchar(100)   |
+| &nbsp;&nbsp;&nbsp;&nbsp;device_type         | 장치 구분 값<br>- web-pc: 모바일이이 아닌 장치에서 발생한 웹 실적<br>- web-mobile: 모바일 장치에서 발생한 웹 실적<br>- app-ios: iOS App을 통해 발생한 실적<br>- app-android: Android App을 통해 발생한 실적                                                                                                                                                                                                                                                                                                                                                                                    | varchar(10)    |
 
 
 ### 3. Request Sample

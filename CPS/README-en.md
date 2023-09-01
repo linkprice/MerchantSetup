@@ -65,100 +65,32 @@
 
 ## 3. Realtime sending sales data
 
-1. After user finish payment, send Request data below in json type
 
-    1. There should be one order information in json data. 
-    2. It cannot include multi orders.
-    3. If there are multi products in one order, it should be in same json data.
-    4. If you are operating at the same time as a CPS advertising network other than LinkPrice, you should only send the performance of the last clicked network. If you need to different setup, please contact LinkPrice for consultation.
-    4. Request URL- ://service.linkprice.com/lppurchase_cps_v4.php
+| KEY                                         | VALUE                                                                                                                                                                                                                          | TYPE            |
+|---------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
+| &nbsp;&nbsp;&nbsp;&nbsp;order               | Order information                                                                                                                                                                                                              | object          |
+| &nbsp;&nbsp;&nbsp;&nbsp;order_id            | Order ID                                                                                                                                                                                                                       | varchar(100)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;final_paid_price    | Amount that user pay<br>* If user pay delivery fee, final_paid_price should not include delivery fee.<br>* If delivery fee in free for user, final_paid_price is the same with How much user paid.                             | float           |
+| &nbsp;&nbsp;&nbsp;&nbsp;currency            | Currency<br>* ISO 4217<br>  EX)USD, KRW, CNY, EUR                                                                                                                                                                              | varchar(3)      |
+| &nbsp;&nbsp;&nbsp;&nbsp;user_name           | User name                                                                                                                                                                                                                      | varchar(100)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;product[]           | Individual product data list                                                                                                                                                                                                   | array< object > |
+| &nbsp;&nbsp;&nbsp;&nbsp;product_id          | Product ID                                                                                                                                                                                                                     | varchar(100)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;product_name        | Product Name                                                                                                                                                                                                                   | varchar(300)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;category_code       | Category Code                                                                                                                                                                                                                  | varchar(200)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;category_name       | Category Name <br>* Put all category names<br>* EX) Clothe > Men > Jacket > Rider jacket, please write as follows.<br>"category_name": ["Clothe", "Men", "Jacket", "Rider Jacket"]                                             | varchar(100)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;quantity            | Quantity                                                                                                                                                                                                                       | int(11)         |
+| &nbsp;&nbsp;&nbsp;&nbsp;product_final_price | Amount that user should pay for this product                                                                                                                                                                                   | float           |
+| &nbsp;&nbsp;&nbsp;&nbsp;paid_at             | payment time<br>* Date Format : ISO-8601<br> EX) 2018-07-27T10:13:44+00:00                                                                                                                                                     | datetime        |
+| &nbsp;&nbsp;&nbsp;&nbsp;confirmed_at        | confirmed time for order<br>* Confirmed order means order cannot be refunded or canceled anymore.<br>* If order is not confirmed yet, please fill in empty string<br>* Date Format : ISO-8601<br>EX) 2018-07-27T10:13:44+00:00 | datetime        |
+| &nbsp;&nbsp;&nbsp;&nbsp;canceled_at         | canceled time for order<br>* canceled order means order is completely canceled by customer.<br>* If order is not canceled, please fill in empty string.<br>* Date Format : ISO-8601<br>EX) 2018-07-27T10:13:44+00:00           | datetime        |
+| &nbsp;&nbsp;&nbsp;&nbsp;linkprice           | Dat required for linkprice                                                                                                                                                                                                     | object          |
+| &nbsp;&nbsp;&nbsp;&nbsp;merchant_id         | Merchant ID that Linkprice provides                                                                                                                                                                                            | varchar(10)     |
+| &nbsp;&nbsp;&nbsp;&nbsp;lpinfo              | "LPINFO" cookie value                                                                                                                                                                                                          | varchar(500)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;user_agent          | USER_AGENT information                                                                                                                                                                                                         | varchar(1000)   |
+| &nbsp;&nbsp;&nbsp;&nbsp;remote_addr         | User IP. It is client IP not server IP.                                                                                                                                                                                        | varchar(100)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;device_type         | device separator value<br>- web-pc: All sales data through web but mobile<br>- web-mobile: Web sales data with mobile<br>- app-android: Sales data with Android app<br>- app-ios: Sales data with iOS app                      | varchar(10)     |
 
-2. Request
-
-    1. order
-
-        1. order_id(string): Order ID. 
-        2. final_paid_price(float): Amount that user pay
-            1. If user pay delivery fee, final_paid_price should not include delivery fee.
-            2. If delivery fee in free for user, final_paid_price is the same with How much user paid.
-        3. user_name(string): User name. 
-        4. currency(string): Currency
-            1. ISO 4217
-            2. EX) USD, KRW, CNY, EUR
-
-    2. products
-
-        1. product_id(string): Product ID
-
-        2. product_name(string): Product Name
-
-        3. category_code(string): Category Code
-
-        4. category_name(string): Category Name
-
-            1. Put all category names
-            2. EX) Clothe > Men > Jacket > Rider jacket 일 경우 아래와 같이 작성하여 주세요.
-
-            ```json
-            "category_name": ["Clothe", "Men", "Jacket", "Rider Jacket"]
-            ```
-
-        5. quantity(unsigned int): Quantity
-
-        6. product_final_price(float): Amount that user should pay for this product
-
-        7. paid_at(string): payment time
-
-            1. Date Format : ISO-8601 EX) 2018-07-27T10:13:44+00:00
-
-        8. confirmed_at(string): confirmed time for order
-
-            1. Confirmed order means order cannot be refunded or canceled anymore.
-            2. If order is not confirmed yet, please fill in empty string
-            3. Date Format : ISO-8601 EX) 2018-07-27T10:13:44+00:00
-
-        9. caceled_at(string): canceled time for order
-
-            1. canceled order means order is completely canceled by customer.  
-            2. If order is not canceled, please fill in empty string.
-            3. Date Format : ISO-8601 EX) 2018-07-27T10:13:44+00:00
-
-    3. linkprice
-
-        1. lpinfo(string): "LPINFO" cookie value
-        2. merchant_id(string): Merchant ID that Linkprice provides
-        3. user_agent(string): USER_AGENT information
-        4. remote_addr(string): User IP. It is client IP not server IP.
-        5. device_type(string): 
-            1. web-pc: All sales data through web but mobile
-            2. web-mobile: Web sales data with mobile
-            3. app-android: Sales data with Android app
-            4. app-ios: Sales data with iOS app
-
-    <br>
-#### Request json 데이터 타입
-
-| KEY               | VALUE                    | TYPE          |
-|-------------------|--------------------------|---------------|
-| order_id          | Order ID                 | varchar(100)  |
-| final_paid_price  | Amount that user pay     | float         |
-| currency          | Currency                 | varchar(3)    |
-| user_name         | User name                | varchar(100)  |
-| product_id        | Product ID               | varchar(100)  |
-| product_name      | Product Name             | varchar(300)  |
-| category_code     | Category Code            | varchar(200)  |
-| category_name     | Category Name            | varchar(100)  |
-| quantity          | Quantity                 | int(11)       |
-| product_final_price | product price            | float         |
-| paid_at           | payment time             | datetime      |
-| confirmed_at      | confirmed time for order | datetime      |
-| canceled_at       | canceled time for order  | datetime      |
-| merchant_id       | Merchant ID              | varchar(10)   |
-| lpinfo            | lpinfo cookie value      | varchar(500)  |
-| user_agent        | user_agent information   | varchar(1000) |
-| remote_addr       | User IP                  | varchar(100)  |
-| device_type       | item division value      | varchar(10)   |
-
+<br>
 
 3. Request Sample
 
