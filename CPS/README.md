@@ -1,287 +1,376 @@
-# CPS 셋업 가이드
-
-
-
-## 1. 제휴 마케팅이란?
-
-> 제휴 마케팅이란 제품/ 서비스 등을 판매하는 인터넷 업체(Merchant)가 고객을 끌어들이고 진열, 판매하는 공간으로 자신의 사이트 뿐만 아니라 다른 관련 사이트(Affiliate)로 까지 공간을 확장하여 이때 발생하는 수입을 제휴맺은 사이트(Affiliate)와 공유하는 새로운 형태의 마케팅 기법입니다. 
-
-* [제휴 마케팅 소개](https://helpdesk.linkprice.com/pages/merchant-faq-introduce)
+# CPS (여행 광고주용) 셋업 가이드
 
 
 
 
-## 2. 게이트웨이 페이지
 
-### 1. 게이트웨이 페이지란?
 
-* 사용자가 배너를 클릭하면, 링크프라이스를 거쳐, 광고주(머천트) 사이트로 리다이렉션 하게됩니다. 
 
-* 광고주(머천트) 사이트로 리다이렉션 하기 전, 처음으로 거치는 광고주(머천트) 페이지를 게이트웨이 페이지라고 합니다.
+# 1. 제휴 마케팅이란?
 
-* 게이트웨이 페이지는 유효성 체크, 쿠키 생성, 목적 페이지로 리다이렉션 등의 작업을 합니다.
+제휴 마케팅이란 제품/서비스 등을 판매하는 인터넷 업체(Merchant)가 고객을 끌어들이고 판매 촉진을 위해 다른 매체 사이트(Affiliate)와 제휴를 통해 홍보 활동을 진행합니다.
+이 때 발생하는 수입을 홍보 활동을 진행했던 매체(Affiliate)와 공유하는 마케팅 기법입니다.
+
+[제휴 마케팅에 대해 좀 더 자세히 알아보기](https://helpdesk.linkprice.com/pages/merchant-faq-introduce)
+
+
+
+# 2. 링크프라이스-광고주 간 셋업
+
+먼저 광고주로서 링크프라이스의 제휴마케팅 플랫폼을 이용하기 위해선 연동 작업을 필수적으로 해주셔야 합니다.
+이러한 작업을 "셋업(Setup)"이라고 정의합니다.
+
+셋업 작업을 위해선 크게 아래와 같이 필수적으로 작업 진행해주셔야 합니다.
+
+![image-1](image1.png)
+
+1. [광고주 사이트 내부에 게이트웨이 페이지 작업하기](#2-1. 게이트웨이 작업)
+
+2. 실적 발생 시, 자체 별도 DB 테이블 생성 후 적재하기
+
+3. 링크프라이스 실적 발생 시, 링크프라이스에게 실적 전송하기
+
+4. 링크프라이스를 통해 발생된 실적에 대해 리스트를 제공하는 API 작업하기
+
+
+
+## 2-1. 게이트웨이 작업
+
+### 2-1-1. 작업이 필요한 이유
+
+링크프라이스에 소속된 매체(Affiliate)들은 링크프라이스에서 제공하는 제휴링크를 통해 자신의 사이트 혹은 타 사이트에서 홍보활동을 진행합니다.
+
+광고주 입장에서는 발생되는 실적이 링크프라이스의 실적인지를 판단할 수 있는 값(Tracking Code)이 필요한데요.
+
+게이트웨이 페이지를 통해 클라이언트에 쿠키가 생성되고 이 생성된 쿠키를 가지고 실적을 트래킹하게 됩니다.
+
+
+
+### 2-1-2. 개요
+
+게이트웨이에서는 아래와 같은 동작을 합니다.
+
+```
+1. 파라미터 유효성 체크
+2. 실적 트래킹을 위한 쿠키 생성
+3. 광고주 사이트로 이동
+```
+
+링크프라이스의 제휴링크를 통해 광고주의 게이트웨이 페이지를 거쳐서 트래킹 코드가 생성된 이후, 광고주 사이트로 진입하게 됩니다.
 
 ![image-20210216180317429](image-20210216180317429.png)
 
-### 2. 게이트웨이 페이지를 생성하는 목적
+### 2-1-3. 작업 방법
 
-게이트웨이 페이지 생성에 가장 중요한 목적은 **"LPINFO" 쿠키를 생성**하는 것입니다.
+**Step1**. 링크프라이스에서 광고주에게 트래킹을 위한 자바스크립트 코드를 전달합니다.
 
+**Step2**. 사이트 내부에 게이트웨이 페이지 URL를 생성 후, 링크프라이스에서 전달받은 자바스크립트 코드를 추가해주십시오.
 
-
-### 3. 작업내용 
-
-1. 게이트웨이 페이지를 생성 한 후, **링크프라이스에서 전달받은 자바스크립트(javascript)를 추가**해주세요.
-2. 예를 들어  https://www.yourdomain.com/linkprice/gateway 처럼, 게이트웨이 페이지를 생성해 주시고 링크프라이스에서 제공하는 자바스크립트를 추가해주세요.
-3. 게이트웨이 페이지 생성은 사용하시는 서버 환경에 따라 달라질 수 있습니다.
-4. **게이트웨이 페이지는 아무나 접근 가능한 웹페이지이며 https로 접속 가능해야 합니다**.
-
-   <u>https가 불가한 경우 링크프라이스에 연락주세요.</u>
-
-5. 생성한 **게이트웨이 페이지에 URL을 링크프라이스 담당자에게 알려주세요.**
-6. 링크프라이스 내부에 적용 후 LPINFO 쿠키를 확인할 수 있는 Click URL을 생성해서 전달드립니다.
-
-> **[Sample Code]**
+> 내부적으로 트래킹을 위해서 링크프라이스에서는 Google Tag Manager 플랫폼을 사용 중입니다.
 >
->  샘플코드로 실제코드와는 다릅니다. 반드시 링크프라이스에서 제공하는 자바스크립트를 게이트웨이 페이지에 추가해주세요.
+> 게이트웨이 구현의 경우 사용하시는 서버 환경에 따라 편하게 구현해주시면 됩니다.
 >
->```javascript
-><!-- Google Tag Manager -->
->     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
->      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
->      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
->      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
->    })(window,document,'script','dataLayer','GTM-P3HTV4');</script>
-><!-- End Google Tag Manager -->
->```
+> 예시)
 >
-
-
-
-### 4. FAQ
-
-
-> **Q: 게이트웨이 페이지란 무엇인가요?**
+> php 사용 시, https://[도메인]/linkprice/gateway.php
 >
-> * A: 사용자가 광고 클릭 후 광고주(머천트) 사이트로 이동 시, 처음으로 거치는 페이지로 유효성 체크, 쿠키 생성, 목적 페이지로 리다이렉션하는 페이지입니다.
+> jsp 사용 시, https://[도메인]/linkprice/gateway.jsp
 >
-> **Q: LPINFO란 무엇인가요?**
+> html 사용 시, https://[도메인]/linkprice/gateway.html
+
+**Step3**. 구현한 게이트웨이 URL을 반드시 링크프라이스 담당자에게 전달바랍니다.
+
+**Step4**. 링크프라이스에서는 광고주로부터 전달받은 URL을 내부 플랫폼에 반영한 이후, 제휴링크를 생성하여 전달드립니다.
+
+> 최종적으로 아래 URL로 매체에서는 홍보활동을 진행합니다.
 >
-> * A: LPINFO(쿠키)는 매체사의 실적 추적을 위해 사용되는 값으로, 링크프라이스에서 전달한 광고 유입 정보입니다. 
+> 샘플 URL로 실제 URL과는 다릅니다.
 >
-> **Q: 스크립트는 어디서 제공받을 수 있나요?**
+> https://click.linkprice.com/click.php?m=clickbuy&a=A100000131&l=0000
+
+**Step5**. 제휴링크로 진입하고 광고주 사이트로 이동 시, 브라우저 쿠키에 **LPINFO라는 트래킹 코드 쿠키**가 생성되었는지 확인합니다.
+
+
+
+### 2-1-4. 샘플 코드
+
+아래 샘플코드는 참고용으로 실제 코드와는 다릅니다.
+
+반드시, **링크프라이스에서 제공하는 코드를 추가**바랍니다.
+
+```javascript
+<!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+   })(window,document,'script','dataLayer','GTM-P3HTV4');</script>
+<!-- End Google Tag Manager -->
+```
+
+
+
+## 2-2. 실적 발생 시, 자체 별도 DB 테이블 생성 후 적재 작업
+
+### 2-2-1. 작업이 필요한 이유
+
+링크프라이스로 실시간으로 전송한 데이터가 네트워크 전송 지연 이슈나 프로그램 오류로 인해 전송되지 않을 수가 있습니다.
+
+링크프라이스로 전송한 데이터와 광고주에 저장된 데이터를 대조하여 정산을 진행하고자 저장을 요청드리고 있습니다.
+
+해당 테이블에 적재한 데이터는 실적목록 데이터 출력에 활용됩니다.
+
+
+
+### 2-2-2. 작업 방법
+
+**Step1**. 사용하시는 DB에 테이블을 생성합니다.
+
+```sql
+create table lpinfo(
+  	id int(10) unsigned NOT NULL AUTO_INCREMENT,				 	# Unique Key
+    order_id varchar(30),		 															# 링크프라이스에 전송할 주문번호
+    product_id varchar(30),	 															# 링크프라이스에 전송할 상품코드
+    lpinfo varchar(580),		 															# 링크프라이스 트래킹 코드 (쿠키명 LPINFO) 
+    user_agent varchar(300), 															# 구매자의 User Agent 값
+    ip varchar(50),					 															# 구매자의 IP
+    device_type varchar(11)	 															# 구매자의 운영체제 환경
+)
+```
+
+> 위 테이블 생성 쿼리는 Mysql 기준으로 드린 예시입니다.
 >
->   * A: 링크프라이스 담당자에게 문의하시면 전달 드립니다. 
-
-
-
-## 3. LPINFO 테이블 생성
-
-### 1. 작업내용 
-
-1. 링크프라이스는 실적 추적을 위하여 다음의 데이터가(이하 **링크프라이스 데이터**) 반드시 필요합니다.
-
-    * lpinfo: "LPINFO"라는 쿠키에 저장된 값
-
-    * user_agent: USER_AGENT정보
-
-    * ip: 사용자의 IP주소
-
-    * device_type: 장치 구분 값
-      * web-pc: 모바일이 아닌 장치에서 발생한 웹 실적
-
-      * web-mobile: 모바일 장치에서 발생한 웹 실적
-
-      * app-android: Android App을 통해 발생한 실적
-
-      * app-ios: iOS App을 통해 발생한 실적 
-
-2. **링크프라이스 데이터**를 저장 할 테이블을 아래처럼 생성합니다.
-
-  ```mysql
-    create table lpinfo(
-    	id int not null,
-        order_id varchar(30),
-        product_id varchar(30),
-        lpinfo varchar(580),
-        user_agent varchar(300),
-        ip varchar(50),
-        device_type varchar(11)
-    )
-  ```
-
-3. **주문완료된 링크프라이스 실적 데이터**를 **반드시 저장해야 합니다**.
-
-4. 테이블에는 링크프라이스를 통해 발생한 실적만 저장해주세요.(LPINFO라는 쿠키가 존재하는 경우에만 테이블에 저장)
-
-5. LPINFO 테이블에 저장된 주문은 **5.실적목록** 작업에 사용해주시면 됩니다. 
-
-   
-
-###  2.  FAQ
-
-> **Q: 데이터를 LPINFO테이블에 저장하는 이유가 궁금합니다.**
+> 데이터를 저장할 수 있다면 NoSql을 사용하셔도 됩니다.
 >
-> * A: 대부분의 경우, 링크프라이스에 전송된 데이터와 광고주(머천트)의 데이터가 100% 일치하지 않습니다. 
->
->    ​	누락 실적이 발생하거나,  문의가 있는 실적을 링크프라이스에 전송된 데이터와 광고주(머천트)에 저장된 데이터를 
->
->    ​    대조하기 위해 저장을 요청 드립니다. 테이블에 저장된 데이터는 실적목록 데이터 출력에 사용해주시면 됩니다. 
->    
+> 컬럼 이름도 주어진 서버 환경에 맞춰 생성하시면 됩니다.
+
+**Step2**. 실적 발생(=결제 완료) 시,  브라우저 쿠키에 저장된 LPINFO 쿠키가 존재 여부를 체크 후 DB 테이블에 적재해주십시오.
 
 
 
-## 4. 실시간 실적 전송
+### 2-2-3. 샘플 코드
 
-### 1. 작업내용 
+**JSP 예제**
 
-1. 사용자가 주문완료시, 링크프라이스에 아래의 Request 데이터를 **json** 으로 전송합니다. 
+```jsp
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
 
-    * **Request URL- http(s):://service.linkprice.com/lppurchase_cps_v4.php **
+<%
+  // 실적 발생!!
+  
+  String orderId = request.getParameter("order_id") != null ? request.getParameter("order_id") : "";
+  String productId = request.getParameter("product_id") != null ? request.getParameter("product_id") : "";
+  String lpinfo = request.getCookies() != null ? request.getCookies()[0].getValue() : "";
+  String userAgent = request.getHeader("User-Agent") != null ? request.getHeader("User-Agent") : "";
+  String ip = request.getRemoteAddr() != null ? request.getRemoteAddr() : "";
+  
+  /*
+  web-pc : PC용 브라우저에서 발생된 실적
+  web-mobile : 모바일 웹에서 발생된 실적
+  app-android : 안드로이드 앱 환경에서 발생한 실적 (웹뷰 포함)
+  app-ios : iOS 앱 환경에서 발생한 실적 (웹뷰 포함)
+  */
+  String deviceType = "web-pc";	
 
-2. 이 json에는 하나의 주문(order)만 있어야 합니다. (여러 개의 다른 주문(order)이 포함 되어서는 안됩니다.)
+  Connection dbConnection = null;
+  Statement statement = null;
 
-3. 하나의 주문(order)에 여러 가지의 상품을 샀다면, **하나의 json에 여러개의 상품이 모두 포함**되어야 합니다.
-
-    > 링크프라이스 이외의 CPS 광고 네트워크와 동시에 운영하는 경우, 마지막 클릭한 네트워크의 실적만 전송해야 합니다. 
-    >
-    > 이와 다르게 셋업 해야하는 경우 링크프라이스 담당자에게 연락하여 협의해주세요.
-
-
-
-### 2. FAQ
-
-> **Q: 전송해야 하는 실결제 금액이란 무엇인가요??**
->
-> * A: 배송비를 제외하고 판매가에서 할인가를 적용한 최종 금액
-> * 판매 촉진을 위해 제공한 할인 쿠폰, 할인 코드는 할인가로 포함되어 실결제 금액에서 차감되도록 적용됩니다.
-> * 마일리지, 자사/타사 적립금 등 현금성 캐시는 할인가에 차감되도록 적용이 되어선 안됩니다.
->
-> **Q: Npay 결제가 가능합니다. 어떻게 실시간 실적을 전송해야 하나요?**
->
-> * A: 네이버페이 주문형: [셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Npay.md)
-> * A: 네이버페이 결제형: [셋업 가이드](https://github.com/linkprice/MerchantSetup/blob/master/CPS/README-Npay2.md)
->
-> **Q: 무통장입금(가상계좌) 결제가 가능합니다. 실적은 언제 전송해야 하나요?**
->
-> * A: 주문완료와 동시에 실적을 전송해주시면 됩니다. 만약, 미입금 상태로 주문이 취소된 경우 실적목록에 취소데이터를 보여주시면 실적 취소됩니다. 
->
-> **Q: 실시간 실적 전송을 한 뒤 추후에 취소 또는 환불 처리된 경우 실적 취소 처리를 어떻게 진행하나요?**
->
->   * A: 실적 취소처리는 실적목록을 통해 진행됩니다. 취소 또는 환불된 실적은 실적목록에 취소데이터를 보여주세요.  
->
->     실적 취소는 실적이 발생한 익월 20일에 진행되며, 이후에 변경된 상태는 반영이 불가능합니다.  
-
-​    
-
-### 3. Request 
-
-1. order
-    1. order_id(string): 구매자가 인지 가능한 주문번호로, 매체의 누락문의시 이 주문번호로 누락 여부를 조회할 수 있습니다.
-    2. final_paid_price(float):  배송비를 제외 한 구매자의 실결제 금액
-       * 배송비를 구매자가 부담시 실결제금액에서 배송비를 제외한 금액입니다.
-       * 무료배송인 경우엔 실결제 금액 전체입니다.
-    3. user_name(string): 누락문의시 누구의 실적인지를 알기 위해 사용 할 구매자 이름, 가급적 마스킹 처리해 주세요. 예) 김**, 이**
-    4. currency(string): 상품 결제시 사용된 통화
-       * ISO 4217 사용
-       * 예) USD, KRW, CNY, EUR
+  try {
+    Class.forName("com.mysql.jdbc.Driver");
+    dbConnection = DriverManager.getConnection("jdbc:mysql://localhost/DATABASE_NAME", "ID", "PASSWORD");
     
-2. products
-   1. product_id(string): 상품 ID
-   2. product_name(string): 상품 이름
-   3. category_code(string): 상품 카테고리 코드
-   4. category_name(string): 상품 카테고리 이름
-      * 해당 상품의 모든 카테고리 이름을 넣어주세요.
-      * 의류 > 남성의류 > 자켓 > 아우터 일 경우 아래와 같이 작성하여 주세요.
-       ```json
-          "category_name": ["의류", "남성의류", "자켓", "아우터"]
-       ```
-    5. quantity(unsigned int): 구매 갯수
-    6. product_final_price(float): 구매자가 이 상품을 구매하기 위하여 결제해야 할 금액
-    7. paid_at(string): 주문 완료 시간
-       * 주문 완료 시간이란 결제가 성공한 시간을 뜻합니다.
+    if (lpinfo != null && !lpinfo.isEmpty()) {
+      // 내부 DB에 실적 저장
+      String query = "INSERT INTO lpinfo (order_id, product_id, lpinfo, user_agent, ip, device_type) VALUES (?, ?, ?, ?, ?, ?)";
+      PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+      preparedStatement.setString(1, orderId);
+      preparedStatement.setString(2, productId);
+      preparedStatement.setString(3, lpinfo);
+      preparedStatement.setString(4, userAgent);
+      preparedStatement.setString(5, ip);
+      preparedStatement.setString(6, deviceType);
+      
+      preparedStatement.executeUpdate();
+    }
+  } catch (SQLException e) {
+    e.printStackTrace();
+  } catch (ClassNotFoundException e) {
+    e.printStackTrace();
+  } finally {
+    if (statement != null) {
+      try {
+        statement.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+    if (dbConnection != null) {
+      try {
+        dbConnection.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+%>
+```
 
-       * Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)
+**ASP 예제**
 
-         > 예시)  대한민국(UTC+09:00 시간대)에서 2021년 01월 10일 오후 3시 44분 52초에 완료된 주문
-         >
-         > **paid_at : “2021-01-10T15:44:52+09:00”** 
-         >
-         > 예시) 중국(UTC+08:00 시간대)에서 2021년 01월 12일 오전 08시 32분 11초에 완료된 주문
-         >
-         > **paid_at : “2021-01-12T08:32:11+08:00”** 
-         >
-         > 예시) 미국(UTC-05:00 시간대)에서 2021년 01월 13일 오후 1시 11분 21초에 완료된 주문
-         >
-         > **paid_at : “2021-01-13T13:11:21-05:00”** 
-    8. confirmed_at(string): 구매 확정 시간
-       * 구매 확정 시간이란 상품이 배송되어 쇼핑몰에서 지정한 환불/취소 기간이 지나 더 이상 환불/취소가 불가능한 상태가 된 시간을 뜻합니다.
+```asp
+<%
+' 실적 발생!!
+Dim orderId
+Dim productId
+Dim lpinfo
+Dim userAgent
+Dim ip
+Dim deviceType
 
-       * 구매 확정 되지 않았다면 공백 문자열을 전송해주세요.
+orderId = Request("order_id")
+productId = Request("product_id")
+lpinfo = Request.Cookies("LPINFO")
+userAgent = Request.ServerVariables("HTTP_USER_AGENT")
+ip = Request.ServerVariables("REMOTE_ADDR")
 
-       * Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)
+' 디바이스 유형 설정
+deviceType = "web-pc"
 
-         > 예시)  대한민국(UTC+09:00 시간대)에서 2021년 01월 15일 오후 3시 44분 52초에 구매 확정된 주문
-         >
-         > **confirmed_at : “2021-01-15T15:44:52+09:00”** 
-         >
-         > 예시) 중국(UTC+08:00 시간대)에서 2021년 01월 17일 오전 08시 32분 11초에 구매 확정된 주문
-         >
-         > **confirmed_at : “2021-01-17T08:32:11+08:00”** 
-         >
-         > 예시) 미국(UTC-05:00 시간대)에서 2021년 01월 18일 오후 1시 11분 21초에 구매 확정된 주문
-         >
-         > **confirmed_at: “2021-01-18T13:11:21-05:00”** 
-    9. canceled_at(string): 구매 취소 시간
-       * 구매 취소 시간이란 구매자의 요청으로 환불, 취소, 반품 등 처리가 완료된 시간을 뜻합니다.
-       
-       * 구매 취소 되지 않았다면 공백 문자열을 전송해주세요.
-       
-       * Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)
-       
-         > 예시)  대한민국(UTC+09:00 시간대)에서 2021년 01월 20일 오전07시 11분 13초에 구매 취소된 주문
-         >
-         > **canceled_at : “2021-01-15T07:11:13+09:00”** 
-         >
-         > 예시) 중국(UTC+08:00 시간대)에서 2021년 01월 22일 오후 05시 21분 09초에 구매 취소된 주문
-         >
-         > **canceled_at : “2021-01-22T17:21:09+08:00”** 
-         >
-         > 예시) 미국(UTC-05:00 시간대)에서 2021년 01월 25일 오전 03시 20분 21초에 구매 취소된 주문
-         >
-         > **canceled_at: “2021-01-25T03:20:21-05:00”** 
+' MySQL 데이터베이스 연결
+Dim dbConnection
+Set dbConnection = Server.CreateObject("ADODB.Connection")
+dbConnection.Open "Driver={MySQL ODBC 8.0 Unicode Driver};Server=localhost;Database=DATABASE_NAME;Uid=ID;Pwd=PASSWORD;"
 
-3. linkprice
-    1. lpinfo(string): "LPINFO"라는 쿠키에 저장된 값
-    2. merchant_id(string): 링크프라이스로부터 받은 광고주(머천트) ID
-    3. user_agent(string): USER_AGENT정보
-    4. remote_addr(string): 구매자의 IP주소, 가급적 마스킹 처리해 주세요. 예) 118.221.\*.\*
-    5. <a name="device_type"></a>device_type(string): 장치 구분 값
-       
-        * web-pc: 모바일이이 아닌 장치에서 발생한 웹 실적
-        
-        * web-mobile: 모바일 장치에서 발생한 웹 실적
-        
-        * app-ios: iOS App을 통해 발생한 실적 
-        
-        * app-android: Android App을 통해 발생한 실적
-          
-          
+If Not lpinfo = "" Then
+    ' 내부 DB에 실적 저장
+    Dim query
+    query = "INSERT INTO lpinfo (order_id, product_id, lpinfo, user_agent, ip, device_type) VALUES (?, ?, ?, ?, ?, ?)"
+    
+    Dim cmd
+    Set cmd = Server.CreateObject("ADODB.Command")
+    cmd.ActiveConnection = dbConnection
+    cmd.CommandText = query
+    cmd.CommandType = 1 ' adCmdText
+    
+    cmd.Parameters.Append cmd.CreateParameter("@order_id", 200, 1, 50, orderId)
+    cmd.Parameters.Append cmd.CreateParameter("@product_id", 200, 1, 50, productId)
+    cmd.Parameters.Append cmd.CreateParameter("@lpinfo", 200, 1, 255, lpinfo)
+    cmd.Parameters.Append cmd.CreateParameter("@user_agent", 200, 1, 255, userAgent)
+    cmd.Parameters.Append cmd.CreateParameter("@ip", 200, 1, 50, ip)
+    cmd.Parameters.Append cmd.CreateParameter("@device_type", 200, 1, 50, deviceType)
+    
+    cmd.Execute
+End If
+
+dbConnection.Close
+Set dbConnection = Nothing
+%>
+
+```
+
+**PHP 예제**
+
+```php
+<?php
+  // 실적 발생!!
+  
+  $orderId 		= $_REQUEST['order_id'] ?? '';
+	$productId 	= $_REQUEST['product_id'] ?? '';
+	$lpinfo			= $_COOKIE['LPINFO'] ?? '';
+	$userAgent	= $_SERVER['HTTP_USER_AGENT'] ?? '';
+	$ip					= $_SERVER["REMOTE_ADDR"] ?? '';
+	
+	/*
+	web-pc : PC용 브라우저에서 발생된 실적
+	web-mobile : 모바일 웹에서 발생된 실적
+	app-android : 안드로이드 앱 환경에서 발생한 실적 (웹뷰 포함)
+	app-ios : iOS 앱 환경에서 발생한 실적 (웹뷰 포함)
+	*/
+	$deviceType	= 'web-pc';	
+
+	$dbConnection = mysqli_connect("localhost", "ID", "PASSWORD", "DATABASE_NAME");
+  
+  if(isset($_COOKIE['LPINFO']) && !empty($_COOKIE['LPINFO'])) {
+    //내부 DB에 실적 저장
+    $query = "
+    INSERT INTO `lpinfo` (
+    	order_id, product_id, lpinfo, user_agent, ip, device_type
+    ) VALUE (
+    	'$orderId', '$productId', '$lpinfo', '$userAgent', '$ip', '$deviceType' 
+    )";
+    
+    $result = mysqli_query($dbConnection, $query);
+  }
+```
 
 
-### 3. Request Sample
 
-* **실시간 실적 전송에 대한 보다 자세한 예시는 [실시간 실적 전송 예시](./Example.md)에서 확인 가능합니다.**
+## 2-3. 링크프라이스 실적 발생 시, 링크프라이스에게 실적 전송하기
 
-  **예시) 구매자가  7000원짜리 HDMI 케이블2개, 6000원짜리 봉지라면 3개를 구매하였고, 최종적으로 할인쿠폰 3000원을 사용했다. (무료배송)**
+### 2-3-1. 작업이 필요한 이유
 
-	* 할인쿠폰 적용전에 결제해야 할 금액은 32000원입니다. 3000원 할인쿠폰으로 사용하였으므로 최종적으로 구매자가 지불해야 할 금액은 **29000**원입니다
+링크프라이스의 제휴링크로 유입되어 발생된 실적에 대해서 링크프라이스가 요구하는 스펙에 맞춰 반드시 실시간으로 실적 전송을 해주셔야 합니다.
 
-	* 할인 적용전 hdmi 케이블의 product_final_price은 14000원 이었는데 3000원 할인 쿠폰를 사용하였으므로 14000 - 3000 * 14000 / 32000 = **12687.5**원 입니다.
+실시간으로 실적 전송이 어려우시다면 담당자에게 문의바랍니다.
 
-	* 할인 적용전 봉지라면의 product_final_price은 18000원 이었는데 3000원 할인 쿠폰를 사용하였으므로 18000 - 3000 * 18000 / 32000 = **16312.5**원 입니다.
 
-	* 각 상품의 product_final_price의 합은 final_paid_price와 같아야 하나, 부득이한 경우 원단위 차이는 허용됩니다. 12687.5(product_final_price) + 16312.5(product_final_price) = 29000(final_paid_price) 
+
+### 2-3-2. 개요
+
+```
+1. 실적이 발생!
+2. 게이트웨이에서 생성된 링크프라이스 트래킹 코드(LPINFO 쿠키) 존재하는지 여부 확인
+3. 트래킹 코드가 있다면 링크프라이스의 실적 수집 프로그램으로 실적을 전송
+```
+
+
+
+### 2-3-3. 작업 방법
+
+**Step1**. 링크프라이스 실적 수집 프로그램에 실적을 전송하기 위해 아래 요구 스펙을 참고합니다.
+
+
+
+**2-3-2-1. 실적 수집 프로그램 개요**
+
+
+|제목|내용|
+|------|---|
+|요청 URL|https://service.linkprice.com/lppurchase_cps_v4.php|
+|프로토콜|https|
+|HTTP 메서드|POST|
+|요청 바디 타입|RAW Data|
+|요청 파라미터 형식|JSON 문자열|
+|응답 파라미터 형식|JSON 문자열|
+
+**2-3-2-2. REQUEST 파라미터**
+
+| KEY                                         | 값                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | 타입             |
+|---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------|
+| order               | 주문 데이터 정보                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | object         |
+| order.order_id      | 상품 고유 주문번호 <br><span style="font-size:75%">링크프라이스에서는 매체에게 누락 문의를 전달받으면 이 주문번호를 기준으로 누락 여부를 조회</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | varchar(100)   |
+| order.final_paid_price | 배송비를 제외한 구매자의 실결제한 전체 금액<br><span style="font-size:75%">무료 배송이 아닌 배송비를 구매자가 부담 시, 배송비를 제외한 전체 결제금액</span>                                                                                                                                                                                                                                                                                                                                                                                                          | float          |
+| order.currency      | 상품 결제시 사용된 통화<br><span style="font-size:75%">ISO 4217 사용<br>예) 미국 : USD, 원화 : KRW, 위안화 : CNY, 유로화 : EUR</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                   | varchar(3)     |
+| order.user_name     | 구매자명<br><span style="font-size:75%">누락문의 시, 누구의 실적인지를 구분하기 위해 사용 할 <br>개인정보 이슈로 인해 마스킹 처리 권장<br>예시) 김\*\*, 이\*\*</span>                                                                                                                                                                                                                                                                                                                                                                                                                                         | varchar(100)   |
+| products[]          | 상품 개별 데이터 리스트                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | array< object > |
+| products[].product_id | 상품 ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | varchar(100)   |
+| products[].product_name | 상품 이름                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | varchar(300)   |
+| products[].category_code | 상품 카테고리 코드                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | varchar(200)   |
+| products[].category_name | 상품 카테고리 이름 <br><span style="font-size:75%">가급적 해당 상품의 모든 카테고리 이름 기입<br>예를 들면 의류 > 남성의류 > 자켓 > 아우터 일 경우 아래와 같이 전송<br>  "category_name": ["의류", "남성의류", "자켓", "아우터"]</span>                                                                                                                                                                                                                                                                                                                                                                | varchar(100)   |
+| products[].quantity | 구매 상품 갯수                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | int(11)        |
+| products[].product_final_price | 상품 최종 금액                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | float          |
+| products[].paid_at  | 주문 완료 시간<br><span style="font-size:75%">주문 완료 시간이란 결제가 성공한 시간을 의미. <br>Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야 함) <br><br>예시1) 대한민국(UTC+09:00 시간대)에서 2021년 01월 10일 오후 3시 44분 52초에 완료된 주문 <br>paid_at : “2021-01-10T15:44:52+09:00”<br><br>예시2) 중국(UTC+08:00 시간대)에서 2021년 01월 12일 오전 08시 32분 11초에 완료된 주문<br>paid_at : “2021-01-12T08:32:11+08:00”<br><br>예시3) 미국(UTC-05:00 시간대)에서 2021년 01월 13일 오후 1시 11분 21초에 완료된 주문<br>paid_at : “2021-01-13T13:11:21-05:00”</span>                                                                                       | datetime       |
+| products[].confirmed_at | 구매 확정 시간<br><span style="font-size:75%">* 구매 확정 시간이란 쇼핑몰에서 지정한 환불/취소 기간이 지나 더 이상 환불/취소가 불가능한 상태가 된 시간을 의미<br>* 구매 확정 되지 않았다면 공백 문자열("")을 전송<br>* Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)<br><br>- 예시) 대한민국(UTC+09:00 시간대)에서 2021년 01월 15일 오후 3시 44분 52초에 구매 확정된 주문<br>confirmed_at : “2021-01-15T15:44:52+09:00”<br><br>- 예시) 중국(UTC+08:00 시간대)에서 2021년 01월 17일 오전 08시 32분 11초에 구매 확정된 주문<br>confirmed_at : “2021-01-17T08:32:11+08:00”<br><br>- 예시) 미국(UTC-05:00 시간대)에서 2021년 01월 18일 오후 1시 11분 21초에 구매 확정된 주문<br>confirmed_at: “2021-01-18T13:11:21-05:00”</span> | datetime       |
+| products[].canceled_at | 구매 취소 시간<br><span style="font-size:75%">구매 취소 시간이란 구매자의 요청으로 환불, 취소, 반품 등 처리가 완료된 시간을 의미<br>구매 취소 되지 않았다면 공백 문자열("")을 전송<br>Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)<br><br>- 예시1) 대한민국(UTC+09:00 시간대)에서 2021년 01월 20일 오전07시 11분 13초에 구매 취소된 주문<br>canceled_at : “2021-01-15T07:11:13+09:00”<br><br>- 예시2) 중국(UTC+08:00 시간대)에서 2021년 01월 22일 오후 05시 21분 09초에 구매 취소된 주문<br>canceled_at : “2021-01-22T17:21:09+08:00”<br><br>- 예시3) 미국(UTC-05:00 시간대)에서 2021년 01월 25일 오전 03시 20분 21초에 구매 취소된 주문<br>canceled_at: “2021-01-25T03:20:21-05:00”</span>             | datetime       |
+| linkprice           | 링크프라이스에서 필요한 데이터                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | object         |
+| linkprice.merchant_id | 링크프라이스로부터 발급받은 광고주 ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | varchar(10)    |
+| linkprice.lpinfo    | 링크프라이스에서 유입된 트래킹 코드(=LPINFO 쿠키)                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | varchar(500)   |
+| linkprice.user_agent | USER AGENT 정보                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | varchar(1000)  |
+| linkprice.remote_addr | 구매자 IP주소<br><span style="font-size:75%">개인정보 이슈로 가급적 마스킹 처리 권장.<br>예시) 118.221.\*.\*</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                             | varchar(100)   |
+| linkprice.device_type | 사용자 장치 타입<br><span style="font-size:75%">- web-pc: PC 웹브라우저에서 발생한 실적<br>- web-mobile: 모바일웹 브라우저에서 발생한 실적<br>- app-ios: iOS 앱(혹은 웹뷰)에서 발생한 실적<br>- app-android: Android 앱(혹은 웹뷰)에서 발생한 실적</span>                                                                                                                                                                                                                                                                                                                | varchar(10)    |
+
+**REQUEST 파라미터 예제**
 
 ```json
 {
@@ -310,202 +399,316 @@
             "category_name": ["가공식품", "라면", "봉지라면"],
             "quantity": 3,
             "product_final_price": 16312,
-             "paid_at": "2019-02-12T11:13:44+09:00",
-         	"confirmed_at": "",
-             "canceled_at": ""
-     }
+            "paid_at": "2019-02-12T11:13:44+09:00",
+         	  "confirmed_at": "",
+            "canceled_at": ""
+     		}
     ],
     "linkprice": {
         "merchant_id": "sample",
         "lpinfo": "A123456789|9832|A|m|a8uakljfa",
-     	"user_agent": "Mozilla/5.0...",
+     		"user_agent": "Mozilla/5.0...",
         "remote_addr": "118.221.*.*",
         "device_type": "web-pc"
     }
 }
 ```
 
-   
 
-### 4. Response
 
-   1. 응답 바디는 JSON객체입니다.
-
-       | KEY           | VALUE                                |
-       | ------------- | ------------------------------------ |
-       | is_success    | true / false<br/>실적 전송 성공 여부 |
-       | error_message | 에러 메세지                          |
-       | order_code    | 주문 코드                            |
-       | product_code  | 상품 코드                            |
-
-       
-
-### 5. Respons Sample
-* 전송 성공
-  ```json
-       [
-           {
-               "is_success": true,
-               "error_message": "",
-               "order_code": "o190203-h78X3",
-               "product_code": "P87-234-anx87"
-           },
-           {
-               "is_success": true,
-               "error_message": "",
-               "order_code": "o190203-h78X3",
-               "product_code": "P23-983-Z3272"
-           }
-       ]
-  ```
-  
-* 전송 실패
-   ```json
-       [
-           {
-               "is_success": false,
-               "error_message": "lpinfo parameter is empty.",
-               "order_code": "o190203-h78X3",
-               "product_code": "P87-234-anx87"
-           },
-           {
-               "is_success": false,
-               "error_message": "lpinfo parameter is empty.",
-               "order_code": "o190203-h78X3",
-               "product_code": "P23-983-Z3272"
-           }
-       ]
-       
-   ```
-
-* error_message
-   목록에 없는 메세지가 확인되는 경우, 링크프라이스 담당자에게 **호출한 Request 와 Respons**를 전달해주시면 확인해드리겠습니다. 
-	
-	| error_message                                                | 에러 상세 내용                                               |
-	| ------------------------------------------------------------ | ------------------------------------------------------------ |
-	| This is not a valid JSON string.                             | REQUEST 가 JSON 형식이 아님                                  |
-	| order.order_id parameter is empty.                           | action.unique_id 미입력                                      |
-	| order.final_paid_price parameter is empty.                   | action.final_paid_price 미입력                               |
-	| order.final_paid_price is not integer.                       | action.final_paid_price integer형이 아님                     |
-	| order.currency parameter is empty.                           | action.currency미입력                                        |
-	| order.user_name parameter is empty.                          | action.member_id 미입력                                      |
-	| products parameter is empty.                                 | action.action_name 미입력                                    |
-	| linkprice.lpinfo parameter is empty.                         | action.category_code 미입력                                  |
-	| linkprice.lpinfo parameter does not conform to the format.   | linkprice.lpinfo 미입력                                      |
-	| linkprice.user_agent parameter is empty.                     | linkprice.user_agent 미입력                                  |
-	| linkprice.remote_addr parameter is empty.                    | linkprice.remote_addr 미입력                                 |
-	| linkprice.device_type parameter is empty.                    | linkprice.device_type 미입력                                 |
-	| products[i].product_id parameter is empty.                   | products i번째 product_id 미입력                             |
-	| products[i].product_name parameter is empty.                 | products i번째 product_name 미입력                           |
-	| products[i].category_code parameter is empty.                | products i번째 category_code 미입력                          |
-	| products[i].product_final_price parameter is empty.          | products i번째 product_final_price 미입력                    |
-	| The amount of order.final_paid_price does not match the total amount of products.product_final_price. | products의 합산 금액과 order.final_paid_price 금액이 일치하지 않음. |
-	| There was a problem sending your performance.                | 실적 전송 오류                                               |
+**Step2**. 서버 환경에 맞춰 링크프라이스 실적 수집 프로그램에 실적을 전송하는 프로그램을 작성 합니다.
 
 
 
+**시나리오 가정)**
 
-
-## 5. 실적목록
-
-### 1. 실적목록이란?
-
-* 정확하고 빠른 정산을 위하여 링크프라이스 실적 데이터를 제공하는 API입니다.
-
-* 실적목록을 통해 광고주(머천트) 주문 정보와 링크프라이스의 실적을 대조하여 누락된 실적을 복구합니다.
-
-* 실적이 발생한 익월 20일에 주문 취소 또는 환불된 실적에 대한 실적 취소처리를 진행합니다. 
-
-  
-
-
-### 2. 작업내용
-
-* **실적목록 API는 광고주(머천트)가 직접 작성**해 주셔야 합니다.
-1. 예를 들어  https://api.yourdomain.com/linkprice/order_list_v1처럼, 실적목록 페이지를 생성해 주시고 **paid_ymd, confirmed_ymd, canceled_ymd**세가지 파라미터를 사용하여 조회 할 수 있어야 합니다. 
-   * 링크프라이스에서는 아래와 같이 광고주(머천트) API를 호출하여 실적목록을 확인하게 됩니다.
-
-	```shell
-	curl 
-	https://api.yourdomain.com/linkprice/order_list_v1?paid_ymd=yyyymmdd
-	https://api.yourdomain.com/linkprice/order_list_v1?confirmed_ymd=yyyymmdd
-	https://api.yourdomain.com/linkprice/order_list_v1?canceled_ymd=yyyymmdd
-	```
-	
-	* 파라미터 설명
-
-	| 파라미터      | 값                                                           |
-	| ------------- | ------------------------------------------------------------ |
-	| paid_ymd      | 주문 완료 조회 날짜. 예) 20181220 <BR />해당날짜에 주문 완료된 모든 링크프라이스 실적을 보여줍니다. |
-	| confirmed_ymd | 구매 확정 조회 날짜. 예) 20181220 <BR />해당날짜에 구매 확정된 모든 링크프라이스 실적을 보여줍니다. |
-	| canceled_ymd  | 구매 취소 조회 날짜. 예) 20181220 <BR />해당날짜에 구매 취소된 모든 링크프라이스 실적을 보여줍니다. |
-
-2. 실시간 실적 전송된 데이터와 실적목록 API에서 확인되는 데이터는 모두 동일해야 합니다.
-
-3. 실적목록은 json 형식으로 출력 되어야 합니다. 
-
-4. **작성한 실적목록 페이지를 링크프라이스 담당자에게 알려주세요. **
-
-
-
-### 3. 실적목록 출력 Sample
-
-```json
-[
-    {
-    "order": {
-        "order_id": "o190203-h78X3",
-        "final_paid_price": 29000,
-        "currency": "KRW",
-        "user_name": "구**"
-    },
-    "products": [
-        {
-            "product_id": "P87-234-anx87",
-            "product_name": "UHD 4K 넥시 HDMI케이블",
-            "category_code": "132782",
-            "category_name": ["컴퓨터 주변기기", "케이블", "HDMI케이블"],
-            "quantity": 2,
-            "product_final_price": 12687,
-            "paid_at": "2019-02-12T11:13:44+09:00",
-            "confirmed_at": "",
-            "canceled_at": ""
-        },
-        {
-            "product_id": "P23-983-Z3272",
-            "product_name": "농심 오징어짬뽕124g(5개)",
-            "category_code": "237018",
-            "category_name": ["가공식품", "라면", "봉지라면"],
-            "quantity": 3,
-            "product_final_price": 16312,
-            "paid_at": "2019-02-12T11:13:44+09:00",
-            "confirmed_at": "",
-            "canceled_at": ""
-        }
-    ],
-    "linkprice": {
-        "merchant_id": "sample",
-        "lpinfo": "A123456789|9832|A|m|a8uakljfa",
-        "user_agent": "Mozilla/5.0...",
-        "remote_addr": "13.156.*.*",
-        "device_type": "web-pc"
-    }
-},
-    {"order":{"order_id":"ord-123-01",...},"products":[...],"linkprice":{...}},
-    {"order":{"order_id":"ord-123-03",...},"products":[...],"linkprice":{...}},
-    {"order":{"order_id":"ord-123-04",...},"products":[...],"linkprice":{...}}
-]
+```
+구매자가 링크프라이스 제휴링크를 타고 쇼핑몰로 인입하였다.
+쇼핑몰에서 7,000원짜리 HDMI 케이블2개, 6,000원짜리 봉지라면 3개를 장바구니에 담았다.
+해당 상품은 무료배송 상품이었고 결제 화면에서 할인쿠폰 3000원을 사용하고는 결제를 완료하였다.
 ```
 
 
 
-## 6. 기타 FAQ
+**시나리오 플로우)**
 
->**Q: 이미 CPS 셋업이 되어 있는 경우에는 어떻게 하나요?**
->
->* A: 이미 CPS 셋업이 되어 있다면, 구 버전으로 셋업이 되어 있을 확률이 높습니다. 데이터 처리 방식이나 내용이 많이 바뀌었으므로, 현재 버전으로 재셋업 해 주세요.
->
-> **Q: deep link, target_url란 무엇인가요? **
->
->* A: 매체사에 광고 주소 생성시에 광고주(머천트) 홈으로 가지 않고 홍보하려는 특정 상품의 상세 페이지로 배너를 생성 할 수도 있습니다. 이러한 링크를 deep link라고 하며, 이 때의 특정 상품 상세 페이지의 url을 target url 이라고 합니다.
+```
+각 상품 최종 금액에 대해 할인금액 적용 수식)
+상품최종금액 - 할인금액 * 상품최종금액 / 주문최종금액 = 할인적용된 최종금액
+
+할인쿠폰 적용전에 결제해야 할 금액은 32,000원 입니다.
+3,000원짜리 할인쿠폰을 사용하였으니 최종적으로 구매자가 지불해야 할 금액은 29,000원입니다
+할인쿠폰 사용전에는 HDMI 케이블의 상품 최종 금액(products[].product_final_price)은 14,000원이었지만 3,000원짜리 할인쿠폰을 사용하였으므로 14,000 - 3,000 * 14,000 / 32,000 = 12,687.5원 입니다.
+
+할인쿠폰 적용전에 봉지라면의 상품 최종 금액(products[].product_final_price)은 18,000원 이었는데 3,000원 할인쿠폰을 사용하였으므로 18,000 - 3,000 * 18,000 / 32,000 = 16,312.5원 입니다.
+
+상품 최종 금액(products[].product_final_price)의 합은 주문 최종 금액(order.final_paid_price)과 같아야 하지만, 소수점 버림으로 인한 절삭 금액으로 인해 한자리 수 금액이 차이가 발생될 수 있습니다.
+링크프라이스 실적 수집 프로그램에서는 금액의 한자리 수 단위 차이는 허용하고 있습니다.
+
+주문 최종 금액 계산 예시)
+12687.5(products[].product_final_price) + 16312.5(products[].product_final_price) = 29000(order.final_paid_price)
+```
+
+
+
+### 2-3-4. 샘플 코드
+
+JSP 예제
+
+```jsp
+<%@ page import="java.io.*" %>
+<%@ page import="java.net.*" %>
+<%@ page import="org.json.*" %>
+
+<%
+// 주문 정보
+JSONObject order = new JSONObject();
+order.put("order_id", "ORDER1234");
+order.put("final_paid_price", 60000);
+order.put("currency", "KRW");
+order.put("user_name", "김링크");
+
+// 상품 정보 배열
+JSONArray products = new JSONArray();
+
+// 상품1
+JSONObject product1 = new JSONObject();
+product1.put("product_id", "product_id1");
+product1.put("product_name", "상품 이름1");
+product1.put("category_code", "상품 카테고리1");
+product1.put("category_name", "상품 카테고리 이름1");
+product1.put("quantity", 2);
+product1.put("product_final_price", 10000);
+product1.put("paid_at", "2023-09-22T11:13:44+09:00");
+product1.put("confirmed_at", "");
+product1.put("canceled_at", "");
+products.put(product1);
+
+// 상품2
+JSONObject product2 = new JSONObject();
+product2.put("product_id", "product_id2");
+product2.put("product_name", "상품 이름2");
+product2.put("category_code", "상품 카테고리2");
+product2.put("category_name", "상품 카테고리 이름2");
+product2.put("quantity", 3);
+product2.put("product_final_price", 50000);
+product2.put("paid_at", "2023-09-22T11:13:44+09:00");
+product2.put("confirmed_at", "");
+product2.put("canceled_at", "");
+products.put(product2);
+
+// 링크프라이스에서 필요한 데이터
+JSONObject linkprice = new JSONObject();
+linkprice.put("merchant_id", "clickbuy");
+linkprice.put("lpinfo", ""); // lpinfo 값을 설정해야 합니다.
+linkprice.put("user_agent", request.getHeader("User-Agent"));
+linkprice.put("remote_addr", request.getRemoteAddr());
+linkprice.put("device_type", "web-pc");
+
+// 전체 데이터
+JSONObject purchases = new JSONObject();
+purchases.put("order", order);
+purchases.put("products", products);
+purchases.put("linkprice", linkprice);
+
+// JSON 형식으로 변환
+String postData = purchases.toString();
+
+// HTTP POST 요청
+String url = "https://service.linkprice.com/lppurchase_cps_v4.php";
+URLConnection connection = new URL(url).openConnection();
+connection.setDoOutput(true);
+connection.setRequestProperty("Content-Type", "application/json");
+
+try (OutputStream os = connection.getOutputStream()) {
+    byte[] input = postData.getBytes("utf-8");
+    os.write(input, 0, input.length);
+}
+
+try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"))) {
+    StringBuilder response = new StringBuilder();
+    String responseLine = null;
+    while ((responseLine = br.readLine()) != null) {
+        response.append(responseLine.trim());
+    }
+    
+    // 링크프라이스 실적 수집 프로그램으로부터 전달받은 응답 데이터
+    out.println(response.toString());
+}
+%>
+```
+
+
+
+**ASP 예제**
+
+```asp
+<%
+' 링크프라이스 실적 수집 프로그램으로 실적 전송 예제
+
+' 주문 정보
+Dim order
+Set order = Server.CreateObject("Scripting.Dictionary")
+order("order_id") = "ORDER1234"
+order("final_paid_price") = 60000
+order("currency") = "KRW"
+order("user_name") = "김링크"
+
+' 상품 정보
+Dim products
+Set products = Server.CreateObject("Scripting.Dictionary")
+
+' 상품1
+Dim product1
+Set product1 = Server.CreateObject("Scripting.Dictionary")
+product1("product_id") = "product_id1"
+product1("product_name") = "상품 이름1"
+product1("category_code") = "상품 카테고리1"
+product1("category_name") = "상품 카테고리 이름1"
+product1("quantity") = 2
+product1("product_final_price") = 10000
+product1("paid_at") = "2023-09-22T11:13:44+09:00"
+product1("confirmed_at") = ""
+product1("canceled_at") = ""
+products.Add product1("product_id"), product1
+
+' 상품2
+Dim product2
+Set product2 = Server.CreateObject("Scripting.Dictionary")
+product2("product_id") = "product_id2"
+product2("product_name") = "상품 이름2"
+product2("category_code") = "상품 카테고리2"
+product2("category_name") = "상품 카테고리 이름2"
+product2("quantity") = 3
+product2("product_final_price") = 50000
+product2("paid_at") = "2023-09-22T11:13:44+09:00"
+product2("confirmed_at") = ""
+product2("canceled_at") = ""
+products.Add product2("product_id"), product2
+
+' 링크프라이스에서 필요한 데이터
+Dim linkprice
+Set linkprice = Server.CreateObject("Scripting.Dictionary")
+linkprice("merchant_id") = "clickbuy"
+linkprice("lpinfo") = ""
+linkprice("user_agent") = Request.ServerVariables("HTTP_USER_AGENT")
+linkprice("remote_addr") = Request.ServerVariables("REMOTE_ADDR")
+linkprice("device_type") = "web-pc"
+
+' 전체 데이터
+Dim purchases
+Set purchases = Server.CreateObject("Scripting.Dictionary")
+purchases.Add "order", order
+purchases.Add "products", products
+purchases.Add "linkprice", linkprice
+
+' JSON 형식으로 변환
+Function ConvertToJson(obj)
+    Dim jsonObj, key
+    Set jsonObj = Server.CreateObject("Scripting.Dictionary")
+    For Each key In obj.Keys
+        jsonObj.Add key, obj(key)
+    Next
+    ConvertToJson = Join(obj.Keys, ", ")
+End Function
+
+Dim postData
+postData = ConvertToJson(purchases)
+
+' HTTP POST 요청
+Dim objXMLHTTP
+Set objXMLHTTP = Server.CreateObject("MSXML2.ServerXMLHTTP")
+objXMLHTTP.Open "POST", "https://service.linkprice.com/lppurchase_cps_v4.php", False
+objXMLHTTP.setRequestHeader "Content-Type", "application/json"
+objXMLHTTP.send postData
+
+' 링크프라이스 실적 수집 프로그램으로부터 전달받은 응답 데이터
+Response.Write objXMLHTTP.responseText
+
+Set objXMLHTTP = Nothing
+%>
+```
+
+
+
+**PHP 예제**
+
+```php
+<?php
+/**
+ * 링크프라이스 실적 수집 프로그램으로 실적 전송 예제
+ */
+
+$purchases = [];
+
+//주문 정보
+$purchases['order'] = [
+    'order_id'          => 'ORDER1234',
+    'final_paid_price'  => 60000,
+    'currency'          => 'KRW',
+    'user_name'         => '김링크' 
+];
+
+//상품 정보
+$purchases['products'] = [];
+
+//상품1
+$purchases['products'][] = [
+    'product_id'            => 'product_id1',
+    'product_name'          => '상품 이름1',
+    'category_code'         => '상품 카테고리1',
+    'category_name'         => '상품 카테고리 이름1',
+    'quantity'              => 2,
+    'product_final_price'   => 10000,
+    'paid_at'               => '2023-09-22T11:13:44+09:00',
+    'confirmed_at'          => '',
+    'canceled_at'           => ''
+];
+
+//상품2
+$purchases['products'][] = [
+    'product_id'            => 'product_id2',
+    'product_name'          => '상품 이름2',
+    'category_code'         => '상품 카테고리2',
+    'category_name'         => '상품 카테고리 이름2',
+    'quantity'              => 3,
+    'product_final_price'   => 50000,
+    'paid_at'               => '2023-09-22T11:13:44+09:00',
+    'confirmed_at'          => '',
+    'canceled_at'           => ''
+];
+
+// 링크프라이스에서 필요한 데이터
+$purchases['linkprice'] = [
+    'merchant_id'   => 'clickbuy',
+    'lpinfo'        => $lpinfo,
+    'user_agent'    => $_SERVER['HTTP_USER_AGENT'] ?? '',
+    'remote_addr'   => $_SERVER['REMOTE_ADDR'] ?? '',
+    'device_type'   => 'web-pc'
+];
+
+$postData = json_encode($purchases);
+
+$curl = curl_init();
+
+curl_setopt_array($curl, [
+  CURLOPT_URL               => 'https://service.linkprice.com/lppurchase_cps_v4.php',
+  CURLOPT_RETURNTRANSFER    => true,
+  CURLOPT_HTTP_VERSION      => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST     => 'POST',
+  CURLOPT_POSTFIELDS        => $p
+]);
+
+$response = curl_exec($curl);
+curl_close($curl);
+
+//링크프라이스 실적 수집 프로그램으로부터 전달받은 응답 데이터
+echo $response;
+```
+
+
+
+## 2-4. 링크프라이스를 통해 발생된 실적에 대해 리스트를 제공하는 API 작업하기
+
+### 2-4-1. 작업이 필요한 이유
 
