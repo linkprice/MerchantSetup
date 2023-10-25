@@ -2,7 +2,7 @@
 
 Use Singular, measure performance in mobile apps.
 
-LinkPrice is currently registered as a network Partner from Singular, so please request the registration of link price linkage from Singular.
+LinkPrice is currently registered as a network company from Singular, and please set up a partner according to the [English Guide] (https://support.singular.net/hc/en-us/articles/360053018851-How-to-Configure-Partner-Settings-and-Postbacks) ).
 
 The linkPrice ID registered with the Singular is [linkprice.staff@gmail.com ] (mailto:linkprice.staff@gmail.com ).
 
@@ -53,3 +53,4 @@ https://singularassist.sng.link/D59c0/ywl4?_smtype=3&pcid={campaign_id}&pcn={cam
 - [Integrating with Singular: A Guide for Partners](https://support.singular.net/hc/en-us/articles/360032246232-Integrating-with-Singular-A-Guide-for-Partners)
 - [Integrating with Singular Attribution FAQ (Partners)](https://support.singular.net/hc/en-us/articles/115002742751-Integrating-with-Singular-Attribution-FAQ-Partners-)
 - [Integrating with Singular Analytics FAQ (Partners)](https://support.singular.net/hc/en-us/articles/360032597931?support=true)
+- [How to Configure Partner Settings and Postbacks](https://support.singular.net/hc/en-us/articles/360053018851-How-to-Configure-Partner-Settings-and-Postbacks)
