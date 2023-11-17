@@ -2311,6 +2311,72 @@ echo json_encode($data);
 |  렌트카   | 결제 완료 즉시 | 인수일 시작 시간 | 취소 완료 즉시 |
 | 여행 상품  | 결제 완료 즉시 | 상품 시작 즉시  | 취소 완료 즉시 |
 
+**실적 목록 API https://api.yourdomain.com/linkprice/order_list_v1?paid_ymd=20230211 호출 시 예시**
+
+1. 주문 번호 202302112113 실적의 경우 2월 11일 결제 후 2월 15일에 퇴실 완료하여 실적 목록 API에서 퇴실(확정) 날짜인 confirmed_at 값이 확인됩니다.
+2. 주문 번호 202302111613 실적의 경우 2월 11일 결제 후 2월 13일에 예약 취소하여 실적 목록 API에서 취소 날짜인 canceled_at 값이 확인됩니다.
+
+```json
+[
+    {
+        "order": {
+            "order_id": "202302112113",
+            "final_paid_price": 50000,
+            "currency": "KRW",
+            "user_name": "구**"
+        },
+        "products": [
+            {
+                "product_id": "A100000000",
+                "product_name": "2023-02-14 ~ 2023-02-15 서울 호텔",
+                "category_code": "HOTEL",
+                "category_name": [],
+                "quantity": 1,
+                "product_final_price": 50000,
+                "paid_at": "2023-02-11T21:13:44+09:00",
+                "confirmed_at": "2023-02-15T12:13:44+09:00",
+                "canceled_at": ""
+            }
+        ],
+        "linkprice": {
+            "merchant_id": "sample",
+            "lpinfo": "A123456789|9832|A|m|a8uakljfa",
+            "user_agent": "Mozilla/5.0...",
+            "remote_addr": "13.156.*.*",
+            "device_type": "web-pc"
+        }
+    },{
+        "order": {
+            "order_id": "202302111613",
+            "final_paid_price": 45000,
+            "currency": "KRW",
+            "user_name": "구**"
+        },
+        "products": [
+            {
+                "product_id": "A200000000",
+                "product_name": "2023-02-20 ~ 2023-02-21 강원 리조트",
+                "category_code": "RESORT",
+                "category_name": [],
+                "quantity": 3,
+                "product_final_price": 45000,
+                "paid_at": "2023-02-11T16:13:44+09:00",
+                "confirmed_at": "",
+                "canceled_at": "2023-02-13T11:15:44+09:00"
+            }
+        ],
+        "linkprice": {
+            "merchant_id": "sample",
+            "lpinfo": "A123456789|9832|A|m|a8uakljfa",
+            "user_agent": "Mozilla/5.0...",
+            "remote_addr": "13.156.*.*",
+            "device_type": "web-pc"
+        }
+    },
+    {"order":{"order_id":"ord-123-03",...},"products":[...],"linkprice":{...}},
+    {"order":{"order_id":"ord-123-04",...},"products":[...],"linkprice":{...}}
+]
+```
 
 
 [^1]: 홍보가 필요한 기업의 제품 또는 서비스를 보유한 주체
