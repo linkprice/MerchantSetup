@@ -1481,15 +1481,15 @@ echo json_encode($data);
 
 ### 3-2-1. 데이터 베이스 테이블 변경 작업이 필요한 이유
 
-- **링크프라이스 데이터**를 저장할 테이블을(LPINFO) 다음과 같이 변경합니다. 만약 LPINFO 테이블이 존재하지 않다면 담당자에게 문의해 주세요.
+- **링크프라이스 데이터**를 저장하고 있는 테이블을(LPINFO) 다음과 같이 변경합니다.
 
 ```sql
+# event_code, promo_code 컬럼 추가
 alter table lpinfo add event_code varchar(20);
 alter table lpinfo add promo_code varchar(50);
 ```
-
-- 할인코드 CPS 실적 발생 시, 앞에서 수정한 테이블에 링크프라이스 데이터를 저장해야합니다.
-- 링크프라이스 전용 할인코드를 사용하여 발생한 실적만 저장하여 주십시오.
+- 할인코드 CPS 실적 발생 시, 추가한 컬럼에 링크프라이스 할인코드 데이터를 저장해야합니다.
+- 링크프라이스 전용 할인코드를 사용한 실적은 event_code, promo_code 컬럼을 사용합니다.
 
 ### 3-3. 실시간 실적 전송
 링크프라이스의 할인코드로 발생된 실적에 대해서 링크프라이스가 요구하는 스펙에 맞춰 반드시 실시간으로 실적 전송을 해주셔야 합니다.
@@ -1541,7 +1541,7 @@ Step1. 링크프라이스 실적 수집 프로그램에 실적을 전송하기 �
 
 **REQUEST 파라미터 예제**
 
-기존 실적 전송과 다른 부분은 linkprice.lpinfo 대신 event_code와 promo_code를 보내주고 있습니다.
+기존 실적 전송과 다른 부분은 linkprice.lpinfo 대신 **linkprice.event_code**와 **linkprice.promo_code**를 보내주고 있습니다.
 
 ```json
    {
@@ -1704,11 +1704,7 @@ Step1. 링크프라이스 실적 수집 프로그램에 실적을 전송하기 �
 > 링크프라이스에서 상태 여부만 확인하기 때문에 해당 confirmed_at과 canceled_at 값만 업데이트해 주시면 됩니다.
 
 
-
-
 링크프라이스에서는 광고주 API를 호출 할 시, 아래와 같이 하루에 3번 호출합니다.
-
-
 
 1. 실적 복구하기 위해 주문 완료일을 기준으로 모든 데이터 호출
 
@@ -1730,7 +1726,6 @@ https://api.yourdomain.com/linkprice/order_list_v1?confirmed_ymd=yyyymmdd
 # 쿼리 스트링 canceled_ymd 파라미터로 조회할 날짜를 호출
 https://api.yourdomain.com/linkprice/order_list_v1?canceled_ymd=yyyymmdd
 ```
-
 
 
 반드시 링크프라이스에게 전송해주셨던 데이터와 실적목록으로 표현되는 데이터는 동일해야 합니다.
