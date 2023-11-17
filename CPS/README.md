@@ -154,13 +154,13 @@
 
 ```sql
 create table lpinfo(
-                       id int(10) unsigned NOT NULL AUTO_INCREMENT,				 	# Unique Key
-                       order_id varchar(30),		 															# 링크프라이스에 전송할 주문번호
-                       product_id varchar(30),	 															# 링크프라이스에 전송할 상품코드
-                       lpinfo varchar(580),		 															# 링크프라이스 트래킹 코드 (쿠키명 LPINFO) 
-                       user_agent varchar(300), 															# 구매자의 User Agent 값
-                       ip varchar(50),					 															# 구매자의 IP
-                       device_type varchar(11)	 															# 구매자의 운영체제 환경
+    id int(10) unsigned NOT NULL AUTO_INCREMENT,	# Unique Key
+    order_id varchar(30),		 				    # 링크프라이스에 전송할 주문번호
+    product_id varchar(30),	 					    # 링크프라이스에 전송할 상품코드
+    lpinfo varchar(580),		 				    # 링크프라이스 트래킹 코드 (쿠키명 LPINFO) 
+    user_agent varchar(300), 					    # 구매자의 User Agent 값
+    ip varchar(50),					 			    # 구매자의 IP
+    device_type varchar(11)	 					    # 구매자의 운영체제 환경
 )
 ```
 
@@ -891,7 +891,7 @@ echo $response;
 
 
 
-1. 실적 복구하기 위해 주문 완료일을 기준으로 호출
+1. 실적 복구하기 위해 주문 완료일을 기준으로 모든 데이터 호출
 
 ```
 # 쿼리 스트링 paid_ymd 파라미터로 조회할 날짜를 호출
@@ -1479,7 +1479,7 @@ echo json_encode($data);
 | ip          | 구매자 IP주소<br><span style="font-size:75%">개인정보 이슈로 가급적 마스킹 처리 혹은 공백("") 권장.<br>예시) 118.221.\*.\* , ""</span>                                                                                      | varchar(100)  |
 | device_type | 사용자 장치 타입<br><span style="font-size:75%">- web-pc: PC 웹브라우저에서 발생한 실적<br>- web-mobile: 모바일웹 브라우저에서 발생한 실적<br>- app-ios: iOS 앱(혹은 웹뷰)에서 발생한 실적<br>- app-android: Android 앱(혹은 웹뷰)에서 발생한 실적</span> | varchar(10)   |
 
-### 3-2-1. 데이터 베이스 테이블 작업이 필요한 이유
+### 3-2-1. 데이터 베이스 테이블 변경 작업이 필요한 이유
 
 - **링크프라이스 데이터**를 저장할 테이블을(LPINFO) 다음과 같이 변경합니다. 만약 LPINFO 테이블이 존재하지 않다면 담당자에게 문의해 주세요.
 
@@ -1533,13 +1533,15 @@ Step1. 링크프라이스 실적 수집 프로그램에 실적을 전송하기 �
 | products[].canceled_at         | 구매 취소 시간<br><span style="font-size:75%">구매 취소 시간이란 구매자의 요청으로 환불, 취소, 반품 등 처리가 완료된 시간을 의미<br> * 취소 여부는 [실적 목록 API](#2-5-링크프라이스의-실적으로-실적-리스트-api-작업하기)를 참고 <br>Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)<br><br>- 예시1) 대한민국(UTC+09:00 시간대)에서 2021년 01월 20일 오전07시 11분 13초에 구매 취소된 주문<br>canceled_at : “2021-01-15T07:11:13+09:00”<br><br>- 예시2) 중국(UTC+08:00 시간대)에서 2021년 01월 22일 오후 05시 21분 09초에 구매 취소된 주문<br>canceled_at : “2021-01-22T17:21:09+08:00”<br><br>- 예시3) 미국(UTC-05:00 시간대)에서 2021년 01월 25일 오전 03시 20분 21초에 구매 취소된 주문<br>canceled_at: “2021-01-25T03:20:21-05:00”</span>                 | datetime        |
 | linkprice                      | 링크프라이스에서 필요한 데이터                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | object          |
 | linkprice.merchant_id          | 링크프라이스로부터 발급받은 광고주 ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | varchar(10)     |
-| linkprice.event_code           | 링크프라이스에서 생성하는 고유코드로 고정값으로 적용                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | varchar(500)    |
-| linkprice.promo_code           | 실제 구매자가 사용하는 할인코드(매체 홍보시 사용) <br> 링크프라이스용 할인코드를 발급 후 해당 코드를 알려주세요.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | varchar(500)    |
+| linkprice.event_code           | 링크프라이스에서 생성하는 고유코드로 고정값으로 적용, 이벤트 코드는 담당자에게 문의하시면 됩니다.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | varchar(500)    |
+| linkprice.promo_code           | 실제 구매자가 사용하는 할인코드(매체 홍보시 사용) <br> <span style="font-size:75%"> 링크프라이스 전용 할인코드를 발급 후 해당 코드를 담당자에게 알려주세요. </span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | varchar(500)    |
 | linkprice.user_agent           | USER AGENT 정보                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | varchar(1000)   |
 | linkprice.remote_addr          | 구매자 IP주소<br><span style="font-size:75%">개인정보 이슈로 가급적 마스킹 처리 혹은 공백("") 권장.<br>예시) 118.221.\*.\* , ""</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | varchar(100)    |
 | linkprice.device_type          | 사용자 장치 타입<br><span style="font-size:75%">- web-pc: PC 웹브라우저에서 발생한 실적<br>- web-mobile: 모바일웹 브라우저에서 발생한 실적<br>- app-ios: iOS 앱(혹은 웹뷰)에서 발생한 실적<br>- app-android: Android 앱(혹은 웹뷰)에서 발생한 실적</span>                                                                                                                                                                                                                                                                                                                                                                                                        | varchar(10)     |
 
 **REQUEST 파라미터 예제**
+
+기존 실적 전송과 다른 부분은 linkprice.lpinfo 대신 event_code와 promo_code를 보내주고 있습니다.
 
 ```json
    {
@@ -1643,7 +1645,6 @@ Step1. 링크프라이스 실적 수집 프로그램에 실적을 전송하기 �
 
 * 아래 목록에 존재하지 않는 응답일 경우, 링크프라이스 담당자에게 호출했던 요청값과 응답값을 전달주시면 확인 가능합니다.
 
-
 | 에러 메세지                                                                                                | 에러 상세 내용                                             |
 |-------------------------------------------------------------------------------------------------------|------------------------------------------------------|
 | This is not a valid JSON string.                                                                      | REQUEST 가 JSON 형식이 아님                                |
@@ -1709,7 +1710,7 @@ Step1. 링크프라이스 실적 수집 프로그램에 실적을 전송하기 �
 
 
 
-1. 실적 복구하기 위해 주문 완료일을 기준으로 호출
+1. 실적 복구하기 위해 주문 완료일을 기준으로 모든 데이터 호출
 
 ```
 # 쿼리 스트링 paid_ymd 파라미터로 조회할 날짜를 호출
@@ -1742,13 +1743,11 @@ https://api.yourdomain.com/linkprice/order_list_v1?canceled_ymd=yyyymmdd
 
 **Step1**. 실적목록 API를 작성하기 위해 아래 요구 출력 스펙을 참고합니다.
 
-2-3-3 Step1 참조
-
-
-
 **Step2**. 실적 목록 페이지를 생성하고 주문 완료일(paid_ymd), 구매 확정일(comfirmed_ymd), 구매 취소일(canceled_ymd)를 기준으로 아래 예시대로 링크프라이스가 JSON 문자열을 받아 갈 수 있도록 작업합니다.
 
 **실적목록 API 출력 예시**
+
+기존 실적 목록 데이터에서 linkprice.lpinfo 대신 event_code, promo_code가 있는 형태입니다.
 
 ```json
 [
@@ -1807,6 +1806,500 @@ https://api.yourdomain.com/linkprice/order_list_v1?canceled_ymd=yyyymmdd
 ```
 
 **Step4**. 완성된 API URL을 링크프라이스 담당자에게 전달합니다.
+
+###2-5-4. 샘플 코드
+
+※ 주의
+
+샘플 코드는 PHP 코드를 기준으로 작성하여 Chat GPT를 통해 JSP, ASP 코드를 생성한 예제입니다.
+
+반드시 예제 코드로 구현을 해야 할 필요는 없으며 예제로만 참고 부탁드립니다.
+
+광고주님의 환경에 맞춰 구현 바랍니다.
+
+lpinfo 테이블은 연동 가이드 [3-2-1. Step1 예제](#3-2-1-데이터-베이스-테이블-변경-작업이-필요한-이유)에서 변경한 테이블 구조를 기준으로 작성되었습니다.
+
+purchase 테이블은 구매한 상품 리스트 데이터를 의미합니다.
+
+**JSP 예제**
+
+```jsp
+<%@ page language="java" contentType="application/json; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="java.util.*" %>
+
+<%
+// 링크프라이스 실적 목록 API
+String paidYmd = request.getParameter("paid_ymd");
+String confirmYmd = request.getParameter("confirmed_ymd");
+String cancelYmd = request.getParameter("canceled_ymd");
+
+String query = null;
+
+if (paidYmd != null && !paidYmd.isEmpty()) {
+// 구매일자 기준으로 데이터 조회
+query = "SELECT p.order_id, p.product_id, p.user_name, "
+    + "p.product_id, p.product_name, p.category_code, p.category_name, "
+    + "p.quantity, p.product_final_price, "
+    + "DATE_FORMAT(p.paided_at, '%Y%m%d') as paid_at, "
+    + "DATE_FORMAT(p.confirmed_at, '%Y%m%d') as confirmed_at, "
+    + "DATE_FORMAT(p.canceled_at, '%Y%m%d') as canceled_at, "
+    + "l.lpinfo, l.device_type, l.user_agent, l.ip "
+    + "l.event_code, l.promo_code "
+    + "FROM purchase p "
+    + "JOIN lpinfo l "
+    + "ON p.order_id = l.order_id "
+    + "AND p.product_id = l.product_id "
+    + "WHERE DATE_FORMAT(p.paided_at, '%Y%m%d') = ?";
+    } else if (confirmYmd != null && !confirmYmd.isEmpty()) {
+    // 확정일자 기준으로 데이터 조회
+    query = "SELECT p.order_id, p.product_id, p.user_name, "
+    + "p.product_id, p.product_name, p.category_code, p.category_name, "
+    + "p.quantity, p.product_final_price, "
+    + "DATE_FORMAT(p.paided_at, '%Y%m%d') as paid_at, "
+    + "DATE_FORMAT(p.confirmed_at, '%Y%m%d') as confirmed_at, "
+    + "DATE_FORMAT(p.canceled_at, '%Y%m%d') as canceled_at, "
+    + "l.lpinfo, l.device_type, l.user_agent, l.ip "
+    + "l.event_code, l.promo_code "
+    + "FROM purchase p "
+    + "JOIN lpinfo l "
+    + "ON p.order_id = l.order_id "
+    + "AND p.product_id = l.product_id "
+    + "WHERE p.confirmed_ymd = ?";
+    } else if (cancelYmd != null && !cancelYmd.isEmpty()) {
+    // 취소일자 기준으로 데이터 조회
+    query = "SELECT p.order_id, p.product_id, p.user_name, "
+    + "p.product_id, p.product_name, p.category_code, p.category_name, "
+    + "p.quantity, p.product_final_price, "
+    + "DATE_FORMAT(p.paided_at, '%Y%m%d') as paid_at, "
+    + "DATE_FORMAT(p.confirmed_at, '%Y%m%d') as confirmed_at, "
+    + "DATE_FORMAT(p.canceled_at, '%Y%m%d') as canceled_at, "
+    + "l.lpinfo, l.device_type, l.user_agent, l.ip "
+    + "l.event_code, l.promo_code "
+    + "FROM purchase p "
+    + "JOIN lpinfo l "
+    + "ON p.order_id = l.order_id "
+    + "AND p.product_id = l.product_id "
+    + "WHERE p.canceled_ymd = ?";
+    }
+    
+    // 데이터베이스 연결 설정
+    String jdbcUrl = "jdbc:mysql://localhost/DATABASE_NAME";
+    String dbUser = "ID";
+    String dbPassword = "PASSWORD";
+    
+    List<Map<String, Object>> products = new ArrayList<>();
+
+    try {
+    Class.forName("com.mysql.jdbc.Driver");
+    Connection dbConnection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
+    PreparedStatement statement = dbConnection.prepareStatement(query);
+    
+        if (paidYmd != null && !paidYmd.isEmpty()) {
+            statement.setString(1, paidYmd);
+        } else if (confirmYmd != null && !confirmYmd.isEmpty()) {
+            statement.setString(1, confirmYmd);
+        } else if (cancelYmd != null && !cancelYmd.isEmpty()) {
+            statement.setString(1, cancelYmd);
+        }
+    
+        ResultSet result = statement.executeQuery();
+    
+        while (result.next()) {
+            // 주문번호 별로 상품을 묶는다.
+            Map<String, Object> row = new HashMap<>();
+            row.put("order_id", result.getString("order_id"));
+            row.put("product_id", result.getString("product_id"));
+            row.put("user_name", result.getString("user_name"));
+            row.put("product_name", result.getString("product_name"));
+            row.put("category_code", result.getString("category_code"));
+            row.put("category_name", result.getString("category_name"));
+            row.put("quantity", result.getInt("quantity"));
+            row.put("product_final_price", result.getDouble("product_final_price"));
+            row.put("paid_at", result.getString("paid_at"));
+            row.put("confirmed_at", result.getString("confirmed_at"));
+            row.put("canceled_at", result.getString("canceled_at"));
+            row.put("lpinfo", result.getString("lpinfo"));
+            row.put("device_type", result.getString("device_type"));
+            row.put("user_agent", result.getString("user_agent"));
+            row.put("ip", result.getString("ip"));
+            row.put("event_code", result.getString("event_code"));
+            row.put("promo_code", result.getString("promo_code"));
+            products.add(row);
+        }
+    
+        result.close();
+        statement.close();
+        dbConnection.close();
+    } catch (Exception e) {
+    e.printStackTrace();
+    }
+
+    List<Map<String, Object>> data = new ArrayList<>();
+    for (Map<String, Object> product : products) {
+    // 주문 정보
+    Map<String, Object> purchase = new HashMap<>();
+    String orderId = (String) product.get("order_id");
+    purchase.put("order", Map.of(
+    "order_id", orderId,
+    "final_paid_price", calculateFinalPaidPrice(products, orderId),
+    "currency", "KRW",
+    "user_name", product.get("user_name")
+    ));
+
+    // 상품 정보
+    List<Map<String, Object>> productDetails = new ArrayList<>();
+    for (Map<String, Object> productOne : products) {
+        if (orderId.equals(productOne.get("order_id"))) {
+            productDetails.add(Map.of(
+                    "product_id", productOne.get("product_id"),
+                    "product_name", productOne.get("product_name"),
+                    "category_code", productOne.get("category_code"),
+                    "category_name", productOne.get("category_name"),
+                    "quantity", productOne.get("quantity"),
+                    "product_final_price", productOne.get("product_final_price"),
+                    "paid_at", productOne.get("paid_at"),
+                    "confirmed_at", productOne.get("confirmed_at"),
+                    "canceled_at", productOne.get("canceled_at")
+            ));
+        }
+    }
+    purchase.put("products", productDetails);
+
+    // 링크프라이스 데이터
+    purchase.put("linkprice", Map.of(
+            "merchant_id", "clickbuy",
+            "lpinfo", product.get("lpinfo"),
+            "user_agent", product.get("user_agent"),
+            "remote_addr", product.get("ip"),
+            "device_type", product.get("device_type"),
+            "event_code", product.get("event_code"),
+            "promo_code", product.get("promo_code")
+    ));
+    
+    // 할인 코드 실적의 경우 lpifno 대신 event_code와 promo_code를 사용
+    if (product.containsKey("event_code") && product.containsKey("promo_code")) {
+        purchase.remove("linkprice").remove("lpinfo");
+        purchase.get("linkprice").put("event_code", product.get("event_code"));
+        purchase.get("linkprice").put("promo_code", product.get("promo_code"));
+    }
+
+    data.add(purchase);
+}
+
+// 실적 데이터 출력
+String jsonData = new Gson().toJson(data);
+response.setContentType("application/json");
+response.setCharacterEncoding("UTF-8");
+response.getWriter().write(jsonData);
+
+/**
+* Order ID에 해당하는 상품의 총 결제 가격을 계산합니다.
+*/
+private double calculateFinalPaidPrice(List<Map<String, Object>> products, String orderId) {
+    double totalFinalPaidPrice = 0.0;
+    for (Map<String, Object> product : products) {
+        if (orderId.equals(product.get("order_id"))) {
+            totalFinalPaidPrice += (double) product.get("product_final_price");
+            }
+    }
+    return totalFinalPaidPrice;
+  }
+%>
+```
+
+**ASP 예제**
+
+```asp
+<%
+' 링크프라이스 실적 목록 API
+
+Dim paidYmd, confirmYmd, cancelYmd
+paidYmd = Request.QueryString("paid_ymd")
+confirmYmd = Request.QueryString("comfirmed_ymd")
+cancelYmd = Request.QueryString("canceled_ymd")
+
+Dim query
+query = ""
+
+If Not IsEmpty(paidYmd) Then
+' 구매일자 기준으로 데이터 조회
+query = "
+SELECT p.order_id, p.product_id, p.user_name,
+p.product_id, p.product_name, p.category_code, p.category_name,
+p.quantity, p.product_final_price,
+Format(p.paided_at, 'yyyymmdd') as paid_at,
+Format(p.confirmed_at, 'yyyymmdd') as confirmed_at,
+Format(p.canceled_at, 'yyyymmdd') as canceled_at,
+l.lpinfo, l.device_type, l.user_agent, l.ip,
+l.event_code, l.promo_code
+FROM purchase p
+INNER JOIN lpinfo l
+ON p.order_id = l.order_id
+AND p.product_id = l.product_id
+WHERE Format(p.paided_at, 'yyyymmdd') = '" & paidYmd & "'"
+ElseIf Not IsEmpty(confirmYmd) Then
+' 확정일자 기준으로 데이터 조회
+query = "
+SELECT p.order_id, p.product_id, p.user_name,
+p.product_id, p.product_name, p.category_code, p.category_name,
+p.quantity, p.product_final_price,
+Format(p.paided_at, 'yyyymmdd') as paid_at,
+Format(p.confirmed_at, 'yyyymmdd') as confirmed_at,
+Format(p.canceled_at, 'yyyymmdd') as canceled_at,
+l.lpinfo, l.device_type, l.user_agent, l.ip,
+l.event_code, l.promo_code
+FROM purchase p
+INNER JOIN lpinfo l
+ON p.order_id = l.order_id
+AND p.product_id = l.product_id
+WHERE p.confirmed_ymd = '" & confirmYmd & "'"
+ElseIf Not IsEmpty(cancelYmd) Then
+' 취소일자 기준으로 데이터 조회
+query = "
+SELECT p.order_id, p.product_id, p.user_name,
+p.product_id, p.product_name, p.category_code, p.category_name,
+p.quantity, p.product_final_price,
+Format(p.paided_at, 'yyyymmdd') as paid_at,
+Format(p.confirmed_at, 'yyyymmdd') as confirmed_at,
+Format(p.canceled_at, 'yyyymmdd') as canceled_at,
+l.lpinfo, l.device_type, l.user_agent, l.ip,
+l.event_code, l.promo_code
+FROM purchase p
+INNER JOIN lpinfo l
+ON p.order_id = l.order_id
+AND p.product_id = l.product_id
+WHERE p.canceled_ymd = '" & cancelYmd & "'"
+End If
+
+' 데이터베이스 연결 설정
+Dim dbConnection
+Set dbConnection = Server.CreateObject("ADODB.Connection")
+dbConnection.Open "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\your\database\path\DATABASE_NAME.mdb;" ' Access Database
+
+Dim products
+Set products = Server.CreateObject("ADODB.Recordset")
+products.Open query, dbConnection
+
+Dim data
+Set data = Server.CreateObject("Scripting.Dictionary")
+
+Do Until products.EOF
+' 주문번호 별로 상품을 묶음
+Dim orderId
+orderId = products("order_id")
+
+    If Not data.Exists(orderId) Then
+        Set data(orderId) = Server.CreateObject("Scripting.Dictionary")
+        data(orderId)("order_id") = orderId
+        data(orderId)("final_paid_price") = 0
+        data(orderId)("currency") = "KRW"
+        data(orderId)("user_name") = products("user_name")
+        Set data(orderId)("products") = Server.CreateObject("Scripting.Dictionary")
+    End If
+
+    ' 상품 정보 추가
+    Dim productDetails
+    Set productDetails = data(orderId)("products")
+    Dim product
+    Set product = Server.CreateObject("Scripting.Dictionary")
+    product("product_id") = products("product_id")
+    product("product_name") = products("product_name")
+    product("category_code") = products("category_code")
+    product("category_name") = products("category_name")
+    product("quantity") = products("quantity")
+    product("product_final_price") = products("product_final_price")
+    product("paid_at") = products("paid_at")
+    product("confirmed_at") = products("confirmed_at")
+    product("canceled_at") = products("canceled_at")
+    productDetails.Add productDetails.Count + 1, product
+    
+    ' linkprice 정보 추가
+    Dim linkprice
+    Set linkprice = data(orderId)("linkprice")
+    linkprice("merchant_id") = "clickbuy"
+    linkprice("lpinfo") = products("lpinfo")
+    linkprice("user_agent") = products("user_agent")
+    linkprice("remote_addr") = products("ip")
+    linkprice("device_type") = products("device_type")
+
+    ' 할인 코드 실적의 경우, event_code와 promo_code를 사용
+    If Not IsNull(product("event_code")) And product("event_code") <> "" Then
+        purchase("linkprice")("event_code") = product("event_code")
+        purchase("linkprice")("promo_code") = product("promo_code")
+        ' lpinfo 키 삭제
+        purchase("linkprice").Remove("lpinfo")
+    Else
+        ' 할인 코드가 없는 경우 lpinfo 사용
+        purchase("linkprice")("lpinfo") = product("lpinfo")
+        ' event_code와 promo_code 키 삭제
+        purchase("linkprice").Remove("event_code")
+        purchase("linkprice").Remove("promo_code")
+    End If
+    
+    ' 주문의 총 결제 가격 계산
+    data(orderId)("final_paid_price") = data(orderId)("final_paid_price") + products("product_final_price")
+
+    products.MoveNext
+Loop
+
+products.Close
+Set products = Nothing
+
+dbConnection.Close
+Set dbConnection = Nothing
+
+' 실적 데이터 출력
+Response.ContentType = "application/json"
+Dim jsonData
+jsonData = JSONStringify(data.Items)
+Response.Write(jsonData)
+
+Function JSONStringify(obj)
+Dim objString
+Set objString = Server.CreateObject("Scripting.Dictionary")
+For Each key In obj.Keys
+If IsObject(obj(key)) Then
+objString.Add key, JSONStringify(obj(key))
+Else
+objString.Add key, obj(key)
+End If
+Next
+JSONStringify = Join(objString.Items, ",")
+JSONStringify = "{" & JSONStringify & "}"
+Set objString = Nothing
+End Function
+%>
+```
+
+**PHP 예제**
+
+```php
+<?php
+/*
+ * 링크프라이스 실적 목록 API
+ */
+
+$paidYmd      = $_GET['paid_ymd'] ?? '';
+$comfirmYmd   = $_GET['comfirmed_ymd'] ?? '';
+$cancelYmd    = $_GET['canceled_ymd'] ?? '';
+
+if(!empty($paidYmd)) {
+  // 구매일자 기준으로 데이터 조회
+ 	$query        = "
+  SELECT	p.order_id, p.product_id, p.user_name, 
+  				p.product_id, p.product_name, p.category_code, p.category_name, 
+  				p.quantity, p.product_final_price,
+  				date_format(p.paided_at, '%Y%m%d') as paid_at,
+  				date_format(p.confirmed_at, '%Y%m%d') as confirmed_at,
+  				date_format(p.canceled_at, '%Y%m%d') as canceled_at,
+  				l.lpinfo, l.device_type, l.user_agent, l.ip,
+  				l.event_code, l.promo_code
+  FROM    purchase p
+  JOIN		lpinfo l
+  ON			p.order_id = l.order_id
+  AND			p.product_id = p.product_id
+  WHERE		date_format(p.paided_at, '%Y%m%d') = $paidYmd"; 
+} else if(!empty($confirmYmd)) {
+  // 확정일자 기준으로 데이터 조회
+ 	$query        = "
+  SELECT	p.order_id, p.product_id, p.user_name, 
+  				p.product_id, p.product_name, p.category_code, p.category_name, 
+  				p.quantity, p.product_final_price,
+  				date_format(p.paided_at, '%Y%m%d') as paid_at,
+  				date_format(p.confirmed_at, '%Y%m%d') as confirmed_at,
+  				date_format(p.canceled_at, '%Y%m%d') as canceled_at,
+  				l.lpinfo, l.device_type, l.user_agent, l.ip,
+  				l.event_code, l.promo_code
+  FROM    purchase p
+  JOIN		lpinfo l
+  ON			p.order_id = l.order_id
+  AND			p.product_id = p.product_id
+  WHERE		p.paid_ymd"; 
+} else if(!empty($cancelYmd)) {
+  // 취소일자 기준으로 데이터 조회
+  $query        = "
+  SELECT	p.order_id, p.product_id, p.user_name, 
+  				p.product_id, p.product_name, p.category_code, p.category_name, 
+  				p.quantity, p.product_final_price,
+  				date_format(p.paided_at, '%Y%m%d') as paid_at,
+  				date_format(p.confirmed_at, '%Y%m%d') as confirmed_at,
+  				date_format(p.canceled_at, '%Y%m%d') as canceled_at,
+  				l.lpinfo, l.device_type, l.user_agent, l.ip,
+  				l.event_code, l.promo_code
+  FROM    purchase p
+  JOIN		lpinfo l
+  ON			p.order_id = l.order_id
+  AND			p.product_id = p.product_id
+  WHERE		p.paid_ymd"; 
+}
+
+$dbConnection = mysqli_connect("localhost", "ID", "PASSWORD", "DATABASE_NAME");
+
+$products	= [];
+
+$result	= mysqli_query($dbConnection, $query);
+
+while($row = mysqli_fetch_Array($result)) {
+ 		//주문번호 별로 상품을 묶는다.
+    $products[$row['order_id']][] = $row;
+}
+
+$data = [];
+foreach($products as $orderId => $product) {
+  // 주문 정보
+  $purchase = [];
+	$purchase['order'] = [
+  	'order_id'					=> $orderId,
+  	'final_paid_price'	=> array_sum(array_column($product, 'product_final_price')),
+    'currency'					=> 'KRW',
+    'user_name'					=> $product['user_name'],
+  ];
+  
+  //상품정보
+  $purchase['products'] = [];
+  foreach($product as $productOne) {
+    $purchase['products'][] = [
+      'product_id'            => $productOne['product_id'],
+      'product_name'          => $productOne['product_name'],
+      'category_code'         => $productOne['category_code'],
+      'category_name'         => $productOne['category_name'],
+      'quantity'              => $productOne['quantity'],
+      'product_final_price'   => $productOne['product_final_price'],
+      'paid_at'               => $productOne['paid_at'] ?? '',
+      'confirmed_at'          => $productOne['confirmed_at'] ?? '',
+      'canceled_at'           => $productOne['canceled_at'] ?? ''
+    ];
+  }
+  
+  //링크프라이스 데이터
+  $purchase['linkprice']	= [
+    'merchant_id'		=> 'clickbuy',
+    'user_agent'		=> $product['user_agent'],
+    'remote_addr'		=> $product['ip'],
+    'device_type'		=> $product['device_type']
+  ];
+  
+  // 할인 코드 실적의 경우, event_code와 promo_code를 사용
+  if (isset($product['event_code']) && !empty($product['event_code'])) {
+        $purchase['linkprice']['event_code'] = $product['event_code'];
+        $purchase['linkprice']['promo_code'] = $product['promo_code'];
+        // lpinfo 키 삭제
+        unset($purchase['linkprice']['lpinfo']);
+    } else {
+        // 할인 코드가 없는 경우 lpinfo 사용
+        $purchase['linkprice']['lpinfo'] = $product['lpinfo'];
+        // event_code와 promo_code 키 삭제
+        unset($purchase['linkprice']['event_code']);
+        unset($purchase['linkprice']['promo_code']);
+    }
+  
+  $data[] = $purchase;
+}
+
+//실적 데이터 출력
+echo json_encode($data);
+```
 
 
 # 4. 여행 머천트 셋업
