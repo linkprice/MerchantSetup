@@ -1,4 +1,4 @@
-# CPS 셋업 가이드
+# CPS (여행 광고주용) 셋업 가이드
 
 
 
@@ -26,7 +26,7 @@
 
 (1) 광고주 게이트웨이
 
-[광고주 사이트 내부에 게이트웨이 페이지 작업하기](#2-2-게이트웨이-작업)
+[광고주 사이트 내부에 게이트웨이 페이지 작업하기](#2-2-광고주-게이트웨이-작업)
 
 (2) 실적 데이터 DB 적재
 
@@ -40,6 +40,13 @@
 
 [링크프라이스의 실적으로 실적 리스트 API 작업하기](#2-5-링크프라이스의-실적으로-실적-리스트-api-작업하기)
 
+(5) 할인코드 CPS 셋업
+
+[할인코드 CPS 셋업](#3-할인코드-cps-셋업)
+
+(6) 여행 머천트 CPS 셋업
+
+[여행 머천트 CPS](#4-여행-머천트-셋업)
 
 
 ## 2-2. 광고주 게이트웨이 작업
@@ -119,11 +126,11 @@
 
 ```javascript
 <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-   })(window,document,'script','dataLayer','GTM-P3HTV4');</script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P3HTV4');</script>
 <!-- End Google Tag Manager -->
 ```
 
@@ -147,13 +154,13 @@
 
 ```sql
 create table lpinfo(
-    id int(10) unsigned NOT NULL AUTO_INCREMENT,				 	# Unique Key
-    order_id varchar(30),		 															# 링크프라이스에 전송할 주문번호
-    product_id varchar(30),	 															# 링크프라이스에 전송할 상품코드
-    lpinfo varchar(580),		 															# 링크프라이스 트래킹 코드 (쿠키명 LPINFO) 
-    user_agent varchar(300), 															# 구매자의 User Agent 값
-    ip varchar(50),					 															# 구매자의 IP
-    device_type varchar(11)	 															# 구매자의 운영체제 환경
+                       id int(10) unsigned NOT NULL AUTO_INCREMENT,				 	# Unique Key
+                       order_id varchar(30),		 															# 링크프라이스에 전송할 주문번호
+                       product_id varchar(30),	 															# 링크프라이스에 전송할 상품코드
+                       lpinfo varchar(580),		 															# 링크프라이스 트래킹 코드 (쿠키명 LPINFO) 
+                       user_agent varchar(300), 															# 구매자의 User Agent 값
+                       ip varchar(50),					 															# 구매자의 IP
+                       device_type varchar(11)	 															# 구매자의 운영체제 환경
 )
 ```
 
@@ -375,29 +382,29 @@ Set dbConnection = Nothing
 
 **2-4-3-2. REQUEST 파라미터**
 
-| KEY                            | 값                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | 타입              |
-|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
-| order                          | 주문 데이터 정보                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | object          |
-| order.order_id                 | 상품 고유 주문번호 <br><span style="font-size:75%">링크프라이스에서는 매체에게 누락 문의를 전달받으면 이 주문번호를 기준으로 누락 여부를 조회</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                              | varchar(100)    |
-| order.final_paid_price         | 배송비를 제외한 구매자의 실결제한 전체 금액<br><span style="font-size:75%"> 무료 배송이 아닌 배송비를 구매자가 부담 시, 배송비를 제외한 전체 결제금액 </span> <br><span style="font-size:75%"> * 할인 쿠폰의 경우 금액이 차감되어야 합니다 </span> <br> <span style="font-size:75%"> * 내부 포인트로 사용된 금액은 전체 금액에서 차감이 되면 안됩니다 </span>                                                                                                                                                                                                                                                                                                    | float           |
-| order.currency                 | 상품 결제시 사용된 통화<br><span style="font-size:75%">ISO 4217 사용<br>예) 미국 : USD, 원화 : KRW, 위안화 : CNY, 유로화 : EUR</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                    | varchar(3)      |
-| order.user_name                | 구매자명<br><span style="font-size:75%">누락문의 시, 누구의 실적인지를 구분하기 위해 사용 할 <br>개인정보 이슈로 인해 마스킹 처리 혹은 공백("") 권장<br>예시) 김\*\*, 이\*\*</span>                                                                                                                                                                                                                                                                                                                                                                                                                                 | varchar(100)    |
-| products[]                     | 상품 개별 데이터 리스트                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | array< object > |
-| products[].product_id          | 상품 ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | varchar(100)    |
-| products[].product_name        | 상품 이름                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | varchar(300)    |
-| products[].category_code       | 상품 카테고리 코드                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | varchar(200)    |
-| products[].category_name       | 상품 카테고리 이름 <br><span style="font-size:75%">가급적 해당 상품의 모든 카테고리 이름 기입<br>예를 들면 의류 > 남성의류 > 자켓 > 아우터 일 경우 아래와 같이 전송<br>  "category_name": ["의류", "남성의류", "자켓", "아우터"]</span>                                                                                                                                                                                                                                                                                                                                                                                         | varchar(100)    |
-| products[].quantity            | 구매 상품 갯수                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | int(11)         |
-| products[].product_final_price | 상품 최종 금액                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | float           |
-| products[].paid_at             | 주문 완료 시간<br><span style="font-size:75%">주문 완료 시간이란 결제가 성공한 시간을 의미. <br>* Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야 함) <br> * 시간 값은 KST 시간을 기본적으로 적용하는 것을 권장 <br><br>예시1) 대한민국(UTC+09:00 시간대)에서 2021년 01월 10일 오후 3시 44분 52초에 완료된 주문 <br>paid_at : “2021-01-10T15:44:52+09:00”<br><br>예시2) 중국(UTC+08:00 시간대)에서 2021년 01월 12일 오전 08시 32분 11초에 완료된 주문<br>paid_at : “2021-01-12T08:32:11+08:00”<br><br>예시3) 미국(UTC-05:00 시간대)에서 2021년 01월 13일 오후 1시 11분 21초에 완료된 주문<br>paid_at : “2021-01-13T13:11:21-05:00”</span>                                                     | datetime        |
-| products[].confirmed_at        | 구매 확정 시간<br><span style="font-size:75%">구매 확정 시간이란 쇼핑몰에서 지정한 환불/취소 기간이 지나 더 이상 환불/취소가 불가능한 상태가 된 시간을 의미 <br>* 확정 여부는 실적 목록 API를 참고 <br>* Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)<br><br>- 예시) 대한민국(UTC+09:00 시간대)에서 2021년 01월 15일 오후 3시 44분 52초에 구매 확정된 주문<br>confirmed_at : “2021-01-15T15:44:52+09:00”<br><br>- 예시) 중국(UTC+08:00 시간대)에서 2021년 01월 17일 오전 08시 32분 11초에 구매 확정된 주문<br>confirmed_at : “2021-01-17T08:32:11+08:00”<br><br>- 예시) 미국(UTC-05:00 시간대)에서 2021년 01월 18일 오후 1시 11분 21초에 구매 확정된 주문<br>confirmed_at: “2021-01-18T13:11:21-05:00”</span> | datetime        |
-| products[].canceled_at         | 구매 취소 시간<br><span style="font-size:75%">구매 취소 시간이란 구매자의 요청으로 환불, 취소, 반품 등 처리가 완료된 시간을 의미<br> * 취소 여부는 실적 목록 API를 참고 <br>Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)<br><br>- 예시1) 대한민국(UTC+09:00 시간대)에서 2021년 01월 20일 오전07시 11분 13초에 구매 취소된 주문<br>canceled_at : “2021-01-15T07:11:13+09:00”<br><br>- 예시2) 중국(UTC+08:00 시간대)에서 2021년 01월 22일 오후 05시 21분 09초에 구매 취소된 주문<br>canceled_at : “2021-01-22T17:21:09+08:00”<br><br>- 예시3) 미국(UTC-05:00 시간대)에서 2021년 01월 25일 오전 03시 20분 21초에 구매 취소된 주문<br>canceled_at: “2021-01-25T03:20:21-05:00”</span>                 | datetime        |
-| linkprice                      | 링크프라이스에서 필요한 데이터                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | object          |
-| linkprice.merchant_id          | 링크프라이스로부터 발급받은 광고주 ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | varchar(10)     |
-| linkprice.lpinfo               | 링크프라이스에서 유입된 트래킹 코드(=LPINFO 쿠키)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | varchar(500)    |
-| linkprice.user_agent           | USER AGENT 정보                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | varchar(1000)   |
-| linkprice.remote_addr          | 구매자 IP주소<br><span style="font-size:75%">개인정보 이슈로 가급적 마스킹 처리 혹은 공백("") 권장.<br>예시) 118.221.\*.\* , ""</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                        | varchar(100)    |
-| linkprice.device_type          | 사용자 장치 타입<br><span style="font-size:75%">- web-pc: PC 웹브라우저에서 발생한 실적<br>- web-mobile: 모바일웹 브라우저에서 발생한 실적<br>- app-ios: iOS 앱(혹은 웹뷰)에서 발생한 실적<br>- app-android: Android 앱(혹은 웹뷰)에서 발생한 실적</span>                                                                                                                                                                                                                                                                                                                                                                   | varchar(10)     |
+| KEY                            | 값                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | 타입              |
+|--------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
+| order                          | 주문 데이터 정보                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | object          |
+| order.order_id                 | 상품 고유 주문번호 <br><span style="font-size:75%">링크프라이스에서는 매체에게 누락 문의를 전달받으면 이 주문번호를 기준으로 누락 여부를 조회</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | varchar(100)    |
+| order.final_paid_price         | 배송비를 제외한 구매자의 실결제한 전체 금액<br><span style="font-size:75%"> 무료 배송이 아닌 배송비를 구매자가 부담 시, 배송비를 제외한 전체 결제금액 </span> <br><span style="font-size:75%"> * 할인 쿠폰의 경우 금액이 차감되어야 합니다 </span> <br> <span style="font-size:75%"> * 내부 포인트로 사용된 금액은 전체 금액에서 차감이 되면 안됩니다 </span>                                                                                                                                                                                                                                                                                                                                         | float           |
+| order.currency                 | 상품 결제시 사용된 통화<br><span style="font-size:75%">ISO 4217 사용<br>예) 미국 : USD, 원화 : KRW, 위안화 : CNY, 유로화 : EUR</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | varchar(3)      |
+| order.user_name                | 구매자명<br><span style="font-size:75%">누락문의 시, 누구의 실적인지를 구분하기 위해 사용 할 <br>개인정보 이슈로 인해 마스킹 처리 혹은 공백("") 권장<br>예시) 김\*\*, 이\*\*</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | varchar(100)    |
+| products[]                     | 상품 개별 데이터 리스트                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | array< object > |
+| products[].product_id          | 상품 ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | varchar(100)    |
+| products[].product_name        | 상품 이름                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | varchar(300)    |
+| products[].category_code       | 상품 카테고리 코드                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | varchar(200)    |
+| products[].category_name       | 상품 카테고리 이름 <br><span style="font-size:75%">가급적 해당 상품의 모든 카테고리 이름 기입<br>예를 들면 의류 > 남성의류 > 자켓 > 아우터 일 경우 아래와 같이 전송<br>  "category_name": ["의류", "남성의류", "자켓", "아우터"]</span>                                                                                                                                                                                                                                                                                                                                                                                                                              | varchar(100)    |
+| products[].quantity            | 구매 상품 갯수                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | int(11)         |
+| products[].product_final_price | 상품 최종 금액                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | float           |
+| products[].paid_at             | 주문 완료 시간<br><span style="font-size:75%">주문 완료 시간이란 결제가 성공한 시간을 의미. <br>* Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야 함) <br> * 시간 값은 KST 시간을 기본적으로 적용하는 것을 권장 <br><br>예시1) 대한민국(UTC+09:00 시간대)에서 2021년 01월 10일 오후 3시 44분 52초에 완료된 주문 <br>paid_at : “2021-01-10T15:44:52+09:00”<br><br>예시2) 중국(UTC+08:00 시간대)에서 2021년 01월 12일 오전 08시 32분 11초에 완료된 주문<br>paid_at : “2021-01-12T08:32:11+08:00”<br><br>예시3) 미국(UTC-05:00 시간대)에서 2021년 01월 13일 오후 1시 11분 21초에 완료된 주문<br>paid_at : “2021-01-13T13:11:21-05:00”</span>                                                                                          | datetime        |
+| products[].confirmed_at        | 구매 확정 시간<br><span style="font-size:75%">구매 확정 시간이란 쇼핑몰에서 지정한 환불/취소 기간이 지나 더 이상 환불/취소가 불가능한 상태가 된 시간을 의미 <br>* 확정 여부는 [실적 목록 API](#2-5-링크프라이스의-실적으로-실적-리스트-api-작업하기)를 참고 <br>* Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)<br><br>- 예시) 대한민국(UTC+09:00 시간대)에서 2021년 01월 15일 오후 3시 44분 52초에 구매 확정된 주문<br>confirmed_at : “2021-01-15T15:44:52+09:00”<br><br>- 예시) 중국(UTC+08:00 시간대)에서 2021년 01월 17일 오전 08시 32분 11초에 구매 확정된 주문<br>confirmed_at : “2021-01-17T08:32:11+08:00”<br><br>- 예시) 미국(UTC-05:00 시간대)에서 2021년 01월 18일 오후 1시 11분 21초에 구매 확정된 주문<br>confirmed_at: “2021-01-18T13:11:21-05:00”</span> | datetime        |
+| products[].canceled_at         | 구매 취소 시간<br><span style="font-size:75%">구매 취소 시간이란 구매자의 요청으로 환불, 취소, 반품 등 처리가 완료된 시간을 의미<br> * 취소 여부는 [실적 목록 API](#2-5-링크프라이스의-실적으로-실적-리스트-api-작업하기)를 참고 <br>Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)<br><br>- 예시1) 대한민국(UTC+09:00 시간대)에서 2021년 01월 20일 오전07시 11분 13초에 구매 취소된 주문<br>canceled_at : “2021-01-15T07:11:13+09:00”<br><br>- 예시2) 중국(UTC+08:00 시간대)에서 2021년 01월 22일 오후 05시 21분 09초에 구매 취소된 주문<br>canceled_at : “2021-01-22T17:21:09+08:00”<br><br>- 예시3) 미국(UTC-05:00 시간대)에서 2021년 01월 25일 오전 03시 20분 21초에 구매 취소된 주문<br>canceled_at: “2021-01-25T03:20:21-05:00”</span>                 | datetime        |
+| linkprice                      | 링크프라이스에서 필요한 데이터                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | object          |
+| linkprice.merchant_id          | 링크프라이스로부터 발급받은 광고주 ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | varchar(10)     |
+| linkprice.lpinfo               | 링크프라이스에서 유입된 트래킹 코드(=LPINFO 쿠키)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | varchar(500)    |
+| linkprice.user_agent           | USER AGENT 정보                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | varchar(1000)   |
+| linkprice.remote_addr          | 구매자 IP주소<br><span style="font-size:75%">개인정보 이슈로 가급적 마스킹 처리 혹은 공백("") 권장.<br>예시) 118.221.\*.\* , ""</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | varchar(100)    |
+| linkprice.device_type          | 사용자 장치 타입<br><span style="font-size:75%">- web-pc: PC 웹브라우저에서 발생한 실적<br>- web-mobile: 모바일웹 브라우저에서 발생한 실적<br>- app-ios: iOS 앱(혹은 웹뷰)에서 발생한 실적<br>- app-android: Android 앱(혹은 웹뷰)에서 발생한 실적</span>                                                                                                                                                                                                                                                                                                                                                                                                        | varchar(10)     |
 
 **REQUEST 파라미터 예제**
 
@@ -429,14 +436,14 @@ Set dbConnection = Nothing
             "quantity": 3,
             "product_final_price": 16312,
             "paid_at": "2019-02-12T11:13:44+09:00",
-         	  "confirmed_at": "",
+            "confirmed_at": "",
             "canceled_at": ""
-     		}
+        }
     ],
     "linkprice": {
         "merchant_id": "sample",
         "lpinfo": "A123456789|9832|A|m|a8uakljfa",
-     		"user_agent": "Mozilla/5.0...",
+        "user_agent": "Mozilla/5.0...",
         "remote_addr": "118.221.*.*",
         "device_type": "web-pc"
     }
@@ -466,18 +473,18 @@ Set dbConnection = Nothing
 
 ```json
 [
-   {
-       "is_success": true,
-       "error_message": "",
-       "order_code": "o190203-h78X3",
-       "product_code": "P87-234-anx87"
-   },
-   {
-       "is_success": true,
-       "error_message": "",
-       "order_code": "o190203-h78X3",
-       "product_code": "P23-983-Z3272"
-   }
+    {
+        "is_success": true,
+        "error_message": "",
+        "order_code": "o190203-h78X3",
+        "product_code": "P87-234-anx87"
+    },
+    {
+        "is_success": true,
+        "error_message": "",
+        "order_code": "o190203-h78X3",
+        "product_code": "P23-983-Z3272"
+    }
 ]
 ```
 
@@ -930,47 +937,47 @@ https://api.yourdomain.com/linkprice/order_list_v1?canceled_ymd=yyyymmdd
 ```json
 [
     {
-      "order": {
-        "order_id": "o190203-h78X3",
-        "final_paid_price": 29000,
-        "currency": "KRW",
-        "user_name": "구**"
-      },
-      "products": [
-          {
-            "product_id": "P87-234-anx87",
-            "product_name": "UHD 4K 넥시 HDMI케이블",
-            "category_code": "132782",
-            "category_name": ["컴퓨터 주변기기", "케이블", "HDMI케이블"],
-            "quantity": 2,
-            "product_final_price": 12687,
-            "paid_at": "2019-02-12T11:13:44+09:00",
-            "confirmed_at": "",
-            "canceled_at": ""
-          },
-          {
-            "product_id": "P23-983-Z3272",
-            "product_name": "농심 오징어짬뽕124g(5개)",
-            "category_code": "237018",
-            "category_name": ["가공식품", "라면", "봉지라면"],
-            "quantity": 3,
-            "product_final_price": 16312,
-            "paid_at": "2019-02-12T11:13:44+09:00",
-            "confirmed_at": "",
-            "canceled_at": ""
-          }
-      ],
-      "linkprice": {
-        "merchant_id": "sample",
-        "lpinfo": "A123456789|9832|A|m|a8uakljfa",
-        "user_agent": "Mozilla/5.0...",
-        "remote_addr": "13.156.*.*",
-        "device_type": "web-pc"
-      }
-  },
-  {"order":{"order_id":"ord-123-01",...},"products":[...],"linkprice":{...}},
-  {"order":{"order_id":"ord-123-03",...},"products":[...],"linkprice":{...}},
-  {"order":{"order_id":"ord-123-04",...},"products":[...],"linkprice":{...}}
+        "order": {
+            "order_id": "o190203-h78X3",
+            "final_paid_price": 29000,
+            "currency": "KRW",
+            "user_name": "구**"
+        },
+        "products": [
+            {
+                "product_id": "P87-234-anx87",
+                "product_name": "UHD 4K 넥시 HDMI케이블",
+                "category_code": "132782",
+                "category_name": ["컴퓨터 주변기기", "케이블", "HDMI케이블"],
+                "quantity": 2,
+                "product_final_price": 12687,
+                "paid_at": "2019-02-12T11:13:44+09:00",
+                "confirmed_at": "",
+                "canceled_at": ""
+            },
+            {
+                "product_id": "P23-983-Z3272",
+                "product_name": "농심 오징어짬뽕124g(5개)",
+                "category_code": "237018",
+                "category_name": ["가공식품", "라면", "봉지라면"],
+                "quantity": 3,
+                "product_final_price": 16312,
+                "paid_at": "2019-02-12T11:13:44+09:00",
+                "confirmed_at": "",
+                "canceled_at": "2019-02-12T11:15:44+09:00"
+            }
+        ],
+        "linkprice": {
+            "merchant_id": "sample",
+            "lpinfo": "A123456789|9832|A|m|a8uakljfa",
+            "user_agent": "Mozilla/5.0...",
+            "remote_addr": "13.156.*.*",
+            "device_type": "web-pc"
+        }
+    },
+    {"order":{"order_id":"ord-123-01",...},"products":[...],"linkprice":{...}},
+    {"order":{"order_id":"ord-123-03",...},"products":[...],"linkprice":{...}},
+    {"order":{"order_id":"ord-123-04",...},"products":[...],"linkprice":{...}}
 ]
 ```
 
@@ -1442,21 +1449,373 @@ echo json_encode($data);
 
 ![image-3](image3.png)
 
+## 주의 사항
+> 동일한 주문에 다수의 링크프라이스 할인코드 사용이 불가능합니다. 전송된 할인코드(promo_code)에 따라 매체의 실적이 구분됩니다.
+>
+> 다만, 링크프라이스 할인코드와 광고주 자체적으로 제공되는 할인코드(쿠폰 등)은 동시에 사용 가능합니다.
+>
+> 링크프라이스 배너를 통해 유입되어 LPINFO가 존재하는 상태로 링크프라이스 할인코드를 사용하는 경우 할인코드 실적으로만 전송되도록 작업되어야 합니다.
+
+이미 CPS가 셋업된 머천트의 경우 다음과 같은 시나리오로 전송해주시면 됩니다.
+
+|    제휴링크 진입 여부    |     할인코드 사용      |    할인코드 미사용    |
+|:----------------:|:----------------:|:--------------:|
+|  진입 (LPINFO 존재)  | 할인코드 CPS 실적으로 전송 | 링크프라이스 실적으로 전송 |
+| 미진입 (LPINFO 미존재) | 할인코드 CPS 실적으로 전송 |      전송 X      |
+
 ## 3-2. 실적 발생 시, 자체 별도 DB 테이블 생성 후 적재 작업
 
-### 3-2-1. 작업이 필요한 이유
+실시간으로 전송한 데이터가 네트워크 전송 지연 이슈나 프로그램 오류로 인해 전송되지 않을 수 있습니다.
 
-# 4. 네이버 페이 주문형 타입 셋업
+링크프라이스로 전송한 데이터와 저장된 데이터를 대조하여 정산을 진행하고자 저장을 요청드리고 있습니다.
 
-## 4-1. 연동 흐름과 광고주 작업 내역
+적재하신 데이터는 실적 리스트 API에 추가로 활용됩니다.
 
-# 5. 여행 머천트 셋업
+| KEY         | 값                                                                                                                                                                                               | 타입            |
+|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| event_code  | 링크프라이스에서 생성하는 고유코드로 고정값으로 적용                                                                                                                                                                    | varchar(20)   |
+| promo_code  | 실제 구매자가 사용하는 할인코드(매체 홍보시 사용) <br> 링크프라이스용 할인코드를 발급 후 해당 코드를 알려주세요.                                                                                                                              | varcahr(50)   |
+| user_agent  | USER_AGENT 정보                                                                                                                                                                                   | varchar(1000) |
+| ip          | 구매자 IP주소<br><span style="font-size:75%">개인정보 이슈로 가급적 마스킹 처리 혹은 공백("") 권장.<br>예시) 118.221.\*.\* , ""</span>                                                                                      | varchar(100)  |
+| device_type | 사용자 장치 타입<br><span style="font-size:75%">- web-pc: PC 웹브라우저에서 발생한 실적<br>- web-mobile: 모바일웹 브라우저에서 발생한 실적<br>- app-ios: iOS 앱(혹은 웹뷰)에서 발생한 실적<br>- app-android: Android 앱(혹은 웹뷰)에서 발생한 실적</span> | varchar(10)   |
 
-여행 머천트의 경우 일반 쇼핑몰과 달리 숙박 예약일, 퇴실일, 상품 시작일 등 고려해야 할 요소들이 있습니다.
+### 3-2-1. 데이터 베이스 테이블 작업이 필요한 이유
+
+- **링크프라이스 데이터**를 저장할 테이블을(LPINFO) 다음과 같이 변경합니다. 만약 LPINFO 테이블이 존재하지 않다면 담당자에게 문의해 주세요.
+
+```sql
+alter table lpinfo add event_code varchar(20);
+alter table lpinfo add promo_code varchar(50);
+```
+
+- 할인코드 CPS 실적 발생 시, 앞에서 수정한 테이블에 링크프라이스 데이터를 저장해야합니다.
+- 링크프라이스 전용 할인코드를 사용하여 발생한 실적만 저장하여 주십시오.
+
+### 3-3. 실시간 실적 전송
+링크프라이스의 할인코드로 발생된 실적에 대해서 링크프라이스가 요구하는 스펙에 맞춰 반드시 실시간으로 실적 전송을 해주셔야 합니다.
+
+실시간으로 실적 전송이 어려우시다면 담당자에게 문의바랍니다.
+
+> 1. 할인코드 실적 발생!
+> 2. 링크프라이스의 실적 수집 프로그램으로 실적을 전송
+
+### 3-3-1 작업 방법
+
+Step1. 링크프라이스 실적 수집 프로그램에 실적을 전송하기 위해 다음 요구 스펙을 참고합니다.
+
+| 제목         | 내용                                                  |
+|------------|:----------------------------------------------------|
+| 요청 URL     | https://service.linkprice.com/lppurchase_cps_v4.php |
+| 프로토콜       | https                                               |
+| HTTP 메서드   | POST                                                |
+| 요청 바디 타입   | RAW Data                                            |
+| 요청 파라미터 형식 | JSON 문자열                                            |
+| 응답 파라미터 형식 | JSON 문자열                                            |
+
+**3-3-2. REQUEST 파라미터**
+
+| KEY                            | 값                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | 타입              |
+|--------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
+| order                          | 주문 데이터 정보                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | object          |
+| order.order_id                 | 상품 고유 주문번호 <br><span style="font-size:75%">링크프라이스에서는 매체에게 누락 문의를 전달받으면 이 주문번호를 기준으로 누락 여부를 조회</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | varchar(100)    |
+| order.final_paid_price         | 배송비를 제외한 구매자의 실결제한 전체 금액<br><span style="font-size:75%"> 무료 배송이 아닌 배송비를 구매자가 부담 시, 배송비를 제외한 전체 결제금액 </span> <br><span style="font-size:75%"> * 할인 쿠폰의 경우 금액이 차감되어야 합니다 </span> <br> <span style="font-size:75%"> * 내부 포인트로 사용된 금액은 전체 금액에서 차감이 되면 안됩니다 </span>                                                                                                                                                                                                                                                                                                                                         | float           |
+| order.currency                 | 상품 결제시 사용된 통화<br><span style="font-size:75%">ISO 4217 사용<br>예) 미국 : USD, 원화 : KRW, 위안화 : CNY, 유로화 : EUR</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | varchar(3)      |
+| order.user_name                | 구매자명<br><span style="font-size:75%">누락문의 시, 누구의 실적인지를 구분하기 위해 사용 할 <br>개인정보 이슈로 인해 마스킹 처리 혹은 공백("") 권장<br>예시) 김\*\*, 이\*\*</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | varchar(100)    |
+| products[]                     | 상품 개별 데이터 리스트                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | array< object > |
+| products[].product_id          | 상품 ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | varchar(100)    |
+| products[].product_name        | 상품 이름                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | varchar(300)    |
+| products[].category_code       | 상품 카테고리 코드                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | varchar(200)    |
+| products[].category_name       | 상품 카테고리 이름 <br><span style="font-size:75%">가급적 해당 상품의 모든 카테고리 이름 기입<br>예를 들면 의류 > 남성의류 > 자켓 > 아우터 일 경우 아래와 같이 전송<br>  "category_name": ["의류", "남성의류", "자켓", "아우터"]</span>                                                                                                                                                                                                                                                                                                                                                                                                                              | varchar(100)    |
+| products[].quantity            | 구매 상품 갯수                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | int(11)         |
+| products[].product_final_price | 상품 최종 금액                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | float           |
+| products[].paid_at             | 주문 완료 시간<br><span style="font-size:75%">주문 완료 시간이란 결제가 성공한 시간을 의미. <br>* Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야 함) <br> * 시간 값은 KST 시간을 기본적으로 적용하는 것을 권장 <br><br>예시1) 대한민국(UTC+09:00 시간대)에서 2021년 01월 10일 오후 3시 44분 52초에 완료된 주문 <br>paid_at : “2021-01-10T15:44:52+09:00”<br><br>예시2) 중국(UTC+08:00 시간대)에서 2021년 01월 12일 오전 08시 32분 11초에 완료된 주문<br>paid_at : “2021-01-12T08:32:11+08:00”<br><br>예시3) 미국(UTC-05:00 시간대)에서 2021년 01월 13일 오후 1시 11분 21초에 완료된 주문<br>paid_at : “2021-01-13T13:11:21-05:00”</span>                                                                                          | datetime        |
+| products[].confirmed_at        | 구매 확정 시간<br><span style="font-size:75%">구매 확정 시간이란 쇼핑몰에서 지정한 환불/취소 기간이 지나 더 이상 환불/취소가 불가능한 상태가 된 시간을 의미 <br>* 확정 여부는 [실적 목록 API](#2-5-링크프라이스의-실적으로-실적-리스트-api-작업하기)를 참고 <br>* Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)<br><br>- 예시) 대한민국(UTC+09:00 시간대)에서 2021년 01월 15일 오후 3시 44분 52초에 구매 확정된 주문<br>confirmed_at : “2021-01-15T15:44:52+09:00”<br><br>- 예시) 중국(UTC+08:00 시간대)에서 2021년 01월 17일 오전 08시 32분 11초에 구매 확정된 주문<br>confirmed_at : “2021-01-17T08:32:11+08:00”<br><br>- 예시) 미국(UTC-05:00 시간대)에서 2021년 01월 18일 오후 1시 11분 21초에 구매 확정된 주문<br>confirmed_at: “2021-01-18T13:11:21-05:00”</span> | datetime        |
+| products[].canceled_at         | 구매 취소 시간<br><span style="font-size:75%">구매 취소 시간이란 구매자의 요청으로 환불, 취소, 반품 등 처리가 완료된 시간을 의미<br> * 취소 여부는 [실적 목록 API](#2-5-링크프라이스의-실적으로-실적-리스트-api-작업하기)를 참고 <br>Date Format : ISO-8601 (데이터 포맷은 예시와 동일해야합니다.)<br><br>- 예시1) 대한민국(UTC+09:00 시간대)에서 2021년 01월 20일 오전07시 11분 13초에 구매 취소된 주문<br>canceled_at : “2021-01-15T07:11:13+09:00”<br><br>- 예시2) 중국(UTC+08:00 시간대)에서 2021년 01월 22일 오후 05시 21분 09초에 구매 취소된 주문<br>canceled_at : “2021-01-22T17:21:09+08:00”<br><br>- 예시3) 미국(UTC-05:00 시간대)에서 2021년 01월 25일 오전 03시 20분 21초에 구매 취소된 주문<br>canceled_at: “2021-01-25T03:20:21-05:00”</span>                 | datetime        |
+| linkprice                      | 링크프라이스에서 필요한 데이터                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | object          |
+| linkprice.merchant_id          | 링크프라이스로부터 발급받은 광고주 ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | varchar(10)     |
+| linkprice.event_code           | 링크프라이스에서 생성하는 고유코드로 고정값으로 적용                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | varchar(500)    |
+| linkprice.promo_code           | 실제 구매자가 사용하는 할인코드(매체 홍보시 사용) <br> 링크프라이스용 할인코드를 발급 후 해당 코드를 알려주세요.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | varchar(500)    |
+| linkprice.user_agent           | USER AGENT 정보                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | varchar(1000)   |
+| linkprice.remote_addr          | 구매자 IP주소<br><span style="font-size:75%">개인정보 이슈로 가급적 마스킹 처리 혹은 공백("") 권장.<br>예시) 118.221.\*.\* , ""</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | varchar(100)    |
+| linkprice.device_type          | 사용자 장치 타입<br><span style="font-size:75%">- web-pc: PC 웹브라우저에서 발생한 실적<br>- web-mobile: 모바일웹 브라우저에서 발생한 실적<br>- app-ios: iOS 앱(혹은 웹뷰)에서 발생한 실적<br>- app-android: Android 앱(혹은 웹뷰)에서 발생한 실적</span>                                                                                                                                                                                                                                                                                                                                                                                                        | varchar(10)     |
+
+**REQUEST 파라미터 예제**
+
+```json
+   {
+    "order": {
+        "order_id": "o190203-h78X3",
+        "final_paid_price": 30200,
+        "currency": "KRW",
+        "user_name": "구**"
+    },
+    "products": [
+        {
+            "product_id": "P87-234-anx87",
+            "product_name": "UHD 4K 넥시 HDMI케이블",
+            "category_code": "132782",
+            "category_name": ["컴퓨터 주변기기", "케이블", "HDMI케이블"],
+            "quantity": 2,
+            "product_final_price": 14000,
+            "paid_at": "2019-02-12T11:13:44+00:00",
+            "confirmed_at": "",
+            "canceled_at": ""
+        },
+        {
+            "product_id": "P23-983-Z3272",
+            "product_name": "농심 오징어짬뽕124g(5개)",
+            "category_code": "237018",
+            "category_name": ["가공식품", "라면", "봉지라면"],
+            "quantity": 3,
+            "product_final_price": 16200,
+            "paid_at": "2019-02-12T11:13:44+00:00",
+            "confirmed_at": "",
+            "canceled_at": ""
+        }
+    ],
+    "linkprice": {
+        "merchant_id": "sample",
+        "event_code" : "LINKPRICE_EVENT_CODE",
+        "promo_code" : "PROMO_CODE01",
+        "user_agent": "Mozilla/5.0...",
+        "remote_addr": "127.0.*.*",
+        "device_type": "web-pc"
+    }
+}
+```
+
+**3-3-2-1. Response 개요**
+
+| 키 이름          | 값           | 타입      |
+|---------------|-------------|---------|
+| is_success    | 실적 전송 성공 여부 | boolean |
+| error_message | 에러 상세 메세지   | string  |
+| order_code    | 주문번호        | string  |
+| product_code  | 상품번호        | string  |
+
+>응답값은 JSON 문자열 형식으로 전송됩니다.
+>
+>응답은 2차원 배열로 구매한 상품 숫자만큼 응답이 전송됩니다.
+
+
+
+**3-3-2-2. Response 샘플**
+
+* 2개 상품 구매 후, 전송 성공 시
+
+```json
+[
+    {
+        "is_success": true,
+        "error_message": "",
+        "order_code": "o190203-h78X3",
+        "product_code": "P87-234-anx87"
+    },
+    {
+        "is_success": true,
+        "error_message": "",
+        "order_code": "o190203-h78X3",
+        "product_code": "P23-983-Z3272"
+    }
+]
+```
+
+* 2개 상품 구매 후, 전송 실패 시
+
+```json
+[
+    {
+        "is_success": false,
+        "error_message": "event is nothing.",
+        "order_code": "o190203-h78X3",
+        "product_code": "P87-234-anx87"
+    },
+    {
+        "is_success": false,
+        "error_message": "event is nothing.",
+        "order_code": "o190203-h78X3",
+        "product_code": "P23-983-Z3272"
+    }
+]
+```
+
+**3-3-2-3. Response 상세 사유**
+
+* 아래 목록에 존재하지 않는 응답일 경우, 링크프라이스 담당자에게 호출했던 요청값과 응답값을 전달주시면 확인 가능합니다.
+
+
+| 에러 메세지                                                                                                | 에러 상세 내용                                             |
+|-------------------------------------------------------------------------------------------------------|------------------------------------------------------|
+| This is not a valid JSON string.                                                                      | REQUEST 가 JSON 형식이 아님                                |
+| order.order_id parameter is empty.                                                                    | action.unique_id 미입력                                 |
+| order.final_paid_price parameter is empty.                                                            | action.final_paid_price 미입력                          |
+| order.final_paid_price is not integer.                                                                | action.final_paid_price integer형이 아님                 |
+| order.currency parameter is empty.                                                                    | action.currency 미입력                                  |
+| order.user_name parameter is empty.                                                                   | action.member_id 미입력                                 |
+| products parameter is empty.                                                                          | action.action_name 미입력                               |
+| linkprice.lpinfo parameter is empty.                                                                  | action.category_code 미입력                             |
+| linkprice.lpinfo parameter does not conform to the format.                                            | linkprice.lpinfo 미입력                                 |
+| linkprice.user_agent parameter is empty.                                                              | linkprice.user_agent 미입력                             |
+| linkprice.remote_addr parameter is empty.                                                             | linkprice.remote_addr 미입력                            |
+| linkprice.device_type parameter is empty.                                                             | linkprice.device_type 미입력                            |
+| products[i].product_id parameter is empty.                                                            | products i번째 product_id 미입력                          |
+| products[i].product_name parameter is empty.                                                          | products i번째 product_name 미입력                        |
+| products[i].category_code parameter is empty.                                                         | products i번째 category_code 미입력                       |
+| products[i].product_final_price parameter is empty.                                                   | products i번째 product_final_price 미입력                 |
+| The amount of order.final_paid_price does not match the total amount of products.product_final_price. | products의 합산 금액과 order.final_paid_price 금액이 일치하지 않음. |
+| There was a problem sending your performance.                                                         | 실적 전송 오류                                             |
+| event_code parameter is empty.                                                                        | linkprice.event_code 미입력                             |
+| promo_code parameter is empty.                                                                        | linkprice.promo_code 미입력                             |
+| event is nothing.                                                                                     | 할인코드 이벤트 미등록 <br> 해당 오류 발생시 담당자에게 연락바랍니다.            |
+
+**Step2**. 서버 환경에 맞춰 링크프라이스 실적 수집 프로그램에 실적을 전송하는 프로그램을 작성 합니다.
+
+### 3-4. 링크프라이스 할인코드 CPS 실적으로 실적 리스트 API 작업하기
+
+광고주가 실적 수집 프로그램을 통해 전송한 실적 데이터는 링크프라이스 데이터베이스에 적재합니다.
+
+기본적으로 링크프라이스의 실적 데이터와 광고주에서 가지고 있는 실적 데이터가 동일해야 합니다.
+
+하지만 전송하였음에도 불구하고 여러 장애로 인하여 실적은 발생되었지만 링크프라이스에게 전송하지 못하고 누락되는 경우가 종종 발생합니다.
+
+그래서 링크프라이스에서는 매일 광고주의 API를 호출하여 전일 실적 데이터를 가져와 링크프라이스의 실적과 대조하여 없는 경우 실적을 복구처리를 진행하고 있습니다.
+
+아울러 이 API를 통해 매월 20일마다 주문 최소되거나 환불된 실적에 대해 자동으로 취소처리를 진행하고 있습니다.
+
+링크프라이스에서 실적을 확인할 수 있도록 링크프라이스가 정해드린 스펙에 맞춰 링크프라이스 서버에서 접근 가능한 실적 조회 API를 제작해주셔야 합니다.
+
+### 3-4-1. 개요
+
+이 API의 명칭은 실적목록 API 입니다.
+
+링크프라이스는 해당 API 활용해 아래와 같이 처리를 진행하고 있습니다.
+
+```
+1. 매일 새벽에 광고주 실적조회API를 호출하여 전일 실적에 대해 수집하여 실적 복구 처리 진행
+2. 매월 20일마다 광고주로부터 전월 취소 실적들을 수집해 자동 취소 처리 진행
+```
+**일반 CPS 프로그램에서 실적 목록을 사용하고 있는 머천트는 사용중인 실적 목록 호출 시 할인코드 CPS 실적의 주문도 함께 출력되도록 작업해주시면 됩니다.**
+
+> 전월 확정 및 취소 실적 수집은 광고주 측에서 확정 및 취소 실적을 재전송해 주시는 것이 아닙니다.
+>
+> 실적 목록 API에서 보이는 실적(products[])의 confirmed_at과 canceled_at에 각각 확정과 취소 일자를 적용하여 API에 나타내주시면 됩니다.
+>
+> 링크프라이스에서 상태 여부만 확인하기 때문에 해당 confirmed_at과 canceled_at 값만 업데이트해 주시면 됩니다.
+
+
+
+
+링크프라이스에서는 광고주 API를 호출 할 시, 아래와 같이 하루에 3번 호출합니다.
+
+
+
+1. 실적 복구하기 위해 주문 완료일을 기준으로 호출
+
+```
+# 쿼리 스트링 paid_ymd 파라미터로 조회할 날짜를 호출
+https://api.yourdomain.com/linkprice/order_list_v1?paid_ymd=yyyymmdd
+```
+
+2. 실적 확정하기 위해 구매 확정일을 기준으로 호출
+
+```
+# 쿼리 스트링 confirmed_ymd 파라미터로 조회할 날짜를 호출
+https://api.yourdomain.com/linkprice/order_list_v1?confirmed_ymd=yyyymmdd
+```
+
+3. 실적 취소하기 위해 구매 취소일을 기준으로 호출
+
+```
+# 쿼리 스트링 canceled_ymd 파라미터로 조회할 날짜를 호출
+https://api.yourdomain.com/linkprice/order_list_v1?canceled_ymd=yyyymmdd
+```
+
+
+
+반드시 링크프라이스에게 전송해주셨던 데이터와 실적목록으로 표현되는 데이터는 동일해야 합니다.
+
+> 실적 전송으로 상품명을 "상품A" 라는 이름으로 보내줬는데 실적목록API에서는 "상품B"라고 전송하는 경우 (x)
+
+
+
+### 3-4-2. 작업 방법
+
+**Step1**. 실적목록 API를 작성하기 위해 아래 요구 출력 스펙을 참고합니다.
+
+2-3-3 Step1 참조
+
+
+
+**Step2**. 실적 목록 페이지를 생성하고 주문 완료일(paid_ymd), 구매 확정일(comfirmed_ymd), 구매 취소일(canceled_ymd)를 기준으로 아래 예시대로 링크프라이스가 JSON 문자열을 받아 갈 수 있도록 작업합니다.
+
+**실적목록 API 출력 예시**
+
+```json
+[
+    {
+        "order": {
+            "order_id": "o190203-h78X3",
+            "final_paid_price": 29000,
+            "currency": "KRW",
+            "user_name": "구**"
+        },
+        "products": [
+            {
+                "product_id": "P87-234-anx87",
+                "product_name": "UHD 4K 넥시 HDMI케이블",
+                "category_code": "132782",
+                "category_name": ["컴퓨터 주변기기", "케이블", "HDMI케이블"],
+                "quantity": 2,
+                "product_final_price": 12687,
+                "paid_at": "2019-02-12T11:13:44+09:00",
+                "confirmed_at": "",
+                "canceled_at": ""
+            },
+            {
+                "product_id": "P23-983-Z3272",
+                "product_name": "농심 오징어짬뽕124g(5개)",
+                "category_code": "237018",
+                "category_name": ["가공식품", "라면", "봉지라면"],
+                "quantity": 3,
+                "product_final_price": 16312,
+                "paid_at": "2019-02-12T11:13:44+09:00",
+                "confirmed_at": "",
+                "canceled_at": "2019-02-12T11:15:44+09:00"
+            }
+        ],
+        "linkprice": {
+            "merchant_id": "sample",
+            "event_code": "LINKPRICE_EVENT_CODE",
+            "promo_code": "PROMO_CODE01",
+            "user_agent": "Mozilla/5.0...",
+            "remote_addr": "13.156.*.*",
+            "device_type": "web-pc"
+        }
+    },
+    {"order":{"order_id":"ord-123-01",...},"products":[...],"linkprice":{...}},
+    {"order":{"order_id":"ord-123-03",...},"products":[...],"linkprice":{...}},
+    {"order":{"order_id":"ord-123-04",...},"products":[...],"linkprice":{...}}
+]
+```
+
+**Step3**. 운영 중이신 서버의 방화벽 정책이 인바운드가 차단되어 있는 경우, 링크프라이스 크롤러가 접근 가능하도록 아래 IP를 허용해주셔야 합니다.
+
+```
+# 링크프라이스 서버 IP
+13.125.179.218/32
+13.124.188.166/32
+```
+
+**Step4**. 완성된 API URL을 링크프라이스 담당자에게 전달합니다.
+
+
+# 4. 여행 머천트 셋업
+
+여행 머천트의 경우 일반 CPS 셋업과 같이 개발 진행을 해주시면 되나 숙박 예약일, 퇴실일, 상품 시작일 등 고려해야 할 요소들이 있습니다.
 
 상품 유형에 따라 확정 시간(Confirmed)을 실적 목록 API에 업데이트해 주시면 링크프라이스에서 확인하도록 하겠습니다.
 
-**여행 머천트 실적 목록 API 업데이트 개요**
+**여행 머천트 [실적 목록 API](#2-5-링크프라이스의-실적으로-실적-리스트-api-작업하기) 업데이트 개요**
 
 | 상품 유형  | Paid     | Confirmed | Canceled |
 |:------:|----------|-----------|----------|
