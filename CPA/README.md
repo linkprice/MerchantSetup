@@ -16,7 +16,7 @@
 
 ## 2-1. 연동 흐름과 광고주 작업 내역
 
-![image-1](../CPS/image1.png)
+![image-1](image1.png)
 
 (1) 광고주 게이트웨이
 
@@ -516,7 +516,7 @@ purchases.put("linkprice", linkprice);
 String postData = purchases.toString();
 
 // HTTP POST 요청
-String url = "https://service.linkprice.com/lppurchase_cps_v4.php";
+String url = "https://service.linkprice.com/lppurchase_cpa_v4.php";
 URLConnection connection = new URL(url).openConnection();
 connection.setDoOutput(true);
 connection.setRequestProperty("Content-Type", "application/json");
@@ -592,7 +592,7 @@ postData = ConvertToJson(purchases)
 ' HTTP POST 요청
 Dim objXMLHTTP
 Set objXMLHTTP = Server.CreateObject("MSXML2.ServerXMLHTTP")
-objXMLHTTP.Open "POST", "https://service.linkprice.com/lppurchase_cps_v4.php", False
+objXMLHTTP.Open "POST", "https://service.linkprice.com/lppurchase_cpa_v4.php", False
 objXMLHTTP.setRequestHeader "Content-Type", "application/json"
 objXMLHTTP.send postData
 
@@ -641,7 +641,7 @@ $postData = json_encode($purchases);
 $curl = curl_init();
 
 curl_setopt_array($curl, [
-  CURLOPT_URL               => 'https://service.linkprice.com/lppurchase_cps_v4.php',
+  CURLOPT_URL               => 'https://service.linkprice.com/lppurchase_cpa_v4.php',
   CURLOPT_RETURNTRANSFER    => true,
   CURLOPT_HTTP_VERSION      => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST     => 'POST',
