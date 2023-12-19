@@ -23,7 +23,7 @@ To get set up, you'll need to do the following
 
 ## 2-1. Integration flow and advertiser action history
 
-![image-1](image1.png)
+![image1-en](image1-en.png)
 
 (1) Advertiser gateway
 
@@ -75,7 +75,7 @@ The Advertiser Gateway [^4] has the following behavior.
 
 Your LinkPrice affiliate link will take you through the advertiser gateway page, generate a tracking code, and enter the advertiser's site.
 
-![image-20210216180317429](image-20210216180317429.png)
+![default-flow](default-flow.png)
 
 ### 2-2-3. How to work
 
