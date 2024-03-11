@@ -21,10 +21,13 @@
 
 ### 3. 커스텀 변수를 포함한 트래킹 링크를 생성하여 전달해주십시오.
 -  예시 트래킹 링크 커스텀 변수
-  > - click_id = 광고주(머천트) id (링크프라이스 내부 정해져있는 광고주(머천트) id)
+  > - click_id = 링크프라이스에서 발급한 광고주(머천트) ID
   > - targetUrl = 랜딩 하고자 하는 광고주(머천트) 페이지 url
-  > - customer_ad_name = lpinfo값<br>
-- 예시 트래킹 링크  
+  > - customer_ad_name = LPINFO 값<br>
+  > - Q: LPINFO란 무엇인가요? <br>
+  >  A: LPINFO(쿠키)는 매체사의 실적 추적을 위해 사용되는 값으로, 링크프라이스에서 전달한 광고 유입 정보입니다.
+ 
+ - 예시 트래킹 링크  
   - https://app.app.link/?click_id=linkprice&targetUrl=https://linkprice.com&customer_ad_name=A100000131|280111287pfJhj|0000|B|1
 
 * 해당 변수는 링크프라이스, 광고주(머천트), 브랜치 3사에서 협의하여 커스텀 가능합니다.
