@@ -371,7 +371,7 @@ If you have difficulty sending performance in real-time, please contact us.
 | order.currency                 | The currency used to pay for the product<br><span style="font-size:75%">Using ISO 4217<br> Example) US: USD, Korean Won: KRW, Chinese Yuan: CNY, Euro: EUR</span>                                                                                                                                                                                                                                                                                                                                                                              | varchar(3)      |
 | order.user_name                | Buyer Name<br><span style="font-size:75%"In the event of a missing statement, masking or a space ("") is recommended due to privacy issues to be used to distinguish whose performance is being recognized (example) Kim**, Lee**</span>                                                                                                                                                                                                                                                                                                       | varchar(100)    |
 | products[]                     | List of individual product data                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | array< object > |
-| products[].product_id          | Product ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | varchar(100)    |
+| products[].product_id          | product ID <br><span style="font-size: 75%">* If the product has an option selection, apply a unique option ID value to the product ID in addition <br> Yes) product ID_option ID                                                                                                                                                                                                                                                                                                                                                              | varchar(100)    |
 | products[].product_name        | Product name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | varchar(300)    |
 | products[].category_code       | Product category codes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | varchar(200)    |
 | products[].category_name       | Product category name <br><span style="font-size:75%">List all of the product's category names, if possible.<br> For example, for Clothing > Men's clothing > Jackets > Outerwear, send it like this<br>  "category_name": ["apparel", "menswear", "jackets", "outerwear"]</span>                                                                                                                                                                                                                                                              | varchar(100)    |
@@ -886,9 +886,29 @@ The data you send to LinkPrice and the data represented in the performance list 
 
 ### 2-5-3. How to work
 
-**Step1**.  Refer to the required output specification below to create a performance list API. See 2-3-3 Step1
+**Step1**.  Refer to the required output specification below to create a performance list API. See [2-3-3 Step1](#2-3-2-how-to-work)
 
 **Step2**. Create a performance list page and add the order paid date (paid_ymd), purchase confirmed date (comfirmed_ymd), and purchase canceled date to it (canceled_ymd).
+
+#### 2-5-3-1 In the case of a merchandise that can be partially canceled and partially canceled
+
+In the case of a merchant that allows partial cancellation and partial quantity cancellation of a product, it can be updated by checking the individual product cancellation and partial cancellation quantity of the product through the performance list.
+
+If you apply the information on the partial cancellation quantity/partial cancellation amount to the product[].canceled_quantity and product[].canceled_price, it will be used to check and apply the cancellation performance.
+
+If the previous cancellation situation is possible, the following scenarios will appear on the performance list.
+
+| Situation                  | Application                                                                                                                                                                                             |
+|----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| General Cancellation       | canceled_at : Apply the time when the product is canceled                                                                                                                                               |
+| Partial Cancellation       | Apply canceled_at cancellation time only to canceled products if only one of the two or more items is canceled                                                                                          |
+| Partial Quantity Cancelled | canceled_at : Applies when goods are canceled <br> canceled_quantity : Applies as much as partially canceled quantities <br> canceled_price : Applies as much as the amount of partially canceled goods |
+
+| KEY                          | Value                                                                                                                                                                                                                                                                                                                                                                      | Type           |
+|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------|
+| products[]                   | Product Individual Data List                                                                                                                                                                                                                                                                                                                                               | array< object> | 
+| Products[].canceled_quantity | Partially canceled quantity<br><span style="font-size: 75%"> Partially canceled quantity means the quantity that has been processed, such as partial cancellation and return, at the request of the buyer <br> * See [Working with the Performance List API in Linkprice](#2-5-working-with-link-prices-performance-list-api) for details on whether to use the parameter. | int(11)        |
+| products[].canceled_price    | Partially canceled amount<br><span style="font-size: 75%"> Partially canceled amount means the amount that has been processed, such as partial cancellation and return, at the request of the buyer <br> * See [Working with the Performance List API in Linkprice](#2-5-working-with-link-prices-performance-list-api) for information on whether to use the parameter.   | float          |
 
 so that Linkprice can take a JSON string as shown in the example below.
 
@@ -924,7 +944,9 @@ Performance List API Response Example
                 "product_final_price": 16312,
                 "paid_at": "2019-02-12T11:13:44+09:00",
                 "confirmed_at": "",
-                "canceled_at": "2019-02-12T11:15:44+09:00"
+                "canceled_at": "2019-02-12T11:15:44+09:00",
+                "canceled_quantity": 1,
+                "canceled_price": 5000
             }
         ],
         "linkprice": {
@@ -1062,6 +1084,8 @@ try {
         row.put("paid_at", result.getString("paid_at"));
         row.put("confirmed_at", result.getString("confirmed_at"));
         row.put("canceled_at", result.getString("canceled_at"));
+        row.put("canceled_quantity", result.getInt("canceled_quantity"));
+        row.put("canceled_price", result.getDouble("canceled_price"));
         row.put("lpinfo", result.getString("lpinfo"));
         row.put("device_type", result.getString("device_type"));
         row.put("user_agent", result.getString("user_agent"));
@@ -1101,7 +1125,9 @@ for (Map<String, Object> product : products) {
                     "product_final_price", productOne.get("product_final_price"),
                     "paid_at", productOne.get("paid_at"),
                     "confirmed_at", productOne.get("confirmed_at"),
-                    "canceled_at", productOne.get("canceled_at")
+                    "canceled_at", productOne.get("canceled_at"),
+                    "canceled_quantity", productOne.get("canceled_quantity"),
+                    "canceled_price", productOne.get("canceled_price")
             ));
         }
     }
@@ -1243,6 +1269,8 @@ Do Until products.EOF
     product("paid_at") = products("paid_at")
     product("confirmed_at") = products("confirmed_at")
     product("canceled_at") = products("canceled_at")
+    product("canceled_quantity") = products("canceled_quantity")
+    product("canceled_price") = products("canceled_price")
     productDetails.Add productDetails.Count + 1, product
 
     ' Calculate the total checkout price for an order
@@ -1376,6 +1404,8 @@ foreach($products as $orderId => $product) {
       'paid_at'               => $productOne['paid_at'] ?? '',
       'confirmed_at'          => $productOne['confirmed_at'] ?? '',
       'canceled_at'           => $productOne['canceled_at'] ?? ''
+      'canceled_quantity'     => $productOne['canceled_quantity'] ?? ''
+      'canceled_price'        => $productOne['canceled_price'] ?? ''
     ];
   }
   
@@ -1702,6 +1732,27 @@ The data you send to LinkPrice and the data represented in the performance list 
 
 **Step2**. Create a performance list page and add the order paid date (paid_ymd), purchase confirmed date(comfirmed_ymd), and purchase canceled date to it(canceled_ymd). so that Linkprice can take a JSON string as shown in the example below.
 
+#### 3-4-2-1 In the case of a merchandise that can be partially canceled and partially canceled
+
+In the case of a merchant that allows partial cancellation and partial quantity cancellation of a product, it can be updated by checking the individual product cancellation and partial cancellation quantity of the product through the performance list.
+
+If you apply the information on the partial cancellation quantity/partial cancellation amount to the product[].canceled_quantity and product[].canceled_price, it will be used to check and apply the cancellation performance.
+
+If the previous cancellation situation is possible, the following scenarios will appear on the performance list.
+
+| Situation                  | Application                                                                                                                                                                                             |
+|----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| General Cancellation       | canceled_at : Apply the time when the product is canceled                                                                                                                                               |
+| Partial Cancellation       | Apply canceled_at cancellation time only to canceled products if only one of the two or more items is canceled                                                                                          |
+| Partial Quantity Cancelled | canceled_at : Applies when goods are canceled <br> canceled_quantity : Applies as much as partially canceled quantities <br> canceled_price : Applies as much as the amount of partially canceled goods |
+
+| KEY                          | Value                                                                                                                                                                                                                                                                                                                                                                      | Type           |
+|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------|
+| products[]                   | Product Individual Data List                                                                                                                                                                                                                                                                                                                                               | array< object> | 
+| Products[].canceled_quantity | Partially canceled quantity<br><span style="font-size: 75%"> Partially canceled quantity means the quantity that has been processed, such as partial cancellation and return, at the request of the buyer <br> * See [Working with the Performance List API in Linkprice](#2-5-working-with-link-prices-performance-list-api) for details on whether to use the parameter. | int(11)        |
+| products[].canceled_price    | Partially canceled amount<br><span style="font-size: 75%"> Partially canceled amount means the amount that has been processed, such as partial cancellation and return, at the request of the buyer <br> * See [Working with the Performance List API in Linkprice](#2-5-working-with-link-prices-performance-list-api) for information on whether to use the parameter.   | float          |
+
+
 **Performance List API Output Example**
 
 This is in the form of event_code, promo_code instead of linkprice.lpinfo in existing performance list data.
@@ -1877,6 +1928,8 @@ query = "SELECT p.order_id, p.product_id, p.user_name, "
             row.put("paid_at", result.getString("paid_at"));
             row.put("confirmed_at", result.getString("confirmed_at"));
             row.put("canceled_at", result.getString("canceled_at"));
+            row.put("canceled_quantity", result.getString("canceled_quantity"));
+            row.put("canceled_price", result.getString("canceled_price"));
             row.put("lpinfo", result.getString("lpinfo"));
             row.put("device_type", result.getString("device_type"));
             row.put("user_agent", result.getString("user_agent"));
@@ -1918,7 +1971,9 @@ query = "SELECT p.order_id, p.product_id, p.user_name, "
                     "product_final_price", productOne.get("product_final_price"),
                     "paid_at", productOne.get("paid_at"),
                     "confirmed_at", productOne.get("confirmed_at"),
-                    "canceled_at", productOne.get("canceled_at")
+                    "canceled_at", productOne.get("canceled_at"),
+                    "canceled_quantity", productOne.get("canceled_quantity"),
+                    "canceled_price", productOne.get("canceled_price")
             ));
         }
     }
@@ -2070,6 +2125,8 @@ orderId = products("order_id")
     product("paid_at") = products("paid_at")
     product("confirmed_at") = products("confirmed_at")
     product("canceled_at") = products("canceled_at")
+    product("canceled_quantity") = products("canceled_quantity")
+    product("canceled_price") = products("canceled_price")
     productDetails.Add productDetails.Count + 1, product
     
     ' Add linkprice information
@@ -2226,7 +2283,9 @@ foreach($products as $orderId => $product) {
       'product_final_price'   => $productOne['product_final_price'],
       'paid_at'               => $productOne['paid_at'] ?? '',
       'confirmed_at'          => $productOne['confirmed_at'] ?? '',
-      'canceled_at'           => $productOne['canceled_at'] ?? ''
+      'canceled_at'           => $productOne['canceled_at'] ?? '',
+      'canceled_quantity'     => $productOne['canceled_quantity'] ?? '',
+      'canceled_price'        => $productOne['canceled_price'] ?? ''
     ];
   }
   

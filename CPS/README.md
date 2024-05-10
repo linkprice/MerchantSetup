@@ -309,13 +309,12 @@ Set dbConnection = Nothing
 
 ```php
 <?php
-  // 실적 발생!!
-  
-  $orderId 		= $_REQUEST['order_id'] ?? '';
+    // 실적 발생!!
+    $orderId 	= $_REQUEST['order_id'] ?? '';
 	$productId 	= $_REQUEST['product_id'] ?? '';
-	$lpinfo			= $_COOKIE['LPINFO'] ?? '';
+	$lpinfo		= $_COOKIE['LPINFO'] ?? '';
 	$userAgent	= $_SERVER['HTTP_USER_AGENT'] ?? '';
-	$ip					= $_SERVER["REMOTE_ADDR"] ?? '';
+	$ip			= $_SERVER["REMOTE_ADDR"] ?? '';
 	
 	/*
 	web-pc : PC용 브라우저에서 발생된 실적
@@ -390,7 +389,7 @@ Set dbConnection = Nothing
 | order.currency                 | 상품 결제시 사용된 통화<br><span style="font-size:75%">ISO 4217 사용<br>예) 미국 : USD, 원화 : KRW, 위안화 : CNY, 유로화 : EUR</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | varchar(3)      |
 | order.user_name                | 구매자명<br><span style="font-size:75%">누락문의 시, 누구의 실적인지를 구분하기 위해 사용 할 <br>개인정보 이슈로 인해 마스킹 처리 혹은 공백("") 권장<br>예시) 김\*\*, 이\*\*</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | varchar(100)    |
 | products[]                     | 상품 개별 데이터 리스트                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | array< object > |
-| products[].product_id          | 상품 ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | varchar(100)    |
+| products[].product_id          | 상품 ID <br><span style="font-size:75%">* 상품에 옵션 선택값이 있는 경우 고유한 옵션ID 값을 상품 ID에 추가로 적용 <br> 예) 상품ID_옵션ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | varchar(100)    |
 | products[].product_name        | 상품 이름                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | varchar(300)    |
 | products[].category_code       | 상품 카테고리 코드                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | varchar(200)    |
 | products[].category_name       | 상품 카테고리 이름 <br><span style="font-size:75%">가급적 해당 상품의 모든 카테고리 이름 기입<br>예를 들면 의류 > 남성의류 > 자켓 > 아우터 일 경우 아래와 같이 전송<br>  "category_name": ["의류", "남성의류", "자켓", "아우터"]</span>                                                                                                                                                                                                                                                                                                                                                                                                                              | varchar(100)    |
@@ -924,12 +923,30 @@ https://api.yourdomain.com/linkprice/order_list_v1?canceled_ymd=yyyymmdd
 
 **Step1**. 실적목록 API를 작성하기 위해 아래 요구 출력 스펙을 참고합니다.
 
-2-3-3 Step1 참조
-
-
+[2-4-3-2 REQUEST 파라미터](#2-4-링크프라이스-실적-발생-시-링크프라이스에게-실적-전송하기) 참조
 
 **Step2**. 실적 목록 페이지를 생성하고 주문 완료일(paid_ymd), 구매 확정일(comfirmed_ymd), 구매 취소일(canceled_ymd)를 기준으로 아래 예시대로 링크프라이스가 JSON 문자열을 받아 갈 수 있도록 작업합니다.
 
+
+#### 2-5-3-1 상품 부분  취소 및 부분 수량 취소가 가능한 머천트인 경우
+
+상품의 부분 취소와 부분 수량 취소가 가능한 머천트인 경우 실적 목록을 통해 상품 개별 취소 및 상품의 부분 취소 수량을 확인하여 업데이트가 가능합니다.
+
+product 객체에 부분 취소 수량/부분 취소 금액에 대한 정보를 product[].caceled_quantity와 product[].canceled_price에 적용해주시면 취소 실적 조회 및 적용시 활용합니다.
+
+앞의 취소 상황이 가능한 경우 실적 목록에 나타날 시나리오는 다음과 같습니다.
+
+| 상황       | 적용                                                                                                           |
+|----------|--------------------------------------------------------------------------------------------------------------|
+| 일반 취소    | canceled_at : 상품이 취소된 시간 적용                                                                                  |
+| 부분 취소    | 2개 이상의 상품 중 특정 하나만 취소가 발생된 경우 취소된 상품에만 canceled_at 취소 시간 적용                                                  |
+| 부분 수량 취소 | canceled_at : 상품이 취소된 시간 적용 <br> canceled_quantity : 부분 취소된 수량만큼 적용 <br> canceled_price : 부분 취소된 상품의 금액만큼 적용 |
+
+| KEY                          | 값                                                                                                                                                                   | 타입              |
+|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
+| products[]                   | 상품 개별 데이터 리스트                                                                                                                                                       | array< object > | 
+| products[].canceled_quantity | 부분 취소된 수량<br><span style="font-size:75%">부분 취소된 수량이란 구매자의 요청으로 부분 취소, 반품 등 처리가 완료된 수량을 의미 <br> * 해당 파라미터를 활용 여부는 [실적 목록 API](#2-5-링크프라이스의-실적으로-실적-리스트-api-작업하기)를 참고 | int(11)         |
+| products[].canceled_price    | 부분 취소된 금액<br><span style="font-size:75%">부분 취소된 금액이란 구매자의 요청으로 부분 취소, 반품 등 처리가 완료된 금액을 의미 <br> * 해당 파라미터를 활용 여부는 [실적 목록 API](#2-5-링크프라이스의-실적으로-실적-리스트-api-작업하기)를 참고 | float           |
 
 
 실적목록 API 출력 예시
@@ -964,7 +981,9 @@ https://api.yourdomain.com/linkprice/order_list_v1?canceled_ymd=yyyymmdd
                 "product_final_price": 16312,
                 "paid_at": "2019-02-12T11:13:44+09:00",
                 "confirmed_at": "",
-                "canceled_at": "2019-02-12T11:15:44+09:00"
+                "canceled_at": "2019-02-12T11:15:44+09:00",
+                "canceled_quantity": 1,
+                "canceled_price": 5000
             }
         ],
         "linkprice": {
@@ -993,7 +1012,7 @@ https://api.yourdomain.com/linkprice/order_list_v1?canceled_ymd=yyyymmdd
 
 
 
-###2-5-4. 샘플 코드
+### 2-5-4. 샘플 코드
 
 **※ 주의**
 
@@ -1005,7 +1024,7 @@ https://api.yourdomain.com/linkprice/order_list_v1?canceled_ymd=yyyymmdd
 
 
 
-* lpinfo 테이블은 연동 가이드 2-2-2. Step1 예제에서 생성하는 테이블 구조를 기준으로 작성되었습니다.
+* lpinfo 테이블은 연동 가이드 [2-3-2. 작업 방법](#2-3-2-작업-방법) 예제에서 생성하는 테이블 구조를 기준으로 작성되었습니다.
 
 * purchase 테이블은 구매한 상품 리스트 데이터를 의미합니다.
 
@@ -1106,6 +1125,8 @@ try {
         row.put("paid_at", result.getString("paid_at"));
         row.put("confirmed_at", result.getString("confirmed_at"));
         row.put("canceled_at", result.getString("canceled_at"));
+        row.put("canceled_quantity", result.getInt("canceled_quantity"));
+        row.put("canceled_price", result.getDouble("canceled_price"));
         row.put("lpinfo", result.getString("lpinfo"));
         row.put("device_type", result.getString("device_type"));
         row.put("user_agent", result.getString("user_agent"));
@@ -1145,7 +1166,9 @@ for (Map<String, Object> product : products) {
                     "product_final_price", productOne.get("product_final_price"),
                     "paid_at", productOne.get("paid_at"),
                     "confirmed_at", productOne.get("confirmed_at"),
-                    "canceled_at", productOne.get("canceled_at")
+                    "canceled_at", productOne.get("canceled_at"),
+                    "canceled_quantity", productOne.get("canceled_quantity"),
+                    "canceled_price", productOne.get("canceled_price")
             ));
         }
     }
@@ -1287,6 +1310,8 @@ Do Until products.EOF
     product("paid_at") = products("paid_at")
     product("confirmed_at") = products("confirmed_at")
     product("canceled_at") = products("canceled_at")
+    product("canceled_quantity") = products("canceled_quantity")
+    product("canceled_price") = products("canceled_price")
     productDetails.Add productDetails.Count + 1, product
 
     ' 주문의 총 결제 가격 계산
@@ -1420,6 +1445,8 @@ foreach($products as $orderId => $product) {
       'paid_at'               => $productOne['paid_at'] ?? '',
       'confirmed_at'          => $productOne['confirmed_at'] ?? '',
       'canceled_at'           => $productOne['canceled_at'] ?? ''
+      'canceled_quantity'     => $productOne['canceled_quantity'] ?? ''
+      'canceled_price'        => $productOne['canceled_price'] ?? ''
     ];
   }
   
@@ -1522,7 +1549,7 @@ Step1. 링크프라이스 실적 수집 프로그램에 실적을 전송하기 �
 | order.currency                 | 상품 결제시 사용된 통화<br><span style="font-size:75%">ISO 4217 사용<br>예) 미국 : USD, 원화 : KRW, 위안화 : CNY, 유로화 : EUR</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | varchar(3)      |
 | order.user_name                | 구매자명<br><span style="font-size:75%">누락문의 시, 누구의 실적인지를 구분하기 위해 사용 할 <br>개인정보 이슈로 인해 마스킹 처리 혹은 공백("") 권장<br>예시) 김\*\*, 이\*\*</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | varchar(100)    |
 | products[]                     | 상품 개별 데이터 리스트                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | array< object > |
-| products[].product_id          | 상품 ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | varchar(100)    |
+| products[].product_id          | 상품 ID <br><span style="font-size:75%">* 상품에 옵션 선택값이 있는 경우 고유한 옵션ID 값을 상품 ID에 추가로 적용 <br> 예) 상품ID_옵션ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | varchar(100)    |
 | products[].product_name        | 상품 이름                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | varchar(300)    |
 | products[].category_code       | 상품 카테고리 코드                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | varchar(200)    |
 | products[].category_name       | 상품 카테고리 이름 <br><span style="font-size:75%">가급적 해당 상품의 모든 카테고리 이름 기입<br>예를 들면 의류 > 남성의류 > 자켓 > 아우터 일 경우 아래와 같이 전송<br>  "category_name": ["의류", "남성의류", "자켓", "아우터"]</span>                                                                                                                                                                                                                                                                                                                                                                                                                              | varchar(100)    |
@@ -1740,6 +1767,26 @@ https://api.yourdomain.com/linkprice/order_list_v1?canceled_ymd=yyyymmdd
 
 **Step2**. 실적 목록 페이지를 생성하고 주문 완료일(paid_ymd), 구매 확정일(comfirmed_ymd), 구매 취소일(canceled_ymd)를 기준으로 아래 예시대로 링크프라이스가 JSON 문자열을 받아 갈 수 있도록 작업합니다.
 
+#### 3-4-2-1 상품 부분  취소 및 부분 수량 취소가 가능한 머천트인 경우
+
+상품의 부분 취소와 부분 수량 취소가 가능한 머천트인 경우 실적 목록을 통해 상품 개별 취소 및 상품의 부분 취소 수량을 확인하여 업데이트가 가능합니다.
+
+product 객체에 부분 취소 수량/부분 취소 금액에 대한 정보를 product[].caceled_quantity와 product[].canceled_price에 적용해주시면 취소 실적 조회 및 적용시 활용합니다.
+
+앞의 취소 상황이 가능한 경우 실적 목록에 나타날 시나리오는 다음과 같습니다.
+
+| 상황       | 적용                                                                                                           |
+|----------|--------------------------------------------------------------------------------------------------------------|
+| 일반 취소    | canceled_at : 상품이 취소된 시간 적용                                                                                  |
+| 부분 취소    | 2개 이상의 상품 중 특정 하나만 취소가 발생된 경우 취소된 상품에만 canceled_at 취소 시간 적용                                                  |
+| 부분 수량 취소 | canceled_at : 상품이 취소된 시간 적용 <br> canceled_quantity : 부분 취소된 수량만큼 적용 <br> canceled_price : 부분 취소된 상품의 금액만큼 적용 |
+
+| KEY                          | 값                                                                                                                                                                   | 타입              |
+|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
+| products[]                   | 상품 개별 데이터 리스트                                                                                                                                                       | array< object > | 
+| products[].canceled_quantity | 부분 취소된 수량<br><span style="font-size:75%">부분 취소된 수량이란 구매자의 요청으로 부분 취소, 반품 등 처리가 완료된 수량을 의미 <br> * 해당 파라미터를 활용 여부는 [실적 목록 API](#2-5-링크프라이스의-실적으로-실적-리스트-api-작업하기)를 참고 | int(11)         |
+| products[].canceled_price    | 부분 취소된 금액<br><span style="font-size:75%">부분 취소된 금액이란 구매자의 요청으로 부분 취소, 반품 등 처리가 완료된 금액을 의미 <br> * 해당 파라미터를 활용 여부는 [실적 목록 API](#2-5-링크프라이스의-실적으로-실적-리스트-api-작업하기)를 참고 | float           |
+
 **실적목록 API 출력 예시**
 
 기존 실적 목록 데이터에서 linkprice.lpinfo 대신 event_code, promo_code가 있는 형태입니다.
@@ -1802,7 +1849,7 @@ https://api.yourdomain.com/linkprice/order_list_v1?canceled_ymd=yyyymmdd
 
 **Step4**. 완성된 API URL을 링크프라이스 담당자에게 전달합니다.
 
-###2-5-4. 샘플 코드
+### 3-4-3. 샘플 코드
 
 ※ 주의
 
@@ -1914,6 +1961,8 @@ query = "SELECT p.order_id, p.product_id, p.user_name, "
             row.put("paid_at", result.getString("paid_at"));
             row.put("confirmed_at", result.getString("confirmed_at"));
             row.put("canceled_at", result.getString("canceled_at"));
+            row.put("canceled_quantity", result.getString("canceled_quantity"));
+            row.put("canceled_price", result.getString("canceled_price"));
             row.put("lpinfo", result.getString("lpinfo"));
             row.put("device_type", result.getString("device_type"));
             row.put("user_agent", result.getString("user_agent"));
@@ -1955,7 +2004,9 @@ query = "SELECT p.order_id, p.product_id, p.user_name, "
                     "product_final_price", productOne.get("product_final_price"),
                     "paid_at", productOne.get("paid_at"),
                     "confirmed_at", productOne.get("confirmed_at"),
-                    "canceled_at", productOne.get("canceled_at")
+                    "canceled_at", productOne.get("canceled_at"),
+                    "canceled_quantity", productOne.get("canceled_quantity"),
+                    "canceled_price", productOne.get("canceled_price")
             ));
         }
     }
@@ -2107,6 +2158,8 @@ orderId = products("order_id")
     product("paid_at") = products("paid_at")
     product("confirmed_at") = products("confirmed_at")
     product("canceled_at") = products("canceled_at")
+    product("canceled_quantity") = products("canceled_quantity")
+    product("canceled_price") = products("canceled_price")
     productDetails.Add productDetails.Count + 1, product
     
     ' linkprice 정보 추가
@@ -2263,7 +2316,9 @@ foreach($products as $orderId => $product) {
       'product_final_price'   => $productOne['product_final_price'],
       'paid_at'               => $productOne['paid_at'] ?? '',
       'confirmed_at'          => $productOne['confirmed_at'] ?? '',
-      'canceled_at'           => $productOne['canceled_at'] ?? ''
+      'canceled_at'           => $productOne['canceled_at'] ?? '',
+      'canceled_quantity'     => $productOne['canceled_quantity'] ?? '',
+      'canceled_price'        => $productOne['canceled_price'] ?? ''
     ];
   }
   
