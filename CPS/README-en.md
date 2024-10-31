@@ -521,45 +521,131 @@ If you have difficulty sending performance in real-time, please contact us.
 **Step2**. Write a program to send performance to the LinkPrice performance collection program
 
 
-according to your server environment. [2-4-4. Sample code for sending performance]()
-
-Here are some scenarios you can expect as you work through your tasks.
-
-**Expected scenarios when sending performance)**
-
-```
-A shopper clicked on your LinkPrice affiliate link and entered the shopping cart.
-In a shopping mall, I added two HDMI cables for 7,000 won and three bagged ramen for 6,000 won to my cart. The items were eligible for free shipping, and I used a 3,000 won discount coupon at the checkout.
-```
-
-**How to calculate the amount)**
-
-```
-Formula to apply the discount amount to the final amount of the product)
-Product final price - Discount amount * Product final price / Order final price = Discounted final price
-
-The total amount to be paid before the discount coupon is applied is 32,000 won.
-Since you used a 3000 won discount coupon, the final amount that the buyer will pay is 29000 won.
-Before the discount coupon was used, the final price of the HDMI cable (products[].product_final_price) was set to
-It was 14,000 won, but you used a discount coupon of 3,000 won, so 14,000 - 3,000 * 14,000 / 32,000 = 12,687.5 won.
-
-The final price of the bagged ramen (products[].product_final_price) is 18,000 before the discount coupon is applied.
-But since you used a 3,000 won discount coupon, 18,000 - 3,000 * 18,000 / 32,000 = 16,312.5 won.
-The sum of the product final price (products[].product_final_price) is the order final amount (order.final_paid_price), but truncation due to decimalization can cause single-digit amounts to differ.
-
-The LinkPrice earnings collection program allows for single-digit differences in amounts.
-
-Example of calculating the final amount of an order)
-12687.5(products[].product_final_price) + 16312.5(products[].product_final_price) = 29000(order.final_paid_price)
-
-```
+according to your server environment. [2-4-5. Sample code for sending performance]()
 
 **Step3**. Check if the response value is output normally after calling LinkPrice's performance transfer URL.
 
 
+### 2-4-4. Expected Scenarios When Applying Discounts
+
+When processing tasks, please refer to the following expected scenarios related to discount applications.
+
+**2-4-4-1. When Using a Percentage Discount Coupon**
+
+**Single Item Example:**
+
+> Item price - (Item price * Discount rate) = Final price
+
+When purchasing a 5,000 won item with a 20% discount coupon:
+
+```
+5000 - (5000 * 0.2) = 4000
+```
+
+The final amount is 4,000 won, which reflects a 20% discount off 5,000 won.
+
+**Multiple Items Example:**
+
+> Item price - (Total item price * Discount rate) = Final price
+
+When adding items worth 5,000 won, 10,000 won, and 7,000 won (totaling 22,000 won) to the cart and using a 20% discount coupon:
+
+```
+# Item 1 percentage discount calculation
+5000 - (5000 * 0.2) = 4000
+
+# Item 2 percentage discount calculation
+10000 - (10000 * 0.2) = 8000
+
+# Item 3 percentage discount calculation
+7000 - (7000 * 0.2) = 5600 
+```
+
+The total price after a 20% discount is 17,600 won.
+
+**2-4-4-2. When Using a Fixed-Amount Discount Coupon**
+
+**Single Item Example:**
+
+> Item price - Fixed discount amount = Final price
+
+When purchasing a 5,000 won item with a 500 won discount coupon:
+
+```
+5000 - 500 = 4500
+```
+
+The final amount is 4,500 won, after applying a 500 won discount on 5,000 won.
+
+**Multiple Items Example:**
+
+> Coupon amount / (Total item price) = Fixed discount rate  
+> Item price - (Item price * Fixed discount rate) = Final price
+
+When adding items worth 5,000 won, 10,000 won, and 7,000 won (totaling 22,000 won) to the cart and using a 5,000 won discount coupon:
+
+```
+# Item 1 discount rate calculation
+5000 / (5000 + 10000 + 7000) = 0.227
+# Item 1 discount calculation
+5000 - (5000 * 0.227) = 3865
+
+# Item 2 discount rate calculation
+10000 / (5000 + 10000 + 7000) = 0.454
+# Item 2 discount calculation
+10000 - (5000 * 0.454) = 7730
+
+# Item 3 discount rate calculation
+7000 / (5000 + 10000 + 7000) = 0.318
+# Item 3 discount calculation
+7000 - (5000 * 0.318) = 5410
+```
+
+After dividing the coupon amount based on item price proportion, the final price after applying the 5,000 won coupon to a total of 22,000 won is 17,000 won.  
+*The total is originally 17,005 won, but it’s rounded down to the nearest whole number.*
+
+**2-4-4-3. When Using Both Percentage and Fixed-Amount Coupons**
+
+**Single Item Example:**
+
+> Item price - ((Item price * Percentage discount rate) + Fixed discount) = Final price
+
+When purchasing a 5,000 won item with a 20% discount coupon and a 500 won coupon:
+
+```
+# Applying percentage and fixed discounts
+5000 - ((5000 * 0.2) + 500) = 4500
+```
+
+**Multiple Items Example:**
+
+> Coupon amount / (Total item price) = Fixed discount rate  
+> Item price - ((Item price * Percentage discount rate) + (Coupon amount * Fixed discount rate)) = Final price
+
+When adding items worth 5,000 won, 10,000 won, and 7,000 won (totaling 22,000 won) to the cart and using both a 20% discount coupon and a 5,000 won coupon:
+
+```
+# Item 1 fixed discount rate calculation
+5000 / (5000 + 10000 + 7000) = 0.227
+# Item 1 percentage and fixed discounts applied
+5000 - ((5000 * 0.2) + (5000 * 0.227)) = 2865
+
+# Item 2 fixed discount rate calculation
+10000 / (5000 + 10000 + 7000) = 0.454
+# Item 2 percentage and fixed discounts applied
+10000 - ((10000 * 0.2) + (5000 * 0.454)) = 5730
+
+# Item 3 fixed discount rate calculation
+7000 / (5000 + 10000 + 7000) = 0.318
+# Item 3 percentage and fixed discounts applied
+7000 - ((7000 * 0.2) + (5000 * 0.318)) = 4010
+```
+
+After dividing the coupon amount based on item price proportion, the final price when applying both a 20% discount and a 5,000 won coupon to a total of 22,000 won is 12,600 won.
 
 
-### 2-4-4. Sample Code
+
+### 2-4-5. Sample Code
 
 **※ Note**
 
