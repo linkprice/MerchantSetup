@@ -453,12 +453,14 @@ Set dbConnection = Nothing
 
 **2-4-3-4. Response 개요**
 
-| 키 이름          | 값           | 타입      |
-|---------------|-------------|---------|
-| is_success    | 실적 전송 성공 여부 | boolean |
-| error_message | 에러 상세 메세지   | string  |
-| order_code    | 주문번호        | string  |
-| product_code  | 상품번호        | string  |
+| 키 이름             | 값             | 타입      |
+|------------------|---------------|---------|
+| result           | 처리 결과 코드      | int | 
+| result_message   | 처리 실패시 오류 메세지 | string |
+| is_success       | 실적 전송 성공 여부   | boolean |
+| error_message    | 에러 상세 메세지     | string  |
+| order_code       | 주문번호          | string  |
+| product_code     | 상품번호          | string  |
 
 >응답값은 JSON 문자열 형식으로 전송됩니다.
 >
@@ -467,43 +469,65 @@ Set dbConnection = Nothing
 
 
 **2-4-3-5. Response 샘플**
-
-* 2개 상품 구매 후, 전송 성공 시
-
+* 처리 실패시
 ```json
-[
+{
+    "result": -999,
+    "result_msg": "Test Exception",
+    "total_execute_time": "0.274602"
+}
+```
+* 1개 상품 구매 후, 전송 성공 시
+```json
+{
+  "result": 0,
+  "result_data": [
     {
-        "is_success": true,
-        "error_message": "",
-        "order_code": "o190203-h78X3",
-        "product_code": "P87-234-anx87"
-    },
-    {
-        "is_success": true,
-        "error_message": "",
-        "order_code": "o190203-h78X3",
-        "product_code": "P23-983-Z3272"
+      "is_success": true,
+      "error_message": null,
+      "order_code": "O_CD_20240811030827_A100460211",
+      "product_code": "P_CD_20240811030824"
     }
-]
+  ],
+  "total_execute_time": "0.690366"
+}
+```
+* 1개 상품 구매 후, 전송 실패 시
+```json
+{
+  "result": 0,
+  "result_data": [
+    {
+      "is_success": false,
+      "error_message": "Required parameters are missing.",
+      "order_code": "",
+      "product_code": "P_CD_20240811030824"
+    }
+  ],
+  "total_execute_time": "0.527685"
+}
 ```
 
-* 2개 상품 구매 후, 전송 실패 시
-
+* 복수 상품 구매 후, 전송 시
 ```json
-[
-    {
-        "is_success": false,
-        "error_message": "lpinfo parameter is empty.",
-        "order_code": "o190203-h78X3",
-        "product_code": "P87-234-anx87"
-    },
-    {
-        "is_success": false,
-        "error_message": "lpinfo parameter is empty.",
-        "order_code": "o190203-h78X3",
-        "product_code": "P23-983-Z3272"
-    }
-]
+{
+    "result": 0,
+    "result_data": [
+        {
+            "is_success": true,
+            "error_message": null,
+            "order_code": "O_CD_20240811030827_A100460211",
+            "product_code": "P_CD_20240811030824"
+        },
+        {
+            "is_success": false,
+            "error_message": "Required parameters are missing.",
+            "order_code": "O_CD_20240811030827_A100460212",
+            "product_code": ""
+        }
+    ],
+    "total_execute_time": "0.715638"
+}
 ```
 
 
