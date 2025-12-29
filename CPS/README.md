@@ -459,8 +459,11 @@ Set dbConnection = Nothing
 | result_message   | 처리 실패시 오류 메세지 | string |
 | is_success       | 실적 전송 성공 여부   | boolean |
 | error_message    | 에러 상세 메세지     | string  |
+| trlog_id    | 링크프라이스 실적 고유번호, 적재 성공 시 리턴     | int  |
 | order_code       | 주문번호          | string  |
 | product_code     | 상품번호          | string  |
+| sale     | 상품금액, 적재 성공 시 리턴          | int  |
+| commission     | 커미션, 적재 성공 시 리턴          | int  |
 
 >응답값은 JSON 문자열 형식으로 전송됩니다.
 >
@@ -485,8 +488,11 @@ Set dbConnection = Nothing
     {
       "is_success": true,
       "error_message": null,
+      "trlog_id": 18000632640135,
       "order_code": "O_CD_20240811030827_A100460211",
-      "product_code": "P_CD_20240811030824"
+      "product_code": "P_CD_20240811030824",
+      "sale": 100,
+      "commission": 2
     }
   ],
   "total_execute_time": "0.690366"
@@ -516,8 +522,11 @@ Set dbConnection = Nothing
         {
             "is_success": true,
             "error_message": null,
+            "trlog_id": 18000632640135,
             "order_code": "O_CD_20240811030827_A100460211",
-            "product_code": "P_CD_20240811030824"
+            "product_code": "P_CD_20240811030824",
+            "sale": 100,
+            "commission": 2
         },
         {
             "is_success": false,
